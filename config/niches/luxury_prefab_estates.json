@@ -1,0 +1,53 @@
+{
+  "id": "luxury_prefab_estates",
+  "name": "High-End Architectural Prefab & Luxury Tiny Estates Niche",
+  "tagline": "Turnkey Solar-Powered Modular Guest Homes & Off-Grid ADUs",
+  "core_angle": "Affluent minimalists or estate owners looking for high-end guest houses, remote work pods, or off-grid luxury modules that can be delivered turnkey.",
+  "target_audience": "Estate owners, luxury real estate investors, remote executives, and off-grid luxury living enthusiasts.",
+  "seed_keywords": [
+    "Turnkey luxury prefab guest houses with integrated smart home automation",
+    "Off-grid solar and greywater system requirements for high-end modular cabins",
+    "Zoning and permit navigation for luxury prefab auxiliary dwelling units (ADUs)",
+    "Thermal insulation performance of steel-frame modular tiny luxury homes",
+    "Cost analysis of luxury off-grid solar generators for prefab guest houses"
+  ],
+  "affiliates": [
+    {
+      "name": "Luxury Modular Homes & Off-Grid Power System Offers",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Solar-Powered Luxury Turnkey Prefab Modular Home Module ($65,000)",
+        "EcoFlow Delta Pro 3.6kWh Off-Grid Power System for Tiny Homes ($3,500)",
+        "Off-Grid Solar & Greywater Filtration System Bundle ($4,999)"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Turnkey luxury prefab guest houses with integrated smart home automation",
+    "Off-grid solar and greywater system requirements for high-end modular cabins",
+    "Zoning and permit navigation for luxury prefab auxiliary dwelling units (ADUs)"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Modular Architecture & Solar Specs Matrix",
+      "Zoning, Permits & Land Prep Guide",
+      "Off-Grid Power & Greywater Filtration Setup",
+      "Estate Owner Pros & Cons Breakdown",
+      "Luxury Prefab Estates FAQ"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "Houses are small",
+        "Living is easy",
+        "To conclude"
+      ]
+    }
+  }
+}

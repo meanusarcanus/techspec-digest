@@ -1,0 +1,53 @@
+{
+  "id": "luxury_custom_tech",
+  "name": "Ultra-Exclusive Custom Tech & Luxury Daily Carry Niche",
+  "tagline": "Encrypted Gold Smart Hardware & Bespoke Executive EDC Tech",
+  "core_angle": "Executives and high-profile individuals wanting bespoke, un-hackable, or status-symbol physical tech accessories and gold encrypted smartphones.",
+  "target_audience": "C-suite executives, high-profile entrepreneurs, luxury tech enthusiasts, and privacy-conscious high-net-worth travellers.",
+  "seed_keywords": [
+    "Secure encrypted luxury smartphones vs standard encrypted enterprise devices",
+    "Solid gold and ruby custom mobile phone valuation and resale market",
+    "Bespoke titanium and gold device casing durability for executive travel",
+    "Hardware encryption protocols for ultra-luxury executive mobile phones",
+    "Biometric & satellite backup systems for executive daily carry gear"
+  ],
+  "affiliates": [
+    {
+      "name": "Ultra-Luxury Custom Tech & Executive EDC Offers",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Vertu Signature Pure Gold & Ruby Encrypted Business Phone ($97,000)",
+        "Solid Titanium Encrypted Executive Storage Flash Drive ($1,299)",
+        "Bespoke Leather & Gold EDC Travel Wallet Security Case ($899)"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Secure encrypted luxury smartphones vs standard encrypted enterprise devices",
+    "Solid gold and ruby custom mobile phone valuation and resale market",
+    "Bespoke titanium and gold device casing durability for executive travel"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Encryption & Physical Hardware Specs Matrix",
+      "Materials & Craftsmanship Durability Analysis",
+      "Executive Security & Privacy Considerations",
+      "Executive Pros & Cons Breakdown",
+      "Luxury Custom Tech FAQ"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "Phones are nice",
+        "Gold shines",
+        "In conclusion"
+      ]
+    }
+  }
+}

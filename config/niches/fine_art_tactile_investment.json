@@ -1,0 +1,53 @@
+{
+  "id": "fine_art_tactile_investment",
+  "name": "Museum-Grade Fine Art & Tactile Investment Niche",
+  "tagline": "Logistics, Provenance & Transit Insurance for Multi-Million Dollar Art Acquisitions",
+  "core_angle": "Ultra-wealthy buyers and family offices seeking alternative assets look for logistical deep-dives into climate-controlled shipping, provenance tracking, and insurance for online art acquisitions.",
+  "target_audience": "Art collectors, family office wealth managers, high-net-worth investors, and museum curators.",
+  "seed_keywords": [
+    "What to look for when buying multi-million dollar contemporary art online",
+    "Climate-controlled transit insurance requirements for fine art investments",
+    "Insuring tactile and textured oil paintings during international shipping",
+    "Provenance tracking and forensic canvas verification for high-value artwork",
+    "Museum-grade UV filtering glass frames for original oil paintings"
+  ],
+  "affiliates": [
+    {
+      "name": "Museum-Grade Fine Art & Preservation Equipment Offers",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Museum-Grade Climate-Controlled Art Shipping Crate ($3,500)",
+        "UV-Filtering Conservation Glass Frame Display ($1,899)",
+        "Precision Humidity & Temperature Sensor Monitor for Art Collections ($699)"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "What to look for when buying multi-million dollar contemporary art online",
+    "Climate-controlled transit insurance requirements for fine art investments",
+    "Insuring tactile and textured oil paintings during international shipping"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Provenance & Authentication Checklist",
+      "Climate & Logistics Requirements Table",
+      "Transit Insurance & Risk Mitigation",
+      "Collector Pros & Cons Breakdown",
+      "Fine Art Acquisition FAQ"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "Art is nice",
+        "Painting is cool",
+        "In short"
+      ]
+    }
+  }
+}

@@ -38,6 +38,11 @@
       try {
         function getNicheKey(catStr) {
           catStr = (catStr || "").toLowerCase();
+          if (catStr.includes("numismatic") || catStr.includes("coin") || catStr.includes("morgan")) return "numismatic_coin_investment";
+          if (catStr.includes("fine art") || catStr.includes("tactile") || catStr.includes("museum")) return "fine_art_tactile_investment";
+          if (catStr.includes("sports") || catStr.includes("baseball") || catStr.includes("memorabilia")) return "sports_memorabilia_investment";
+          if (catStr.includes("luxury custom") || catStr.includes("vertu") || catStr.includes("ruby")) return "luxury_custom_tech";
+          if (catStr.includes("prefab") || catStr.includes("tiny") || catStr.includes("estate")) return "luxury_prefab_estates";
           if (catStr.includes("renter") || catStr.includes("power") || catStr.includes("battery")) return "urban_renter_power";
           if (catStr.includes("crypto") || catStr.includes("storage") || catStr.includes("cold")) return "crypto_cold_storage";
           if (catStr.includes("microbiz") || catStr.includes("security") || catStr.includes("trust")) return "solo_microbiz_security";

@@ -1,0 +1,53 @@
+{
+  "id": "numismatic_coin_investment",
+  "name": "The Numismatic & Rare Coin Investment Niche",
+  "tagline": "Verification, Grading & Wealth Preservation in Rare Coin Acquisitions",
+  "core_angle": "High-net-worth verification of grading metrics (PCGS vs NGC), authentication protocols, and inflation hedging with investment-grade rare coinage.",
+  "target_audience": "High-net-worth individuals, family offices, rare coin collectors, and alternative asset investors seeking tangible luxury hedges.",
+  "seed_keywords": [
+    "Is an MS-65 graded 1884 Morgan Silver Dollar a safe hedge against inflation?",
+    "How to verify authentication certificates for quarter-million-dollar rare coins bought online",
+    "PCGS vs NGC price guide for investment-grade Morgan Dollars",
+    "Fractional rare coin investment risk analysis for wealth preservation",
+    "Secure vault storage requirements for certified MS-65 silver coins"
+  ],
+  "affiliates": [
+    {
+      "name": "High-Ticket Numismatic & Vault Storage Offers",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "PCGS MS-65 Graded American Silver Morgan Dollar ($288,000)",
+        "Numismatic Rare Coin Storage Safe Vault Box ($1,299)",
+        "Investment-Grade Rare Coin Collector Magnifier Verification Kit ($499)"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Is an MS-65 graded 1884 Morgan Silver Dollar a safe hedge against inflation?",
+    "How to verify authentication certificates for quarter-million-dollar rare coins bought online",
+    "PCGS vs NGC price guide for investment-grade Morgan Dollars"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Grading & Authentication Protocol Breakdown",
+      "Investment Performance & Liquidity Matrix",
+      "Vault Storage & Climate Control Checklist",
+      "Collector Pros & Cons Analysis",
+      "Rare Coin Investment FAQ"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "Coins are pretty",
+        "Money grows on trees",
+        "To sum up"
+      ]
+    }
+  }
+}
