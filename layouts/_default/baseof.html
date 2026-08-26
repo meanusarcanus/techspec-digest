@@ -8,30 +8,33 @@
   <meta name="google-site-verification" content="JsFMOu2j2D5bCTdjhO4Ws1YeMALHx86anPOW_0fk1g0" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --border: #334155;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-hover: #0284c7;
-      --gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+      /* Theme 5: Nordic Slate & Sage Palette */
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --border-accent: #a7f3d0;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-light: #ecfdf5;
+      --gradient: linear-gradient(135deg, #059669 0%, #0d9488 100%);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
     header {
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(248, 250, 252, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       position: sticky;
@@ -47,18 +50,20 @@
       align-items: center;
     }
     .logo {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 800;
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-decoration: none;
+      letter-spacing: -0.02em;
     }
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
       margin-left: 1.5rem;
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 0.925rem;
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--accent); }
@@ -71,39 +76,43 @@
     }
     footer {
       border-top: 1px solid var(--border);
-      background: var(--card-bg);
-      padding: 2rem 1.5rem;
+      background: #ffffff;
+      padding: 2.5rem 1.5rem;
       text-align: center;
       color: var(--text-muted);
       font-size: 0.875rem;
     }
     .disclosure-banner {
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      font-size: 0.85rem;
-      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid var(--border-accent);
+      border-radius: 10px;
+      padding: 0.85rem 1.2rem;
+      font-size: 0.875rem;
+      color: var(--accent-hover);
       margin-bottom: 2rem;
+      font-weight: 500;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; color: var(--accent-hover); }
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 1.5rem 0;
       background: var(--card-bg);
-      border-radius: 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
       overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
-    th, td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
-    th { background: rgba(255,255,255,0.05); font-weight: 600; color: var(--accent); }
+    th, td { padding: 0.9rem 1.1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #f1f5f9; font-weight: 700; color: var(--text); font-size: 0.9rem; }
     blockquote {
       border-left: 4px solid var(--accent);
-      background: var(--card-bg);
-      padding: 1rem 1.25rem;
+      background: #f0fdf4;
+      padding: 1.1rem 1.3rem;
       margin: 1.5rem 0;
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 10px 10px 0;
+      color: #166534;
     }
   </style>
 </head>
@@ -112,7 +121,7 @@
     <div class="nav-container">
       <a href="{{ "" | relURL }}" class="logo">{{ .Site.Title }}</a>
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <input type="text" id="globalNavSearch" placeholder="Search products (e.g. YubiKey, EcoFlow)..." style="padding: 0.4rem 0.8rem; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); outline: none; width: 220px;">
+        <input type="text" id="globalNavSearch" placeholder="Search products (e.g. YubiKey, EcoFlow)..." style="padding: 0.5rem 0.9rem; font-size: 0.85rem; border-radius: 8px; border: 1px solid var(--border); background: #ffffff; color: var(--text); outline: none; width: 240px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
         <nav class="nav-links">
           <a href="{{ "" | relURL }}">Home</a>
           <a href="{{ "posts/" | relURL }}">All Guides</a>
@@ -139,7 +148,7 @@
   </main>
   <footer>
     <p>&copy; {{ now.Format "2006" }} {{ .Site.Title }}. All rights reserved.</p>
-    <p style="margin-top: 0.5rem; font-size: 0.75rem;">Independent Technical Specifications & Equipment Research Laboratory</p>
+    <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #64748b;">Independent Technical Specifications & Equipment Research Laboratory</p>
   </footer>
 </body>
 </html>
