@@ -1,6 +1,6 @@
 ---
 title: "Wave scissors vs straight scissors: Preventing thumb cramp during dense Monte Carlo carpet trims"
-date: 2026-08-27T15:48:21Z
+date: 2026-08-27T15:59:42Z
 draft: false
 description: "In-depth guide on Wave scissors vs straight scissors: Preventing thumb cramp during dense Monte Carlo carpet trims. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "wave-scissors-vs-straight-scissors-preventing-thumb-cramp-during-dense-monte-carlo-carpet-trims"
