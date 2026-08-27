@@ -22,7 +22,33 @@
     {{ .Content }}
   </div>
 
-  <footer style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+  <!-- Automated Internal Linking Matrix -->
+  <section style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e2e8f0;">
+    <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+      <span>🔗 Related Technical Benchmarks & Buyer Guides</span>
+    </h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem;">
+      {{ $currentPage := . }}
+      {{ $related := .Site.RegularPages.Related . | default (where .Site.RegularPages "Section" "posts") }}
+      {{ range first 3 $related }}
+        {{ if ne .Permalink $currentPage.Permalink }}
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <span style="font-size: 0.7rem; font-weight: 700; color: #047857; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 0.15rem 0.5rem; border-radius: 4px; display: inline-block;">
+                {{ with .Params.categories }}{{ index . 0 }}{{ else }}Guide{{ end }}
+              </span>
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin: 0.5rem 0 0.3rem 0; line-height: 1.35;">
+                <a href="{{ .RelPermalink }}" style="color: #0f172a; text-decoration: none;">{{ .Title }}</a>
+              </h4>
+            </div>
+            <a href="{{ .RelPermalink }}" style="font-size: 0.8rem; font-weight: 700; color: #059669; margin-top: 0.5rem; display: inline-block;">Read Guide &rarr;</a>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+
+  <footer style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
     {{ with .Params.tags }}
       <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
         <span style="color: #64748b; font-size: 0.875rem; font-weight: 600;">Tags:</span>
@@ -33,9 +59,53 @@
     {{ end }}
   </footer>
 
+  <!-- Programmatic Schema Markup Injection (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": {{ .Title | jsonify }},
+    "description": {{ .Description | jsonify }},
+    "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+    "author": {
+      "@type": "Organization",
+      "name": "TechSpec Digest"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "TechSpec Digest",
+      "url": "https://meanusarcanus.github.io/techspec-digest/"
+    }
+  }
+  </script>
+
   <script>
     (function() {
       try {
+        // 1. Multi-Region Link Localization Engine
+        const userLang = (navigator.language || "").toLowerCase();
+        const timeZone = (Intl.DateTimeFormat().resolvedOptions().timeZone || "").toLowerCase();
+        let targetDomain = "www.amazon.com";
+
+        if (userLang.includes("uk") || timeZone.includes("london") || timeZone.includes("europe/london")) {
+          targetDomain = "www.amazon.co.uk";
+        } else if (userLang.includes("ca") || timeZone.includes("toronto") || timeZone.includes("vancouver")) {
+          targetDomain = "www.amazon.ca";
+        } else if (userLang.includes("de") || timeZone.includes("berlin")) {
+          targetDomain = "www.amazon.de";
+        } else if (userLang.includes("jp") || timeZone.includes("tokyo")) {
+          targetDomain = "www.amazon.co.jp";
+        } else if (userLang.includes("au") || timeZone.includes("sydney")) {
+          targetDomain = "www.amazon.com.au";
+        }
+
+        if (targetDomain !== "www.amazon.com") {
+          document.querySelectorAll('a[href*="amazon.com"]').forEach(link => {
+            link.href = link.href.replace("www.amazon.com", targetDomain);
+          });
+        }
+
+        // 2. Real-Time Niche Hit & Click Tracking
         function getNicheKey(catStr) {
           catStr = (catStr || "").toLowerCase();
           if (catStr.includes("numismatic") || catStr.includes("coin") || catStr.includes("morgan")) return "numismatic_coin_investment";
@@ -59,7 +129,7 @@
         const rawCat = "{{ with .Params.categories }}{{ index . 0 }}{{ else }}general{{ end }}";
         const catKey = getNicheKey(rawCat);
 
-        // 1. Pageview Hit Increment
+        // Pageview Hit Increment
         let store = JSON.parse(localStorage.getItem("techspec_niche_hits") || "{}");
         store[catKey] = (store[catKey] || 0) + 1;
         localStorage.setItem("techspec_niche_hits", JSON.stringify(store));
@@ -67,8 +137,8 @@
         let totalH = parseInt(localStorage.getItem("techspec_total_hits") || "0", 10) + 1;
         localStorage.setItem("techspec_total_hits", totalH.toString());
 
-        // 2. Track Outbound Amazon Affiliate Link Clicks
-        document.querySelectorAll('a[href*="amazon.com"]').forEach(link => {
+        // Track Outbound Amazon Affiliate Link Clicks
+        document.querySelectorAll('a[href*="amazon"]').forEach(link => {
           link.addEventListener('click', function() {
             let productClicks = parseInt(localStorage.getItem("techspec_product_clicks") || "0", 10) + 1;
             localStorage.setItem("techspec_product_clicks", productClicks.toString());
