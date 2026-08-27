@@ -187,10 +187,12 @@ if __name__ == "__main__":
     
     print(f"✅ Generated pure editorial post for {target_date} at {file_path}")
 
-    # Regenerate sitemap.xml automatically
+    # Regenerate sitemap.xml and rss.xml automatically
     try:
         from generate_sitemap import generate_sitemap
+        from generate_rss import generate_rss
         generate_sitemap()
+        generate_rss()
     except Exception as e:
-        print(f"Sitemap update notice: {e}")
+        print(f"Feed update notice: {e}")
 
