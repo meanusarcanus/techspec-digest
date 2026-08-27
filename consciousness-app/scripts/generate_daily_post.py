@@ -186,3 +186,11 @@ if __name__ == "__main__":
         json.dump(post_data, f, indent=2)
     
     print(f"✅ Generated pure editorial post for {target_date} at {file_path}")
+
+    # Regenerate sitemap.xml automatically
+    try:
+        from generate_sitemap import generate_sitemap
+        generate_sitemap()
+    except Exception as e:
+        print(f"Sitemap update notice: {e}")
+
