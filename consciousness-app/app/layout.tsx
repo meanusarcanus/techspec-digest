@@ -10,6 +10,9 @@ export const metadata = {
   verification: {
     google: 'MRn0xaLtoBPlAMgPyzvDVvSzLTHsbw9obXMSB4Vrf9A',
   },
+  other: {
+    'p:domain_verify': 'ead6e48d95203c41cff34aee7c0e3c9a',
+  },
 };
 
 export default function RootLayout({
@@ -21,6 +24,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
         <meta name="google-site-verification" content="MRn0xaLtoBPlAMgPyzvDVvSzLTHsbw9obXMSB4Vrf9A" />
+        <meta name="p:domain_verify" content="ead6e48d95203c41cff34aee7c0e3c9a" />
       </head>
       <body className="bg-slate-950 text-slate-100 antialiased selection:bg-amber-500 selection:text-slate-950 min-h-screen flex flex-col relative">
         <AmbientCosmicBg />
