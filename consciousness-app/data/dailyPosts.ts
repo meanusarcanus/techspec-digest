@@ -42,6 +42,7 @@ export interface DailyPost {
   tags: string[];
   readTime: string;
   featuredImage: string;
+  formattedDate?: string;
   dayOfYearIndex: number;
   author: {
     name: string;

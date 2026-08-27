@@ -47,8 +47,33 @@ export const TodayHeroPost: React.FC<TodayHeroPostProps> = ({
   const isToday =
     currentDate.toDateString() === new Date().toDateString();
 
+  // Structured JSON-LD Schema for Google Rich Snippets
+  const jsonLdArticle = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    image: post.featuredImage.startsWith('/') ? `https://meanusarcanus.github.io/techspec-digest/consciousness${post.featuredImage}` : post.featuredImage,
+    datePublished: post.formattedDate || new Date().toISOString(),
+    author: {
+      '@type': 'Person',
+      name: post.author.name,
+      jobTitle: post.author.role,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Products of Consciousness & Enlightenment',
+      url: 'https://meanusarcanus.github.io/techspec-digest/consciousness/',
+    },
+  };
+
   return (
     <article className="w-full max-w-6xl mx-auto space-y-10">
+      {/* Google Rich Snippet JSON-LD Script */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }}
+      />
       {/* Date Navigation & Status Bar */}
       <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4 backdrop-blur-md shadow-lg">
         <div className="flex items-center gap-3">
