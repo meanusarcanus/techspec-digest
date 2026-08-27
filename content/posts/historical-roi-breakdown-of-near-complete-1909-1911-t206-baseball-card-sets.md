@@ -1,6 +1,6 @@
 ---
 title: "Historical ROI breakdown of near-complete 1909-1911 T206 baseball card sets"
-date: 2026-08-27T15:25:52Z
+date: 2026-08-27T15:28:36Z
 draft: false
 description: "In-depth guide on Historical ROI breakdown of near-complete 1909-1911 T206 baseball card sets. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "historical-roi-breakdown-of-near-complete-1909-1911-t206-baseball-card-sets"
