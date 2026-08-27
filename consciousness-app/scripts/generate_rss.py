@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
 Dynamic RSS Feed Generator for Products of Consciousness Web App
-Generates static/consciousness/rss.xml for Pinterest & RSS Aggregators.
+Generates static/consciousness/rss.xml for Pinterest & RSS Aggregators with strict XML escaping.
 """
 
 import os
 import json
 import datetime
 import glob
-import html
+from xml.sax.saxutils import escape as xml_escape
 
 SITE_URL = "https://meanusarcanus.github.io/techspec-digest/consciousness"
 
@@ -18,18 +18,19 @@ def generate_rss():
 
     items_xml = ""
 
-    for p_file in post_files:
+    for p_file in sorted(post_files):
         try:
             with open(p_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                title = html.escape(data.get("title", "Daily Consciousness Insight"))
-                excerpt = html.escape(data.get("excerpt", ""))
+                title = xml_escape(data.get("title", "Daily Consciousness Insight"))
+                excerpt = xml_escape(data.get("excerpt", ""))
                 post_date = data.get("date", datetime.datetime.now().strftime("%Y-%m-%d"))
                 image = data.get("featuredImage", "")
-                if image.startsWith("/") if hasattr(image, "startsWith") else image.startswith("/"):
+                if image.startswith("/"):
                     image = f"{SITE_URL}{image}"
+                image_url = xml_escape(image)
 
-                post_url = f"{SITE_URL}/?date={post_date}"
+                post_url = xml_escape(f"{SITE_URL}/?date={post_date}")
 
                 items_xml += f"""    <item>
       <title>{title}</title>
@@ -37,7 +38,7 @@ def generate_rss():
       <guid>{post_url}</guid>
       <description>{excerpt}</description>
       <pubDate>{post_date}</pubDate>
-      <enclosure url="{image}" type="image/jpeg" />
+      <enclosure url="{image_url}" type="image/jpeg" />
     </item>\n"""
         except Exception as e:
             print(f"Notice skipping file {p_file}: {e}")
@@ -62,7 +63,7 @@ def generate_rss():
     with open(stat_path, "w", encoding="utf-8") as f:
         f.write(rss_content)
 
-    print("✅ Successfully generated rss.xml for Pinterest auto-pinning!")
+    print("✅ Successfully generated XML-escaped rss.xml for Pinterest!")
 
 if __name__ == "__main__":
     generate_rss()
