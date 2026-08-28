@@ -40,7 +40,7 @@ const ARCHIVE_ITEMS: ArchiveItem[] = [
     rating: 4.9,
     frequency: '432 Hz / 528 Hz',
     tags: ['Entrainment', 'Goggles', 'Altered States'],
-    amazonUrl: 'https://amazon.com',
+    amazonUrl: 'https://www.amazon.com/s?k=Kasina+Deep+Vision+Light+Sound+Mind+Machine&tag=techspecdiges-20',
     imageAccent: 'from-amber-500/20 to-purple-600/20',
   },
   {
@@ -53,7 +53,7 @@ const ARCHIVE_ITEMS: ArchiveItem[] = [
     rating: 4.8,
     frequency: '7.83 Hz Schumann',
     tags: ['Sacred Geometry', 'Pyramid', 'Bio-Field'],
-    amazonUrl: 'https://amazon.com',
+    amazonUrl: 'https://www.amazon.com/s?k=Giza+Ratio+Copper+Pyramid+Meditation+Canopy&tag=techspecdiges-20',
     imageAccent: 'from-amber-500/30 to-yellow-600/20',
   },
   {
@@ -66,7 +66,7 @@ const ARCHIVE_ITEMS: ArchiveItem[] = [
     rating: 4.8,
     frequency: 'Infrasonic Sub-20Hz',
     tags: ['Vagus Nerve', 'Infrasonic', 'Biohack'],
-    amazonUrl: 'https://amazon.com',
+    amazonUrl: 'https://www.amazon.com/s?k=Sensate+2+Vagus+Nerve+Bio-Acoustic+Resonator&tag=techspecdiges-20',
     imageAccent: 'from-cyan-500/20 to-indigo-600/20',
   },
   {
@@ -79,7 +79,7 @@ const ARCHIVE_ITEMS: ArchiveItem[] = [
     rating: 4.7,
     frequency: '852 Hz Resonance',
     tags: ['Ormus', 'Monatomic Gold', 'Pineal'],
-    amazonUrl: 'https://amazon.com',
+    amazonUrl: 'https://www.amazon.com/s?k=Etheric+Ormus+Monatomic+Gold+Concentrate&tag=techspecdiges-20',
     imageAccent: 'from-amber-400/30 to-amber-600/30',
   },
   {
@@ -92,7 +92,7 @@ const ARCHIVE_ITEMS: ArchiveItem[] = [
     rating: 4.9,
     frequency: 'Full Solfeggio Scale',
     tags: ['Binaural', 'RGB Ganzfeld', 'Gamma Wave'],
-    amazonUrl: 'https://amazon.com',
+    amazonUrl: 'https://www.amazon.com/s?k=MindPlace+Limina+Audio-Visual+Frequency+Synthesizer&tag=techspecdiges-20',
     imageAccent: 'from-purple-500/20 to-amber-500/20',
   },
   {
@@ -105,7 +105,7 @@ const ARCHIVE_ITEMS: ArchiveItem[] = [
     rating: 5.0,
     frequency: '10 Hz Alpha NIR',
     tags: ['Photobiomodulation', 'NIR', 'Mitochondria'],
-    amazonUrl: 'https://amazon.com',
+    amazonUrl: 'https://www.amazon.com/s?k=Vielight+Neuro+Alpha+Photobiomodulation+Brain+Light&tag=techspecdiges-20',
     imageAccent: 'from-rose-500/20 to-indigo-600/20',
   },
   {
@@ -118,7 +118,7 @@ const ARCHIVE_ITEMS: ArchiveItem[] = [
     rating: 4.7,
     frequency: '528 Hz / 963 Hz',
     tags: ['Sound Bath', 'Tuning Forks', 'Chakra'],
-    amazonUrl: 'https://amazon.com',
+    amazonUrl: 'https://www.amazon.com/s?k=Weighted+Solfeggio+Harmonic+Tuning+Fork+Set&tag=techspecdiges-20',
     imageAccent: 'from-emerald-500/20 to-amber-500/20',
   },
   {
@@ -131,7 +131,7 @@ const ARCHIVE_ITEMS: ArchiveItem[] = [
     rating: 4.9,
     frequency: 'Scalar Field Harmonizer',
     tags: ['EMF Shield', 'Crystal Core', 'Scalar'],
-    amazonUrl: 'https://amazon.com',
+    amazonUrl: 'https://www.amazon.com/s?k=Somavedic+Amber+Bio-Resonance+Harmonizer&tag=techspecdiges-20',
     imageAccent: 'from-amber-600/30 to-orange-500/20',
   },
 ];
