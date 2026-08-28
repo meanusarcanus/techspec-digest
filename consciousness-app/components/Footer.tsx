@@ -2,22 +2,29 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Shield, Compass, Heart, ArrowUpRight, Zap, Orbit } from 'lucide-react';
+import { Sparkles, Shield, Compass, Heart, ExternalLink, Zap, Orbit } from 'lucide-react';
 
 export default function Footer() {
   const popularTerms = [
-    'EEG Headbands',
-    'Vagus Nerve Stimulators',
-    'Monatomic Ormus Gold',
-    'Binaural Frequency Generators',
-    'Sacred Geometry Pyramids',
-    'Solfeggio 528Hz Sound Baths',
-    'Lucid Dreaming Masks',
-    'PEMF Therapy Mats',
-    'Bio-Resonance Cards',
-    'Pineal Gland Activation',
-    'Gamma Wave Devices',
-    'Audio-Visual Entrainment',
+    { name: 'EEG Headbands', query: 'EEG+Headband+Meditation' },
+    { name: 'Vagus Nerve Stimulators', query: 'Vagus+Nerve+Stimulator+Bio-Resonance' },
+    { name: 'Monatomic Ormus Gold', query: 'Monatomic+Ormus+Gold+Liquid' },
+    { name: 'Binaural Frequency Generators', query: 'Binaural+Frequency+Generator+Mind Machine' },
+    { name: 'Sacred Geometry Pyramids', query: 'Sacred+Geometry+Copper+Pyramid' },
+    { name: 'Solfeggio 528Hz Sound Baths', query: 'Solfeggio+528Hz+Quartz+Crystal+Singing+Bowl' },
+    { name: 'Lucid Dreaming Masks', query: 'Lucid+Dreaming+Entrainment+Mask' },
+    { name: 'PEMF Therapy Mats', query: 'PEMF+Therapy+Full+Body+Mat' },
+    { name: 'Bio-Resonance Cards', query: 'Bio+Resonance+Scalar+Card' },
+    { name: 'Pineal Gland Activation', query: 'Pineal+Gland+Activation+Lapis+Lazuli' },
+    { name: 'Gamma Wave Devices', query: 'Gamma+Wave+40Hz+Light+Therapy' },
+    { name: 'Audio-Visual Entrainment', query: 'Audio+Visual+Ganzfeld+Entrainment' },
+  ];
+
+  const toolCategories = [
+    { name: 'Neurotech & EEG', query: 'Neurotech+EEG+Headband' },
+    { name: 'Light & Sound Entrainment', query: 'Light+and+Sound+Mind+Machine' },
+    { name: 'Sacred Geometry Pyramids', query: 'Sacred+Geometry+Copper+Pyramid' },
+    { name: 'Bio-Resonance & Ormus', query: 'Bio+Resonance+Monatomic+Ormus+Gold' },
   ];
 
   return (
@@ -86,18 +93,19 @@ export default function Footer() {
               Tool Categories
             </h4>
             <ul className="space-y-2 text-sm text-slate-400">
-              <li>
-                <span className="hover:text-slate-200 cursor-pointer">Neurotech &amp; EEG</span>
-              </li>
-              <li>
-                <span className="hover:text-slate-200 cursor-pointer">Light &amp; Sound Entrainment</span>
-              </li>
-              <li>
-                <span className="hover:text-slate-200 cursor-pointer">Sacred Geometry Pyramids</span>
-              </li>
-              <li>
-                <span className="hover:text-slate-200 cursor-pointer">Bio-Resonance &amp; Ormus</span>
-              </li>
+              {toolCategories.map((cat) => (
+                <li key={cat.name}>
+                  <a
+                    href={`https://www.amazon.com/s?k=${cat.query}&tag=techspecdiges-20`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 hover:text-amber-400 transition-colors"
+                  >
+                    <span>{cat.name}</span>
+                    <ExternalLink className="w-3 h-3 text-amber-400/60" />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -109,12 +117,16 @@ export default function Footer() {
           </h4>
           <div className="flex flex-wrap gap-2">
             {popularTerms.map((term) => (
-              <span
-                key={term}
-                className="px-2.5 py-1 rounded-md bg-indigo-950/30 border border-indigo-500/15 text-slate-400 text-xs hover:border-amber-500/40 hover:text-amber-300 transition-colors cursor-pointer"
+              <a
+                key={term.name}
+                href={`https://www.amazon.com/s?k=${term.query}&tag=techspecdiges-20`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-indigo-950/30 border border-indigo-500/15 text-slate-400 text-xs hover:border-amber-500/40 hover:text-amber-300 transition-colors"
               >
-                {term}
-              </span>
+                <span>{term.name}</span>
+                <ExternalLink className="w-3 h-3 text-amber-400/50" />
+              </a>
             ))}
           </div>
         </div>
