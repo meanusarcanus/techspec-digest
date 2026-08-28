@@ -185,7 +185,7 @@ By positioning healing crystals such as clear quartz, amethyst, and black tourma
         imageUrl:
           'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B07P8W9LQR?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Flower+of+Life+Wooden+Crystal+Grid+Board+12+Inch&tag=techspecdiges-20',
         asin: 'B07P8W9LQR',
         badge: 'Best Seller in Altars',
       },
@@ -201,7 +201,7 @@ By positioning healing crystals such as clear quartz, amethyst, and black tourma
         imageUrl:
           'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B08DFV46XY?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Sacred+Geometry+7-Piece+Platonic+Solids+Crystal+Set&tag=techspecdiges-20',
         asin: 'B08DFV46XY',
         badge: 'Handcrafted Set',
       },
@@ -269,7 +269,7 @@ Combining box breathing with an ergonomic posture supported by a buckwheat medit
         imageUrl:
           'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B092R8ZLX5?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Mindful+Breathwork+Anxiety+Relief+Necklace&tag=techspecdiges-20',
         asin: 'B092R8ZLX5',
         badge: 'High Conversion Essential',
       },
@@ -285,7 +285,7 @@ Combining box breathing with an ergonomic posture supported by a buckwheat medit
         imageUrl:
           'https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B07535RML4?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Ergonomic+Buckwheat+Zafu+Zabuton+Meditation+Cushion+Set&tag=techspecdiges-20',
         asin: 'B07535RML4',
         badge: 'Editor Choice Cushion',
       },
@@ -352,7 +352,7 @@ During meditation, focusing your inner gaze at the point between the brows (Bhru
         imageUrl:
           'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B083KJ784M?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Natural+Lapis+Lazuli+Third+Eye+Palm+Stone&tag=techspecdiges-20',
         asin: 'B083KJ784M',
         badge: 'Authentic Gemstone',
       },
@@ -368,7 +368,7 @@ During meditation, focusing your inner gaze at the point between the brows (Bhru
         imageUrl:
           'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B08V5QZ71L?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Third+Eye+Activation+Oracle+Deck&tag=techspecdiges-20',
         asin: 'B08V5QZ71L',
         badge: 'Top Rated Deck',
       },
@@ -435,7 +435,7 @@ As concentration deepens, the breath naturally slows, becoming fine and silky. S
         imageUrl:
           'https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B07455HQ5X?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Hand+Hammered+Tibetan+Singing+Bowl+Set&tag=techspecdiges-20',
         asin: 'B07455HQ5X',
         badge: '#1 Amazon Best Seller',
       },
@@ -451,7 +451,7 @@ As concentration deepens, the breath naturally slows, becoming fine and silky. S
         imageUrl:
           'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/1577314808?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=The+Power+of+Now+Eckhart+Tolle&tag=techspecdiges-20',
         asin: '1577314808',
         badge: 'Spiritual Classic',
       },
@@ -518,7 +518,7 @@ Supporting your body with proper ergonomic meditation gear—such as an angled k
         imageUrl:
           'https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B081K5R2MT?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Bamboo+Folding+Meditation+Bench&tag=techspecdiges-20',
         asin: 'B081K5R2MT',
         badge: 'Ergonomic Choice',
       },
@@ -534,7 +534,7 @@ Supporting your body with proper ergonomic meditation gear—such as an angled k
         imageUrl:
           'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B07Q8Y37M4?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Organic+White+Sage+and+Palo+Santo+Cleansing+Bundle&tag=techspecdiges-20',
         asin: 'B07Q8Y37M4',
         badge: 'Ritual Essential',
       },
@@ -601,7 +601,7 @@ To safely anchor and ground high-vibrational Kundalini energy, integrate groundi
         imageUrl:
           'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B07N1J8F3Y?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Grounding+Earthing+Mat+for+Sleep+and+Meditation&tag=techspecdiges-20',
         asin: 'B07N1J8F3Y',
         badge: 'Grounding Innovation',
       },
@@ -617,7 +617,7 @@ To safely anchor and ground high-vibrational Kundalini energy, integrate groundi
         imageUrl:
           'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80',
         amazonUrl:
-          'https://www.amazon.com/dp/B073V6C2G8?tag=techspecdiges-20',
+          'https://www.amazon.com/s?k=Raw+Black+Tourmaline+Protection+Crystal&tag=techspecdiges-20',
         asin: 'B073V6C2G8',
         badge: 'Essential Root Stone',
       },
