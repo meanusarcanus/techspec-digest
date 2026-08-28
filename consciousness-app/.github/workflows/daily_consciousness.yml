@@ -41,5 +41,6 @@ jobs:
             echo "No new daily post changes to commit."
           else
             git commit -m "auto(content): publish daily consciousness article & Amazon product [skip ci]"
+            git pull --rebase origin main || true
             git push origin HEAD:main
           fi
