@@ -1,6 +1,6 @@
 ---
 title: "Is an MS-65 graded 1884 Morgan Silver Dollar a safe hedge against inflation?"
-date: 2026-08-28T01:39:12Z
+date: 2026-08-28T02:00:19Z
 draft: false
 description: "In-depth guide on Is an MS-65 graded 1884 Morgan Silver Dollar a safe hedge against inflation?. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "is-an-ms-65-graded-1884-morgan-silver-dollar-a-safe-hedge-against-inflation"
