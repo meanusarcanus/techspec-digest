@@ -1,6 +1,6 @@
 ---
 title: "Immich vs Synology Photos: The ultimate 2026 self-hosted family photo replacement guide"
-date: 2026-08-27T15:59:40Z
+date: 2026-08-28T01:10:16Z
 draft: false
 description: "In-depth guide on Immich vs Synology Photos: The ultimate 2026 self-hosted family photo replacement guide. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "immich-vs-synology-photos-the-ultimate-2026-self-hosted-family-photo-replacement-guide"
