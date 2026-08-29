@@ -1,6 +1,6 @@
 ---
 title: "Airless pump bottle testing: PCR plastic vs aluminum for botanical vitamin C serum stability"
-date: 2026-08-29T09:38:30Z
+date: 2026-08-29T09:55:45Z
 draft: false
 description: "In-depth guide on Airless pump bottle testing: PCR plastic vs aluminum for botanical vitamin C serum stability. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "airless-pump-bottle-testing-pcr-plastic-vs-aluminum-for-botanical-vitamin-c-serum-stability"
