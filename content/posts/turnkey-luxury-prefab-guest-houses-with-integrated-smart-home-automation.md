@@ -1,6 +1,6 @@
 ---
 title: "Turnkey luxury prefab guest houses with integrated smart home automation"
-date: 2026-08-29T09:55:50Z
+date: 2026-08-29T10:06:13Z
 draft: false
 description: "In-depth guide on Turnkey luxury prefab guest houses with integrated smart home automation. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "turnkey-luxury-prefab-guest-houses-with-integrated-smart-home-automation"
