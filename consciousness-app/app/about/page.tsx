@@ -287,6 +287,15 @@ export default function AboutPage() {
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <a
+              href="https://open.spotify.com/search/Arcane%20Books"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl shadow-emerald-600/25 transition-all transform hover:-translate-y-0.5"
+            >
+              <Headphones className="w-4 h-4 text-white" />
+              <span>Listen on Spotify</span>
+            </a>
+            <a
               href="https://www.youtube.com/@LogicLens-l9n"
               target="_blank"
               rel="noopener noreferrer"
@@ -294,15 +303,6 @@ export default function AboutPage() {
             >
               <Youtube className="w-4 h-4 fill-white" />
               <span>Subscribe on YouTube</span>
-            </a>
-            <a
-              href="https://www.youtube.com/@LogicLens-l9n"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-indigo-950/60 border border-indigo-500/30 hover:border-red-500/40 text-slate-200 text-sm font-medium transition-all"
-            >
-              <Headphones className="w-4 h-4 text-red-400" />
-              <span>Explore Audio Library</span>
             </a>
           </div>
         </div>

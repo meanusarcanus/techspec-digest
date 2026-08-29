@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Sparkles, Menu, X, Radio, Compass, ShieldCheck, Flame, Youtube } from 'lucide-react';
+import { Search, Sparkles, Menu, X, Radio, Compass, ShieldCheck, Flame, Youtube, Headphones } from 'lucide-react';
 import SearchModal from './SearchModal';
 
 const FREQUENCIES = [
@@ -90,10 +90,20 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-950/40 border border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-900/30 text-xs font-semibold transition-all shadow-sm"
-              title="Arcane Books Official YouTube Channel"
+              title="Arcane Books YouTube Channel"
             >
               <Youtube className="w-3.5 h-3.5 fill-red-500 text-red-500" />
-              <span>Arcane Books</span>
+              <span>YouTube</span>
+            </a>
+            <a
+              href="https://open.spotify.com/search/Arcane%20Books"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 hover:bg-emerald-900/30 text-xs font-semibold transition-all shadow-sm"
+              title="Arcane Books Spotify Podcast"
+            >
+              <Headphones className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Spotify</span>
             </a>
           </nav>
 
@@ -172,7 +182,16 @@ export default function Navbar() {
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-red-400 bg-red-950/40 border border-red-500/30 font-medium"
             >
               <Youtube className="w-4 h-4 fill-red-500 text-red-500" />
-              <span>Arcane Books YouTube Channel</span>
+              <span>Arcane Books YouTube</span>
+            </a>
+            <a
+              href="https://open.spotify.com/search/Arcane%20Books"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 font-medium"
+            >
+              <Headphones className="w-4 h-4 text-emerald-400" />
+              <span>Arcane Books Spotify Podcast</span>
             </a>
           </div>
         )}

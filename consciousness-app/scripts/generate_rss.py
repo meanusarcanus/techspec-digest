@@ -48,7 +48,7 @@ def generate_rss():
   <channel>
     <title>Products of Consciousness &amp; Enlightenment Daily</title>
     <link>{SITE_URL}/</link>
-    <description>Daily wisdom, sound healing, sacred geometry, and mindfulness practice tools. Official Audio Archive: Arcane Books on YouTube (https://www.youtube.com/@LogicLens-l9n).</description>
+    <description>Daily wisdom, sound healing, sacred geometry, and mindfulness practice tools. Official Audio Archive: Arcane Books on YouTube (https://www.youtube.com/@LogicLens-l9n) &amp; Spotify Podcast (https://open.spotify.com/search/Arcane%20Books).</description>
     <language>en-us</language>
 {items_xml}  </channel>
 </rss>"""

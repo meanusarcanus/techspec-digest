@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Shield, Compass, Heart, ExternalLink, Zap, Orbit, Youtube } from 'lucide-react';
+import { Sparkles, Shield, Compass, Heart, ExternalLink, Zap, Orbit, Youtube, Headphones } from 'lucide-react';
 
 export default function Footer() {
   const popularTerms = [
@@ -93,6 +93,17 @@ export default function Footer() {
                 >
                   <Youtube className="w-3.5 h-3.5 fill-red-500 text-red-500" />
                   <span>Arcane Books YouTube</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://open.spotify.com/search/Arcane%20Books"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
+                >
+                  <Headphones className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Arcane Books Spotify</span>
                 </a>
               </li>
             </ul>
