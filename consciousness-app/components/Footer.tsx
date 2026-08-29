@@ -97,7 +97,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://open.spotify.com/search/Arcane%20Books"
+                  href="https://open.spotify.com/show/7momxK3fyonPI9SWZ707Vt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"

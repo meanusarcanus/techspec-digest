@@ -287,7 +287,7 @@ export default function AboutPage() {
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <a
-              href="https://open.spotify.com/search/Arcane%20Books"
+              href="https://open.spotify.com/show/7momxK3fyonPI9SWZ707Vt"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl shadow-emerald-600/25 transition-all transform hover:-translate-y-0.5"

@@ -309,7 +309,7 @@ export const TodayHeroPost: React.FC<TodayHeroPostProps> = ({
           </div>
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <a
-              href="https://open.spotify.com/search/Arcane%20Books"
+              href="https://open.spotify.com/show/7momxK3fyonPI9SWZ707Vt"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 hover:shadow-emerald-600/50 transition-all transform hover:-translate-y-0.5 whitespace-nowrap"

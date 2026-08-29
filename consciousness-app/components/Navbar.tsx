@@ -96,7 +96,7 @@ export default function Navbar() {
               <span>YouTube</span>
             </a>
             <a
-              href="https://open.spotify.com/search/Arcane%20Books"
+              href="https://open.spotify.com/show/7momxK3fyonPI9SWZ707Vt"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 hover:bg-emerald-900/30 text-xs font-semibold transition-all shadow-sm"
@@ -185,7 +185,7 @@ export default function Navbar() {
               <span>Arcane Books YouTube</span>
             </a>
             <a
-              href="https://open.spotify.com/search/Arcane%20Books"
+              href="https://open.spotify.com/show/7momxK3fyonPI9SWZ707Vt"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 font-medium"
