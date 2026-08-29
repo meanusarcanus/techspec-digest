@@ -1,6 +1,6 @@
 ---
 title: "How to completely remove embedded cat hair from velvet and tweed couches"
-date: 2026-08-29T08:56:02Z
+date: 2026-08-29T09:10:09Z
 draft: false
 description: "In-depth guide on How to completely remove embedded cat hair from velvet and tweed couches. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "how-to-completely-remove-embedded-cat-hair-from-velvet-and-tweed-couches"

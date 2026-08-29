@@ -1,6 +1,6 @@
 ---
 title: "Fireproof and melt-point testing: Cryptosteel Capsule vs Billfodl titanium plates at 2,000°F"
-date: 2026-08-29T08:55:59Z
+date: 2026-08-29T09:10:06Z
 draft: false
 description: "In-depth guide on Fireproof and melt-point testing: Cryptosteel Capsule vs Billfodl titanium plates at 2,000°F. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "fireproof-and-melt-point-testing-cryptosteel-capsule-vs-billfodl-titanium-plates-at-2000f"
