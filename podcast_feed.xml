@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <title>Arcane Books Podcast</title>
+    <description>The official Arcane Books podcast exploring consciousness, subconscious money rewiring, Neville Goddard's Law of Assumption, bio-resonance, and quantum prosperity.</description>
+    <link>https://meanusarcanus.github.io/techspec-digest/</link>
+    <language>en-us</language>
+    <itunes:image href="https://meanusarcanus.github.io/techspec-digest/podcast/cover_art.jpg" />
+    <itunes:category text="Education">
+      <itunes:category text="Self-Improvement" />
+    </itunes:category>
+    <itunes:category text="Society &amp; Culture">
+      <itunes:category text="Philosophy" />
+    </itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:author>Arcane Books</itunes:author>
+    <itunes:type>episodic</itunes:type>
+    <item><title>Silence Your Inner Critic: The Neuroscience of Flow State &amp; Higher Consciousness</title><description>Learn how transient hypofrontality and deactivating the Default Mode Network unlocks effortless flow state and heightened awareness.</description><link>https://meanusarcanus.github.io/techspec-digest/</link><guid isPermaLink="false">arcane-books-consciousness-003</guid><pubDate>Sat, 29 Aug 2026 09:54:12 GMT</pubDate><enclosure url="https://meanusarcanus.github.io/techspec-digest/podcast/narration_1787898715.mp3" length="4004156" type="audio/mpeg" /><itunes:duration>667</itunes:duration><itunes:explicit>false</itunes:explicit><itunes:image href="https://meanusarcanus.github.io/techspec-digest/podcast/cover_art.jpg" /></item><item><title>Bio-Resonance &amp; 432Hz: How Sacred Frequencies Rewire Human Consciousness</title><description>Explore vibrational frequency, cymatics, Solfeggio sound healing, and cellular entrainment in this 15-minute consciousness deep dive.</description><link>https://meanusarcanus.github.io/techspec-digest/</link><guid isPermaLink="false">arcane-books-consciousness-002</guid><pubDate>Sat, 29 Aug 2026 09:54:11 GMT</pubDate><enclosure url="https://meanusarcanus.github.io/techspec-digest/podcast/narration_1787904554.mp3" length="5238524" type="audio/mpeg" /><itunes:duration>873</itunes:duration><itunes:explicit>false</itunes:explicit><itunes:image href="https://meanusarcanus.github.io/techspec-digest/podcast/cover_art.jpg" /></item><item><title>Neuro-Alchemy: The Lost Hermetic Technique for Rewiring Your Subconscious Mind</title><description>Discover the ancient Hermetic principles of mental transmutation and modern neuro-plasticity to reprogram your subconscious beliefs.</description><link>https://meanusarcanus.github.io/techspec-digest/</link><guid isPermaLink="false">arcane-books-consciousness-001</guid><pubDate>Sat, 29 Aug 2026 09:54:10 GMT</pubDate><enclosure url="https://meanusarcanus.github.io/techspec-digest/podcast/narration_1787908512.mp3" length="3167516" type="audio/mpeg" /><itunes:duration>528</itunes:duration><itunes:explicit>false</itunes:explicit><itunes:image href="https://meanusarcanus.github.io/techspec-digest/podcast/cover_art.jpg" /></item><item><title>Subconscious Money Rewiring: Reprogramming Your Mind for Wealth &amp; Unlimited Abundance</title><description>In this 15-minute wealth mindset episode, explore Neville Goddard's Law of Assumption, subconscious money blocks, and quantum abundance entrainment.</description><link>https://meanusarcanus.github.io/techspec-digest/</link><guid isPermaLink="false">arcane-books-abundance-001</guid><pubDate>Sat, 29 Aug 2026 09:54:09 GMT</pubDate><enclosure url="https://meanusarcanus.github.io/techspec-digest/podcast/narration_1787922117.mp3" length="4363580" type="audio/mpeg" /><itunes:duration>530</itunes:duration><itunes:explicit>false</itunes:explicit><itunes:image href="https://meanusarcanus.github.io/techspec-digest/podcast/cover_art.jpg" /></item><itunes:owner>
+      <itunes:name>Arcane Books</itunes:name>
+      <itunes:email>goodcells22@gmail.com</itunes:email>
+    </itunes:owner>
+  </channel>
+</rss>
