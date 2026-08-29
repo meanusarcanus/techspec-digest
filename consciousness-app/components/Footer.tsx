@@ -86,7 +86,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://www.youtube.com/@ArcaneBooks"
+                  href="https://www.youtube.com/@LogicLens-l9n"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-red-400 hover:text-red-300 font-semibold transition-colors"

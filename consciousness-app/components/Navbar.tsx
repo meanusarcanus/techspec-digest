@@ -86,7 +86,7 @@ export default function Navbar() {
               About Lab
             </Link>
             <a
-              href="https://www.youtube.com/@ArcaneBooks"
+              href="https://www.youtube.com/@LogicLens-l9n"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-950/40 border border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-900/30 text-xs font-semibold transition-all shadow-sm"
@@ -166,7 +166,7 @@ export default function Navbar() {
               About
             </Link>
             <a
-              href="https://www.youtube.com/@ArcaneBooks"
+              href="https://www.youtube.com/@LogicLens-l9n"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-red-400 bg-red-950/40 border border-red-500/30 font-medium"

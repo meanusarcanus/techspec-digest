@@ -302,7 +302,7 @@ export const TodayHeroPost: React.FC<TodayHeroPostProps> = ({
             </p>
           </div>
           <a
-            href="https://www.youtube.com/@ArcaneBooks"
+            href="https://www.youtube.com/@LogicLens-l9n"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all transform hover:-translate-y-0.5 whitespace-nowrap shrink-0"

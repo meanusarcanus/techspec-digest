@@ -287,7 +287,7 @@ export default function AboutPage() {
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <a
-              href="https://www.youtube.com/@ArcaneBooks"
+              href="https://www.youtube.com/@LogicLens-l9n"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm shadow-xl shadow-red-600/25 transition-all transform hover:-translate-y-0.5"
@@ -296,7 +296,7 @@ export default function AboutPage() {
               <span>Subscribe on YouTube</span>
             </a>
             <a
-              href="https://www.youtube.com/@ArcaneBooks"
+              href="https://www.youtube.com/@LogicLens-l9n"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-indigo-950/60 border border-indigo-500/30 hover:border-red-500/40 text-slate-200 text-sm font-medium transition-all"
