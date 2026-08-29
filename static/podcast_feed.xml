@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <title>Arcane Books Podcast</title>
+    <description>The official Arcane Books podcast exploring consciousness, subconscious money rewiring, Neville Goddard's Law of Assumption, bio-resonance, and quantum prosperity.</description>
+    <link>https://meanusarcanus.github.io/techspec-digest/</link>
+    <language>en-us</language>
+    <itunes:image href="https://meanusarcanus.github.io/techspec-digest/podcast/cover_art.jpg" />
+    <itunes:category text="Education">
+      <itunes:category text="Self-Improvement" />
+    </itunes:category>
+    <itunes:category text="Society &amp; Culture">
+      <itunes:category text="Philosophy" />
+    </itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:author>Arcane Books</itunes:author>
+    <itunes:type>episodic</itunes:type>
+    <item><title>Subconscious Money Rewiring: Reprogramming Your Mind for Wealth &amp; Unlimited Abundance</title><description>In this 15-minute wealth mindset episode, explore Neville Goddard's Law of Assumption, subconscious money blocks, and quantum abundance entrainment.</description><link>https://meanusarcanus.github.io/techspec-digest/</link><guid isPermaLink="false">arcane-books-abundance-001</guid><pubDate>Sat, 29 Aug 2026 09:54:09 GMT</pubDate><enclosure url="https://meanusarcanus.github.io/techspec-digest/podcast/narration_1787922117.mp3" length="4363580" type="audio/mpeg" /><itunes:duration>530</itunes:duration><itunes:explicit>false</itunes:explicit><itunes:image href="https://meanusarcanus.github.io/techspec-digest/podcast/cover_art.jpg" /></item><itunes:owner>
+      <itunes:name>Arcane Books</itunes:name>
+      <itunes:email>goodcells22@gmail.com</itunes:email>
+    </itunes:owner>
+  </channel>
+</rss>
