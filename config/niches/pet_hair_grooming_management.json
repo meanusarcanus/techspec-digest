@@ -1,0 +1,66 @@
+{
+  "id": "pet_hair_grooming_management",
+  "name": "Pet Hair Management & Specialized Grooming",
+  "tagline": "Conquer Embedded Fur, Fabric Shedding & Pet Safety with Peer-Reviewed Tools",
+  "core_angle": "Pet owners constantly battle shedding fabric and anxiety over pet safety, turning to peer-reviewed product comparisons to solve daily household messes.",
+  "target_audience": "Dog and cat owners, pet parents with shedding breeds, apartment pet owners battling fur on furniture.",
+  "seed_keywords": [
+    "How to completely remove embedded cat hair from velvet and tweed couches",
+    "Reusable lint rollers vs sticky tape sheets: which saves more money long-term?",
+    "Best lightweight cordless hand vacuums specifically rated for dog hair on stairs",
+    "ChomChom Roller vs rubber pet hair brush for car upholstery",
+    "GPS pet trackers battery life comparison for active dogs",
+    "Cordless handheld vacuum for pet hair carpet stairs"
+  ],
+  "affiliates": [
+    {
+      "name": "Pet Hair & Fabric Extraction Gear",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "ChomChom Pet Hair Remover Roller",
+        "Shark Pet Perfect II Cordless Hand Vacuum",
+        "Bissell Pet Hair Eraser Cordless Handheld"
+      ]
+    },
+    {
+      "name": "Pet Tracking & Safety Supplies",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Apple AirTag Pet Collar Holder Case",
+        "Fi Series 3 Smart Dog GPS Tracker Collar",
+        "FURminator Undercoat Deshedding Tool for Dogs"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "How to completely remove embedded cat hair from velvet and tweed couches",
+    "Reusable lint rollers vs sticky tape sheets: which saves more money long-term?",
+    "Best lightweight cordless hand vacuums specifically rated for dog hair on stairs",
+    "Deep Furniture Fur Extraction: Step-by-Step Grooming & Fabric Preservation Guide"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Fabric Micro-Weave & Fur Extraction Mechanics",
+      "Vacuum Suction Power & Battery Endurance Specifications Table",
+      "Reusable vs Disposable Cleaning Cost Analysis",
+      "Pet Shedding & Upholstery Care FAQ",
+      "Recommended Pet Hair Removal & Safety Gear Matrix"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

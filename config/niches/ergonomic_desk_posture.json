@@ -1,0 +1,66 @@
+{
+  "id": "ergonomic_desk_posture",
+  "name": "Ergonomic Desk Work & Posture Correction",
+  "tagline": "Affordable Home Workstation Upgrades to Banish Tech Neck, Back Strain & Wrist Fatigue",
+  "core_angle": "Remote workers and hybrid office employees suffering from back and wrist fatigue search for affordable ergonomics to upgrade their home workstations.",
+  "target_audience": "Remote workers, software developers, data entry professionals, hybrid office employees, students.",
+  "seed_keywords": [
+    "Best aluminum laptop stands for preventing tech neck during remote work",
+    "Vertical mouse vs traditional mouse layout for daily data entry wrist pain",
+    "How to configure an ergonomic work desk setup on a budget",
+    "Under desk footrest for lower back pressure relief",
+    "Ergonomic lumbar support cushion for WFH office chairs",
+    "Adjustable laptop riser stand for standing desk conversion"
+  ],
+  "affiliates": [
+    {
+      "name": "Ergonomic Workstation Anchors",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Soundance Aluminum Ergonomic Laptop Stand Riser",
+        "Logitech MX Vertical Wireless Ergonomic Mouse",
+        "Ergonomic Memory Foam Under Desk Footrest Cushion"
+      ]
+    },
+    {
+      "name": "Posture & Lumbar Support Gear",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Everlasting Comfort Memory Foam Lumbar Pillow",
+        "ComfiLife Gel Enhanced Seat Cushion",
+        "Adjustable Posture Corrector Upper Back Brace"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best aluminum laptop stands for preventing 'tech neck' during remote work",
+    "Vertical mouse vs traditional mouse layout for daily data entry wrist pain",
+    "How to configure an ergonomic work desk setup on a budget",
+    "The Complete WFH Ergonomic Checklist: Aligning Screen, Spine, Wrist, and Knees"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Biomechanics of Tech Neck & Lumbar Strain",
+      "Ergonomic Equipment Dimensions & Angle Specifications Table",
+      "Budget WFH Workstation Alignment Guide",
+      "Postural Fatigue & Carpal Tunnel Prevention FAQ",
+      "Recommended Ergonomic Office Accessories Matrix"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

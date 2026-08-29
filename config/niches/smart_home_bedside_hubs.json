@@ -1,0 +1,66 @@
+{
+  "id": "smart_home_bedside_hubs",
+  "name": "Smart Home Automation & Bedside Hubs",
+  "tagline": "Automated Bedroom Lighting, Phantom Power Waste Prevention & Small Apartment Smart Setups",
+  "core_angle": "Millions of everyday households buy smart home tech to cut electricity bills or automate morning routines, but frequently search for troubleshooting and specific room-to-room setups.",
+  "target_audience": "Smart home enthusiasts, apartment dwellers, commuters automating routines, energy-conscious homeowners.",
+  "seed_keywords": [
+    "How to set up automated bedroom lighting routines using an Echo smart clock",
+    "Best smart plugs for high-draw kitchen appliances to prevent phantom power waste",
+    "Integrating smart home speakers in small apartments with weak Wi-Fi",
+    "Echo Spot smart clock bedside automation routines",
+    "Smart plug energy monitoring for heavy appliances",
+    "Wi-Fi range extender for smart home speaker drops"
+  ],
+  "affiliates": [
+    {
+      "name": "Amazon Echo & Smart Home Ecosystem",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Amazon Echo Spot Smart Clock with Alexa",
+        "Amazon Echo Dot (5th Gen) Bedside Hub",
+        "TP-Link Kasa Smart Plug Power Monitoring"
+      ]
+    },
+    {
+      "name": "Smart Energy & Lighting Accessories",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Philips Hue Smart LED Starter Bulb Kit",
+        "TP-Link AC1200 Wi-Fi Range Extender",
+        "Kasa Smart Power Strip Surge Protector"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "How to set up automated bedroom lighting routines using an Echo smart clock",
+    "Best smart plugs for high-draw kitchen appliances to prevent phantom power waste",
+    "Integrating smart home speakers in small apartments with weak Wi-Fi",
+    "Step-by-Step Guide: Eliminating Phantom Power Draw with Energy-Monitoring Smart Plugs"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Room-by-Room Smart Setup Architecture",
+      "Energy Consumption & Phantom Power Audit Table",
+      "Wi-Fi Signal Optimization & Range Tuning",
+      "Troubleshooting Common Alexa & Routine Errors FAQ",
+      "Curated Smart Device Accessory Recommendations"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

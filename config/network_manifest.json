@@ -123,6 +123,46 @@
       "config_file": "config/niches/luxury_prefab_estates.json",
       "output_content_dir": "content/posts",
       "target_domain": "luxuryprefabestates.github.io"
+    },
+    {
+      "id": "smart_home_bedside_hubs",
+      "name": "Smart Home Automation & Bedside Hubs Niche",
+      "repo_name": "affiliate-smart-home-bedside-hubs",
+      "config_file": "config/niches/smart_home_bedside_hubs.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "smarthomebedsidehubs.github.io"
+    },
+    {
+      "id": "high_efficiency_kitchen_prep",
+      "name": "High-Efficiency Kitchen Prep & Space Saving Niche",
+      "repo_name": "affiliate-high-efficiency-kitchen-prep",
+      "config_file": "config/niches/high_efficiency_kitchen_prep.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "kitchenprepspacesaving.github.io"
+    },
+    {
+      "id": "pet_hair_grooming_management",
+      "name": "Pet Hair Management & Specialized Grooming Niche",
+      "repo_name": "affiliate-pet-hair-grooming-management",
+      "config_file": "config/niches/pet_hair_grooming_management.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "pethairgroomingmanagement.github.io"
+    },
+    {
+      "id": "ergonomic_desk_posture",
+      "name": "Ergonomic Desk Work & Posture Correction Niche",
+      "repo_name": "affiliate-ergonomic-desk-posture",
+      "config_file": "config/niches/ergonomic_desk_posture.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "ergonomicdeskposture.github.io"
+    },
+    {
+      "id": "onthego_hydration_travel",
+      "name": "On-the-Go Hydration & Travel Tumbler Niche",
+      "repo_name": "affiliate-onthego-hydration-travel",
+      "config_file": "config/niches/onthego_hydration_travel.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "ontgohydrationtravel.github.io"
     }
   ]
 }

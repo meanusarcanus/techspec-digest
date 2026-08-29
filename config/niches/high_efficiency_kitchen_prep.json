@@ -1,0 +1,66 @@
+{
+  "id": "high_efficiency_kitchen_prep",
+  "name": "High-Efficiency Kitchen Prep & Space Saving",
+  "tagline": "Streamline Meal Prep & Maximize Tight Counter Space Without Kitchen Remodeling",
+  "core_angle": "Home cooks and busy parents look for quick ways to streamline meal prep and optimize tight kitchen counter space without expensive remodeling.",
+  "target_audience": "Busy parents, meal-prepping professionals, apartment renters with compact kitchens, low-carb keto cooks.",
+  "seed_keywords": [
+    "Best manual vegetable choppers for meal prepping low-carb keto salads fast",
+    "Space-saving dish drying racks for apartment kitchens with zero counter space",
+    "How to organize cabinet pot lids cleanly without drilling holes",
+    "Multi-functional 14-in-1 vegetable chopper time savings",
+    "Over-the-sink stainless steel drying rack installation",
+    "No-drill magnetic lid holder cabinet organizer"
+  ],
+  "affiliates": [
+    {
+      "name": "Kitchen Efficiency Anchors",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Fullstar 4-in-1 Multi-Blade Vegetable Chopper",
+        "Over the Sink Stainless Steel Roll-Up Drying Rack",
+        "Magnetic Cabinet Pot Lid Organizer Rack"
+      ]
+    },
+    {
+      "name": "Meal Prep & Storage Essentials",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Glass Meal Prep Containers 2-Compartment Airtight",
+        "Silicone Non-Stick Baking Mat Sheet Set",
+        "Expandable Under-Sink Storage Rack Organizer"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best manual vegetable choppers for meal prepping low-carb keto salads fast",
+    "Space-saving dish drying racks for apartment kitchens with zero counter space",
+    "How to organize cabinet pot lids cleanly without drilling holes",
+    "15-Minute Meal Prep Protocol: The Ultimate Multi-Chopper & Space-Saving Kitchen Workflow"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Kitchen Counter Spatial Efficiency Breakdown",
+      "Prep Time Comparison & Blade Quality Specifications Table",
+      "Renter-Friendly No-Drill Mounting & Organization Guide",
+      "Meal Prep Efficiency & Hygiene Maintenance FAQ",
+      "Recommended Space-Saving Kitchen Gadgets Matrix"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

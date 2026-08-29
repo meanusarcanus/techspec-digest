@@ -1,0 +1,66 @@
+{
+  "id": "onthego_hydration_travel",
+  "name": "On-the-Go Hydration & Travel Tumbler",
+  "tagline": "Durable, Leak-Proof Tumblers, Fast-Charging Power Banks & Essential Travel Solutions",
+  "core_angle": "Everyday commuters, students, and travelers look for durable, leak-proof hydration and charging solutions that survive daily wear and tear.",
+  "target_audience": "Daily commuters, road-trippers, airline travelers, gymgoers, college students.",
+  "seed_keywords": [
+    "Best spill-proof insulated tumblers that actually fit standard car cup holders",
+    "Compact high-capacity power banks with built-in charging cables for air travel",
+    "How to clean stainless steel water bottles to prevent lingering flavor buildup",
+    "Stanley Quencher vs Owala FreeSip car cup holder test",
+    "TSA approved fast charging portable power bank for international flights",
+    "Effervescent bottle cleaning tablets for stainless steel tumblers"
+  ],
+  "affiliates": [
+    {
+      "name": "Hydration & Tumbler Anchors",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Stanley Quencher H2.0 FlowState Stainless Steel Tumbler (40 oz)",
+        "Owala FreeSip Insulated Stainless Steel Water Bottle",
+        "Hydro Flask All Around Travel Tumbler with Handle"
+      ]
+    },
+    {
+      "name": "Travel Electronics & Maintenance Essentials",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Anker Portable Charger 20000mAh Power Bank with Built-in Cable",
+        "Bottle Bright Effervescent Water Bottle Cleaning Tablets",
+        "Silicone Tumbler Straw Covers and Leak Stopper Set"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best spill-proof insulated tumblers that actually fit standard car cup holders",
+    "Compact high-capacity power banks with built-in charging cables for air travel",
+    "How to clean stainless steel water bottles to prevent lingering flavor buildup",
+    "Commuter & Air Travel Gear Test: Leak-Proof Tumblers and Fast-Charge Power Banks"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Thermal Insulation & Spill-Proof Seal Test Mechanics",
+      "Capacity, Weight & Battery Output Specifications Table",
+      "TSA Compliance & Airline Travel Power Guidelines",
+      "Odor Removal & Stainless Steel Hygiene FAQ",
+      "Recommended Travel Gear & Accessory Matrix"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}
