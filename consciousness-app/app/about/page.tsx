@@ -16,6 +16,8 @@ import {
   Flame,
   Globe,
   Award,
+  Youtube,
+  Headphones,
 } from 'lucide-react';
 
 interface SolfeggioFreq {
@@ -262,6 +264,46 @@ export default function AboutPage() {
             <p className="text-xs text-slate-400 leading-relaxed">
               Technology should serve human awareness rather than enslave it—seamless intuitive design that naturally invites effortless daily practice.
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Featured Media & Audio Vault: Arcane Books */}
+      <div className="relative rounded-3xl p-8 sm:p-12 bg-gradient-to-br from-[#120718] via-[#0B0F19] to-[#150a12] border border-red-500/30 overflow-hidden shadow-2xl space-y-8">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 max-w-3xl space-y-5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-500/40 text-red-400 text-xs font-bold uppercase tracking-wider">
+            <Youtube className="w-4 h-4 fill-red-500 text-red-500" />
+            <span>Featured Audio Channel • Arcane Books</span>
+          </div>
+
+          <h2 className="font-serif text-2xl sm:text-4xl font-bold text-white">
+            Arcane Books: The Audio Archive of Esoteric Wisdom
+          </h2>
+
+          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+            Complement your daily consciousness practice with immersive audiobooks, sacred manuscripts, Hermetic dialogues, and deep contemplative audio journeys on the <strong>Arcane Books</strong> YouTube channel. Each recording is masterfully calibrated to accompany your meditation, sound baths, and study of universal laws.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <a
+              href="https://www.youtube.com/@ArcaneBooks"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm shadow-xl shadow-red-600/25 transition-all transform hover:-translate-y-0.5"
+            >
+              <Youtube className="w-4 h-4 fill-white" />
+              <span>Subscribe on YouTube</span>
+            </a>
+            <a
+              href="https://www.youtube.com/@ArcaneBooks"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-indigo-950/60 border border-indigo-500/30 hover:border-red-500/40 text-slate-200 text-sm font-medium transition-all"
+            >
+              <Headphones className="w-4 h-4 text-red-400" />
+              <span>Explore Audio Library</span>
+            </a>
           </div>
         </div>
       </div>

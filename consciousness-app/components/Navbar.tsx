@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Sparkles, Menu, X, Radio, Compass, ShieldCheck, Flame } from 'lucide-react';
+import { Search, Sparkles, Menu, X, Radio, Compass, ShieldCheck, Flame, Youtube } from 'lucide-react';
 import SearchModal from './SearchModal';
 
 const FREQUENCIES = [
@@ -85,6 +85,16 @@ export default function Navbar() {
             <Link href="/about" className="hover:text-amber-400 transition-colors">
               About Lab
             </Link>
+            <a
+              href="https://www.youtube.com/@ArcaneBooks"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-950/40 border border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-900/30 text-xs font-semibold transition-all shadow-sm"
+              title="Arcane Books Official YouTube Channel"
+            >
+              <Youtube className="w-3.5 h-3.5 fill-red-500 text-red-500" />
+              <span>Arcane Books</span>
+            </a>
           </nav>
 
           {/* Action Bar (Search, Theme/Frequency Pill, Mobile Menu Button) */}
@@ -155,6 +165,15 @@ export default function Navbar() {
             >
               About
             </Link>
+            <a
+              href="https://www.youtube.com/@ArcaneBooks"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-red-400 bg-red-950/40 border border-red-500/30 font-medium"
+            >
+              <Youtube className="w-4 h-4 fill-red-500 text-red-500" />
+              <span>Arcane Books YouTube Channel</span>
+            </a>
           </div>
         )}
       </header>

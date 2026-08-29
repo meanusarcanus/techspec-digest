@@ -13,6 +13,8 @@ import {
   Share2,
   BookOpen,
   ShoppingBag,
+  Youtube,
+  Headphones,
 } from 'lucide-react';
 import { DailyPost, DEFAULT_AFFILIATE_TAG } from '../data/dailyPosts';
 import { formatDateDisplay, shiftDateByDays, getPostForDate } from '../lib/dailyEngine';
@@ -280,6 +282,34 @@ export const TodayHeroPost: React.FC<TodayHeroPostProps> = ({
               #{t}
             </span>
           ))}
+        </div>
+      </div>
+
+      {/* Arcane Books YouTube Audio Companion Banner */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-red-950/40 via-purple-950/30 to-indigo-950/40 border border-red-500/30 p-6 sm:p-8 shadow-xl">
+        <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-wider">
+              <Youtube className="w-3.5 h-3.5 fill-red-500 text-red-500" />
+              <span>Official YouTube Companion • Arcane Books</span>
+            </div>
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
+              Listen &amp; Immerse in Sacred Wisdom Audiobooks
+            </h3>
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              Explore deep philosophical audiobooks, Hermetic teachings, ancient texts, and audio frequencies curated by <strong>Arcane Books</strong>. Subscribe on YouTube to elevate your daily contemplation.
+            </p>
+          </div>
+          <a
+            href="https://www.youtube.com/@ArcaneBooks"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all transform hover:-translate-y-0.5 whitespace-nowrap shrink-0"
+          >
+            <Youtube className="w-4 h-4 fill-white" />
+            <span>Subscribe to Arcane Books</span>
+          </a>
         </div>
       </div>
 

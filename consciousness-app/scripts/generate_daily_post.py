@@ -301,7 +301,7 @@ def generate_post_for_date(date_str):
                 ]
             }
         ],
-        "tags": [seed["category"], "Consciousness", "Mindfulness", "Daily Insight", variation_tag]
+        "tags": [seed["category"], "Consciousness", "Mindfulness", "Arcane Books", "Audio Wisdom", variation_tag]
     }
 
     return post

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Shield, Compass, Heart, ExternalLink, Zap, Orbit } from 'lucide-react';
+import { Sparkles, Shield, Compass, Heart, ExternalLink, Zap, Orbit, Youtube } from 'lucide-react';
 
 export default function Footer() {
   const popularTerms = [
@@ -83,6 +83,17 @@ export default function Footer() {
                 <Link href="/about" className="hover:text-amber-400 transition-colors">
                   About Ancient &amp; Modern Practice
                 </Link>
+              </li>
+              <li>
+                <a
+                  href="https://www.youtube.com/@ArcaneBooks"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-red-400 hover:text-red-300 font-semibold transition-colors"
+                >
+                  <Youtube className="w-3.5 h-3.5 fill-red-500 text-red-500" />
+                  <span>Arcane Books YouTube</span>
+                </a>
               </li>
             </ul>
           </div>
