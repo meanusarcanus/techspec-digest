@@ -4,6 +4,7 @@ import React from 'react';
 import { TodayHeroPost } from '@/components/TodayHeroPost';
 import FeaturedBookSpotlight from '@/components/FeaturedBookSpotlight';
 import ArchiveDrawer from '@/components/ArchiveDrawer';
+import CommunityReflections from '@/components/CommunityReflections';
 import Link from 'next/link';
 import { Radio, ArrowRight } from 'lucide-react';
 
@@ -43,6 +44,9 @@ export default function HomePage() {
 
       {/* Archive Drawer */}
       <ArchiveDrawer />
+
+      {/* Community Inquiries, Feedback & Enlightened Q&A */}
+      <CommunityReflections />
 
       {/* Featured Book Spotlight: Thinking Big for Little People by Ted Nadres (At Bottom) */}
       <FeaturedBookSpotlight />
