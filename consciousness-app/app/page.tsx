@@ -9,11 +9,8 @@ import { Radio, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   return (
-    <div className="space-y-12">
-      {/* Featured Book Spotlight: Thinking Big for Little People by Ted Nadres */}
-      <FeaturedBookSpotlight />
-
-      {/* Featured Active Daily Post */}
+    <div className="space-y-16">
+      {/* Featured Active Daily Post (Daily Digest) */}
       <TodayHeroPost />
 
       {/* Mid-Page Callout Banner */}
@@ -46,6 +43,9 @@ export default function HomePage() {
 
       {/* Archive Drawer */}
       <ArchiveDrawer />
+
+      {/* Featured Book Spotlight: Thinking Big for Little People by Ted Nadres (At Bottom) */}
+      <FeaturedBookSpotlight />
     </div>
   );
 }

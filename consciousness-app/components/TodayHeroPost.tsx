@@ -70,7 +70,7 @@ export const TodayHeroPost: React.FC<TodayHeroPostProps> = ({
   };
 
   return (
-    <article className="w-full max-w-6xl mx-auto space-y-10">
+    <article id="daily-digest" className="w-full max-w-6xl mx-auto space-y-10 scroll-mt-28">
       {/* Google Rich Snippet JSON-LD Script */}
       <script
         type="application/ld+json"

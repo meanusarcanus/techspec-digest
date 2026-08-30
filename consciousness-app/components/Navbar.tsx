@@ -44,6 +44,15 @@ export default function Navbar() {
 
   const currentFreq = FREQUENCIES[freqIndex];
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    const elem = document.getElementById(targetId);
+    if (elem) {
+      e.preventDefault();
+      elem.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <>
       <header
@@ -63,7 +72,7 @@ export default function Navbar() {
             </div>
             <div>
               <span className="font-serif font-bold text-base sm:text-lg tracking-wide gold-gradient-text block">
-                CONSCIOUSNESS & ENLIGHTENMENT
+                CONSCIOUSNESS &amp; ENLIGHTENMENT
               </span>
               <span className="text-[10px] text-indigo-300/80 tracking-wider uppercase font-sans font-medium block">
                 Products &amp; Bio-Resonance Lab
@@ -76,15 +85,27 @@ export default function Navbar() {
             <Link href="/" className="hover:text-amber-400 transition-colors">
               Home
             </Link>
-            <Link href="/#featured-book" className="hover:text-amber-400 text-amber-300/90 font-semibold transition-colors flex items-center gap-1">
-              <span>📖 Book Spotlight</span>
-            </Link>
-            <Link href="/#hero-product" className="hover:text-amber-400 transition-colors">
+            <a
+              href="#daily-digest"
+              onClick={(e) => handleNavClick(e, 'daily-digest')}
+              className="hover:text-amber-400 transition-colors cursor-pointer"
+            >
               Daily Digest
-            </Link>
-            <Link href="/#archive-drawer" className="hover:text-amber-400 transition-colors">
+            </a>
+            <a
+              href="#archive-drawer"
+              onClick={(e) => handleNavClick(e, 'archive-drawer')}
+              className="hover:text-amber-400 transition-colors cursor-pointer"
+            >
               Archive
-            </Link>
+            </a>
+            <a
+              href="#featured-book"
+              onClick={(e) => handleNavClick(e, 'featured-book')}
+              className="hover:text-amber-400 text-amber-300/90 font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+            >
+              <span>📖 Book Spotlight</span>
+            </a>
             <Link href="/about" className="hover:text-amber-400 transition-colors">
               About Lab
             </Link>
@@ -157,27 +178,27 @@ export default function Navbar() {
             >
               Home
             </Link>
-            <Link
-              href="/#featured-book"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 font-semibold"
-            >
-              📖 Book Spotlight (Master Key System)
-            </Link>
-            <Link
-              href="/#hero-product"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-indigo-950/60 hover:text-amber-400 font-medium"
+            <a
+              href="#daily-digest"
+              onClick={(e) => handleNavClick(e, 'daily-digest')}
+              className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-indigo-950/60 hover:text-amber-400 font-medium cursor-pointer"
             >
               Daily Digest
-            </Link>
-            <Link
-              href="/#archive-drawer"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-indigo-950/60 hover:text-amber-400 font-medium"
+            </a>
+            <a
+              href="#archive-drawer"
+              onClick={(e) => handleNavClick(e, 'archive-drawer')}
+              className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-indigo-950/60 hover:text-amber-400 font-medium cursor-pointer"
             >
-              Archive Drawer
-            </Link>
+              Archive
+            </a>
+            <a
+              href="#featured-book"
+              onClick={(e) => handleNavClick(e, 'featured-book')}
+              className="block px-3 py-2 rounded-lg text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 font-semibold cursor-pointer"
+            >
+              📖 Book Spotlight (Master Key System)
+            </a>
             <Link
               href="/about"
               onClick={() => setIsMobileMenuOpen(false)}
