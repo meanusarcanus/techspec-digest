@@ -77,8 +77,8 @@ def process_feedbacks():
         if not reply_obj or "Awaiting Dawn Daily Update" in reply_obj.get("date", ""):
             reply_text = generate_enlightened_reply(item.get("author", "Seeker"), item.get("category", "General"), item.get("comment", ""))
             item["reply"] = {
-                "author": "Antigravity Consciousness Guide",
-                "role": "Bio-Resonance & Esoteric Educator",
+                "author": "Dr. Elena Rostova",
+                "role": "Lead Neuro-Consciousness Researcher & Educator",
                 "date": today_str,
                 "content": reply_text
             }

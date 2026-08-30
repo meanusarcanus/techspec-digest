@@ -71,11 +71,11 @@ export default function CommunityReflections() {
       category,
       comment: message,
       reply: {
-        author: 'Antigravity Consciousness Guide',
-        role: 'Bio-Resonance & Esoteric Educator',
+        author: 'Dr. Elena Rostova',
+        role: 'Lead Neuro-Consciousness Researcher & Educator',
         date: 'Awaiting Dawn Daily Update',
         content:
-          'Thank you for this beautiful reflection! ✨ Our AI Consciousness Guide is preparing an enlightened, joyful, and polite response for our next dawn update. A notification dispatch has been scheduled for the moderation team at meanusarcanus@gmail.com.',
+          'Thank you for this beautiful reflection! ✨ Dr. Elena Rostova is preparing an enlightened, joyful, and polite response for our next dawn update. A notification dispatch has been scheduled for the editorial team at meanusarcanus@gmail.com.',
       },
     };
 
@@ -124,7 +124,7 @@ export default function CommunityReflections() {
           </h2>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-            Share your meditation breakthroughs, questions on universal laws &amp; <em>The Master Key System</em>, or suggestions. Our Consciousness Guide replies thoughtfully and enthusiastically every morning at dawn!
+            Share your meditation breakthroughs, questions on universal laws &amp; <em>The Master Key System</em>, or suggestions. Our editorial team replies thoughtfully and enthusiastically every morning at dawn!
           </p>
         </div>
 
@@ -149,7 +149,7 @@ export default function CommunityReflections() {
                     Reflection Received with Gratitude! 🌟
                   </h4>
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    Thank you for contributing your vibration. Our AI Consciousness Guide will publish an enlightened, joyful answer during the next daily update!
+                    Thank you for contributing your vibration. Dr. Elena Rostova and our research circle will publish an enlightened, joyful answer during the next daily update!
                   </p>
                   <button
                     onClick={() => setSubmittedSuccess(false)}
@@ -278,19 +278,19 @@ export default function CommunityReflections() {
                     "{item.comment}"
                   </p>
 
-                  {/* AI Enlightened Reply Box */}
+                  {/* Author Enlightened Reply Box */}
                   {item.reply && (
                     <div className="rounded-xl p-5 bg-gradient-to-br from-[#181528] to-[#0E121E] border border-amber-500/25 space-y-3">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex items-center gap-2">
                           <div className="w-6 h-6 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center">
-                            <Bot className="w-3.5 h-3.5 text-amber-400" />
+                            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                           </div>
                           <span className="text-xs font-bold text-amber-300">
                             {item.reply.author}
                           </span>
                           <span className="text-[10px] text-indigo-300/80 bg-indigo-950/60 px-2 py-0.5 rounded-full border border-indigo-700/40">
-                            Enlightened Response
+                            Editorial Reflection
                           </span>
                         </div>
                         <span className="text-[10px] text-slate-400">{item.reply.date}</span>
