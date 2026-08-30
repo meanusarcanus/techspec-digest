@@ -1,6 +1,6 @@
 ---
 title: "Best aluminum laptop stands for preventing 'tech neck' during remote work"
-date: 2026-08-30T08:00:42Z
+date: 2026-08-30T08:04:37Z
 draft: false
 description: "In-depth guide on Best aluminum laptop stands for preventing 'tech neck' during remote work. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "best-aluminum-laptop-stands-for-preventing-tech-neck-during-remote-work"
