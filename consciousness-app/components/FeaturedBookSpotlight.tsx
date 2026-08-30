@@ -60,14 +60,14 @@ export default function FeaturedBookSpotlight({
                 {/* Main 3D Book Container */}
                 <div className="relative rounded-2xl bg-gradient-to-b from-amber-950/60 to-slate-950 border-2 border-amber-500/40 p-6 sm:p-8 flex flex-col items-center text-center shadow-2xl space-y-5 max-w-sm">
                   {/* Visual Book Cover Thumbnail */}
-                  <div className="relative w-40 sm:w-48 aspect-[2/3] rounded-xl overflow-hidden shadow-2xl border border-amber-400/40 bg-[#160E08] flex items-center justify-center">
+                  <div className="relative w-48 sm:w-56 aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-400/50 bg-[#160E08] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
                     <img
-                      src="/techspec-digest/consciousness/images/thinking_big_for_little_people.png"
+                      src="/techspec-digest/consciousness/images/thinking_big_for_little_people.jpg"
                       alt="Thinking Big for Little People by Ted Nadres"
                       className="w-full h-full object-cover shadow-inner"
                       onError={(e) => {
                         // Fallback if asset path is absolute root
-                        (e.target as HTMLImageElement).src = '/images/thinking_big_for_little_people.png';
+                        (e.target as HTMLImageElement).src = '/images/thinking_big_for_little_people.jpg';
                       }}
                     />
                   </div>
