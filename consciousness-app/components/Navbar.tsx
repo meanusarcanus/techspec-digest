@@ -107,6 +107,13 @@ export default function Navbar() {
               💬 Reflections
             </a>
             <a
+              href="#newsletter"
+              onClick={(e) => handleNavClick(e, 'newsletter')}
+              className="hover:text-amber-400 transition-colors cursor-pointer"
+            >
+              ✉️ Newsletter
+            </a>
+            <a
               href="#featured-book"
               onClick={(e) => handleNavClick(e, 'featured-book')}
               className="hover:text-amber-400 text-amber-300/90 font-semibold transition-colors flex items-center gap-1 cursor-pointer"
@@ -205,6 +212,13 @@ export default function Navbar() {
               className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-indigo-950/60 hover:text-amber-400 font-medium cursor-pointer"
             >
               💬 Reflections &amp; Q&amp;A
+            </a>
+            <a
+              href="#newsletter"
+              onClick={(e) => handleNavClick(e, 'newsletter')}
+              className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-indigo-950/60 hover:text-amber-400 font-medium cursor-pointer"
+            >
+              ✉️ Newsletter Subscription
             </a>
             <a
               href="#featured-book"
