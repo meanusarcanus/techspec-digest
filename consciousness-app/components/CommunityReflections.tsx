@@ -71,11 +71,11 @@ export default function CommunityReflections() {
       category,
       comment: message,
       reply: {
-        author: 'Dr. Elena Rostova',
-        role: 'Lead Neuro-Consciousness Researcher & Educator',
+        author: 'Arcane Books Editorial Circle',
+        role: 'Curators of Esoteric Wisdom & Bio-Resonance Research',
         date: 'Awaiting Dawn Daily Update',
         content:
-          'Thank you for this beautiful reflection! ✨ Dr. Elena Rostova is preparing an enlightened, joyful, and polite response for our next dawn update. A notification dispatch has been scheduled for the editorial team at meanusarcanus@gmail.com.',
+          'Thank you for this beautiful reflection! ✨ The Arcane Books Editorial Circle is preparing an enlightened, joyful, and polite response for our next dawn update. A notification dispatch has been scheduled for the editorial team at meanusarcanus@gmail.com.',
       },
     };
 
@@ -149,7 +149,7 @@ export default function CommunityReflections() {
                     Reflection Received with Gratitude! 🌟
                   </h4>
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    Thank you for contributing your vibration. Dr. Elena Rostova and our research circle will publish an enlightened, joyful answer during the next daily update!
+                    Thank you for contributing your vibration. The Arcane Books Editorial Circle will publish an enlightened, joyful answer during the next daily update!
                   </p>
                   <button
                     onClick={() => setSubmittedSuccess(false)}

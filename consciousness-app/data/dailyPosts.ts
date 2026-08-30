@@ -157,8 +157,8 @@ By positioning healing crystals such as clear quartz, amethyst, and black tourma
       'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80',
     dayOfYearIndex: 1,
     author: {
-      name: 'Elena Rostova',
-      role: 'Sacred Geometry Architect & Mystic',
+      name: 'Arcane Books Editorial Circle',
+      role: 'Sacred Geometry & Consciousness Research',
       avatarUrl:
         'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
     },
@@ -635,8 +635,8 @@ To safely anchor and ground high-vibrational Kundalini energy, integrate groundi
     readTime: '6 min read',
     formattedDate: 'August 30, 2026',
     author: {
-      name: 'Dr. Elena Rostova',
-      role: 'Neuro-Consciousness Researcher & Bio-Resonance Educator',
+      name: 'Arcane Books Editorial Circle',
+      role: 'Curators of Esoteric Wisdom & Bio-Resonance Research',
       avatarUrl:
         'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80',
     },
