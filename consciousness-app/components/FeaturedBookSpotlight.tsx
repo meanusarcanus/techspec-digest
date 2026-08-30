@@ -27,7 +27,7 @@ export default function FeaturedBookSpotlight({
   const amazonSearchUrl = `https://www.amazon.com/s?k=Thinking+Big+for+Little+People+Ted+Nadres&${trackingTag}`;
 
   return (
-    <section className="max-w-7xl mx-auto my-12 px-4 sm:px-6 lg:px-8">
+    <section id="featured-book" className="max-w-7xl mx-auto mb-8 px-4 sm:px-6 lg:px-8 scroll-mt-28">
       <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#120D1F] via-[#0B0F19] to-[#1A1208] border border-amber-500/30 shadow-2xl shadow-black/80">
         {/* Ambient Glow Orbs */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />

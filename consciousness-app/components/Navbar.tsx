@@ -76,11 +76,14 @@ export default function Navbar() {
             <Link href="/" className="hover:text-amber-400 transition-colors">
               Home
             </Link>
+            <Link href="/#featured-book" className="hover:text-amber-400 text-amber-300/90 font-semibold transition-colors flex items-center gap-1">
+              <span>📖 Book Spotlight</span>
+            </Link>
             <Link href="/#hero-product" className="hover:text-amber-400 transition-colors">
-              Hero Review
+              Daily Digest
             </Link>
             <Link href="/#archive-drawer" className="hover:text-amber-400 transition-colors">
-              Archive Drawer
+              Archive
             </Link>
             <Link href="/about" className="hover:text-amber-400 transition-colors">
               About Lab
@@ -155,11 +158,18 @@ export default function Navbar() {
               Home
             </Link>
             <Link
+              href="/#featured-book"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block px-3 py-2 rounded-lg text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 font-semibold"
+            >
+              📖 Book Spotlight (Master Key System)
+            </Link>
+            <Link
               href="/#hero-product"
               onClick={() => setIsMobileMenuOpen(false)}
               className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-indigo-950/60 hover:text-amber-400 font-medium"
             >
-              Hero Product
+              Daily Digest
             </Link>
             <Link
               href="/#archive-drawer"

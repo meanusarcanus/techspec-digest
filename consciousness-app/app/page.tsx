@@ -10,11 +10,11 @@ import { Radio, ArrowRight } from 'lucide-react';
 export default function HomePage() {
   return (
     <div className="space-y-12">
-      {/* Featured Active Daily Post */}
-      <TodayHeroPost />
-
       {/* Featured Book Spotlight: Thinking Big for Little People by Ted Nadres */}
       <FeaturedBookSpotlight />
+
+      {/* Featured Active Daily Post */}
+      <TodayHeroPost />
 
       {/* Mid-Page Callout Banner */}
       <section className="max-w-7xl mx-auto">
