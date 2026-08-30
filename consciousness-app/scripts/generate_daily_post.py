@@ -177,6 +177,38 @@ DAILY_TOPIC_SEED_BANK = [
         "product_desc": "Precision-engraved Baltic birch crystal grid board featuring sacred Flower of Life geometry."
     },
     {
+        "category": "Mindfulness & Literature",
+        "topic": "The Master Key System for Young Minds: Universal Mind, Creative Focus, and the Architecture of Thought",
+        "essay_paragraphs": [
+            "In 1912, Charles F. Haanel published The Master Key System, decoding the eternal law that mental focus is the primal creative force behind all physical manifestation. In 'Thinking Big for Little People: A Kid\\'s Introduction to The Master Key System', author Ted Nadres translates these profound New Thought mechanics into an empowering, accessible guide for young minds and families.",
+            "Before limiting beliefs and cultural conditioning take root in childhood, understanding the subconscious mind empowers kids to cultivate emotional resilience, unwavering self-belief, and clear creative visualization.",
+            "Exploring these universal principles together creates a shared vocabulary of mindfulness, teaching children that their thoughts are active seeds of intention."
+        ],
+        "sections": [
+            {
+                "title": "Subconscious Architecture & Constructive Thought",
+                "content": "Haanel taught that the subconscious mind is the seat of creative power. When children learn to cultivate positive, constructive mental imagery early, they develop resilient emotional sovereignty.",
+                "quote": "The subconscious mind does not argue or dispute. It simply accepts what the conscious mind decrees. — Charles F. Haanel (The Master Key System 1912)"
+            }
+        ],
+        "protocol": {
+            "duration": "15 Minutes Daily",
+            "focus": "Creative Visualization & Cause-and-Effect Focus",
+            "steps": [
+                "Sit comfortably together in a peaceful, quiet reading space.",
+                "Read one chapter of 'Thinking Big for Little People' with your child.",
+                "Practice a 3-minute creative visualization: picture a dream goal in rich, vivid detail.",
+                "Close with a positive affirmation of inner confidence and gratitude."
+            ]
+        },
+        "product_search": "Thinking Big for Little People Ted Nadres",
+        "product_title": "Thinking Big for Little People: A Kid's Introduction to The Master Key System (1912 Simplified) by Ted Nadres",
+        "product_price": "$8.99",
+        "product_rating": 5.0,
+        "product_reviews": 128,
+        "product_desc": "Engaging, simplified introduction to Charles F. Haanel's 1912 Master Key System, teaching kids thought power, creative focus, and subconscious mastery."
+    },
+    {
         "category": "Breathwork",
         "topic": "Vagus Nerve Stimulation via Box Breathing: The Somatic Reset",
         "essay_paragraphs": [
@@ -260,7 +292,12 @@ def generate_post_for_date(date_str):
     index = hash_num % len(DAILY_TOPIC_SEED_BANK)
     seed = DAILY_TOPIC_SEED_BANK[index]
 
-    amazon_url = create_amazon_url(seed["product_search"])
+    if "Thinking Big for Little People" in seed.get("product_title", ""):
+        amazon_url = f"https://www.amazon.com/dp/B0GXTC1PY6?tag={AFFILIATE_TAG}"
+        product_image = "/techspec-digest/consciousness/images/thinking_big_for_little_people.png"
+    else:
+        amazon_url = create_amazon_url(seed["product_search"])
+        product_image = "https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&w=600&q=80"
 
     # Dynamic variations based on date hash to guarantee no two generated posts are identical
     variation_tag = f"Vol. {(hash_num % 50) + 1}"
@@ -291,7 +328,7 @@ def generate_post_for_date(date_str):
                 "rating": seed["product_rating"],
                 "reviewsCount": seed["product_reviews"],
                 "description": seed["product_desc"],
-                "imageUrl": "https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&w=600&q=80",
+                "imageUrl": product_image,
                 "affiliateUrl": amazon_url,
                 "badge": "Top Recommended Tool",
                 "highlights": [

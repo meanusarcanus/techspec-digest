@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { TodayHeroPost } from '@/components/TodayHeroPost';
+import FeaturedBookSpotlight from '@/components/FeaturedBookSpotlight';
 import ArchiveDrawer from '@/components/ArchiveDrawer';
 import Link from 'next/link';
 import { Radio, ArrowRight } from 'lucide-react';
@@ -11,6 +12,9 @@ export default function HomePage() {
     <div className="space-y-12">
       {/* Featured Active Daily Post */}
       <TodayHeroPost />
+
+      {/* Featured Book Spotlight: Thinking Big for Little People by Ted Nadres */}
+      <FeaturedBookSpotlight />
 
       {/* Mid-Page Callout Banner */}
       <section className="max-w-7xl mx-auto">
