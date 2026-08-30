@@ -1,6 +1,6 @@
 ---
 title: "What to look for when buying multi-million dollar contemporary art online"
-date: 2026-08-30T08:43:31Z
+date: 2026-08-30T09:12:10Z
 draft: false
 description: "In-depth guide on What to look for when buying multi-million dollar contemporary art online. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "what-to-look-for-when-buying-multi-million-dollar-contemporary-art-online"
