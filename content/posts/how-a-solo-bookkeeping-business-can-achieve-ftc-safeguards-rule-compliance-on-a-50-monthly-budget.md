@@ -1,6 +1,6 @@
 ---
 title: "How a solo bookkeeping business can achieve FTC Safeguards Rule compliance on a $50 monthly budget"
-date: 2026-08-30T09:12:07Z
+date: 2026-08-31T10:12:01Z
 draft: false
 description: "In-depth guide on How a solo bookkeeping business can achieve FTC Safeguards Rule compliance on a $50 monthly budget. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "how-a-solo-bookkeeping-business-can-achieve-ftc-safeguards-rule-compliance-on-a-50-monthly-budget"
