@@ -17,8 +17,8 @@ import {
 } from 'lucide-react';
 
 export default function YouTubePlayerHero() {
-  const videoId = 'bic6nYeSwCU';
-  const videoUrl = 'https://youtu.be/bic6nYeSwCU';
+  const videoId = 'X1A1rA1tNjU';
+  const videoUrl = 'https://youtu.be/X1A1rA1tNjU';
   const channelUrl = 'https://www.youtube.com/channel/UC61MVViTRqXAQVKqqfIoqbA';
   const subscribeUrl = 'https://www.youtube.com/channel/UC61MVViTRqXAQVKqqfIoqbA?sub_confirmation=1';
 
