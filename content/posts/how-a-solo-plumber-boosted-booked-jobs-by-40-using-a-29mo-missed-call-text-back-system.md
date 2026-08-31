@@ -1,6 +1,6 @@
 ---
 title: "How a solo plumber boosted booked jobs by 40% using a $29/mo missed-call text-back system"
-date: 2026-08-31T10:29:13Z
+date: 2026-08-31T14:58:44Z
 draft: false
 description: "In-depth guide on How a solo plumber boosted booked jobs by 40% using a $29/mo missed-call text-back system. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "how-a-solo-plumber-boosted-booked-jobs-by-40-using-a-29mo-missed-call-text-back-system"
