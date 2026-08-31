@@ -75,7 +75,7 @@ export default function CommunityReflections() {
         role: 'Curators of Esoteric Wisdom & Bio-Resonance Research',
         date: 'Awaiting Dawn Daily Update',
         content:
-          'Thank you for this beautiful reflection! ✨ The Arcane Books Editorial Circle is preparing an enlightened, joyful, and polite response for our next dawn update. A notification dispatch has been scheduled for the editorial team at meanusarcanus@gmail.com.',
+          'Thank you for this beautiful reflection! ✨ The Arcane Books Editorial Circle is preparing an enlightened, joyful, and polite response for our next dawn update.',
       },
     };
 
@@ -138,7 +138,7 @@ export default function CommunityReflections() {
                   Leave a Question or Reflection
                 </h3>
                 <p className="text-xs text-slate-400">
-                  Every submission is reviewed with enlightened care and notified to <strong className="text-slate-200">meanusarcanus@gmail.com</strong>.
+                  Every submission is reviewed with enlightened care by our editorial circle.
                 </p>
               </div>
 

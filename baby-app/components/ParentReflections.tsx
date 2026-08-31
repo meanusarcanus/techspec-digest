@@ -99,7 +99,7 @@ export default function ParentReflections() {
         role: 'Pediatric Sleep & Nursery Care Guides',
         date: 'Awaiting Next Dawn Update',
         content:
-          'Thank you for your question! 🌙 Our nursery editorial team is preparing a thoughtful, pediatric-informed answer for our next daily update. A notification has been dispatched to meanusarcanus@gmail.com.',
+          'Thank you for your question! 🌙 Our nursery editorial team is preparing a thoughtful, pediatric-informed answer for our next daily update.',
       },
     };
 
@@ -154,7 +154,7 @@ export default function ParentReflections() {
                 Ask a Parenting or Sleep Question
               </h3>
               <p className="text-xs text-slate-400">
-                All submissions are reviewed with care and notified to <strong className="text-slate-200">meanusarcanus@gmail.com</strong>.
+                All questions are reviewed with care by our nursery editorial circle.
               </p>
 
               {submittedSuccess ? (

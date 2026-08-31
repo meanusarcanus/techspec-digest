@@ -1,22 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Youtube,
   Music,
-  Play,
-  Pause,
   Clock,
   Sparkles,
   Heart,
-  Volume2,
+  Bell,
   ExternalLink,
   ShieldCheck,
   CheckCircle2,
+  Moon,
+  Radio,
 } from 'lucide-react';
 
 export default function YouTubePlayerHero() {
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const channelUrl = 'https://www.youtube.com/channel/UC61MVViTRqXAQVKqqfIoqbA';
+  const subscribeUrl = 'https://www.youtube.com/channel/UC61MVViTRqXAQVKqqfIoqbA?sub_confirmation=1';
 
   return (
     <section id="lullaby-player" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-10 scroll-mt-28">
@@ -26,43 +27,70 @@ export default function YouTubePlayerHero() {
         <div className="absolute bottom-0 left-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Embedded Video & Channel Card */}
+          {/* Left Column: Video Broadcast Preview Showcase */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-indigo-500/30 aspect-video bg-night-950">
-              <iframe
-                src="https://www.youtube-nocookie.com/embed/Jst0Yv_6mPU?rel=0&modestbranding=1"
-                title="1 Hour Baby Sleep Music • Brahms &amp; Mozart Lullaby"
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-indigo-500/30 aspect-video bg-night-950 group">
+              <img
+                src="/techspec-digest/baby-care/images/teddy_bears_on_clouds.jpg"
+                alt="1 Hour Baby Sleep Music Lullaby Broadcast"
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = '/images/teddy_bears_on_clouds.jpg';
+                }}
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-night-950/90 via-night-950/40 to-transparent" />
+
+              {/* Broadcast / Premiere Badge */}
+              <div className="absolute top-4 left-4 flex items-center gap-2">
+                <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600/90 text-white font-bold text-xs uppercase tracking-wider shadow-lg animate-pulse">
+                  <Radio className="w-3.5 h-3.5" /> Scheduled Premiere • 7:00 PM
+                </span>
+                <span className="bg-night-950/80 text-sky-300 text-xs px-3 py-1 rounded-full border border-sky-500/30">
+                  1-Hour 1080p HD
+                </span>
+              </div>
+
+              {/* Floating Center Action */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-3">
+                <div className="w-16 h-16 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+                  <Youtube className="w-8 h-8 fill-white" />
+                </div>
+                <div className="space-y-1">
+                  <h4 className="font-serif text-lg sm:text-xl font-bold text-white shadow-black drop-shadow-md">
+                    1 Hour Classical Baby Sleep Music
+                  </h4>
+                  <p className="text-xs text-sky-200">
+                    Brahms' Lullaby &amp; Mozart Bedtime Music Box
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 px-2">
               <div className="flex items-center gap-2 text-xs text-slate-300">
                 <Clock className="w-3.5 h-3.5 text-amber-400" />
-                <span>1-Hour Continuous Bedtime Loop</span>
+                <span>Uploads Daily at 7:00 PM</span>
                 <span className="text-slate-500">•</span>
-                <span className="text-sky-300">Brahms &amp; Mozart Classics</span>
+                <span className="text-sky-300">Calm Baby Sanctuary</span>
               </div>
 
               <a
-                href="https://www.youtube.com/channel/UC61MVViTRqXAQVKqqfIoqbA?sub_confirmation=1"
+                href={subscribeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-red-950/60 border border-red-500/40 text-red-300 hover:text-white hover:bg-red-900/50 text-xs font-semibold transition"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-xl bg-red-950/60 border border-red-500/40 text-red-300 hover:text-white hover:bg-red-900/50 text-xs font-semibold transition shadow-sm"
               >
-                <Youtube className="w-3.5 h-3.5 fill-red-500 text-red-500" />
-                <span>Subscribe on YouTube</span>
+                <Bell className="w-3.5 h-3.5 text-red-400" />
+                <span>Set Reminder / Subscribe</span>
               </a>
             </div>
           </div>
 
-          {/* Right Column: Information & Audio Benefits */}
+          {/* Right Column: Information & Channel Mission */}
           <div className="lg:col-span-5 space-y-5">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/15 border border-sky-500/30 text-sky-300 text-xs font-bold uppercase tracking-wider">
               <Music className="w-4 h-4 text-sky-400" />
-              <span>Autonomous Baby Sleep Music Broadcast</span>
+              <span>Official YouTube Sleep Music Broadcast</span>
             </div>
 
             <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-white leading-tight">
@@ -70,36 +98,46 @@ export default function YouTubePlayerHero() {
             </h3>
 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-              Specially tuned music box lullabies arranged at a steady 60 BPM. Designed to replicate comforting maternal heartbeats, calm colic restlessness, and help infants transition gently into deep REM sleep.
+              Our automated 1-hour baby lullaby broadcasts go live every evening at <strong>7:00 PM</strong>. Arranged at a steady 60 BPM to replicate maternal heartbeats and ease infants into deep, uninterrupted sleep.
             </p>
 
             {/* Feature Highlights */}
             <div className="space-y-2.5 pt-1">
               <div className="flex items-start gap-2.5 text-xs text-slate-200">
                 <CheckCircle2 className="w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5" />
-                <span>Pure Public Domain Classical Masterpieces (Brahms' Wiegenlied &amp; Mozart)</span>
+                <span>Johannes Brahms (Wiegenlied) &amp; W. A. Mozart Bedtime Melodies</span>
               </div>
               <div className="flex items-start gap-2.5 text-xs text-slate-200">
                 <CheckCircle2 className="w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5" />
-                <span>Zero Disruptive Ads or Sudden Volume Spikes for Uninterrupted Sleep</span>
+                <span>Calming 1080p HD Animated Night Sky &amp; Bedtime Clouds</span>
               </div>
               <div className="flex items-start gap-2.5 text-xs text-slate-200">
                 <CheckCircle2 className="w-4 h-4 text-sky-400 flex-shrink-0 mt-0.5" />
-                <span>Paired with Gentle Night Sky &amp; Bedtime Cloud Visual Animations</span>
+                <span>Premieres Nightly at 7:00 PM for Nursery Bedtime Routines</span>
               </div>
             </div>
 
             {/* YouTube CTA */}
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <a
-                href="https://www.youtube.com/channel/UC61MVViTRqXAQVKqqfIoqbA"
+                href={channelUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-sm shadow-xl shadow-red-600/25 hover:shadow-red-600/40 transition-all transform hover:-translate-y-0.5"
+                className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-xs shadow-xl shadow-red-600/25 transition-all transform hover:-translate-y-0.5"
               >
                 <Youtube className="w-4 h-4 fill-white text-white" />
-                <span>Visit Calm Baby Sanctuary on YouTube</span>
+                <span>Visit YouTube Channel</span>
                 <ExternalLink className="w-3.5 h-3.5 ml-1 opacity-80" />
+              </a>
+
+              <a
+                href={subscribeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition"
+              >
+                <Bell className="w-3.5 h-3.5 text-amber-400" />
+                <span>Subscribe Free</span>
               </a>
             </div>
           </div>
