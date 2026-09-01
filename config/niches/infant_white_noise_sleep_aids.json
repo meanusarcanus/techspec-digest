@@ -1,0 +1,52 @@
+{
+  "id": "infant_white_noise_sleep_aids",
+  "topic": "Baby & Toddler Care",
+  "name": "Infant Sound Machines & Pediatric Sleep Aids",
+  "tagline": "Decibel Safety Benchmarks, Pink Noise Spectra & Breathable Swaddles",
+  "core_angle": "New parents and pediatric sleep consultants selecting safe-decibel (under 50 dB) continuous pink noise sound machines, smart nightlights, and breathable sleep sacks for safe infant slumber.",
+  "target_audience": "New parents, expecting mothers, pediatric sleep consultants, nursery designers.",
+  "seed_keywords": [
+    "Safe decibel level sound machines for infant crib placement",
+    "100 percent cotton wearable sleep sack vs traditional swaddle blanket",
+    "Pediatric approved 100 percent breathable crib mattress suffocation test"
+  ],
+  "affiliates": [
+    {
+      "name": "Infant Sleep Essentials",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Hatch Rest Baby Sound Machine Night Light and Sleep Trainer",
+        "HALO 100% Cotton SleepSack 3-Way Adjustable Swaddle",
+        "Newton Baby 100% Breathable and Washable Crib Mattress"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Safe decibel level sound machines for infant crib placement",
+    "100 percent cotton wearable sleep sack vs traditional swaddle blanket",
+    "Pediatric approved 100 percent breathable crib mattress suffocation test"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

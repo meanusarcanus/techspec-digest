@@ -1,0 +1,52 @@
+{
+  "id": "portable_bike_bikepacking_tools",
+  "topic": "Sports & Outdoors",
+  "name": "Portable Bike Multi-Tools & Bikepacking Repair",
+  "tagline": "Precision Torque Multi-Tools, Tubeless Dynaplugs & Pocket CO2 Inflators",
+  "core_angle": "Gravel riders, commuters, and bikepackers requiring ultra-compact trailside repair kits: ratcheting torque wrenches, tubeless tire plugs, and mini high-pressure pumps.",
+  "target_audience": "Bikepackers, gravel cyclists, road racers, urban commuters, mountain bikers.",
+  "seed_keywords": [
+    "Precision ratchet torque wrench set for carbon fiber bike frames",
+    "Tubeless tire repair puncture plug kit for gravel and MTB",
+    "Mini portable bicycle hand pump with integrated pressure gauge"
+  ],
+  "affiliates": [
+    {
+      "name": "Bike Repair Essentials",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Topeak Ratchet Rocket Lite DX Precision Multi-Tool",
+        "Dynaplug Racer Tubeless Bicycle Tire Repair Kit",
+        "Lezyne Pressure Drive Hand Pump Presta and Schrader"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Precision ratchet torque wrench set for carbon fiber bike frames",
+    "Tubeless tire repair puncture plug kit for gravel and MTB",
+    "Mini portable bicycle hand pump with integrated pressure gauge"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

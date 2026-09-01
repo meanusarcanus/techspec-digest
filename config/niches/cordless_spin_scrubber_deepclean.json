@@ -1,0 +1,52 @@
+{
+  "id": "cordless_spin_scrubber_deepclean",
+  "topic": "Home Organization & Cleaning",
+  "name": "Cordless Electric Spin Scrubbers & Grout Cleaning",
+  "tagline": "Torque Ratings, Brush Head Geometry & Waterproof Bathroom Scrubbing",
+  "core_angle": "Homeowners and renters tackling hard water stains and stubborn shower grout lines without back strain using high-torque cordless electric spin scrubbers.",
+  "target_audience": "Deep cleaners, busy parents, seniors, renters, bathroom maintenance.",
+  "seed_keywords": [
+    "Cordless electric spin scrubber RPM torque test on bathroom tile grout",
+    "Extendable long handle power scrubber battery runtime comparison",
+    "Replacement angled brush heads for deep shower corner mold cleaning"
+  ],
+  "affiliates": [
+    {
+      "name": "Electric Spin Scrubbers",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Cordless Electric Spin Scrubber with Adjustable Extension Arm",
+        "Multi-Angle Replacement Brush Head Kit for Bathroom Grout",
+        "Bio-Clean Hard Water Stain Remover and Mineral Cleaner"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Cordless electric spin scrubber RPM torque test on bathroom tile grout",
+    "Extendable long handle power scrubber battery runtime comparison",
+    "Replacement angled brush heads for deep shower corner mold cleaning"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "smart_electrical_circuit_testing",
+  "topic": "Tools & Home Improvement",
+  "name": "Smart Electrical Circuit & GFCI Testing Gear",
+  "tagline": "Non-Contact Voltage Detection, GFCI Trip Calibration & Digital Multimeters",
+  "core_angle": "Homeowners and smart switch installers requiring non-contact voltage testers, GFCI outlet diagnostic tools, and auto-ranging digital multimeters for safe home electrical upgrades.",
+  "target_audience": "DIY smart switch installers, homeowners, electricians, audio equipment hobbyists.",
+  "seed_keywords": [
+    "Non-contact voltage detector sensitivity test on Romex 12-2 wiring",
+    "GFCI outlet tester with LCD trip time and open ground detection",
+    "Auto-ranging digital multimeter True RMS for household appliance troubleshooting"
+  ],
+  "affiliates": [
+    {
+      "name": "Electrical Testers",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Klein Tools NCVT1P Dual Range Non-Contact Voltage Tester",
+        "Klein Tools RT250 GFCI Receptacle Tester with LCD Display",
+        "KAIWEETS Digital Multimeter TRMS 6000 Counts Auto-Ranging"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Non-contact voltage detector sensitivity test on Romex 12-2 wiring",
+    "GFCI outlet tester with LCD trip time and open ground detection",
+    "Auto-ranging digital multimeter True RMS for household appliance troubleshooting"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

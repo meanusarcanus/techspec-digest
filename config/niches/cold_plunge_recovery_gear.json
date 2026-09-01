@@ -1,0 +1,53 @@
+{
+  "id": "cold_plunge_recovery_gear",
+  "topic": "Health & Fitness",
+  "name": "Cold Plunge & Contrast Therapy Recovery Gear",
+  "tagline": "Field-Tested Ice Bath Chillers, Insulated Tubs & Cryotherapy Recovery Protocols",
+  "core_angle": "Athletes, biohackers, and fitness enthusiasts seek portable, energy-efficient ice bath tubs and active water chillers for rapid muscle recovery without constant bag-ice purchases.",
+  "target_audience": "Athletes, biohackers, crossfitters, endurance runners, home gym builders.",
+  "seed_keywords": [
+    "Best portable cold plunge tubs with water chiller compatibility",
+    "How to set up home ice bath without buying ice bags",
+    "Cold water therapy temperature benchmarks for post-workout inflammation",
+    "Inflatable cold plunge tub insulation ratings"
+  ],
+  "affiliates": [
+    {
+      "name": "Cold Plunge Tubs & Chillers",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Portable Inflatable Cold Plunge Tub Insulated",
+        "Active Aqua Water Chiller 1/3 HP for Ice Bath",
+        "Submersible Water Pump and 20 Micron Filter Kit"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best portable cold plunge tubs with water chiller compatibility",
+    "How to set up home ice bath without buying ice bags",
+    "Cold water therapy temperature benchmarks for post-workout inflammation"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

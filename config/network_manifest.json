@@ -1,168 +1,252 @@
 {
-  "network_version": "1.0.0",
-  "engine_name": "TechSpec Digest Network Engine",
+  "network_version": "2.0.0",
+  "engine_name": "TechSpec Digest Programmatic Publishing Network",
   "default_generator": "hugo",
-  "publishing_frequency": "3x_weekly",
+  "publishing_frequency": "twice_weekly",
+  "schedule_days": [
+    "Tuesday",
+    "Friday"
+  ],
   "niched_repositories": [
     {
-      "id": "urban_renter_power",
-      "name": "Urban Renters Portable Power & Battery Hub",
-      "repo_name": "affiliate-urban-renter-power",
-      "config_file": "config/niches/urban_renter_power.json",
+      "id": "cold_plunge_recovery_gear",
+      "topic": "Health & Fitness",
+      "name": "Cold Plunge & Contrast Therapy Recovery Gear",
+      "config_file": "config/niches/cold_plunge_recovery_gear.json",
       "output_content_dir": "content/posts",
-      "target_domain": "urbanrenterpower.github.io"
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
     },
     {
-      "id": "solo_microbiz_security",
-      "name": "Solo Micro-Business Zero-Trust Cyber Security",
-      "repo_name": "affiliate-solo-microbiz-security",
-      "config_file": "config/niches/solo_microbiz_security.json",
+      "id": "grip_strength_forearm_training",
+      "topic": "Health & Fitness",
+      "name": "Grip Strength & Forearm Rehabilitation Tools",
+      "config_file": "config/niches/grip_strength_forearm_training.json",
       "output_content_dir": "content/posts",
-      "target_domain": "solomicrobizsecurity.github.io"
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
     },
     {
-      "id": "animator_ergonomics",
-      "name": "Digital Animator & Sculptor Ergonomic Gear",
-      "repo_name": "affiliate-animator-ergonomics",
-      "config_file": "config/niches/animator_ergonomics.json",
+      "id": "red_light_targeted_recovery",
+      "topic": "Health & Fitness",
+      "name": "Targeted Red Light & Near-Infrared Muscle Recovery",
+      "config_file": "config/niches/red_light_targeted_recovery.json",
       "output_content_dir": "content/posts",
-      "target_domain": "animatorergonomics.github.io"
-    },
-    {
-      "id": "indie_cosmetic_packaging",
-      "name": "Indie Cosmetic Formulator Low-Waste Packaging",
-      "repo_name": "affiliate-indie-cosmetic-packaging",
-      "config_file": "config/niches/indie_cosmetic_packaging.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "cosmeticpackaginghub.github.io"
-    },
-    {
-      "id": "senior_pet_health",
-      "name": "Senior Pet DNA & Smart Health Care",
-      "repo_name": "affiliate-senior-pet-health",
-      "config_file": "config/niches/senior_pet_health.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "seniorpethealthlab.github.io"
-    },
-    {
-      "id": "family_selfhosting",
-      "name": "Privacy-First Family Self-Hosting & Mini-PCs",
-      "repo_name": "affiliate-family-selfhosting",
-      "config_file": "config/niches/family_selfhosting.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "familyselfhost.github.io"
-    },
-    {
-      "id": "trades_leadgen",
-      "name": "Solo Tradespeople Missed-Call & Lead-Gen Automation",
-      "repo_name": "affiliate-trades-leadgen",
-      "config_file": "config/niches/trades_leadgen.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "tradesautomation.github.io"
-    },
-    {
-      "id": "closet_voice_studio",
-      "name": "Closet Studio & Home Voice Actor Gear",
-      "repo_name": "affiliate-closet-voice-studio",
-      "config_file": "config/niches/closet_voice_studio.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "closetvoicestudio.github.io"
-    },
-    {
-      "id": "micro_aquascaping_gear",
-      "name": "Micro-Aquascaping Ergonomic Maintenance Tools",
-      "repo_name": "affiliate-micro-aquascaping-gear",
-      "config_file": "config/niches/micro_aquascaping_gear.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "microaquascaping.github.io"
-    },
-    {
-      "id": "crypto_cold_storage",
-      "name": "Senior Crypto & NFT Hardware Cold Storage",
-      "repo_name": "affiliate-crypto-cold-storage",
-      "config_file": "config/niches/crypto_cold_storage.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "cryptocoldstoragehub.github.io"
-    },
-    {
-      "id": "numismatic_coin_investment",
-      "name": "The Numismatic & Rare Coin Investment Niche",
-      "repo_name": "affiliate-numismatic-coin-investment",
-      "config_file": "config/niches/numismatic_coin_investment.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "numismaticcoin.github.io"
-    },
-    {
-      "id": "fine_art_tactile_investment",
-      "name": "Museum-Grade Fine Art & Tactile Investment Niche",
-      "repo_name": "affiliate-fine-art-tactile-investment",
-      "config_file": "config/niches/fine_art_tactile_investment.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "fineartinvestment.github.io"
-    },
-    {
-      "id": "sports_memorabilia_investment",
-      "name": "Investment-Grade Sports & Historical Memorabilia Niche",
-      "repo_name": "affiliate-sports-memorabilia-investment",
-      "config_file": "config/niches/sports_memorabilia_investment.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "sportsmemorabiliainvest.github.io"
-    },
-    {
-      "id": "luxury_custom_tech",
-      "name": "Ultra-Exclusive Custom Tech & Luxury Daily Carry Niche",
-      "repo_name": "affiliate-luxury-custom-tech",
-      "config_file": "config/niches/luxury_custom_tech.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "luxurycustomtech.github.io"
-    },
-    {
-      "id": "luxury_prefab_estates",
-      "name": "High-End Architectural Prefab & Luxury Tiny Estates Niche",
-      "repo_name": "affiliate-luxury-prefab-estates",
-      "config_file": "config/niches/luxury_prefab_estates.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "luxuryprefabestates.github.io"
-    },
-    {
-      "id": "smart_home_bedside_hubs",
-      "name": "Smart Home Automation & Bedside Hubs Niche",
-      "repo_name": "affiliate-smart-home-bedside-hubs",
-      "config_file": "config/niches/smart_home_bedside_hubs.json",
-      "output_content_dir": "content/posts",
-      "target_domain": "smarthomebedsidehubs.github.io"
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
     },
     {
       "id": "high_efficiency_kitchen_prep",
-      "name": "High-Efficiency Kitchen Prep & Space Saving Niche",
-      "repo_name": "affiliate-high-efficiency-kitchen-prep",
+      "topic": "Kitchen & Cooking",
+      "name": "High-Efficiency Kitchen Prep & Space Saving",
       "config_file": "config/niches/high_efficiency_kitchen_prep.json",
       "output_content_dir": "content/posts",
-      "target_domain": "kitchenprepspacesaving.github.io"
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "sous_vide_precision_immersion",
+      "topic": "Kitchen & Cooking",
+      "name": "Sous Vide Precision Immersion & Vacuum Cooking",
+      "config_file": "config/niches/sous_vide_precision_immersion.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "artisan_sourdough_fermentation",
+      "topic": "Kitchen & Cooking",
+      "name": "Artisan Sourdough & Fermentation Gear",
+      "config_file": "config/niches/artisan_sourdough_fermentation.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "smart_home_bedside_hubs",
+      "topic": "Smart Home & Electronics",
+      "name": "Smart Home Automation & Bedside Hubs",
+      "config_file": "config/niches/smart_home_bedside_hubs.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "urban_renter_power",
+      "topic": "Smart Home & Electronics",
+      "name": "Smart Grid & Home Battery Backup for Urban Renters",
+      "config_file": "config/niches/urban_renter_power.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "crypto_cold_storage",
+      "topic": "Smart Home & Electronics",
+      "name": "Digital Asset Security & Cold Storage for Senior Crypto/NFT Holders",
+      "config_file": "config/niches/crypto_cold_storage.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "senior_pet_health",
+      "topic": "Pet Supplies",
+      "name": "Smart Health & DNA-Based Supplement Customization for Pet Seniors",
+      "config_file": "config/niches/senior_pet_health.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
     },
     {
       "id": "pet_hair_grooming_management",
-      "name": "Pet Hair Management & Specialized Grooming Niche",
-      "repo_name": "affiliate-pet-hair-grooming-management",
+      "topic": "Pet Supplies",
+      "name": "Pet Hair Management & Specialized Grooming",
       "config_file": "config/niches/pet_hair_grooming_management.json",
       "output_content_dir": "content/posts",
-      "target_domain": "pethairgroomingmanagement.github.io"
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "smart_feline_hydration",
+      "topic": "Pet Supplies",
+      "name": "Smart Feline Hydration & Fountain Systems",
+      "config_file": "config/niches/smart_feline_hydration.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "ultralight_backpacking_cookware",
+      "topic": "Sports & Outdoors",
+      "name": "Ultralight Backpacking Cookware & Stoves",
+      "config_file": "config/niches/ultralight_backpacking_cookware.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "trail_running_hydration_vests",
+      "topic": "Sports & Outdoors",
+      "name": "Trail Running Hydration Vests & Flasks",
+      "config_file": "config/niches/trail_running_hydration_vests.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "portable_bike_bikepacking_tools",
+      "topic": "Sports & Outdoors",
+      "name": "Portable Bike Multi-Tools & Bikepacking Repair",
+      "config_file": "config/niches/portable_bike_bikepacking_tools.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "under_sink_plumbing_storage",
+      "topic": "Home Organization & Cleaning",
+      "name": "Under-Sink Plumbing & Cabinet Storage Systems",
+      "config_file": "config/niches/under_sink_plumbing_storage.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "cordless_spin_scrubber_deepclean",
+      "topic": "Home Organization & Cleaning",
+      "name": "Cordless Electric Spin Scrubbers & Grout Cleaning",
+      "config_file": "config/niches/cordless_spin_scrubber_deepclean.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "vacuum_seal_seasonal_storage",
+      "topic": "Home Organization & Cleaning",
+      "name": "Vacuum-Seal Seasonal Storage & Compression",
+      "config_file": "config/niches/vacuum_seal_seasonal_storage.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "animator_ergonomics",
+      "topic": "Office & Remote Work",
+      "name": "Specialized Ergonomic & Accessibility Gear for Digital Animators / Sculptors",
+      "config_file": "config/niches/animator_ergonomics.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
     },
     {
       "id": "ergonomic_desk_posture",
-      "name": "Ergonomic Desk Work & Posture Correction Niche",
-      "repo_name": "affiliate-ergonomic-desk-posture",
+      "topic": "Office & Remote Work",
+      "name": "Ergonomic Desk Work & Posture Correction",
       "config_file": "config/niches/ergonomic_desk_posture.json",
       "output_content_dir": "content/posts",
-      "target_domain": "ergonomicdeskposture.github.io"
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "closet_voice_studio",
+      "topic": "Office & Remote Work",
+      "name": "Ergonomic & Acoustic Gear for Home Voice Actors / Podcasters",
+      "config_file": "config/niches/closet_voice_studio.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "infant_white_noise_sleep_aids",
+      "topic": "Baby & Toddler Care",
+      "name": "Infant Sound Machines & Pediatric Sleep Aids",
+      "config_file": "config/niches/infant_white_noise_sleep_aids.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "baby_travel_gear_portability",
+      "topic": "Baby & Toddler Care",
+      "name": "Ultra-Compact Baby Travel Gear & Airplane Strollers",
+      "config_file": "config/niches/baby_travel_gear_portability.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "toddler_mealtime_self_feeding",
+      "topic": "Baby & Toddler Care",
+      "name": "Toddler Self-Feeding & Baby-Led Weaning Gear",
+      "config_file": "config/niches/toddler_mealtime_self_feeding.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
     },
     {
       "id": "onthego_hydration_travel",
-      "name": "On-the-Go Hydration & Travel Tumbler Niche",
-      "repo_name": "affiliate-onthego-hydration-travel",
+      "topic": "Travel & Luggage Gear",
+      "name": "On-the-Go Hydration & Travel Tumbler",
       "config_file": "config/niches/onthego_hydration_travel.json",
       "output_content_dir": "content/posts",
-      "target_domain": "ontgohydrationtravel.github.io"
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "one_bag_compression_packing",
+      "topic": "Travel & Luggage Gear",
+      "name": "One-Bag Travel & Compression Packing Cubes",
+      "config_file": "config/niches/one_bag_compression_packing.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "anti_theft_travel_security",
+      "topic": "Travel & Luggage Gear",
+      "name": "Anti-Theft Travel Security & RFID Wallets",
+      "config_file": "config/niches/anti_theft_travel_security.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "brushless_compact_cordless_tools",
+      "topic": "Tools & Home Improvement",
+      "name": "Compact 12V Brushless Cordless Tools & Drivers",
+      "config_file": "config/niches/brushless_compact_cordless_tools.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "precision_laser_measurement",
+      "topic": "Tools & Home Improvement",
+      "name": "Precision Digital Laser Distance & Cross-Line Levels",
+      "config_file": "config/niches/precision_laser_measurement.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "smart_electrical_circuit_testing",
+      "topic": "Tools & Home Improvement",
+      "name": "Smart Electrical Circuit & GFCI Testing Gear",
+      "config_file": "config/niches/smart_electrical_circuit_testing.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
     }
   ]
 }

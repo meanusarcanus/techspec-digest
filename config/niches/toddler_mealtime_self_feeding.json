@@ -1,0 +1,52 @@
+{
+  "id": "toddler_mealtime_self_feeding",
+  "topic": "Baby & Toddler Care",
+  "name": "Toddler Self-Feeding & Baby-Led Weaning Gear",
+  "tagline": "Food-Grade Silicone Suction Plates, Weighted Straws & Ergonomic Cutlery",
+  "core_angle": "Parents navigating baby-led weaning and toddler self-feeding looking for indestructible 100% food-grade silicone suction bowls, weighted 360-degree straw cups, and catch-all bibs.",
+  "target_audience": "Parents of 6-24 month olds, baby-led weaning practitioners, pediatric feeding therapists.",
+  "seed_keywords": [
+    "Strong suction silicone baby plates that toddlers cannot pull off high chair",
+    "Spill proof weighted straw transition cup for 6 month olds",
+    "Ergonomic short handle silicone fork and spoon set for self feeding"
+  ],
+  "affiliates": [
+    {
+      "name": "Self-Feeding Essentials",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "ezpz Mini Mat 100% Silicone Suction Plate for High Chairs",
+        "Munchkin Any Angle Weighted Straw Trainer Cup 7 Ounce",
+        "Grabease First Self Feeding Baby Utensils Fork and Spoon Set"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Strong suction silicone baby plates that toddlers cannot pull off high chair",
+    "Spill proof weighted straw transition cup for 6 month olds",
+    "Ergonomic short handle silicone fork and spoon set for self feeding"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

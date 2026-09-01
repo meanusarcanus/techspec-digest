@@ -1,0 +1,52 @@
+{
+  "id": "grip_strength_forearm_training",
+  "topic": "Health & Fitness",
+  "name": "Grip Strength & Forearm Rehabilitation Tools",
+  "tagline": "Precision Hand Dynamometers, Pinch Blocks & Tendon Health Benchmarks",
+  "core_angle": "Climbers, powerlifters, and desk workers seek calibrated hand dynamometers, thick-grip trainers, and extensor bands to boost grip force and eliminate tendonitis.",
+  "target_audience": "Rock climbers, powerlifters, arm wrestlers, martial artists, carpal tunnel sufferers.",
+  "seed_keywords": [
+    "Digital hand dynamometer accuracy test for measuring peak grip strength in kg",
+    "Thick bar fat grip adapters vs pinch blocks for forearm hypertrophy",
+    "Hand extensor resistance bands for tennis elbow and tendonitis relief"
+  ],
+  "affiliates": [
+    {
+      "name": "Grip Dynamometers & Tools",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Digital Hand Dynamometer Grip Strength Tester 198 Lbs",
+        "Fat Gripz Pro Thick Bar Grips 2.25 Inch",
+        "Hand Grip Strengthener Finger Extensor Resistance Bands"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Digital hand dynamometer accuracy test for measuring peak grip strength in kg",
+    "Thick bar fat grip adapters vs pinch blocks for forearm hypertrophy",
+    "Hand extensor resistance bands for tennis elbow and tendonitis relief"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

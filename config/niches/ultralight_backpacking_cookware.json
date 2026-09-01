@@ -1,0 +1,52 @@
+{
+  "id": "ultralight_backpacking_cookware",
+  "topic": "Sports & Outdoors",
+  "name": "Ultralight Backpacking Cookware & Stoves",
+  "tagline": "Titanium Pot Weights, Isobutane Stove Boil Times & Windscreen Benchmarks",
+  "core_angle": "Thru-hikers and ultralight backpackers seeking the highest strength-to-weight ratio titanium cook pots, micro canister stoves, and integrated heat exchangers.",
+  "target_audience": "Thru-hikers, backcountry campers, ultralight backpackers, alpine mountaineers.",
+  "seed_keywords": [
+    "Ultralight titanium pot 750ml with bail handle gram-by-gram weight test",
+    "Micro canister backpacking stove boil time and wind resistance benchmark",
+    "Titanium long handle spoon and foldable spork durability comparison"
+  ],
+  "affiliates": [
+    {
+      "name": "Ultralight Cookware",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "TOAKS Titanium 750ml Pot with Lid and Mesh Bag",
+        "MSR PocketRocket 2 Ultralight Backpacking Camping Stove",
+        "TOAKS Titanium Long Handle Spoon with Polished Bowl"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Ultralight titanium pot 750ml with bail handle gram-by-gram weight test",
+    "Micro canister backpacking stove boil time and wind resistance benchmark",
+    "Titanium long handle spoon and foldable spork durability comparison"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

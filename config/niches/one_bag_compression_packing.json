@@ -1,0 +1,52 @@
+{
+  "id": "one_bag_compression_packing",
+  "topic": "Travel & Luggage Gear",
+  "name": "One-Bag Travel & Compression Packing Cubes",
+  "tagline": "Ripstop Nylon Compression Ratios, TSA Cable Locks & Hanging Toiletry Kits",
+  "core_angle": "Carry-on-only travelers and digital nomads packing 14 days of wardrobe into a 35L backpack using double-zipper compression packing cubes and spill-proof silicone travel bottles.",
+  "target_audience": "One-bag travelers, digital nomads, business travelers, ultralight tourists.",
+  "seed_keywords": [
+    "Double zipper compression packing cubes volume reduction test",
+    "TSA approved leak proof silicone travel toiletry bottles for carry on",
+    "Hanging tri-fold travel toiletry bag with waterproof clear compartments"
+  ],
+  "affiliates": [
+    {
+      "name": "Compression Packing Gear",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Gonex Compression Packing Cubes Extensible Storage Pouches",
+        "Leak Proof Silicone Travel Bottles for Toiletries TSA Approved",
+        "Bagsmart Hanging Toiletry Bag with Jewelry and Cosmetic Organizer"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Double zipper compression packing cubes volume reduction test",
+    "TSA approved leak proof silicone travel toiletry bottles for carry on",
+    "Hanging tri-fold travel toiletry bag with waterproof clear compartments"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "under_sink_plumbing_storage",
+  "topic": "Home Organization & Cleaning",
+  "name": "Under-Sink Plumbing & Cabinet Storage Systems",
+  "tagline": "L-Shaped Sliding Organizers, Pipe Clearance & Waterproof Trays",
+  "core_angle": "Homeowners and apartment dwellers maximizing narrow, pipe-obstructed under-sink vanity spaces with heavy-duty L-shaped sliding drawer organizers and leak detection mats.",
+  "target_audience": "Homeowners, renters, bathroom organizers, small-space dwellers.",
+  "seed_keywords": [
+    "2-tier L-shaped sliding under sink organizer with pipe clearance",
+    "Silicone waterproof under sink drip mat with lip for plumbing leaks",
+    "Heavy duty pull out wire basket for kitchen cabinet base storage"
+  ],
+  "affiliates": [
+    {
+      "name": "Under-Sink Organizers",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "2-Tier L-Shaped Under Sink Pull Out Cabinet Organizer",
+        "Silicone Waterproof Under Sink Mat Tray with Drain Hole",
+        "Govee WiFi Water Sensor and Leak Detector Alarm 3-Pack"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "2-tier L-shaped sliding under sink organizer with pipe clearance",
+    "Silicone waterproof under sink drip mat with lip for plumbing leaks",
+    "Heavy duty pull out wire basket for kitchen cabinet base storage"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "artisan_sourdough_fermentation",
+  "topic": "Kitchen & Cooking",
+  "name": "Artisan Sourdough & Fermentation Gear",
+  "tagline": "Cast Iron Dutch Ovens, Banneton Proofing Baskets & Digital Fermentation Probes",
+  "core_angle": "Bread bakers seeking consistent sourdough oven spring through heavy cast iron combo cookers, rattan bannetons, and precise internal dough temperature monitors.",
+  "target_audience": "Artisan bakers, sourdough enthusiasts, homesteaders, home cooks.",
+  "seed_keywords": [
+    "Cast iron combo cooker vs enameled Dutch oven for sourdough blistered crust",
+    "Rattan banneton proofing basket with linen liner dough release test",
+    "Digital instant read thermometer for dough bulk fermentation temperature"
+  ],
+  "affiliates": [
+    {
+      "name": "Sourdough Baking Tools",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Lodge Cast Iron Double Dutch Oven 5 Quart",
+        "Round and Oval Banneton Sourdough Proofing Basket Set",
+        "ThermoPro Digital Instant Read Meat and Dough Thermometer"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Cast iron combo cooker vs enameled Dutch oven for sourdough blistered crust",
+    "Rattan banneton proofing basket with linen liner dough release test",
+    "Digital instant read thermometer for dough bulk fermentation temperature"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

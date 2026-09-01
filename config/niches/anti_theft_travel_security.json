@@ -1,0 +1,52 @@
+{
+  "id": "anti_theft_travel_security",
+  "topic": "Travel & Luggage Gear",
+  "name": "Anti-Theft Travel Security & RFID Wallets",
+  "tagline": "Slash-Proof Wire Mesh, Lockable Zippers & RFID Blocking Neck Pouches",
+  "core_angle": "International travelers and solo backpackers protecting passports, cards, and laptops against pickpockets and digital skimming with slash-resistant daypacks and concealed RFID neck pouches.",
+  "target_audience": "Solo travelers, international tourists, backpackers, cruise vacationers.",
+  "seed_keywords": [
+    "Slash proof anti theft travel backpack with locking zippers",
+    "Concealed RFID blocking passport neck wallet for international travel",
+    "Flexible steel cable TSA approved luggage lock 2 pack"
+  ],
+  "affiliates": [
+    {
+      "name": "Anti-Theft Security",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Pacsafe Metrosafe LS450 Anti-Theft 25L Daypack",
+        "Venture 4th RFID Blocking Travel Neck Pouch and Passport Holder",
+        "Master Lock Set-Your-Own Combination TSA-Approved Cable Lock"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Slash proof anti theft travel backpack with locking zippers",
+    "Concealed RFID blocking passport neck wallet for international travel",
+    "Flexible steel cable TSA approved luggage lock 2 pack"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

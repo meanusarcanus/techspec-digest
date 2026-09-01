@@ -5,14 +5,14 @@ on:
     branches:
       - main
   schedule:
-    # Runs 3 times per week: Monday, Wednesday, Friday at 08:00 UTC
-    - cron: '0 8 * * 1,3,5'
+    # Runs twice per week: Tuesday and Friday at 08:00 UTC
+    - cron: '0 8 * * 2,5'
   workflow_dispatch:
     inputs:
-      target_niche:
-        description: 'Specific Niche ID to execute (or "all")'
+      target_topic:
+        description: 'Specific Topic to execute (e.g. "Health & Fitness", "Kitchen & Cooking", or "auto")'
         required: false
-        default: 'all'
+        default: 'auto'
       posts_per_niche:
         description: 'Number of posts to generate per niche'
         required: false
@@ -51,15 +51,15 @@ jobs:
           sudo mv hugo /usr/local/bin/
           hugo version
 
-      - name: Run Multi-Agent Programmatic Content Pipeline
+      - name: Run Twice-Weekly Topic Rotator & Content Pipeline
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TARGET="${{ github.event.inputs.target_niche || 'all' }}"
+          TOPIC="${{ github.event.inputs.target_topic || 'auto' }}"
           COUNT="${{ github.event.inputs.posts_per_niche || '1' }}"
-          python -m agent_engine.orchestrator --niche "$TARGET" --count "$COUNT"
+          python -m agent_engine.topic_rotator --topic "$TOPIC" --posts-per-niche "$COUNT"
 
       - name: Commit and Push Generated Content to GitHub Repositories
         env:

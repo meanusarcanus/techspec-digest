@@ -1,0 +1,52 @@
+{
+  "id": "vacuum_seal_seasonal_storage",
+  "topic": "Home Organization & Cleaning",
+  "name": "Vacuum-Seal Seasonal Storage & Compression",
+  "tagline": "Cube Space-Saver Bags, Electric Deflation Pumps & Closet Volume",
+  "core_angle": "Apartment dwellers and minimalists reclaiming 80% closet space by compressing seasonal winter coats, duvets, and blankets with air-tight vacuum storage bags and electric pumps.",
+  "target_audience": "Urban apartment renters, small-closet owners, seasonal clothing organizers.",
+  "seed_keywords": [
+    "Jumbo vacuum storage cube bags for king size winter duvets",
+    "Electric portable vacuum pump vs handheld vacuum for compression bags",
+    "Heavy duty double zip seal puncture resistance in storage bags"
+  ],
+  "affiliates": [
+    {
+      "name": "Compression Storage",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Spacesaver Premium Vacuum Storage Bags with Hand Pump 12-Pack",
+        "Electric Quick-Deflate Air Pump for Vacuum Storage Bags",
+        "Fabric Under-Bed Storage Container with Clear Window"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Jumbo vacuum storage cube bags for king size winter duvets",
+    "Electric portable vacuum pump vs handheld vacuum for compression bags",
+    "Heavy duty double zip seal puncture resistance in storage bags"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

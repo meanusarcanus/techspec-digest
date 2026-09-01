@@ -1,0 +1,52 @@
+{
+  "id": "smart_feline_hydration",
+  "topic": "Pet Supplies",
+  "name": "Smart Feline Hydration & Fountain Systems",
+  "tagline": "Whisper-Quiet Magnetic Pumps, Stainless Steel Filtration & Kidney Care",
+  "core_angle": "Cat parents looking to prevent feline kidney disease and urinary tract infections through ultra-quiet, bacteria-resistant stainless steel water fountains with multi-stage filtration.",
+  "target_audience": "Cat owners, veterinarians, multi-cat households, pet health enthusiasts.",
+  "seed_keywords": [
+    "Stainless steel pet water fountain with wireless submersible pump decibel test",
+    "Cat drinking fountain triple carbon filtration for hard water limescale",
+    "Motion activated battery operated pet fountain for cord-free placement"
+  ],
+  "affiliates": [
+    {
+      "name": "Pet Hydration Fountains",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Stainless Steel Cat Water Fountain 3.2L Ultra Quiet",
+        "Wireless Pump Automatic Pet Water Dispenser with Motion Sensor",
+        "Replacement Activated Carbon and Ion Exchange Resin Filter Pack"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Stainless steel pet water fountain with wireless submersible pump decibel test",
+    "Cat drinking fountain triple carbon filtration for hard water limescale",
+    "Motion activated battery operated pet fountain for cord-free placement"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

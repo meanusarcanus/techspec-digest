@@ -1,0 +1,99 @@
+{
+  "schedule": "twice_weekly",
+  "schedule_days": [
+    "Tuesday",
+    "Friday"
+  ],
+  "topics": [
+    {
+      "id": "health_fitness",
+      "name": "Health & Fitness",
+      "niches": [
+        "cold_plunge_recovery_gear",
+        "grip_strength_forearm_training",
+        "red_light_targeted_recovery"
+      ]
+    },
+    {
+      "id": "kitchen_cooking",
+      "name": "Kitchen & Cooking",
+      "niches": [
+        "high_efficiency_kitchen_prep",
+        "sous_vide_precision_immersion",
+        "artisan_sourdough_fermentation"
+      ]
+    },
+    {
+      "id": "smart_home_electronics",
+      "name": "Smart Home & Electronics",
+      "niches": [
+        "smart_home_bedside_hubs",
+        "urban_renter_power",
+        "crypto_cold_storage"
+      ]
+    },
+    {
+      "id": "pet_supplies",
+      "name": "Pet Supplies",
+      "niches": [
+        "senior_pet_health",
+        "pet_hair_grooming_management",
+        "smart_feline_hydration"
+      ]
+    },
+    {
+      "id": "sports_outdoors",
+      "name": "Sports & Outdoors",
+      "niches": [
+        "ultralight_backpacking_cookware",
+        "trail_running_hydration_vests",
+        "portable_bike_bikepacking_tools"
+      ]
+    },
+    {
+      "id": "home_organization_cleaning",
+      "name": "Home Organization & Cleaning",
+      "niches": [
+        "under_sink_plumbing_storage",
+        "cordless_spin_scrubber_deepclean",
+        "vacuum_seal_seasonal_storage"
+      ]
+    },
+    {
+      "id": "office_remote_work",
+      "name": "Office & Remote Work",
+      "niches": [
+        "animator_ergonomics",
+        "ergonomic_desk_posture",
+        "closet_voice_studio"
+      ]
+    },
+    {
+      "id": "baby_toddler_care",
+      "name": "Baby & Toddler Care",
+      "niches": [
+        "infant_white_noise_sleep_aids",
+        "baby_travel_gear_portability",
+        "toddler_mealtime_self_feeding"
+      ]
+    },
+    {
+      "id": "travel_luggage_gear",
+      "name": "Travel & Luggage Gear",
+      "niches": [
+        "onthego_hydration_travel",
+        "one_bag_compression_packing",
+        "anti_theft_travel_security"
+      ]
+    },
+    {
+      "id": "tools_home_improvement",
+      "name": "Tools & Home Improvement",
+      "niches": [
+        "brushless_compact_cordless_tools",
+        "precision_laser_measurement",
+        "smart_electrical_circuit_testing"
+      ]
+    }
+  ]
+}

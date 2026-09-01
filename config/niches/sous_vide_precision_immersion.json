@@ -1,0 +1,52 @@
+{
+  "id": "sous_vide_precision_immersion",
+  "topic": "Kitchen & Cooking",
+  "name": "Sous Vide Precision Immersion & Vacuum Cooking",
+  "tagline": "Thermal Stability Benchmarks, Vacuum Chamber Sealers & Container Insulation",
+  "core_angle": "Home gourmets and meal preppers seeking restaurant-quality protein tenderness using thermal circulators, vacuum chamber sealers, and insulated polycarbonate containers.",
+  "target_audience": "Steak enthusiasts, culinary hobbyists, meal preppers, home chefs.",
+  "seed_keywords": [
+    "Sous vide precision immersion circulator wattage and thermal stability test",
+    "Heavy duty vacuum sealer with wet and dry liquid pulse mode",
+    "Insulated sous vide container with silicone lid for evaporation prevention"
+  ],
+  "affiliates": [
+    {
+      "name": "Sous Vide Hardware",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Anova Precision Cooker Nano Sous Vide Immersion Circulator",
+        "Automatic Food Vacuum Sealer Machine with Double Heat Seal",
+        "12 Quart Polycarbonate Sous Vide Container with Custom Lid"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Sous vide precision immersion circulator wattage and thermal stability test",
+    "Heavy duty vacuum sealer with wet and dry liquid pulse mode",
+    "Insulated sous vide container with silicone lid for evaporation prevention"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

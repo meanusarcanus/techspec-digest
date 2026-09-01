@@ -1,0 +1,52 @@
+{
+  "id": "baby_travel_gear_portability",
+  "topic": "Baby & Toddler Care",
+  "name": "Ultra-Compact Baby Travel Gear & Airplane Strollers",
+  "tagline": "Overhead Bin Dimensions, Portable Bottle Warmers & Foldable Bassinets",
+  "core_angle": "Traveling parents seeking FAA-approved, overhead-bin-fitting ultra-compact travel strollers, battery-powered formula bottle warmers, and pop-up travel cribs.",
+  "target_audience": "Traveling families, frequent flyer parents, urban commuters.",
+  "seed_keywords": [
+    "Ultra compact travel stroller fitting airplane overhead bin without gate check",
+    "Rechargeable battery powered baby bottle warmer for travel flights",
+    "Lightweight pop up travel bassinet with breathable mesh sides"
+  ],
+  "affiliates": [
+    {
+      "name": "Baby Travel Gear",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "GB Pockit Air All Terrain Ultra Compact Lightweight Stroller",
+        "Baby's Brew Portable Baby Bottle Warmer Battery Powered",
+        "Lotus Travel Crib and Portable Playard Lightweight Backpack"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Ultra compact travel stroller fitting airplane overhead bin without gate check",
+    "Rechargeable battery powered baby bottle warmer for travel flights",
+    "Lightweight pop up travel bassinet with breathable mesh sides"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

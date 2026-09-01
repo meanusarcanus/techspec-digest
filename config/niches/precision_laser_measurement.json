@@ -1,0 +1,52 @@
+{
+  "id": "precision_laser_measurement",
+  "topic": "Tools & Home Improvement",
+  "name": "Precision Digital Laser Distance & Cross-Line Levels",
+  "tagline": "Self-Leveling Optics, Millimeter Accuracy & Outdoor Visibility Range",
+  "core_angle": "Remodelers, tile installers, and homeowners seeking accurate digital laser distance measurers with Bluetooth floor plan drafting and bright green cross-line self-leveling lasers.",
+  "target_audience": "Contractors, interior designers, tile installers, home renovators, DIYers.",
+  "seed_keywords": [
+    "Green cross line laser level self leveling 360 degree visibility test",
+    "Digital laser tape measure accuracy at 165 feet with bluetooth app",
+    "Stud finder wall scanner with multi-material AC wire detection"
+  ],
+  "affiliates": [
+    {
+      "name": "Laser Measurement & Levels",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Bosch Blaze 165 Feet Laser Distance Measure with Color Display",
+        "Huepar Green Cross Line Laser Level Self-Leveling with Magnetic Base",
+        "Franklin Sensors ProSensor M130 Multi-Sensor Stud Finder"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Green cross line laser level self leveling 360 degree visibility test",
+    "Digital laser tape measure accuracy at 165 feet with bluetooth app",
+    "Stud finder wall scanner with multi-material AC wire detection"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

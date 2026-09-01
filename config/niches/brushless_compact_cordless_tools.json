@@ -1,0 +1,52 @@
+{
+  "id": "brushless_compact_cordless_tools",
+  "topic": "Tools & Home Improvement",
+  "name": "Compact 12V Brushless Cordless Tools & Drivers",
+  "tagline": "Torque-to-Weight Ratios, Brushless Motor Efficiency & Magnetic Bit Holders",
+  "core_angle": "Cabinet installers, DIYers, and homeowners seeking lightweight, compact 12V brushless drills and impact drivers that fit between narrow studs without arm fatigue.",
+  "target_audience": "DIY homeowners, woodworkers, electrical technicians, furniture assemblers.",
+  "seed_keywords": [
+    "Compact 12V brushless drill driver torque and battery runtime comparison",
+    "Ratcheting right angle drill attachment for tight cabinet corners",
+    "Impact rated magnetic screw bit holder and fastener set"
+  ],
+  "affiliates": [
+    {
+      "name": "Compact Cordless Tools",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Milwaukee M12 FUEL 12V Cordless 1/2 Inch Drill Driver",
+        "DEWALT Right Angle Drill Attachment Modular Impact Ready",
+        "DEWALT Screwdriver Bit Set with ToughCase Impact Ready"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Compact 12V brushless drill driver torque and battery runtime comparison",
+    "Ratcheting right angle drill attachment for tight cabinet corners",
+    "Impact rated magnetic screw bit holder and fastener set"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

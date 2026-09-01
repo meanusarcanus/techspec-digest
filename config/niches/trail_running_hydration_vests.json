@@ -1,0 +1,52 @@
+{
+  "id": "trail_running_hydration_vests",
+  "topic": "Sports & Outdoors",
+  "name": "Trail Running Hydration Vests & Flasks",
+  "tagline": "Bounce-Free Harness Ergonomics, Soft Flask Volume & Breathable Mesh Tech",
+  "core_angle": "Ultramarathoners and trail runners looking for bounce-free, chafe-resistant hydration vests with front soft flask holsters and quick-stash trekking pole loops.",
+  "target_audience": "Trail runners, ultramarathoners, fastpackers, endurance athletes.",
+  "seed_keywords": [
+    "Bounce free trail running hydration vest with 500ml soft flasks",
+    "Lightweight breathable running vest with trekking pole attachment",
+    "Bite valve flow rate and leak resistance in collapsible TPU soft flasks"
+  ],
+  "affiliates": [
+    {
+      "name": "Hydration Vests & Flasks",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Salomon Active Skin 4 Set Trail Running Hydration Vest",
+        "Collapsible TPU 500ml Soft Flask with High-Flow Bite Valve",
+        "Body Glide Anti-Chafe Balm for Long Distance Running"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Bounce free trail running hydration vest with 500ml soft flasks",
+    "Lightweight breathable running vest with trekking pole attachment",
+    "Bite valve flow rate and leak resistance in collapsible TPU soft flasks"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

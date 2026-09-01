@@ -1,0 +1,52 @@
+{
+  "id": "red_light_targeted_recovery",
+  "topic": "Health & Fitness",
+  "name": "Targeted Red Light & Near-Infrared Muscle Recovery",
+  "tagline": "Irradiance Benchmarks, 660nm vs 850nm Photobiomodulation for Deep Joint Relief",
+  "core_angle": "Active recovery enthusiasts and physical therapy patients examine third-party irradiance measurements for flexible red/near-infrared therapy pads for localized joint and back relief.",
+  "target_audience": "Post-surgery recovery patients, runners, joint pain sufferers, longevity biohackers.",
+  "seed_keywords": [
+    "Flexible targeted red light therapy wrap irradiance test 660nm 850nm",
+    "Near infrared light pads for lower back muscle spasm recovery",
+    "Targeted LED photobiomodulation vs full body panels cost efficiency"
+  ],
+  "affiliates": [
+    {
+      "name": "Red Light Recovery Pads",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Red Light Therapy Belt for Body 660nm Red and 850nm Near-Infrared",
+        "Targeted Red Light Therapy Flashlight Torch for Joints",
+        "High Irradiance LED Red Light Therapy Pad with Timer"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Flexible targeted red light therapy wrap irradiance test 660nm 850nm",
+    "Near infrared light pads for lower back muscle spasm recovery",
+    "Targeted LED photobiomodulation vs full body panels cost efficiency"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}
