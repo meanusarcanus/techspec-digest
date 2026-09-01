@@ -151,8 +151,6 @@
       });
     });
   </script>
-  <main>
-    {{ block "main" . }}{{ end }}
   </main>
   <footer>
     <p>&copy; {{ now.Format "2006" }} {{ .Site.Title }}. All rights reserved.</p>
@@ -160,5 +158,20 @@
       Independent Technical Specifications &amp; Equipment Research Laboratory • Official Audio Archive: <a href="https://open.spotify.com/show/7momxK3fyonPI9SWZ707Vt" target="_blank" rel="noopener noreferrer" style="color: #059669; font-weight: 700; text-decoration: underline;">Arcane Books on Spotify</a> &amp; <a href="https://www.youtube.com/@LogicLens-l9n" target="_blank" rel="noopener noreferrer" style="color: #dc2626; font-weight: 700; text-decoration: underline;">YouTube</a>
     </p>
   </footer>
+  <script>
+    // Universal New-Tab Link Behavior: Prevents closing the TechSpec Digest main hub
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('a[href]');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        // If it's a pure anchor on the same page (e.g. #section), keep default scroll
+        if (href.startsWith('#') || href.startsWith('javascript:')) return;
+        // Open all navigation, articles, and external links in a new tab so this page never closes
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+      });
+    });
+  </script>
 </body>
 </html>
