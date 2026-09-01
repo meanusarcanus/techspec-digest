@@ -25,7 +25,7 @@ interface FeaturedBookSpotlightProps {
 export default function FeaturedBookSpotlight({
   trackingTag = 'tag=techspecdiges-20',
 }: FeaturedBookSpotlightProps) {
-  const [activeTab, setActiveTab] = useState<'bible' | 'masterkey'>('bible');
+  const [activeTab, setActiveTab] = useState<'bible' | 'masterkey'>('masterkey');
 
   const bibleBook = {
     title: 'Bible Bedtime Stories: For Little Hearts',
@@ -108,21 +108,6 @@ export default function FeaturedBookSpotlight({
             {/* Interactive Tab Toggle */}
             <div className="flex items-center p-1 rounded-2xl bg-slate-900/90 border border-slate-700 shadow-inner">
               <button
-                onClick={() => setActiveTab('bible')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                  activeTab === 'bible'
-                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/25'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                <Moon className="w-3.5 h-3.5" />
-                <span>📖 Bible Bedtime Stories</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-950/80 text-amber-200 border border-amber-600/40">
-                  New
-                </span>
-              </button>
-
-              <button
                 onClick={() => setActiveTab('masterkey')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   activeTab === 'masterkey'
@@ -131,7 +116,22 @@ export default function FeaturedBookSpotlight({
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Thinking Big for Little People</span>
+                <span>📖 Thinking Big for Little People</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-950/80 text-amber-200 border border-amber-600/40">
+                  Featured
+                </span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('bible')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  activeTab === 'bible'
+                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/25'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                <Moon className="w-3.5 h-3.5" />
+                <span>Bible Bedtime Stories</span>
               </button>
             </div>
           </div>

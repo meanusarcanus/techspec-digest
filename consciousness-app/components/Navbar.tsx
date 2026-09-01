@@ -123,13 +123,6 @@ export default function Navbar() {
             <Link href="/about" className="hover:text-amber-400 transition-colors">
               About Lab
             </Link>
-            <Link
-              href="/techspec-digest/baby-care/"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-950/40 border border-sky-500/30 text-sky-300 hover:text-sky-200 hover:bg-sky-900/30 text-xs font-semibold transition-all shadow-sm"
-              title="Calm Baby Nursery & Lullabies"
-            >
-              <span>🍼 Baby Nursery</span>
-            </Link>
             <a
               href="https://www.youtube.com/@LogicLens-l9n"
               target="_blank"
