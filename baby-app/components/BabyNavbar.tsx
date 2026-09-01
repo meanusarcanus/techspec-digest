@@ -41,7 +41,7 @@ export default function BabyNavbar() {
             </div>
             <div className="flex flex-col">
               <span className="font-serif text-lg sm:text-xl font-extrabold tracking-wide text-white group-hover:text-amber-300 transition-colors">
-                CALM BABY SANCTUARY
+                CALM BABY NURSERY
               </span>
               <span className="text-[10px] text-indigo-300/90 tracking-wider uppercase font-sans font-medium">
                 Sleep, Lullabies &amp; Nursery Care
@@ -105,7 +105,7 @@ export default function BabyNavbar() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-red-950/40 border border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-900/30 text-xs font-semibold transition-all shadow-sm"
-              title="Calm Baby Sanctuary YouTube"
+              title="Calm Baby Nursery YouTube"
             >
               <Youtube className="w-4 h-4 fill-red-500 text-red-500" />
               <span>YouTube</span>
@@ -178,7 +178,7 @@ export default function BabyNavbar() {
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-red-400 bg-red-950/40 border border-red-500/30 font-medium"
             >
               <Youtube className="w-4 h-4 fill-red-500 text-red-500" />
-              <span>Calm Baby Sanctuary YouTube</span>
+              <span>Calm Baby Nursery YouTube</span>
             </a>
           </div>
         </div>

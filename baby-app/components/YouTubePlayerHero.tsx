@@ -36,7 +36,7 @@ export default function YouTubePlayerHero() {
               <iframe
                 className="w-full h-full"
                 src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
-                title="Calm Baby Sanctuary - Baby Sleep Music & Lullabies"
+                title="Calm Baby Nursery - Baby Sleep Music & Lullabies"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               />
@@ -48,7 +48,7 @@ export default function YouTubePlayerHero() {
                   <Play className="w-3 h-3 fill-white" /> Now Playing
                 </span>
                 <span className="text-slate-500">•</span>
-                <span className="text-sky-300 font-medium">Calm Baby Sanctuary</span>
+                <span className="text-sky-300 font-medium">Calm Baby Nursery</span>
               </div>
 
               <a
@@ -71,7 +71,7 @@ export default function YouTubePlayerHero() {
             </div>
 
             <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-white leading-tight">
-              Calm Baby Sanctuary: Soothing Nightly Melodies
+              Calm Baby Nursery: Soothing Nightly Melodies
             </h3>
 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">

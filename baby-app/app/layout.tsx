@@ -5,7 +5,7 @@ import BabyFooter from '@/components/BabyFooter';
 import BabyAmbientBg from '@/components/BabyAmbientBg';
 
 export const metadata: Metadata = {
-  title: 'Calm Baby Sanctuary • Soothing Classical Lullabies & Bedtime Sleep Guides',
+  title: 'Calm Baby Nursery • Soothing Classical Lullabies & Bedtime Sleep Guides',
   description:
     'Discover soothing 1-hour Brahms & Mozart lullabies, pediatric bedtime routines, curated nursery essentials, and heart-centered bedtime storybooks for little ones.',
   keywords: [

@@ -14,7 +14,7 @@ export default function BabyFooter() {
             <div className="flex items-center space-x-2">
               <Moon className="w-5 h-5 text-amber-300 fill-amber-300/30" />
               <span className="font-serif text-base font-bold text-white tracking-wider">
-                CALM BABY SANCTUARY
+                CALM BABY NURSERY
               </span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-md font-light">
@@ -66,7 +66,7 @@ export default function BabyFooter() {
                   className="flex items-center gap-1.5 text-red-400 hover:text-red-300 transition"
                 >
                   <Youtube className="w-4 h-4 fill-red-500 text-red-500" />
-                  <span>Calm Baby Sanctuary YouTube</span>
+                  <span>Calm Baby Nursery YouTube</span>
                 </a>
               </li>
               <li>
@@ -85,9 +85,9 @@ export default function BabyFooter() {
         {/* Affiliate Disclosure */}
         <div className="border-t border-slate-800/80 pt-6 space-y-2 text-[11px] text-slate-500 leading-relaxed text-center">
           <p>
-            <strong>Amazon Associates Disclosure:</strong> Calm Baby Sanctuary participates in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by linking to Amazon.com.
+            <strong>Amazon Associates Disclosure:</strong> Calm Baby Nursery participates in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by linking to Amazon.com.
           </p>
-          <p>© {new Date().getFullYear()} Calm Baby Sanctuary. All rights reserved. Made with love for little hearts &amp; peaceful homes.</p>
+          <p>© {new Date().getFullYear()} Calm Baby Nursery. All rights reserved. Made with love for little hearts &amp; peaceful homes.</p>
         </div>
       </div>
     </footer>
