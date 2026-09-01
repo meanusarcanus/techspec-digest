@@ -1,6 +1,6 @@
 ---
 title: "The ultimate dual-arm setup: Wacom Cintiq 24 Pro + 4K reference monitor without neck fatigue"
-date: 2026-09-01T01:56:35Z
+date: 2026-09-01T02:17:40Z
 draft: false
 description: "In-depth guide on The ultimate dual-arm setup: Wacom Cintiq 24 Pro + 4K reference monitor without neck fatigue. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "the-ultimate-dual-arm-setup-wacom-cintiq-24-pro-4k-reference-monitor-without-neck-fatigue"
