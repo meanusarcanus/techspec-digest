@@ -13,14 +13,14 @@ import { Moon, Sparkles, Music, BookOpen, Heart, ArrowRight } from 'lucide-react
 export default function BabyHomePage() {
   return (
     <div className="space-y-16 pb-12">
-      {/* Hero 1-Hour Lullaby Player & YouTube Broadcast */}
-      <YouTubePlayerHero />
-
       {/* Today's Featured Pediatric Baby Sleep Routine & Article */}
       <TodayBabyPost />
 
       {/* Featured Bedtime Books Spotlight: Bible Bedtime Stories by J. N. Littlelight & Thinking Big for Little People */}
       <BabyBookSpotlight />
+
+      {/* Calm Baby Nursery Official YouTube Broadcast & Channel Promotion */}
+      <YouTubePlayerHero />
 
       {/* Curated Nursery & Sleep Gear Essentials Matrix */}
       <AmazonBabyGearGrid />
