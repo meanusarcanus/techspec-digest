@@ -38,10 +38,8 @@ class TopicRotatorEngine:
         if date is None:
             date = datetime.date.today()
 
-        iso_year, iso_week, iso_weekday = date.isocalendar()
-        slot = 0 if iso_weekday <= 3 else 1
-        total_session_index = (iso_week * 2) + slot
-        topic_index = total_session_index % len(self.topics)
+        day_of_year = date.timetuple().tm_yday
+        topic_index = day_of_year % len(self.topics)
         return self.topics[topic_index]
 
     def find_topic_by_identifier(self, identifier: str) -> Optional[Dict[str, Any]]:

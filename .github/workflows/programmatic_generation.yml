@@ -5,8 +5,8 @@ on:
     branches:
       - main
   schedule:
-    # Runs twice per week: Tuesday and Friday at 08:00 UTC
-    - cron: '0 8 * * 2,5'
+    # Runs every day at 08:00 UTC (4:00 PM GMT+8)
+    - cron: '0 8 * * *'
   workflow_dispatch:
     inputs:
       target_topic:

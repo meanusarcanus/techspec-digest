@@ -1,5 +1,5 @@
 {
-  "schedule": "twice_weekly",
+  "schedule": "daily",
   "schedule_days": [
     "Tuesday",
     "Friday"
@@ -95,5 +95,6 @@
         "smart_electrical_circuit_testing"
       ]
     }
-  ]
+  ],
+  "schedule_frequency": "everyday"
 }
