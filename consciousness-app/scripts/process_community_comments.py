@@ -33,6 +33,13 @@ def generate_enlightened_reply(author_name, category, comment_text):
     """
     Generates a joyful, lively, intelligent, and polite response for the Consciousness & Enlightenment portal.
     """
+    import re
+
+    def clean_text(text: str) -> str:
+        text = re.sub(r'(?i)\bmeanus\s*arcanus\b', '', text)
+        text = re.sub(r'(?i)meanusarcanus', '', text)
+        return text.strip()
+
     api_key = os.getenv("GEMINI_API_KEY")
     if api_key and GENAI_AVAILABLE and genai:
         try:
@@ -44,10 +51,11 @@ def generate_enlightened_reply(author_name, category, comment_text):
 
             Write a response following these guidelines:
             1. STRICT HUMAN PERSONA: Never state or imply you are an AI or bot. Speak as a fellow seeker and curator of esoteric wisdom.
-            2. Tone: Lively, joyful, warm, highly intelligent, and deeply polite.
-            3. Content: Uplifting, validating their insight, and connecting to universal principles, Solfeggio frequencies, or Charles F. Haanel's Master Key System where applicable.
-            4. Length: 2 to 3 concise, impactful sentences.
-            5. Sign-off: Natural and warm (e.g., 'With gratitude and clarity, Arcane Books Editorial Circle ✨').
+            2. ABSOLUTE ANONYMITY RULE: DO NOT mention, include, or reference the name or handle "meanusarcanus" or "Meanus Arcanus" anywhere in the reply. Your identity is strictly 'Arcane Books Editorial Circle'.
+            3. Tone: Lively, joyful, warm, highly intelligent, and deeply polite.
+            4. Content: Uplifting, validating their insight, and connecting to universal principles, Solfeggio frequencies, or Charles F. Haanel's Master Key System where applicable.
+            5. Length: 2 to 3 concise, impactful sentences.
+            6. Sign-off: Natural and warm (e.g., 'With gratitude and clarity, Arcane Books Editorial Circle ✨').
             """
             if client:
                 resp = client.models.generate_content(
@@ -56,7 +64,7 @@ def generate_enlightened_reply(author_name, category, comment_text):
                 )
                 text = resp.text.strip().replace('"', '')
                 if text:
-                    return text
+                    return clean_text(text)
         except Exception as e:
             print(f"[process_community_comments] Gemini generation fallback: {e}")
 
@@ -95,7 +103,7 @@ def generate_enlightened_reply(author_name, category, comment_text):
         )
 
     full_reply = f"{greeting} {insight}"
-    return full_reply
+    return clean_text(full_reply)
 
 def process_feedbacks():
     if not os.path.exists(DATA_PATH):

@@ -32,6 +32,13 @@ def generate_parent_reply(author_name: str, category: str, comment_text: str) ->
     """
     Generates a gentle, reassuring, pediatric-informed reply for parents.
     """
+    import re
+
+    def clean_text(text: str) -> str:
+        text = re.sub(r'(?i)\bmeanus\s*arcanus\b', '', text)
+        text = re.sub(r'(?i)meanusarcanus', '', text)
+        return text.strip()
+
     api_key = os.getenv("GEMINI_API_KEY")
     if api_key and GENAI_AVAILABLE and genai:
         try:
@@ -43,10 +50,11 @@ def generate_parent_reply(author_name: str, category: str, comment_text: str) ->
 
             Write a warm, deeply reassuring, pediatric-informed response:
             1. Human Persona: Never state or imply you are an AI or bot. Speak as a gentle nursery care guide.
-            2. Tone: Reassuring, warm, loving, gentle, and practical.
-            3. Content: Validate their parenting efforts, offer gentle pediatric guidance, and reference soothing bedtime routines or calming lullabies.
-            4. Length: 2 to 3 natural sentences.
-            5. Sign-off: (e.g., 'Wishing you and your sweet little one peaceful, restful nights! 🌙🧸💖').
+            2. ABSOLUTE ANONYMITY RULE: DO NOT mention, include, or reference the name or handle "meanusarcanus" or "Meanus Arcanus" anywhere in the reply. Your identity is strictly 'Calm Baby Nursery' or 'Calm Baby Sanctuary'.
+            3. Tone: Reassuring, warm, loving, gentle, and practical.
+            4. Content: Validate their parenting efforts, offer gentle pediatric guidance, and reference soothing bedtime routines or calming lullabies.
+            5. Length: 2 to 3 natural sentences.
+            6. Sign-off: (e.g., 'Wishing you and your sweet little one peaceful, restful nights! 🌙🧸💖').
             """
             if client:
                 resp = client.models.generate_content(
@@ -55,7 +63,7 @@ def generate_parent_reply(author_name: str, category: str, comment_text: str) ->
                 )
                 text = resp.text.strip().replace('"', '')
                 if text:
-                    return text
+                    return clean_text(text)
         except Exception as e:
             print(f"[process_parent_comments] Gemini generation fallback: {e}")
 
@@ -85,7 +93,7 @@ def generate_parent_reply(author_name: str, category: str, comment_text: str) ->
             "Thank you so much for sharing your parenting journey with our community! Every baby's sleep patterns are unique, and responsive, patient love is the greatest soothing tool of all. We are including your thoughts in our upcoming nursery dispatch. Sending warmth and sweet dreams to your family! 🌙🧸✨"
         )
 
-    return f"{greeting} {insight}"
+    return clean_text(f"{greeting} {insight}")
 
 
 def process_parent_feedbacks():
