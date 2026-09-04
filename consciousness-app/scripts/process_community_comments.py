@@ -36,8 +36,12 @@ def generate_enlightened_reply(author_name, category, comment_text):
     import re
 
     def clean_text(text: str) -> str:
+        text = re.sub(r'(?i)(?:from|by|@|-)\s*meanus\s*arcanus\b', '', text)
+        text = re.sub(r'(?i)(?:from|by|@|-)\s*meanusarcanus\b', '', text)
         text = re.sub(r'(?i)\bmeanus\s*arcanus\b', '', text)
         text = re.sub(r'(?i)meanusarcanus', '', text)
+        text = re.sub(r'\s{2,}', ' ', text)
+        text = re.sub(r'\s+([,;.!?])', r'\1', text)
         return text.strip()
 
     api_key = os.getenv("GEMINI_API_KEY")
