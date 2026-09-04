@@ -50,7 +50,7 @@ def generate_parent_reply(author_name: str, category: str, comment_text: str) ->
             """
             if client:
                 resp = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.6-flash",
                     contents=prompt
                 )
                 text = resp.text.strip().replace('"', '')

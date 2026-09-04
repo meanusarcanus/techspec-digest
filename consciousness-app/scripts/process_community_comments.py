@@ -51,7 +51,7 @@ def generate_enlightened_reply(author_name, category, comment_text):
             """
             if client:
                 resp = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.6-flash",
                     contents=prompt
                 )
                 text = resp.text.strip().replace('"', '')
