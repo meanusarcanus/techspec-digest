@@ -1,0 +1,61 @@
+name: Autonomous Website Comments & Community Moderator
+
+on:
+  schedule:
+    # Runs every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  moderate-and-reply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai
+
+      - name: Process Consciousness Community Comments
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python3 consciousness-app/scripts/process_community_comments.py
+
+      - name: Process Baby Care Parent Questions
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python3 baby-app/scripts/process_parent_comments.py
+
+      - name: Run Daily Consciousness Article & Feed Generator
+        run: |
+          cd consciousness-app
+          TODAY_DATE=$(date -u +'%Y-%m-%d')
+          python3 scripts/generate_daily_post.py "$TODAY_DATE"
+
+      - name: Commit and Push Updates Back to Repository
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add consciousness-app/data/ baby-app/data/
+          if git diff --staged --quiet; then
+            echo "No new community comments or daily post changes to commit."
+          else
+            git commit -m "auto(community): process feedback replies & update daily post [skip ci]"
+            git pull --rebase origin main || true
+            git push origin HEAD:main
+          fi

@@ -14,6 +14,18 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 
+# Try importing Google Gemini client if available
+try:
+    from google import genai
+    GENAI_AVAILABLE = True
+except ImportError:
+    try:
+        import google.generativeai as genai
+        GENAI_AVAILABLE = True
+    except ImportError:
+        genai = None
+        GENAI_AVAILABLE = False
+
 DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "community_feedbacks.json")
 NOTIFICATION_EMAIL = "meanusarcanus@gmail.com"
 
@@ -21,6 +33,33 @@ def generate_enlightened_reply(author_name, category, comment_text):
     """
     Generates a joyful, lively, intelligent, and polite response for the Consciousness & Enlightenment portal.
     """
+    api_key = os.getenv("GEMINI_API_KEY")
+    if api_key and GENAI_AVAILABLE and genai:
+        try:
+            client = genai.Client(api_key=api_key) if hasattr(genai, "Client") else None
+            prompt = f"""
+            You are the host and editorial voice of 'Arcane Books - Consciousness & Enlightenment Lab'.
+            A seeker named '{author_name}' shared this reflection in the category '{category}':
+            "{comment_text}"
+
+            Write a response following these guidelines:
+            1. STRICT HUMAN PERSONA: Never state or imply you are an AI or bot. Speak as a fellow seeker and curator of esoteric wisdom.
+            2. Tone: Lively, joyful, warm, highly intelligent, and deeply polite.
+            3. Content: Uplifting, validating their insight, and connecting to universal principles, Solfeggio frequencies, or Charles F. Haanel's Master Key System where applicable.
+            4. Length: 2 to 3 concise, impactful sentences.
+            5. Sign-off: Natural and warm (e.g., 'With gratitude and clarity, Arcane Books Editorial Circle ✨').
+            """
+            if client:
+                resp = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=prompt
+                )
+                text = resp.text.strip().replace('"', '')
+                if text:
+                    return text
+        except Exception as e:
+            print(f"[process_community_comments] Gemini generation fallback: {e}")
+
     greetings = [
         f"A radiant and joyful hello, {author_name}! ✨",
         f"Greetings of light and profound gratitude, {author_name}! 🌟",

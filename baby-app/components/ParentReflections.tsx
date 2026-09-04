@@ -28,36 +28,7 @@ interface ParentComment {
   };
 }
 
-const initialQuestions: ParentComment[] = [
-  {
-    id: 'parent-001',
-    date: 'August 31, 2026',
-    author: 'Sarah K.',
-    role: 'Mom of 4-Month-Old',
-    category: 'Bedtime Routines',
-    comment: 'How early should we start reading "Bible Bedtime Stories" to our newborn? Will hearing our voice establish a calming bedtime association already?',
-    reply: {
-      author: 'Calm Baby Nursery Editorial Circle',
-      role: 'Pediatric Sleep & Nursery Care Guides',
-      date: 'August 31, 2026',
-      content: 'A warm and joyful welcome, Sarah! 🌙 Absolutely yes! Even in the first weeks of life, infants recognize maternal and paternal vocal rhythms. Reading J. N. Littlelight’s "Bible Bedtime Stories: For Little Hearts" creates a serene, low-frequency acoustic anchor that signals safe transition into sleep. Pair your soft reading voice with a gentle swaddle, and your little one will quickly associate that lyrical cadence with deep, peaceful slumber! Sending love to your family! 💖✨',
-    },
-  },
-  {
-    id: 'parent-002',
-    date: 'August 30, 2026',
-    author: 'David L.',
-    role: 'New Father',
-    category: 'Lullaby Sound & Noise',
-    comment: 'Is it better to leave the 1-hour Brahms lullaby video playing on low volume all night, or switch to pink noise once the baby is asleep?',
-    reply: {
-      author: 'Calm Baby Nursery Editorial Circle',
-      role: 'Pediatric Sleep & Nursery Care Guides',
-      date: 'August 30, 2026',
-      content: 'Hello, David! 💫 Both methods are wonderful! A great routine is playing our 1-hour Brahms & Mozart music box video during the wind-down feeding and crib transition (first 45–60 minutes). Once your baby enters deep non-REM sleep, keeping a steady, continuous pink noise or sound machine at a gentle 50 dB masks sudden household noises and prevents premature wake-ups. Wishing you and your little one restful nights! 💤🧸',
-    },
-  },
-];
+import initialQuestions from '../data/parent_questions.json';
 
 export default function ParentReflections() {
   const [comments, setComments] = useState<ParentComment[]>(initialQuestions);
