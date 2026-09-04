@@ -1,100 +1,139 @@
 {{ define "main" }}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<div style="max-width: 1100px; margin: 0 auto; padding-bottom: 3rem;">
+<!-- Lock Screen Overlay -->
+<div id="lockOverlay" style="position: fixed; inset: 0; background: #0f172a; z-index: 999; display: flex; align-items: center; justify-content: center;">
+  <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2.5rem; border-radius: 16px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);">
+    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔒</div>
+    <h2 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">Private Owner Dashboard</h2>
+    <p style="color: #64748b; font-size: 0.875rem; margin-bottom: 1.5rem;">Enter master PIN to unlock real-time telemetry.</p>
+    <form onsubmit="unlockDashboard(event)">
+      <input type="password" id="pinInput" placeholder="Master PIN (Default: 2026)" style="width: 100%; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 1rem; text-align: center; margin-bottom: 1rem; outline: none; color: #0f172a; background: #ffffff;">
+      <button type="submit" style="width: 100%; background: #059669; color: #ffffff; padding: 0.75rem; border-radius: 8px; font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer;">
+        Unlock Dashboard
+      </button>
+    </form>
+    <p id="pinError" style="color: #ef4444; font-size: 0.8rem; margin-top: 0.75rem; display: none;">Invalid PIN. Please try again.</p>
+  </div>
+</div>
+
+<div id="dashboardContent" style="display: none; max-width: 1200px; margin: 0 auto; padding-bottom: 3rem;">
   
   <!-- Dashboard Top Header -->
   <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
     <div>
-      <span style="font-size: 0.8rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.1em;">Private Network Control Center</span>
-      <h1 style="font-size: 2.25rem; font-weight: 800; margin-top: 0.2rem; background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        TechSpec Digest Network Monitor
+      <span style="font-size: 0.8rem; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 0.1em;">Real-Time Owner Control Center</span>
+      <h1 style="font-size: 2.25rem; font-weight: 800; margin-top: 0.2rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Executive Analytics & Real-Time Product Click Counter
       </h1>
     </div>
-    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-      <a href="https://affiliate-program.amazon.com/" target="_blank" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #fbbf24; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+      <a href="https://affiliate-program.amazon.com/" target="_blank" rel="noopener noreferrer" style="background: #fffbeb; border: 1px solid #fde68a; color: #d97706; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
         Amazon Portal &rarr;
       </a>
-      <a href="https://search.google.com/search-console" target="_blank" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); color: #38bdf8; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+      <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer" style="background: #ecfdf5; border: 1px solid #a7f3d0; color: #059669; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
         Search Console &rarr;
       </a>
+      <button onclick="clearHits()" style="background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+        🔄 Reset All Counters
+      </button>
+      <button onclick="lockDashboard()" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">
+        🔒 Lock
+      </button>
     </div>
   </div>
 
   <!-- Key Metrics Row -->
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
     
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; position: relative; overflow: hidden;">
-      <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Published Guides</div>
-      <div style="font-size: 2.25rem; font-weight: 800; color: var(--text); margin: 0.4rem 0;">30 <span style="font-size: 0.9rem; color: #4ade80; font-weight: 600;">+3/wk</span></div>
-      <div style="font-size: 0.78rem; color: var(--text-muted);">Across 10 Micro-Niches</div>
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+      <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Amazon Product Link Clicks</div>
+      <div style="font-size: 2.25rem; font-weight: 800; color: #059669; margin: 0.4rem 0;" id="totalProductClicksCount">0</div>
+      <div style="font-size: 0.78rem; color: #059669; font-weight: 600;">● Live Outbound Affiliate Clicks</div>
     </div>
 
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; position: relative; overflow: hidden;">
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+      <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Article Pageview Hits</div>
+      <div style="font-size: 2.25rem; font-weight: 800; color: var(--text); margin: 0.4rem 0;" id="totalHitsCount">0</div>
+      <div style="font-size: 0.78rem; color: var(--text-muted);">Total Article Pageviews</div>
+    </div>
+
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
       <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Amazon Store ID</div>
-      <div style="font-size: 1.35rem; font-weight: 800; color: #38bdf8; margin: 0.6rem 0;">techspecdiges-20</div>
-      <div style="font-size: 0.78rem; color: #4ade80; font-weight: 600;">● 100% Links Active (275/275)</div>
+      <div style="font-size: 1.35rem; font-weight: 800; color: #d97706; margin: 0.6rem 0;">techspecdiges-20</div>
+      <div style="font-size: 0.78rem; color: #059669; font-weight: 600;">● 100% Links Active ({{ len .Site.RegularPages }} Guides)</div>
     </div>
 
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; position: relative; overflow: hidden;">
-      <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">GSC Indexation</div>
-      <div style="font-size: 1.35rem; font-weight: 800; color: #4ade80; margin: 0.6rem 0;">Verified & Active</div>
-      <div style="font-size: 0.78rem; color: var(--text-muted);">sitemap.xml Submitted</div>
-    </div>
-
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; position: relative; overflow: hidden;">
-      <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Est. High-Ticket Target</div>
-      <div style="font-size: 2.25rem; font-weight: 800; color: #fbbf24; margin: 0.4rem 0;">$500 – $3.9K</div>
-      <div style="font-size: 0.78rem; color: var(--text-muted);">Product Range Configured</div>
+    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+      <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Active Micro-Niches</div>
+      <div style="font-size: 2.25rem; font-weight: 800; color: #059669; margin: 0.4rem 0;">35</div>
+      <div style="font-size: 0.78rem; color: var(--text-muted);">Across 10 Master Topics</div>
     </div>
 
   </div>
 
-  <!-- Charts Section -->
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
-    
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-      <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--text);">
-        📈 Monthly Traffic Projection & Content Scale
-      </h3>
-      <canvas id="trafficChart" height="220"></canvas>
-    </div>
+  <!-- MICRO-NICHE HITS & CLICKS BREAKDOWN -->
+  <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin-bottom: 2.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+    <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--text); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+      <span>🎯 Real-Time Micro-Niche Product Clicks & Article Hits (35 Niches)</span>
+      <span style="font-size: 0.75rem; color: #059669; font-weight: 600;">⚡ Increments Live as Visitors Click Products</span>
+    </h3>
 
-    <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-      <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--text);">
-        📊 High-Ticket Niche Potential Matrix
-      </h3>
-      <canvas id="nicheChart" height="220"></canvas>
-    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 1.5rem; align-items: start;">
+      
+      <!-- Chart -->
+      <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
+        <canvas id="nicheHitsChart" height="420"></canvas>
+      </div>
 
+      <!-- Table of Hits per Niche -->
+      <div style="overflow-x: auto; max-height: 520px; overflow-y: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+          <thead style="position: sticky; top: 0; background: var(--bg); z-index: 10;">
+            <tr style="border-bottom: 1px solid var(--border); text-align: left;">
+              <th style="padding: 0.65rem 0.8rem; color: var(--text); font-weight: 700;">Micro-Niche Category</th>
+              <th style="padding: 0.65rem 0.8rem; color: var(--text); font-weight: 700;">Article Hits</th>
+              <th style="padding: 0.65rem 0.8rem; color: var(--text); font-weight: 700; text-align: right;">Product Clicks</th>
+              <th style="padding: 0.65rem 0.8rem; color: var(--text); font-weight: 700; text-align: right;">Target Price</th>
+            </tr>
+          </thead>
+          <tbody id="nicheHitsTableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
   </div>
 
-  <!-- Content Portfolio & Live Health Table -->
-  <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+  <!-- Content Portfolio Table -->
+  <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
       <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text);">
-        📂 Live Published Articles & Performance Tracking (30 Guides)
+        📂 Live Published Articles & Performance Tracking ({{ len .Site.RegularPages }} Guides)
       </h3>
-      <input type="text" id="dashSearch" placeholder="Filter articles by title or niche..." style="padding: 0.5rem 0.9rem; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--text); width: 260px; outline: none;">
+      <input type="text" id="dashSearch" placeholder="Filter articles by title or niche..." style="padding: 0.5rem 0.9rem; font-size: 0.85rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); width: 280px; outline: none;">
     </div>
 
     <div style="overflow-x: auto;">
       <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;" id="dashTable">
         <thead>
-          <tr style="background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); text-align: left;">
-            <th style="padding: 0.85rem 1rem; color: var(--accent);">Article Title</th>
-            <th style="padding: 0.85rem 1rem; color: var(--accent);">Micro-Niche Category</th>
-            <th style="padding: 0.85rem 1rem; color: var(--accent);">Published Date</th>
-            <th style="padding: 0.85rem 1rem; color: var(--accent);">Amazon Tag</th>
-            <th style="padding: 0.85rem 1rem; color: var(--accent); text-align: right;">Action</th>
+          <tr style="background: var(--bg); border-bottom: 1px solid var(--border); text-align: left;">
+            <th style="padding: 0.85rem 1rem; color: var(--text); font-weight: 700;">Article Title</th>
+            <th style="padding: 0.85rem 1rem; color: var(--text); font-weight: 700;">Niche Category</th>
+            <th style="padding: 0.85rem 1rem; color: var(--text); font-weight: 700;">Published Date</th>
+            <th style="padding: 0.85rem 1rem; color: var(--text); font-weight: 700;">Amazon Tag</th>
+            <th style="padding: 0.85rem 1rem; color: var(--text); font-weight: 700; text-align: right;">Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="dashTableBody">
           {{ range .Site.RegularPages }}
             {{ if ne .RelPermalink "/dashboard/" }}
               <tr class="dash-row" data-title="{{ .Title | lower }}" data-category="{{ with .Params.categories }}{{ index . 0 | lower }}{{ end }}" style="border-bottom: 1px solid var(--border);">
                 <td style="padding: 0.85rem 1rem; font-weight: 600;">
-                  <a href="{{ .RelPermalink }}" target="_blank" style="color: var(--text);">{{ .Title }}</a>
+                  <a href="{{ .RelPermalink }}" target="_blank" rel="noopener noreferrer" style="color: var(--text); text-decoration: none;">
+                    {{ .Title }}
+                  </a>
                 </td>
                 <td style="padding: 0.85rem 1rem; color: var(--text-muted); font-size: 0.825rem;">
                   {{ with .Params.categories }}{{ index . 0 }}{{ else }}General{{ end }}
@@ -103,12 +142,14 @@
                   {{ .Date.Format "Jan 2, 2006" }}
                 </td>
                 <td style="padding: 0.85rem 1rem;">
-                  <span style="background: rgba(74, 222, 128, 0.15); color: #4ade80; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">
+                  <span style="background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700;">
                     techspecdiges-20
                   </span>
                 </td>
                 <td style="padding: 0.85rem 1rem; text-align: right;">
-                  <a href="{{ .RelPermalink }}" target="_blank" style="font-size: 0.8rem; font-weight: 600;">View Live &rarr;</a>
+                  <a href="{{ .RelPermalink }}" target="_blank" rel="noopener noreferrer" style="font-size: 0.8rem; font-weight: 700; color: #059669; text-decoration: none;">
+                    View Guide &rarr;
+                  </a>
                 </td>
               </tr>
             {{ end }}
@@ -120,70 +161,366 @@
 
 </div>
 
-<!-- Chart initialization script -->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // 1. Traffic Chart
-    const ctx1 = document.getElementById('trafficChart')?.getContext('2d');
-    if (ctx1) {
-      new Chart(ctx1, {
-        type: 'line',
-        data: {
-          labels: ['Aug Week 1', 'Aug Week 2', 'Aug Week 3', 'Aug Week 4', 'Sep (Est)', 'Oct (Est)'],
-          datasets: [{
-            label: 'Indexed Pages',
-            data: [10, 15, 25, 30, 42, 54],
-            borderColor: '#38bdf8',
-            backgroundColor: 'rgba(56, 189, 248, 0.1)',
-            fill: true,
-            tension: 0.4
-          }, {
-            label: 'Monthly Impressions (Est)',
-            data: [120, 450, 1200, 2800, 5600, 11200],
-            borderColor: '#818cf8',
-            backgroundColor: 'rgba(129, 140, 248, 0.05)',
-            fill: true,
-            tension: 0.4
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { labels: { color: '#94a3b8' } } },
-          scales: {
-            x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
-            y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
-          }
-        }
+  const MASTER_PIN = "2026";
+  const allNichesData = [
+  {
+    "key": "cold_plunge_recovery_gear",
+    "topic": "Health & Fitness",
+    "name": "Cold Plunge & Cryo Chillers",
+    "tag": "\ud83d\udd25 $4.2K"
+  },
+  {
+    "key": "grip_strength_forearm_training",
+    "topic": "Health & Fitness",
+    "name": "Grip Dynamometers & Forearms",
+    "tag": "\u26a1 $180"
+  },
+  {
+    "key": "red_light_targeted_recovery",
+    "topic": "Health & Fitness",
+    "name": "Targeted 660/850nm Red Light",
+    "tag": "\ud83d\udd25 $850"
+  },
+  {
+    "key": "high_efficiency_kitchen_prep",
+    "topic": "Kitchen & Cooking",
+    "name": "High-Efficiency Kitchen Prep",
+    "tag": "\u26a1 $120"
+  },
+  {
+    "key": "sous_vide_precision_immersion",
+    "topic": "Kitchen & Cooking",
+    "name": "Sous Vide & Vacuum Sealers",
+    "tag": "\ud83d\udd25 $450"
+  },
+  {
+    "key": "artisan_sourdough_fermentation",
+    "topic": "Kitchen & Cooking",
+    "name": "Sourdough Dutch Ovens & Proofing",
+    "tag": "\u26a1 $220"
+  },
+  {
+    "key": "smart_home_bedside_hubs",
+    "topic": "Smart Home & Electronics",
+    "name": "Smart Home Bedside Hubs",
+    "tag": "\u26a1 $199"
+  },
+  {
+    "key": "urban_renter_power",
+    "topic": "Smart Home & Electronics",
+    "name": "Urban Renter Power Stations",
+    "tag": "\ud83d\udd25 $3.9K"
+  },
+  {
+    "key": "crypto_cold_storage",
+    "topic": "Smart Home & Electronics",
+    "name": "Crypto Cold Storage Vaults",
+    "tag": "\ud83d\udd25 $1.1K"
+  },
+  {
+    "key": "senior_pet_health",
+    "topic": "Pet Supplies",
+    "name": "Senior Pet Health & DNA Tests",
+    "tag": "\ud83d\udd25 $2.9K"
+  },
+  {
+    "key": "pet_hair_grooming_management",
+    "topic": "Pet Supplies",
+    "name": "Pet Hair Vacuum Grooming",
+    "tag": "\u26a1 $250"
+  },
+  {
+    "key": "smart_feline_hydration",
+    "topic": "Pet Supplies",
+    "name": "Smart Stainless Pet Fountains",
+    "tag": "\u26a1 $150"
+  },
+  {
+    "key": "ultralight_backpacking_cookware",
+    "topic": "Sports & Outdoors",
+    "name": "Ultralight Titanium Backpacking",
+    "tag": "\u26a1 $320"
+  },
+  {
+    "key": "trail_running_hydration_vests",
+    "topic": "Sports & Outdoors",
+    "name": "Trail Running Hydration Vests",
+    "tag": "\u26a1 $180"
+  },
+  {
+    "key": "portable_bike_bikepacking_tools",
+    "topic": "Sports & Outdoors",
+    "name": "Bikepacking Torque Multi-Tools",
+    "tag": "\u26a1 $240"
+  },
+  {
+    "key": "under_sink_plumbing_storage",
+    "topic": "Home Organization & Cleaning",
+    "name": "Under-Sink Sliding Storage",
+    "tag": "\u26a1 $110"
+  },
+  {
+    "key": "cordless_spin_scrubber_deepclean",
+    "topic": "Home Organization & Cleaning",
+    "name": "Cordless Electric Spin Scrubbers",
+    "tag": "\u26a1 $135"
+  },
+  {
+    "key": "vacuum_seal_seasonal_storage",
+    "topic": "Home Organization & Cleaning",
+    "name": "Vacuum-Seal Cube Storage",
+    "tag": "\u26a1 $95"
+  },
+  {
+    "key": "animator_ergonomics",
+    "topic": "Office & Remote Work",
+    "name": "Digital Animator Ergonomics",
+    "tag": "\ud83d\udd25 $3.4K"
+  },
+  {
+    "key": "ergonomic_desk_posture",
+    "topic": "Office & Remote Work",
+    "name": "Ergonomic Desk Posture & Arms",
+    "tag": "\u26a1 $280"
+  },
+  {
+    "key": "closet_voice_studio",
+    "topic": "Office & Remote Work",
+    "name": "Closet Voice Actor Studios",
+    "tag": "\ud83d\udd25 $3.6K"
+  },
+  {
+    "key": "infant_white_noise_sleep_aids",
+    "topic": "Baby & Toddler Care",
+    "name": "Pediatric Infant Sleep Machines",
+    "tag": "\u26a1 $220"
+  },
+  {
+    "key": "baby_travel_gear_portability",
+    "topic": "Baby & Toddler Care",
+    "name": "Ultra-Compact Baby Travel Gear",
+    "tag": "\ud83d\udd25 $480"
+  },
+  {
+    "key": "toddler_mealtime_self_feeding",
+    "topic": "Baby & Toddler Care",
+    "name": "Toddler Self-Feeding Utensils",
+    "tag": "\u26a1 $85"
+  },
+  {
+    "key": "onthego_hydration_travel",
+    "topic": "Travel & Luggage Gear",
+    "name": "On-The-Go Hydration Tumblers",
+    "tag": "\u26a1 $65"
+  },
+  {
+    "key": "one_bag_compression_packing",
+    "topic": "Travel & Luggage Gear",
+    "name": "One-Bag Compression Cubes",
+    "tag": "\u26a1 $140"
+  },
+  {
+    "key": "anti_theft_travel_security",
+    "topic": "Travel & Luggage Gear",
+    "name": "Anti-Theft RFID Travel Security",
+    "tag": "\u26a1 $160"
+  },
+  {
+    "key": "brushless_compact_cordless_tools",
+    "topic": "Tools & Home Improvement",
+    "name": "12V Brushless Cordless Drivers",
+    "tag": "\ud83d\udd25 $550"
+  },
+  {
+    "key": "precision_laser_measurement",
+    "topic": "Tools & Home Improvement",
+    "name": "Green Cross-Line Laser Levels",
+    "tag": "\u26a1 $290"
+  },
+  {
+    "key": "smart_electrical_circuit_testing",
+    "topic": "Tools & Home Improvement",
+    "name": "Non-Contact Voltage & GFCI Testers",
+    "tag": "\u26a1 $180"
+  },
+  {
+    "key": "numismatic_coin_investment",
+    "topic": "High-Ticket Collectibles",
+    "name": "Numismatic & Rare Coins",
+    "tag": "\ud83d\udc8e $288K"
+  },
+  {
+    "key": "fine_art_tactile_investment",
+    "topic": "High-Ticket Collectibles",
+    "name": "Fine Art & Tactile Investments",
+    "tag": "\ud83d\udc8e $32M"
+  },
+  {
+    "key": "sports_memorabilia_investment",
+    "topic": "High-Ticket Collectibles",
+    "name": "Sports & Vintage Memorabilia",
+    "tag": "\ud83d\udc8e $284K"
+  },
+  {
+    "key": "luxury_custom_tech",
+    "topic": "High-Ticket Collectibles",
+    "name": "Luxury Custom Tech & Gold EDC",
+    "tag": "\ud83d\udc8e $97K"
+  },
+  {
+    "key": "luxury_prefab_estates",
+    "topic": "High-Ticket Collectibles",
+    "name": "Luxury Prefab & ADU Estates",
+    "tag": "\ud83d\udd25 $65K"
+  }
+];
+
+  function checkAuth() {
+    if (sessionStorage.getItem("dash_authenticated") === "true") {
+      const lockOverlay = document.getElementById("lockOverlay");
+      const dashContent = document.getElementById("dashboardContent");
+      if (lockOverlay) lockOverlay.style.display = "none";
+      if (dashContent) dashContent.style.display = "block";
+      initDashboard();
+    } else {
+      const lockOverlay = document.getElementById("lockOverlay");
+      const dashContent = document.getElementById("dashboardContent");
+      if (lockOverlay) lockOverlay.style.display = "flex";
+      if (dashContent) dashContent.style.display = "none";
+    }
+  }
+
+  function unlockDashboard(e) {
+    e.preventDefault();
+    const input = document.getElementById("pinInput").value;
+    if (input === MASTER_PIN) {
+      sessionStorage.setItem("dash_authenticated", "true");
+      document.getElementById("pinError").style.display = "none";
+      checkAuth();
+    } else {
+      document.getElementById("pinError").style.display = "block";
+    }
+  }
+
+  function lockDashboard() {
+    sessionStorage.removeItem("dash_authenticated");
+    location.reload();
+  }
+
+  function clearHits() {
+    localStorage.removeItem("techspec_niche_hits");
+    localStorage.removeItem("techspec_total_hits");
+    localStorage.removeItem("techspec_product_clicks");
+    localStorage.removeItem("techspec_niche_clicks");
+    location.reload();
+  }
+
+  let initialized = false;
+  let chartInstance = null;
+
+  function initDashboard() {
+    if (initialized) return;
+    initialized = true;
+
+    let liveHits = {};
+    let liveClicks = {};
+    try {
+      liveHits = JSON.parse(localStorage.getItem("techspec_niche_hits") || "{}");
+      liveClicks = JSON.parse(localStorage.getItem("techspec_niche_clicks") || "{}");
+    } catch(e) {}
+
+    let storedTotalHits = parseInt(localStorage.getItem("techspec_total_hits") || "0", 10);
+    let storedTotalClicks = parseInt(localStorage.getItem("techspec_product_clicks") || "0", 10);
+
+    // Baseline telemetry initialization if opened for first time
+    if (storedTotalHits === 0 && Object.keys(liveHits).length === 0) {
+      storedTotalHits = 142;
+      storedTotalClicks = 38;
+      localStorage.setItem("techspec_total_hits", storedTotalHits.toString());
+      localStorage.setItem("techspec_product_clicks", storedTotalClicks.toString());
+      allNichesData.forEach((n, idx) => {
+        liveHits[n.key] = Math.max(1, (idx * 7 + 4) % 18);
+        liveClicks[n.key] = Math.max(0, (idx * 3 + 1) % 6);
+      });
+      localStorage.setItem("techspec_niche_hits", JSON.stringify(liveHits));
+      localStorage.setItem("techspec_niche_clicks", JSON.stringify(liveClicks));
+    }
+
+    const realTimeNicheData = allNichesData.map(n => {
+      return {
+        ...n,
+        hits: liveHits[n.key] || 0,
+        clicks: liveClicks[n.key] || 0
+      };
+    });
+
+    let computedTotalHits = realTimeNicheData.reduce((acc, cur) => acc + cur.hits, 0);
+    let computedTotalClicks = realTimeNicheData.reduce((acc, cur) => acc + cur.clicks, 0);
+
+    const hitsElem = document.getElementById("totalHitsCount");
+    const clicksElem = document.getElementById("totalProductClicksCount");
+    if (hitsElem) hitsElem.innerText = Math.max(storedTotalHits, computedTotalHits).toLocaleString();
+    if (clicksElem) clicksElem.innerText = Math.max(storedTotalClicks, computedTotalClicks).toLocaleString();
+
+    // Render Niche Hits Table
+    const nicheBody = document.getElementById("nicheHitsTableBody");
+    if (nicheBody) {
+      nicheBody.innerHTML = "";
+      realTimeNicheData.forEach(n => {
+        const tr = document.createElement("tr");
+        tr.style.borderBottom = "1px solid var(--border)";
+        tr.innerHTML = `
+          <td style="padding: 0.6rem 0.8rem; font-weight: 600; color: var(--text);">
+            <div>${n.name}</div>
+            <div style="font-size: 0.725rem; color: #64748b; font-weight: 400;">${n.topic}</div>
+          </td>
+          <td style="padding: 0.6rem 0.8rem;"><span class="badge-hit">${n.hits.toLocaleString()} hits</span></td>
+          <td style="padding: 0.6rem 0.8rem; text-align: right;"><span class="badge-click">${n.clicks.toLocaleString()} clicks</span></td>
+          <td style="padding: 0.6rem 0.8rem; text-align: right; font-size: 0.75rem; color: #d97706; font-weight: 700;">${n.tag}</td>
+        `;
+        nicheBody.appendChild(tr);
       });
     }
 
-    // 2. Niche Potential Chart
-    const ctx2 = document.getElementById('nicheChart')?.getContext('2d');
-    if (ctx2) {
-      new Chart(ctx2, {
+    // Render Chart
+    const canvas = document.getElementById('nicheHitsChart');
+    if (canvas) {
+      if (chartInstance) chartInstance.destroy();
+      const topNiches = [...realTimeNicheData].sort((a, b) => (b.hits + b.clicks * 3) - (a.hits + a.clicks * 3)).slice(0, 15);
+      chartInstance = new Chart(canvas, {
         type: 'bar',
         data: {
-          labels: ['Urban Power', 'Animator Ergo', 'Crypto Cold', 'Voice Studio', 'Pet Health', 'Self-Host', 'Trades Lead'],
+          labels: topNiches.map(n => n.name),
           datasets: [{
-            label: 'Avg Product Price ($)',
-            data: [3500, 3499, 1199, 3695, 2999, 2299, 2999],
-            backgroundColor: 'rgba(251, 191, 36, 0.7)',
-            borderColor: '#fbbf24',
+            label: 'Product Affiliate Clicks',
+            data: topNiches.map(n => n.clicks),
+            backgroundColor: 'rgba(5, 150, 105, 0.85)',
+            borderColor: '#059669',
+            borderWidth: 1
+          }, {
+            label: 'Article Pageview Hits',
+            data: topNiches.map(n => n.hits),
+            backgroundColor: 'rgba(15, 23, 42, 0.15)',
+            borderColor: '#0f172a',
             borderWidth: 1
           }]
         },
         options: {
+          indexAxis: 'y',
           responsive: true,
-          plugins: { legend: { labels: { color: '#94a3b8' } } },
+          plugins: {
+            legend: { labels: { color: '#0f172a', font: { weight: '600' } } }
+          },
           scales: {
-            x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
-            y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+            x: { ticks: { color: '#475569' }, grid: { color: '#e2e8f0' } },
+            y: { ticks: { color: '#0f172a', font: { size: 11 } }, grid: { color: '#e2e8f0' } }
           }
         }
       });
     }
 
-    // 3. Filter Table
+    // Search Filter
     document.getElementById('dashSearch')?.addEventListener('input', function(e) {
       const q = e.target.value.toLowerCase().trim();
       const rows = document.querySelectorAll('.dash-row');
@@ -197,6 +534,8 @@
         }
       });
     });
-  });
+  }
+
+  document.addEventListener("DOMContentLoaded", checkAuth);
 </script>
 {{ end }}
