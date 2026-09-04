@@ -107,22 +107,42 @@
 
         // 2. Real-Time Niche Hit & Click Tracking
         function getNicheKey(catStr) {
-          catStr = (catStr || "").toLowerCase();
-          if (catStr.includes("numismatic") || catStr.includes("coin") || catStr.includes("morgan")) return "numismatic_coin_investment";
-          if (catStr.includes("fine art") || catStr.includes("tactile") || catStr.includes("museum")) return "fine_art_tactile_investment";
-          if (catStr.includes("sports") || catStr.includes("baseball") || catStr.includes("memorabilia")) return "sports_memorabilia_investment";
-          if (catStr.includes("luxury custom") || catStr.includes("vertu") || catStr.includes("ruby")) return "luxury_custom_tech";
-          if (catStr.includes("prefab") || catStr.includes("tiny") || catStr.includes("estate")) return "luxury_prefab_estates";
-          if (catStr.includes("renter") || catStr.includes("power") || catStr.includes("battery")) return "urban_renter_power";
-          if (catStr.includes("crypto") || catStr.includes("storage") || catStr.includes("cold")) return "crypto_cold_storage";
-          if (catStr.includes("microbiz") || catStr.includes("security") || catStr.includes("trust")) return "solo_microbiz_security";
-          if (catStr.includes("animator") || catStr.includes("ergo") || catStr.includes("vertical")) return "animator_ergonomics";
+          catStr = (catStr || "").toLowerCase().replace(/[^a-z0-9]/g, "_");
+          if (catStr.includes("cold_plunge") || catStr.includes("cryo") || catStr.includes("chiller")) return "cold_plunge_recovery_gear";
+          if (catStr.includes("grip") || catStr.includes("dynamometer") || catStr.includes("forearm")) return "grip_strength_forearm_training";
+          if (catStr.includes("red_light") || catStr.includes("660") || catStr.includes("recovery")) return "red_light_targeted_recovery";
+          if (catStr.includes("kitchen_prep") || catStr.includes("chopper") || catStr.includes("mandoline")) return "high_efficiency_kitchen_prep";
+          if (catStr.includes("sous_vide") || catStr.includes("vacuum_sealer") || catStr.includes("immersion")) return "sous_vide_precision_immersion";
+          if (catStr.includes("sourdough") || catStr.includes("banneton") || catStr.includes("ferment")) return "artisan_sourdough_fermentation";
+          if (catStr.includes("bedside") || catStr.includes("hub") || catStr.includes("dock")) return "smart_home_bedside_hubs";
+          if (catStr.includes("renter") || catStr.includes("power_station") || catStr.includes("solar")) return "urban_renter_power";
+          if (catStr.includes("crypto") || catStr.includes("cold_storage") || catStr.includes("wallet")) return "crypto_cold_storage";
+          if (catStr.includes("senior_pet") || catStr.includes("dna") || catStr.includes("canine")) return "senior_pet_health";
+          if (catStr.includes("pet_hair") || catStr.includes("grooming") || catStr.includes("deshed")) return "pet_hair_grooming_management";
+          if (catStr.includes("feline") || catStr.includes("cat_fountain") || catStr.includes("hydration")) return "smart_feline_hydration";
+          if (catStr.includes("backpacking") || catStr.includes("titanium") || catStr.includes("cookware")) return "ultralight_backpacking_cookware";
+          if (catStr.includes("trail_running") || catStr.includes("vest") || catStr.includes("flask")) return "trail_running_hydration_vests";
+          if (catStr.includes("bikepacking") || catStr.includes("torque") || catStr.includes("bike_tool")) return "portable_bike_bikepacking_tools";
+          if (catStr.includes("under_sink") || catStr.includes("sliding") || catStr.includes("plumbing")) return "under_sink_plumbing_storage";
+          if (catStr.includes("spin_scrubber") || catStr.includes("electric_brush") || catStr.includes("deepclean")) return "cordless_spin_scrubber_deepclean";
+          if (catStr.includes("vacuum_seal") || catStr.includes("cube") || catStr.includes("compression")) return "vacuum_seal_seasonal_storage";
+          if (catStr.includes("animator") || catStr.includes("cintiq") || catStr.includes("wacom")) return "animator_ergonomics";
+          if (catStr.includes("desk_posture") || catStr.includes("laptop_stand") || catStr.includes("monitor_arm")) return "ergonomic_desk_posture";
           if (catStr.includes("voice") || catStr.includes("closet") || catStr.includes("studio")) return "closet_voice_studio";
-          if (catStr.includes("pet") || catStr.includes("canine") || catStr.includes("collar")) return "senior_pet_health";
-          if (catStr.includes("selfhost") || catStr.includes("family") || catStr.includes("photo")) return "family_selfhosting";
-          if (catStr.includes("trade") || catStr.includes("lead") || catStr.includes("plumber")) return "trades_leadgen";
-          if (catStr.includes("aqua") || catStr.includes("tank") || catStr.includes("scissors")) return "micro_aquascaping_gear";
-          if (catStr.includes("cosmetic") || catStr.includes("pack") || catStr.includes("bottle")) return "indie_cosmetic_packaging";
+          if (catStr.includes("infant") || catStr.includes("sleep_machine") || catStr.includes("white_noise")) return "infant_white_noise_sleep_aids";
+          if (catStr.includes("baby_travel") || catStr.includes("stroller") || catStr.includes("travel_crib")) return "baby_travel_gear_portability";
+          if (catStr.includes("toddler") || catStr.includes("self_feeding") || catStr.includes("suction")) return "toddler_mealtime_self_feeding";
+          if (catStr.includes("tumbler") || catStr.includes("drinkware") || catStr.includes("spill_proof")) return "onthego_hydration_travel";
+          if (catStr.includes("compression_packing") || catStr.includes("one_bag")) return "one_bag_compression_packing";
+          if (catStr.includes("anti_theft") || catStr.includes("rfid") || catStr.includes("slashproof")) return "anti_theft_travel_security";
+          if (catStr.includes("brushless") || catStr.includes("cordless_drill") || catStr.includes("impact")) return "brushless_compact_cordless_tools";
+          if (catStr.includes("laser") || catStr.includes("cross_line") || catStr.includes("level")) return "precision_laser_measurement";
+          if (catStr.includes("circuit") || catStr.includes("gfci") || catStr.includes("multimeter")) return "smart_electrical_circuit_testing";
+          if (catStr.includes("numismatic") || catStr.includes("coin")) return "numismatic_coin_investment";
+          if (catStr.includes("fine_art") || catStr.includes("tactile")) return "fine_art_tactile_investment";
+          if (catStr.includes("sports") || catStr.includes("memorabilia")) return "sports_memorabilia_investment";
+          if (catStr.includes("luxury_custom") || catStr.includes("gold_edc")) return "luxury_custom_tech";
+          if (catStr.includes("prefab") || catStr.includes("estate")) return "luxury_prefab_estates";
           return "urban_renter_power";
         }
 
