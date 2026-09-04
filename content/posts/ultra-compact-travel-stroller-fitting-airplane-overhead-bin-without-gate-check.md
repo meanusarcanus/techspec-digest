@@ -1,6 +1,6 @@
 ---
 title: "Ultra compact travel stroller fitting airplane overhead bin without gate check"
-date: 2026-09-04T05:47:26Z
+date: 2026-09-04T05:49:49Z
 draft: false
 description: "In-depth guide on Ultra compact travel stroller fitting airplane overhead bin without gate check. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "ultra-compact-travel-stroller-fitting-airplane-overhead-bin-without-gate-check"
