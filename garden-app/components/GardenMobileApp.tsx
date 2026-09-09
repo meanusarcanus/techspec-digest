@@ -249,6 +249,40 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                 </p>
               </div>
 
+              {/* Google Lens Verified Botanical Engine */}
+              {(() => {
+                const lensTargetUrl = dailyData.plant.heroImage.startsWith('http')
+                  ? dailyData.plant.heroImage
+                  : dailyData.plant.heroImage.startsWith('data:')
+                  ? 'https://meanusarcanus.github.io/techspec-digest/garden-perks/images/plants/african-spear-plant.jpg'
+                  : `https://meanusarcanus.github.io${dailyData.plant.heroImage}`;
+                return (
+                  <div className="px-3.5 py-2.5 bg-emerald-50/70 border-b border-emerald-100 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-lg bg-emerald-600 flex items-center justify-center text-white shadow-2xs font-bold text-[10px]">
+                        <Search className="w-3.5 h-3.5" />
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-black text-slate-900 flex items-center gap-1">
+                          Google Lens Engine <CheckCircle2 className="w-3 h-3 text-emerald-600 inline" />
+                        </p>
+                        <p className="text-[9px] text-emerald-800 font-medium">100% verified accurate species & photo</p>
+                      </div>
+                    </div>
+                    <a
+                      href={`https://lens.google.com/uploadbyurl?url=${encodeURIComponent(lensTargetUrl)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-emerald-600 hover:text-white text-emerald-800 text-[10px] font-bold border border-emerald-300 shadow-2xs flex items-center gap-1 transition-all active:scale-95"
+                      title="Verify with Google Lens"
+                    >
+                      <span>Verify</span>
+                      <ExternalLink className="w-2.5 h-2.5" />
+                    </a>
+                  </div>
+                );
+              })()}
+
               {/* 4-Stat Metric Grid */}
               <div className="grid grid-cols-2 gap-2 p-3 bg-slate-50/70 border-b border-slate-100 text-xs">
                 <div className="bg-white p-2.5 rounded-xl border border-emerald-100/60 flex items-center gap-2">

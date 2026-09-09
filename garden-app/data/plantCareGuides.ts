@@ -186,10 +186,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Top 2 Inches Dry",
     humidityRange: "50% - 70% (High)",
     petSafe: false,
-    heroImage: "https://images.unsplash.com/photo-1584589167171-541ce45f1eea?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "/techspec-digest/garden-perks/images/plants/ficus-lyrata.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=80"
+      "/techspec-digest/garden-perks/images/plants/ficus-lyrata.jpg"
     ],
     shortHook: "The architectural statement plant prized for dramatic violin-shaped leathery leaves.",
     overview: "Originating in the lowland tropical rainforests of Western Africa, the Fiddle Leaf Fig is revered by interior designers worldwide. While notoriously sensitive to relocation, establishing a consistent watering and light routine rewards you with a lush indoor tree reaching up to 10 feet tall.",
@@ -431,10 +430,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Dry Out Completely",
     humidityRange: "30% - 50% (Standard)",
     petSafe: false,
-    heroImage: "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "/techspec-digest/garden-perks/images/plants/snake-plant-laurentii.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1598880940371-c756e015fea1?auto=format&fit=crop&w=800&q=80"
+      "/techspec-digest/garden-perks/images/plants/snake-plant-laurentii.jpg"
     ],
     shortHook: "Indestructible architectural air-purifier that thrives on neglect and cleanses indoor air.",
     overview: "Native to tropical West Africa, the Snake Plant is celebrated as one of the hardiest houseplants on earth. It utilizes Crassulacean Acid Metabolism (CAM) to release oxygen at night while tolerating dim corners, erratic watering, and dry indoor air with effortless elegance.",
@@ -677,10 +675,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Top 2 Inches Dry",
     humidityRange: "50% - 70% (High)",
     petSafe: true,
-    heroImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "/techspec-digest/garden-perks/images/plants/japanese-maple.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=80"
+      "/techspec-digest/garden-perks/images/plants/japanese-maple.jpg"
     ],
     shortHook: "The quintessential zen tree offering breathtaking cascading scarlet and crimson lace foliage.",
     overview: "Treasured across Asian horticulture for centuries, Japanese Maples are iconic ornamental centerpiece trees. Whether grown in garden landscapes, zen courtyard containers, or trained as miniature bonsai, their graceful tiered branches and fiery autumn transformations inspire tranquility.",
@@ -801,10 +798,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Consistently Moist",
     humidityRange: "50% - 70% (High)",
     petSafe: true,
-    heroImage: "https://images.unsplash.com/photo-1618164435735-413d3b066c9a?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "/techspec-digest/garden-perks/images/plants/sweet-basil.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1546470427-0d4db154ceb7?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1592841200221-a6898f307baa?auto=format&fit=crop&w=800&q=80"
+      "/techspec-digest/garden-perks/images/plants/sweet-basil.jpg"
     ],
     shortHook: "The ultimate aromatic kitchen herb for homemade pesto, culinary pizzas, and companion pest deterrence.",
     overview: "Prized across Italian gastronomy, Genovese sweet basil is renowned for its intoxicating fragrance and tender spicy-sweet leaves. Easy to grow in sunny windowsills or raised beds, frequent top pruning turns a single plant into a prolific bushy hedge.",
@@ -898,10 +894,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Top 2 Inches Dry",
     humidityRange: "50% - 70% (High)",
     petSafe: true,
-    heroImage: "https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "/techspec-digest/garden-perks/images/plants/moth-orchid.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80"
+      "/techspec-digest/garden-perks/images/plants/moth-orchid.jpg"
     ],
     shortHook: "Exotic long-lasting moth blossoms that bloom continuously for up to three months indoors.",
     overview: "Naturally growing as an epiphyte perched on tropical tree trunks across Southeast Asia, the Moth Orchid is surprisingly easy to maintain indoors. With roots adapted to absorb moisture from the air, proper orchid bark and a monthly soaking routine produce breathtaking cascading blooms year after year.",
@@ -995,10 +990,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Dry Out Completely",
     humidityRange: "30% - 50% (Standard)",
     petSafe: false,
-    heroImage: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "/techspec-digest/garden-perks/images/plants/string-of-pearls.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80"
+      "/techspec-digest/garden-perks/images/plants/string-of-pearls.jpg"
     ],
     shortHook: "Whimsical cascading succulent featuring succulent green pearls that spill over hanging baskets.",
     overview: "Native to dry arid cliffs of southwest Africa, String of Pearls stores water in tiny spherical bead-like leaves equipped with a translucent epidermal window slit that channels light deep into the leaf. Cascading gracefully over shelves, it is an eye-catching collector succulent.",
@@ -1081,9 +1075,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Top 2 Inches Dry",
     humidityRange: "50% - 70% (High)",
     petSafe: false,
-    heroImage: "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "/techspec-digest/garden-perks/images/plants/meyer-lemon.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1592841200221-a6898f307baa?auto=format&fit=crop&w=800&q=80"
+      "/techspec-digest/garden-perks/images/plants/meyer-lemon.jpg"
     ],
     shortHook: "Sweet, juicy culinary citrus with heavenly scented white blossoms that thrives in patio containers.",
     overview: "A natural hybrid of lemon and sweet mandarin orange discovered near Beijing, Meyer Lemons produce thin-skinned, sweeter, less acidic lemons with distinct floral notes. Self-fertile and compact, they thrive in sunny patio containers or bright sunrooms, blooming and fruiting year-round.",

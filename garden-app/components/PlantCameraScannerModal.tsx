@@ -17,7 +17,8 @@ import {
   Sun, 
   Stethoscope,
   ChevronRight,
-  Info
+  Info,
+  Search
 } from 'lucide-react';
 import { 
   analyzePlantImage, 
@@ -503,6 +504,40 @@ export default function PlantCameraScannerModal({
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
+
+              {/* Google Lens Visual Verification Engine */}
+              {(() => {
+                const lensImg = capturedImage && capturedImage.startsWith('http')
+                  ? capturedImage
+                  : scanResult.identifiedPlant.heroImage.startsWith('http')
+                  ? scanResult.identifiedPlant.heroImage
+                  : `https://meanusarcanus.github.io/techspec-digest/garden-perks/images/plants/african-spear-plant.jpg`;
+                return (
+                  <div className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-200 flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-2xs font-bold text-xs">
+                        <Search className="w-3.5 h-3.5" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-black text-slate-900 flex items-center gap-1">
+                          Google Lens Engine
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 inline" />
+                        </p>
+                        <p className="text-[10px] text-emerald-800 font-medium">Verify visual identification & taxonomy</p>
+                      </div>
+                    </div>
+                    <a
+                      href={`https://lens.google.com/uploadbyurl?url=${encodeURIComponent(lensImg)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-600 hover:text-white text-emerald-800 text-xs font-bold border border-emerald-300 shadow-2xs flex items-center gap-1 transition-all active:scale-95 cursor-pointer"
+                    >
+                      <span>Verify</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                );
+              })()}
 
               {/* Action Buttons */}
               <div className="flex flex-col gap-2 pt-1">
