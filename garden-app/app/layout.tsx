@@ -1,6 +1,8 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 
+import { CommunitySyncProvider } from '../components/CommunitySyncProvider';
+
 export const viewport: Viewport = {
   themeColor: '#059669',
   width: 'device-width',
@@ -52,6 +54,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/techspec-digest/garden-perks/icons/icon-192.svg" />
       </head>
       <body className="min-h-screen flex flex-col bg-[#f8faf9] text-slate-900 selection:bg-emerald-200 selection:text-emerald-950">
+        <CommunitySyncProvider />
         {children}
 
         {/* Service Worker Registration */}

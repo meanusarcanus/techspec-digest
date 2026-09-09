@@ -293,6 +293,13 @@ export function saveCustomPlantToCatalog(plant: PlantCareGuide): void {
     const deduped = deduplicatePlantGuides(updated);
     localStorage.setItem(STORAGE_KEY_CUSTOM_CATALOG, JSON.stringify(deduped));
     window.dispatchEvent(new CustomEvent('garden_catalog_updated', { detail: plant }));
+
+    // Real-time synchronization to community Firestore cloud
+    if (typeof window !== 'undefined') {
+      import('./communityCatalogSync')
+        .then(({ syncPlantToCloud }) => syncPlantToCloud(plant))
+        .catch((err) => console.warn('Background cloud sync notice:', err));
+    }
   } catch (e) {
     console.error('Failed to save custom plant to localStorage:', e);
   }
