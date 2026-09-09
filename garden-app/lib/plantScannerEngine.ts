@@ -1,6 +1,7 @@
 'use client';
 
 import { PLANT_CARE_GUIDES, PlantCareGuide } from '../data/plantCareGuides';
+import { AFRICAN_SPEAR_PLANT_IMAGE } from '../data/plantImages';
 
 export interface PlantScanResult {
   identifiedPlant: PlantCareGuide;
@@ -33,7 +34,7 @@ export const DEMO_SAMPLE_LEAVES: DemoSampleLeaf[] = [
     id: 'sample-spear-plant',
     label: 'African Spear Plant (Sansevieria cylindrica)',
     subtitle: 'Smooth cylindrical spears with yellow watering can',
-    imageUrl: 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=600&q=80',
+    imageUrl: AFRICAN_SPEAR_PLANT_IMAGE,
     targetPlantSlug: 'african-spear-plant-sansevieria-cylindrica',
     expectedCondition: 'healthy'
   },
@@ -207,9 +208,9 @@ export async function analyzePlantImage(
   // Detect based on image URL hints
   const imgSrcStr = typeof imageSource === 'string' ? imageSource : (imageSource.src || '');
   if (!hintPlantSlug) {
-    if (imgSrcStr.includes('1545241047') || imgSrcStr.toLowerCase().includes('spear')) {
+    if (imgSrcStr.toLowerCase().includes('spear') || imgSrcStr.toLowerCase().includes('cylindrica') || imgSrcStr.includes('african-spear') || imgSrcStr.startsWith('data:image/webp')) {
       hintPlantSlug = 'african-spear-plant-sansevieria-cylindrica';
-    } else if (imgSrcStr.includes('1614594975') || imgSrcStr.toLowerCase().includes('monstera')) {
+    } else if (imgSrcStr.includes('1614594975') || imgSrcStr.includes('1545241047') || imgSrcStr.toLowerCase().includes('monstera')) {
       hintPlantSlug = 'monstera-deliciosa';
     } else if (imgSrcStr.includes('1598880940') || imgSrcStr.toLowerCase().includes('ficus') || imgSrcStr.toLowerCase().includes('fig')) {
       hintPlantSlug = 'fiddle-leaf-fig';

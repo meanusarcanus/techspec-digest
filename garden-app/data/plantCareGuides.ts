@@ -1,3 +1,5 @@
+import { AFRICAN_SPEAR_PLANT_IMAGE } from './plantImages';
+
 export interface AmazonProduct {
   name: string;
   category: string;
@@ -307,10 +309,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Consistently Moist",
     humidityRange: "70%+ (Greenhouse)",
     petSafe: true,
-    heroImage: "https://images.unsplash.com/photo-1598880940371-c756e015fea1?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "/techspec-digest/garden-perks/images/plants/calathea-orbifolia.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=800&q=80"
+      "/techspec-digest/garden-perks/images/plants/calathea-orbifolia.jpg"
     ],
     shortHook: "Stunning silver-striped circular foliage that gracefully folds upward at night in prayer.",
     overview: "Hailing from the lush tropical understory of Bolivia and Brazil, Calathea orbifolia is famous for its oversized round leaves painted with metallic silver-green brushstrokes. 100% non-toxic and pet-safe, it is the crown jewel for collectors who can provide steady moisture and pure water.",
@@ -994,7 +995,7 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Dry Out Completely",
     humidityRange: "30% - 50% (Standard)",
     petSafe: false,
-    heroImage: "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1200&q=85",
+    heroImage: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=85",
     galleryImages: [
       "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80"
@@ -1176,10 +1177,10 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Dry Out Completely",
     humidityRange: "30% - 50% (Standard)",
     petSafe: false,
-    heroImage: "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1200&q=85",
+    heroImage: AFRICAN_SPEAR_PLANT_IMAGE,
     galleryImages: [
-      "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=80"
+      AFRICAN_SPEAR_PLANT_IMAGE,
+      "/techspec-digest/garden-perks/images/plants/african-spear-plant.jpg"
     ],
     shortHook: "Iconic architectural spear-shaped succulent with smooth, rigid cylindrical leaves that thrive on minimal water.",
     overview: "Native to Angola, Sansevieria cylindrica (also known as the African Spear or Cylindrical Snake Plant) features stiff, upright, spear-like leaves with distinctive dark green concentric rings. It is an exceptionally drought-tolerant succulent adapted to arid climates, filtering airborne toxics while needing water only once every 3-4 weeks.",
@@ -1254,7 +1255,7 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
         reviewsCount: 16200,
         searchQuery: "Hoffman+organic+cactus+succulent+soil+mix",
         badge: "Perfect Drain",
-        image: "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=400&q=80",
+        image: AFRICAN_SPEAR_PLANT_IMAGE,
         description: "Professionally formulated for African spears, snake plants, and desert succulents to eliminate root rot."
       },
       {
