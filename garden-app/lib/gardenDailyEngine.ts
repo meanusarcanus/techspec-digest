@@ -45,6 +45,12 @@ export function isSamePlant(a: PlantCareGuide, b: PlantCareGuide): boolean {
   if (a.id && b.id && a.id === b.id) return true;
   if (a.slug && b.slug && a.slug === b.slug) return true;
 
+  const normalize = (str: string) => 
+    (str || '').toLowerCase().replace(/\(.*?\)/g, '').replace(/[^a-z0-9]/g, ' ').trim().replace(/\s+/g, ' ');
+
+  const getGenus = (sci: string) => 
+    (sci || '').trim().toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g, '');
+
   const getGenusSpecies = (sci: string) => 
     (sci || '').trim().toLowerCase().split(/\s+/).slice(0, 2).join(' ');
 
@@ -52,39 +58,59 @@ export function isSamePlant(a: PlantCareGuide, b: PlantCareGuide): boolean {
   const sciB = getGenusSpecies(b.scientificName);
   if (sciA && sciB && sciA === sciB) return true;
 
-  const normalizeCommon = (name: string) =>
-    (name || '').toLowerCase()
-      .replace(/\(.*?\)/g, '')
-      .replace(/[^a-z0-9]/g, ' ')
-      .trim()
-      .replace(/\s+/g, ' ');
+  // Genus-level identity: e.g. "Yucca" vs "Yucca gigantea" vs "Yucca filamentosa"
+  const genusA = getGenus(a.scientificName);
+  const genusB = getGenus(b.scientificName);
+  if (genusA && genusB && genusA.length >= 4 && genusA === genusB) {
+    if (sciA.split(' ').length === 1 || sciB.split(' ').length === 1) {
+      return true;
+    }
+  }
 
-  const normA = normalizeCommon(a.commonName);
-  const normB = normalizeCommon(b.commonName);
+  const normA = normalize(a.commonName);
+  const normB = normalize(b.commonName);
   if (normA && normB) {
     if (normA === normB) return true;
     if (normA.includes(normB) || normB.includes(normA)) {
       const wordsA = normA.split(' ');
       const wordsB = normB.split(' ');
       const commonWords = wordsA.filter(w => wordsB.includes(w) && w.length >= 3);
-      if (commonWords.length >= 2 || (wordsA.includes('orchid') && wordsB.includes('orchid'))) {
+      if (
+        commonWords.length >= 1 || 
+        (wordsA.includes('orchid') && wordsB.includes('orchid')) ||
+        (wordsA.includes('yucca') && wordsB.includes('yucca'))
+      ) {
         return true;
       }
     }
   }
 
-  // Cross-reference aliases
-  const aliasesA = (a.aliases || []).map(x => x.toLowerCase().trim());
-  const aliasesB = (b.aliases || []).map(x => x.toLowerCase().trim());
-  if (normB && aliasesA.some(al => al === normB || al === sciB)) return true;
-  if (normA && aliasesB.some(al => al === normA || al === sciA)) return true;
+  // Cross-reference aliases and genus
+  const aliasesA = (a.aliases || []).map(normalize);
+  const aliasesB = (b.aliases || []).map(normalize);
+
+  if (normB && (aliasesA.includes(normB) || aliasesA.some(al => al.includes(normB) || normB.includes(al)))) return true;
+  if (normA && (aliasesB.includes(normA) || aliasesB.some(al => al.includes(normA) || normA.includes(al)))) return true;
+  if (sciB && aliasesA.includes(sciB)) return true;
+  if (sciA && aliasesB.includes(sciA)) return true;
+
+  // Cross-match shared aliases
+  if (aliasesA.some(alA => alA.length >= 3 && aliasesB.includes(alA))) return true;
+
+  // Check if genus name appears in common names or aliases
+  if (genusA && genusA.length >= 4) {
+    if (normB.includes(genusA) || aliasesB.some(al => al.includes(genusA))) return true;
+  }
+  if (genusB && genusB.length >= 4) {
+    if (normA.includes(genusB) || aliasesA.some(al => al.includes(genusB))) return true;
+  }
 
   return false;
 }
 
 /**
  * Consolidates an array of PlantCareGuide objects by merging duplicate records into a single canonical guide.
- * Merges aliases, keeps contributor attributions, and preserves the richest guide content.
+ * Merges aliases, preserves original contributor attribution, and keeps the richest guide content.
  */
 export function deduplicatePlantGuides(guides: PlantCareGuide[]): PlantCareGuide[] {
   const result: PlantCareGuide[] = [];
@@ -103,16 +129,25 @@ export function deduplicatePlantGuides(guides: PlantCareGuide[]): PlantCareGuide
         plant.scientificName.toLowerCase()
       ])).filter(Boolean);
 
+      // Prefer common name that is more recognizable (e.g. "Yucca" over "Adams Needle")
+      let preferredCommonName = existing.commonName;
+      if (plant.commonName.toLowerCase().includes('yucca') && !existing.commonName.toLowerCase().includes('yucca')) {
+        preferredCommonName = plant.commonName;
+      } else if (existing.commonName.length < plant.commonName.length && !existing.commonName.toLowerCase().includes('yucca')) {
+        preferredCommonName = plant.commonName;
+      }
+
       result[existingIndex] = {
         ...existing,
         ...plant,
         id: existing.id || plant.id,
         slug: existing.slug || plant.slug,
-        commonName: (existing.commonName.length > plant.commonName.length) ? existing.commonName : plant.commonName,
+        commonName: preferredCommonName,
         scientificName: (existing.scientificName.length > plant.scientificName.length) ? existing.scientificName : plant.scientificName,
-        addedBy: plant.addedBy || existing.addedBy,
+        // PRESERVE ORIGINAL DISCOVERER: original contributor keeps the attribution
+        addedBy: existing.addedBy || plant.addedBy,
         heroImage: plant.heroImage || existing.heroImage,
-        overview: (plant.overview && plant.overview.length > (existing.overview?.length || 0)) ? plant.overview : existing.overview,
+        overview: (existing.overview && existing.overview.length > (plant.overview?.length || 0)) ? existing.overview : plant.overview,
         aliases: mergedAliases
       };
     } else {
@@ -136,19 +171,40 @@ export function purgeDuplicateCatalogEntries(): { beforeCount: number; afterCoun
 
     const beforeCount = parsed.length;
 
-    // Filter out any custom plant that is an identical or redundant copy of a core guide without unique custom additions
-    const dedupedCustom = deduplicatePlantGuides(parsed).filter(customPlant => {
-      const coreMatch = PLANT_CARE_GUIDES.find(core => isSamePlant(core, customPlant));
-      if (coreMatch && !customPlant.addedBy) {
-        return false;
+    // 1. Standardize names for known plants like Yucca if saved under obscure alias like "Adams Needle"
+    const normalized = parsed.map(plant => {
+      if (!plant) return plant;
+      const sci = (plant.scientificName || '').toLowerCase();
+      const com = (plant.commonName || '').toLowerCase();
+      if (sci.includes('yucca') || com.includes('adams needle') || com.includes('adam\'s needle')) {
+        const aliases = Array.from(new Set([
+          ...(plant.aliases || []),
+          'yucca',
+          'yucca plant',
+          'adams needle',
+          'spineless yucca'
+        ])).filter(Boolean);
+
+        return {
+          ...plant,
+          commonName: plant.commonName.toLowerCase().includes('yucca') ? plant.commonName : 'Yucca (Adam\'s Needle)',
+          scientificName: plant.scientificName.toLowerCase().includes('yucca') ? plant.scientificName : 'Yucca',
+          aliases
+        };
       }
-      return true;
+      return plant;
+    });
+
+    // 2. Filter out any custom plant that is an identical or redundant copy of a core guide
+    const dedupedCustom = deduplicatePlantGuides(normalized).filter(customPlant => {
+      const isCoreDuplicate = PLANT_CARE_GUIDES.some(corePlant => isSamePlant(corePlant, customPlant));
+      return !isCoreDuplicate;
     });
 
     const afterCount = dedupedCustom.length;
     const purgedCount = beforeCount - afterCount;
 
-    if (purgedCount > 0 || beforeCount !== parsed.length) {
+    if (purgedCount > 0 || beforeCount !== parsed.length || JSON.stringify(dedupedCustom) !== raw) {
       localStorage.setItem(STORAGE_KEY_CUSTOM_CATALOG, JSON.stringify(dedupedCustom));
       window.dispatchEvent(new CustomEvent('garden_catalog_updated'));
     }
@@ -207,10 +263,21 @@ export function saveCustomPlantToCatalog(plant: PlantCareGuide): void {
         cleanScientific
       ])).filter(Boolean);
 
+      // Preserve original contributor
+      const originalAddedBy = prev.addedBy || plant.addedBy;
+      let preferredCommonName = prev.commonName;
+      if (plant.commonName.toLowerCase().includes('yucca') && !prev.commonName.toLowerCase().includes('yucca')) {
+        preferredCommonName = plant.commonName;
+      }
+
       updated = [...existing];
       updated[index] = { 
         ...prev, 
         ...plant,
+        id: prev.id,
+        slug: prev.slug,
+        commonName: preferredCommonName,
+        addedBy: originalAddedBy,
         aliases: mergedAliases
       };
     } else {
@@ -252,7 +319,7 @@ export function findMatchingPlantInCatalog(queryOrScientific: string): PlantCare
 
   // 2. Substring match pass (if query is at least 3 characters)
   if (q.length >= 3) {
-    return all.find(p => {
+    const sub = all.find(p => {
       const commonLower = p.commonName.toLowerCase();
       const sciLower = p.scientificName.toLowerCase();
       if (commonLower.includes(q) || q.includes(commonLower)) return true;
@@ -260,6 +327,21 @@ export function findMatchingPlantInCatalog(queryOrScientific: string): PlantCare
       if (p.aliases && p.aliases.some(a => a.toLowerCase().includes(q) || q.includes(a.toLowerCase()))) return true;
       return false;
     });
+    if (sub) return sub;
+
+    // 3. Genus match pass (e.g. "yucca", "ficus", "monstera", "orchid")
+    const cleanWord = q.split(/\s+/)[0].replace(/[^a-z]/g, '');
+    if (cleanWord.length >= 4) {
+      const genusMatch = all.find(p => {
+        const sciGenus = p.scientificName.trim().toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g, '');
+        const comWords = p.commonName.toLowerCase().split(/\s+/).map(w => w.replace(/[^a-z]/g, ''));
+        if (sciGenus === cleanWord) return true;
+        if (comWords.includes(cleanWord)) return true;
+        if (p.aliases && p.aliases.some(a => a.toLowerCase().includes(cleanWord))) return true;
+        return false;
+      });
+      if (genusMatch) return genusMatch;
+    }
   }
 
   return undefined;

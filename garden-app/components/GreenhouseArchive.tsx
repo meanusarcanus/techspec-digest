@@ -7,7 +7,7 @@ import CareGuideModal from './CareGuideModal';
 import { searchBotanicalWebImage, confirmAndSaveWebPlant, BotanicalWebResult } from '../lib/botanicalWebEngine';
 import BotanistLoginModal from './BotanistLoginModal';
 import { getCurrentGardenUser, GardenUser } from '../lib/gardenAuthEngine';
-import { purgeDuplicateCatalogEntries, deduplicatePlantGuides } from '../lib/gardenDailyEngine';
+import { purgeDuplicateCatalogEntries, deduplicatePlantGuides, getAllPlantGuides, findMatchingPlantInCatalog } from '../lib/gardenDailyEngine';
 
 interface GreenhouseArchiveProps {
   plants: PlantCareGuide[];
@@ -31,6 +31,7 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
   const [currentUser, setCurrentUser] = useState<GardenUser | null>(() => getCurrentGardenUser());
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [pendingAddPlant, setPendingAddPlant] = useState<BotanicalWebResult | null>(null);
+  const [internalPlants, setInternalPlants] = useState<PlantCareGuide[]>(() => (typeof window !== 'undefined' ? getAllPlantGuides() : plants));
 
   useEffect(() => {
     const handleUserUpdate = () => {
@@ -44,13 +45,19 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
   useEffect(() => {
     // Automatically purge duplicate records from local catalogue storage on mount
     purgeDuplicateCatalogEntries();
+    const handleCatalogUpdate = () => {
+      setInternalPlants(getAllPlantGuides());
+    };
+    handleCatalogUpdate();
+    window.addEventListener('garden_catalog_updated', handleCatalogUpdate);
+    return () => window.removeEventListener('garden_catalog_updated', handleCatalogUpdate);
   }, []);
 
   const categories = ['All', 'Indoor Houseplants', 'Ornamental & Flowering', 'Edible Gardens & Herbs', 'Succulents & Rare Tropicals'];
   const difficulties = ['All', 'Beginner-Friendly', 'Intermediate', 'Plant Connoisseur'];
 
   // Guarantee strict deduplication of catalogue entries
-  const uniquePlants = deduplicatePlantGuides(plants);
+  const uniquePlants = deduplicatePlantGuides(internalPlants && internalPlants.length > 0 ? internalPlants : plants);
 
   const filteredPlants = uniquePlants.filter(plant => {
     const q = searchQuery.toLowerCase().trim();
@@ -90,6 +97,16 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
 
     try {
       const result = await searchBotanicalWebImage(term);
+      if (result) {
+        const preExisting = result.existingPlant ||
+                            findMatchingPlantInCatalog(result.commonName) ||
+                            findMatchingPlantInCatalog(result.scientificName) ||
+                            findMatchingPlantInCatalog(term);
+        if (preExisting) {
+          result.alreadyInCatalog = true;
+          result.existingPlant = preExisting;
+        }
+      }
       setWebSearchResult(result);
       setWebSearchAttempted(true);
     } catch (err) {
@@ -103,6 +120,14 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
 
   const handleConfirmAddWebPlant = async (overrideUser?: GardenUser) => {
     if (!webSearchResult) return;
+
+    // Safety guard: if already in catalogue, simply view it
+    if (webSearchResult.alreadyInCatalog && webSearchResult.existingPlant) {
+      setSelectedPlantModal(webSearchResult.existingPlant);
+      setWebSearchResult(null);
+      return;
+    }
+
     const userToUse = overrideUser || currentUser;
     if (!userToUse) {
       setPendingAddPlant(webSearchResult);
@@ -393,6 +418,16 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
                       <span className="text-emerald-400 font-bold">•</span>
                       <span><strong>Search Keywords:</strong> Type "<span className="text-emerald-200 font-mono bg-emerald-950 px-1.5 py-0.5 rounded">{searchQuery.trim() || webSearchResult.existingPlant.commonName}</span>" into the Explore All search bar</span>
                     </li>
+                    {webSearchResult.existingPlant.addedBy && (
+                      <li className="flex items-start gap-2 pt-1 border-t border-emerald-500/20">
+                        <span className="text-emerald-400 font-bold">•</span>
+                        <span>
+                          <strong>Catalogue Attribution:</strong> Originally discovered & contributed by{' '}
+                          <strong className="text-emerald-300">@{webSearchResult.existingPlant.addedBy.username}</strong> ({webSearchResult.existingPlant.addedBy.badge})
+                          {webSearchResult.existingPlant.addedBy.addedAt ? ` on ${webSearchResult.existingPlant.addedBy.addedAt}` : ''}.
+                        </span>
+                      </li>
+                    )}
                   </ul>
                 </div>
 

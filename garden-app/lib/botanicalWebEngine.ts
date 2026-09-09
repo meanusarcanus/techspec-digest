@@ -194,22 +194,26 @@ export function extractCommonNamesAndAliases(extract: string, title: string, raw
   }
 
   const isBinomial = /^[A-Z][a-z]+\s+[a-z]+/.test(title);
+  const formattedTitle = title.charAt(0).toUpperCase() + title.slice(1);
+  const formattedQuery = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
 
-  if (!bestCommonName) {
-    if (!isBinomial) {
-      bestCommonName = title;
-    } else if (cleanQuery && cleanQuery !== title.toLowerCase()) {
-      bestCommonName = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
+  // If Wikipedia title itself is the recognizable common name (e.g. "Yucca", "Aloe", "Basil"):
+  if (!isBinomial && title.length >= 3) {
+    if (bestCommonName && bestCommonName.toLowerCase() !== title.toLowerCase()) {
+      bestCommonName = `${formattedTitle} (${bestCommonName})`;
     } else {
-      bestCommonName = title;
+      bestCommonName = formattedTitle;
     }
-  }
-
-  // If query is an alias (e.g. "suamei") and not already in bestCommonName, combine it (e.g. "Water Jasmine (Suamei)")
-  if (cleanQuery && !bestCommonName.toLowerCase().includes(cleanQuery) && cleanQuery !== title.toLowerCase()) {
-    const formattedQuery = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
+  } else if (!bestCommonName) {
+    bestCommonName = (!isBinomial && title.length >= 3) ? formattedTitle : (formattedQuery || formattedTitle);
+  } else if (cleanQuery && !bestCommonName.toLowerCase().includes(cleanQuery) && cleanQuery !== title.toLowerCase()) {
     bestCommonName = `${bestCommonName} (${formattedQuery})`;
   }
+
+  // Add all variations to aliases
+  if (cleanQuery) aliasesSet.add(cleanQuery);
+  aliasesSet.add(title.toLowerCase());
+  if (bestCommonName) aliasesSet.add(bestCommonName.toLowerCase());
 
   return {
     commonName: bestCommonName,
@@ -261,7 +265,8 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
       aliases: immediateMatch.aliases || [],
       alreadyInCatalog: true,
       existingPlant: immediateMatch,
-      matchedTerm: immediateMatch.commonName
+      matchedTerm: immediateMatch.commonName,
+      isPlant: true
     };
   }
 
@@ -541,6 +546,14 @@ export async function createCareGuideForPlantName(
     return webResult.existingPlant;
   }
 
+  // Pre-existing catalogue guard: Never regenerate or duplicate if already in catalogue!
+  const preExisting = findMatchingPlantInCatalog(plantName) ||
+                      findMatchingPlantInCatalog(webResult?.commonName || '') ||
+                      findMatchingPlantInCatalog(webResult?.scientificName || '');
+  if (preExisting) {
+    return preExisting;
+  }
+
   const common = webResult?.commonName || plantName.trim();
   const scientific = webResult?.scientificName || plantName.trim();
   const family = webResult?.family || 'Plantae';
@@ -649,6 +662,18 @@ export async function confirmAndSaveWebPlant(
   if (webResult.isPlant === false) {
     throw new Error(`Cannot add non-botanical entity "${webResult.commonName}" to the Greenhouse catalogue.`);
   }
+
+  // Pre-existing check: never duplicate if already present in catalogue
+  if (webResult.alreadyInCatalog && webResult.existingPlant) {
+    return webResult.existingPlant;
+  }
+
+  const preExisting = findMatchingPlantInCatalog(webResult.scientificName) ||
+                      findMatchingPlantInCatalog(webResult.commonName);
+  if (preExisting) {
+    return preExisting;
+  }
+
   return createCareGuideForPlantName(webResult.scientificName || webResult.commonName, webResult, currentUser);
 }
 
