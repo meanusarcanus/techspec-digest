@@ -207,33 +207,6 @@ Dr. Flora & The Garden Perks Curatorial Board
     }
   }
 
-  // 2. Dispatch background HTTP POST to FormSubmit API (runs silently, gracefully catches CORS or offline)
-  try {
-    if (typeof window !== 'undefined' && navigator.onLine) {
-      fetch(`https://formsubmit.co/ajax/${encodeURIComponent(user.email)}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: subject,
-          _template: 'box',
-          username: `@${user.username}`,
-          email: user.email,
-          rank: user.badge,
-          tier: user.badgeTier,
-          contributions: user.contributionsCount,
-          message: bodyText
-        })
-      }).catch(() => {
-        // Silently handled - email is logged locally and mailto fallback ready
-      });
-    }
-  } catch {
-    // Graceful fallback
-  }
-
   return {
     success: true,
     mailtoUrl,

@@ -117,22 +117,30 @@ export default function BotanistLoginModal({
               </p>
             </div>
 
-            {/* Email Dispatch Notice */}
-            <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-left space-y-2">
-              <div className="flex items-center gap-2 text-emerald-900 font-black text-xs">
-                <Mail className="w-4 h-4 text-emerald-600" />
-                <span>Confirmation Email Sent</span>
+            {/* Email Dispatch & Welcome Letter Notice */}
+            <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-left space-y-2.5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-emerald-900 font-black text-xs">
+                  <Mail className="w-4 h-4 text-emerald-600" />
+                  <span>Welcome Email & VIP Credentials</span>
+                </div>
+                <span className="text-[10px] text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded-full">
+                  Confirmed
+                </span>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">
-                A welcome dispatch with your credentials, Dr. Flora pass, and perks has been routed to <strong>{welcomeUser.email}</strong>.
+                Your credentials, Dr. Flora VIP pass, and morning dispatch enrollment have been generated for <strong>{welcomeUser.email}</strong>.
               </p>
               {emailMailto && (
-                <a
-                  href={emailMailto}
-                  className="inline-flex items-center gap-1.5 text-xs text-emerald-700 hover:text-emerald-900 font-black underline underline-offset-2 pt-1"
-                >
-                  <span>✉️ Open Welcome Email in Mail App</span>
-                </a>
+                <div className="pt-1 flex flex-col sm:flex-row gap-2">
+                  <a
+                    href={emailMailto}
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-black transition-colors shadow-2xs"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Open in My Mail App (Send to Inbox)</span>
+                  </a>
+                </div>
               )}
             </div>
 
