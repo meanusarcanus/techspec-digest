@@ -46,6 +46,21 @@ export default function PlantCameraScannerModal({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const galleryInputRef = useRef<HTMLInputElement>(null);
 
+  const resetScanner = () => {
+    setCapturedImage(null);
+    setScanResult(null);
+    setIsScanning(false);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    if (galleryInputRef.current) galleryInputRef.current.value = '';
+  };
+
+  // Reset to clean state each time the scanner opens
+  React.useEffect(() => {
+    if (isOpen) {
+      resetScanner();
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   // Process captured/selected image
@@ -92,12 +107,6 @@ export default function PlantCameraScannerModal({
     startScanAnalysis(sample.imageUrl, sample.targetPlantSlug, sample.expectedCondition);
   };
 
-  const resetScanner = () => {
-    setCapturedImage(null);
-    setScanResult(null);
-    setIsScanning(false);
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200 overflow-y-auto">
       <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-emerald-100 my-auto overflow-hidden flex flex-col max-h-[92vh]">
@@ -115,18 +124,30 @@ export default function PlantCameraScannerModal({
               <p className="text-[10px] text-slate-500 font-medium">Camera Species & Health Detection</p>
             </div>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-1.5">
+            {capturedImage && (
+              <button
+                onClick={resetScanner}
+                className="px-2.5 py-1 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-900 text-xs font-bold border border-emerald-300 flex items-center gap-1 transition-colors cursor-pointer"
+                title="Start a new scan"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>New Scan</span>
+              </button>
+            )}
+            <button 
+              onClick={onClose}
+              className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Modal Body */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
 
-          {/* Hidden File Inputs */}
+          {/* Hidden File Inputs with automatic value clearing */}
           <input
             type="file"
             ref={fileInputRef}
@@ -136,6 +157,7 @@ export default function PlantCameraScannerModal({
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (file) processImageFile(file);
+              e.target.value = '';
             }}
           />
           <input
@@ -146,6 +168,7 @@ export default function PlantCameraScannerModal({
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (file) processImageFile(file);
+              e.target.value = '';
             }}
           />
 
@@ -416,24 +439,38 @@ export default function PlantCameraScannerModal({
 
               {/* Action Buttons */}
               <div className="flex flex-col gap-2 pt-1">
+                {/* 1. Instant Camera Re-take */}
+                <button
+                  onClick={() => {
+                    resetScanner();
+                    fileInputRef.current?.click();
+                  }}
+                  className="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md active:scale-98 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                >
+                  <Camera className="w-4 h-4" />
+                  <span>Take Another Photo with Camera</span>
+                </button>
+
+                {/* 2. Open Care Guide */}
                 <button
                   onClick={() => {
                     onOpenCareGuide(scanResult.identifiedPlant);
                     onClose();
                   }}
-                  className="w-full py-3 px-4 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-md active:scale-98 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  className="w-full py-2.5 px-4 rounded-2xl bg-slate-900 hover:bg-black text-white font-bold text-xs shadow-xs active:scale-98 flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
                   <BookOpen className="w-4 h-4" />
-                  <span>Open Complete {scanResult.identifiedPlant.commonName} Care Guide</span>
+                  <span>Open Full {scanResult.identifiedPlant.commonName} Care Guide</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
 
+                {/* 3. Back to viewfinder / sample leaves */}
                 <button
                   onClick={resetScanner}
                   className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
-                  <RefreshCw className="w-3.5 h-3.5" />
-                  <span>Scan Another Plant</span>
+                  <RefreshCw className="w-3.5 h-3.5 text-slate-500" />
+                  <span>Back to Scanner Frame / Sample Leaves</span>
                 </button>
               </div>
 
