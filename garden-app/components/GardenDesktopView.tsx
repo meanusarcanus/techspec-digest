@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GardenNavbar from './GardenNavbar';
 import GardenFooter from './GardenFooter';
 import TodayPlantHero from './TodayPlantHero';
@@ -23,7 +23,16 @@ export default function GardenDesktopView({ onSwitchToMobile }: GardenDesktopVie
   const [selectedCarePlant, setSelectedCarePlant] = useState<PlantCareGuide | null>(null);
   
   const dailyData = getDailyFeaturedPlant();
-  const allPlants = getAllPlantGuides();
+  const [allPlants, setAllPlants] = useState<PlantCareGuide[]>(() => getAllPlantGuides());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setAllPlants(getAllPlantGuides());
+    };
+    handleUpdate();
+    window.addEventListener('garden_catalog_updated', handleUpdate);
+    return () => window.removeEventListener('garden_catalog_updated', handleUpdate);
+  }, []);
 
   return (
     <div className="flex-1 flex flex-col min-h-screen">

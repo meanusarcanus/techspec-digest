@@ -556,6 +556,32 @@ export default function PlantCameraScannerModal({
             return (
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
               
+              {/* Discovery Banner when plant was not in catalog and added */}
+              {scanResult.isNewDiscovery && (
+                <div className="bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-700 text-white p-3.5 rounded-2xl shadow-md flex items-center justify-between gap-3 border border-emerald-400/30">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+                      <Sparkles className="w-4 h-4 text-emerald-200" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-black uppercase tracking-wide text-emerald-200">
+                        🌱 Added to Greenhouse Catalog!
+                      </p>
+                      <p className="text-[11px] text-white/90 truncate">
+                        New species detected & care guide compiled
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => onOpenCareGuide(currentPlant)}
+                    className="px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-950 text-xs font-extrabold shrink-0 shadow-sm transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>View Guide</span>
+                    <BookOpen className="w-3 h-3 text-emerald-700" />
+                  </button>
+                </div>
+              )}
+
               {/* Photo & Species Identification Card */}
               <div className="bg-white rounded-3xl border border-emerald-100 shadow-sm overflow-hidden">
                 <div className="relative h-44 w-full bg-slate-100">

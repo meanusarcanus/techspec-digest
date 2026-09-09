@@ -2,6 +2,7 @@
 
 import { PLANT_CARE_GUIDES, PlantCareGuide } from '../data/plantCareGuides';
 import { AFRICAN_SPEAR_PLANT_IMAGE } from '../data/plantImages';
+import { getAllPlantGuides, saveCustomPlantToCatalog } from './gardenDailyEngine';
 
 export interface PlantScanResult {
   isPlant: boolean;
@@ -23,6 +24,7 @@ export interface PlantScanResult {
   recommendedGearTitle: string;
   engineUsed: 'Google Vision AI (Gemini 3.5)' | 'Catalog Demo Engine';
   rawApiResponse?: string;
+  isNewDiscovery?: boolean;
 }
 
 export interface DemoSampleLeaf {
@@ -102,87 +104,216 @@ export function setGoogleVisionApiKey(key: string): void {
 }
 
 export function getAllCatalogPlants(): PlantCareGuide[] {
-  return PLANT_CARE_GUIDES;
+  return getAllPlantGuides();
 }
 
 /**
- * Matches a detected plant name or taxonomy string against the curated catalog.
+ * Matches a detected plant name or taxonomy string against the curated and custom catalog.
  */
 export function matchCatalogPlant(
   scientificName: string = '',
   commonName: string = '',
   hintSlug?: string
 ): PlantCareGuide | null {
+  const allPlants = getAllPlantGuides();
   if (hintSlug) {
-    const match = PLANT_CARE_GUIDES.find(p => p.slug === hintSlug || p.id === hintSlug);
+    const match = allPlants.find(p => p.slug === hintSlug || p.id === hintSlug);
     if (match) return match;
   }
 
-  const query = `${scientificName} ${commonName}`.toLowerCase();
+  const query = `${scientificName} ${commonName}`.toLowerCase().trim();
+  if (!query) return null;
 
+  // 1. Check existing custom or default plants by exact/partial name match
+  const cName = commonName.trim().toLowerCase();
+  const sName = scientificName.trim().toLowerCase();
+
+  for (const p of allPlants) {
+    const pCommon = p.commonName.toLowerCase();
+    const pSci = p.scientificName.toLowerCase();
+    if (cName && (pCommon === cName || pCommon.includes(cName) || cName.includes(pCommon))) {
+      return p;
+    }
+    if (sName && (pSci === sName || pSci.includes(sName) || sName.includes(pSci))) {
+      return p;
+    }
+  }
+
+  // 2. Specific species keywords for the default catalog
   if (query.includes('spear') || query.includes('cylindrica') || query.includes('angolensis')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug.includes('spear')) || PLANT_CARE_GUIDES[10];
+    return allPlants.find(p => p.slug.includes('spear')) || allPlants.find(p => p.id === 'plant-11') || null;
   }
   if (query.includes('monstera') || query.includes('deliciosa') || query.includes('swiss cheese')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'monstera-deliciosa') || PLANT_CARE_GUIDES[0];
+    return allPlants.find(p => p.slug === 'monstera-deliciosa') || allPlants.find(p => p.id === 'plant-01') || null;
   }
   if (query.includes('ficus') || query.includes('lyrata') || query.includes('fiddle')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'fiddle-leaf-fig') || PLANT_CARE_GUIDES[1];
+    return allPlants.find(p => p.slug === 'fiddle-leaf-fig') || allPlants.find(p => p.id === 'plant-02') || null;
   }
   if (query.includes('calathea') || query.includes('orbifolia') || query.includes('prayer plant') || query.includes('geoppertia') || query.includes('goeppertia')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'calathea-orbifolia') || PLANT_CARE_GUIDES[2];
+    return allPlants.find(p => p.slug === 'calathea-orbifolia') || allPlants.find(p => p.id === 'plant-03') || null;
   }
   if (query.includes('trifasciata') || (query.includes('snake plant') && !query.includes('cylindrica')) || query.includes('laurentii')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'snake-plant-sansevieria') || PLANT_CARE_GUIDES[3];
+    return allPlants.find(p => p.slug === 'snake-plant-sansevieria') || allPlants.find(p => p.id === 'plant-04') || null;
   }
   if (query.includes('zamioculcas') || query.includes('zz plant')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'zz-plant-zamioculcas') || PLANT_CARE_GUIDES[4];
+    return allPlants.find(p => p.slug === 'zz-plant-zamioculcas') || allPlants.find(p => p.id === 'plant-05') || null;
   }
   if (query.includes('acer') || query.includes('palmatum') || query.includes('maple')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'japanese-maple-bonsai') || PLANT_CARE_GUIDES[5];
+    return allPlants.find(p => p.slug === 'japanese-maple-bonsai') || allPlants.find(p => p.id === 'plant-06') || null;
   }
   if (query.includes('basil') || query.includes('ocimum')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'sweet-basil-herb') || PLANT_CARE_GUIDES[6];
+    return allPlants.find(p => p.slug === 'sweet-basil-herb') || allPlants.find(p => p.id === 'plant-07') || null;
   }
   if (query.includes('orchid') || query.includes('phalaenopsis')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'moth-orchid-phalaenopsis') || PLANT_CARE_GUIDES[7];
+    return allPlants.find(p => p.slug === 'moth-orchid-phalaenopsis') || allPlants.find(p => p.id === 'plant-08') || null;
   }
   if (query.includes('string of pearls') || query.includes('rowleyanus') || query.includes('curio')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'string-of-pearls-succulent') || PLANT_CARE_GUIDES[8];
+    return allPlants.find(p => p.slug === 'string-of-pearls-succulent') || allPlants.find(p => p.id === 'plant-09') || null;
   }
   if (query.includes('lemon') || query.includes('citrus')) {
-    return PLANT_CARE_GUIDES.find(p => p.slug === 'meyer-lemon-tree') || PLANT_CARE_GUIDES[9];
+    return allPlants.find(p => p.slug === 'meyer-lemon-tree') || allPlants.find(p => p.id === 'plant-10') || null;
   }
 
   return null;
 }
 
 /**
- * Creates a dynamic PlantCareGuide for species outside the 11-plant catalog.
+ * Creates a complete PlantCareGuide for species outside the default catalog.
  */
 export function createDynamicPlantGuide(
   commonName: string,
   scientificName: string,
   family: string,
-  imageUrl?: string
+  imageUrl?: string,
+  extraData?: Partial<PlantCareGuide>
 ): PlantCareGuide {
   const base = PLANT_CARE_GUIDES[0];
   const cleanCommon = commonName && commonName.trim() ? commonName.trim() : 'Identified Plant';
   const cleanScientific = scientificName && scientificName.trim() ? scientificName.trim() : 'Botanical Species';
   const cleanFamily = family && family.trim() ? family.trim() : 'Plantae';
-  const slug = cleanCommon.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const slug = cleanCommon.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+  const validCategories = ['Indoor Houseplants', 'Ornamental & Flowering', 'Edible Gardens & Herbs', 'Succulents & Rare Tropicals'] as const;
+  const category = validCategories.includes(extraData?.category as any)
+    ? (extraData?.category as any)
+    : (cleanFamily.toLowerCase().includes('cact') || cleanFamily.toLowerCase().includes('crassul') || cleanCommon.toLowerCase().includes('succulent') ? 'Succulents & Rare Tropicals' : 'Indoor Houseplants');
+
+  const validDifficulties = ['Beginner-Friendly', 'Intermediate', 'Plant Connoisseur'] as const;
+  const difficulty = validDifficulties.includes(extraData?.difficulty as any)
+    ? (extraData?.difficulty as any)
+    : 'Beginner-Friendly';
+
+  const validLight = ['Low Light Tolerant', 'Bright Indirect', 'Direct Sunlight / Full Sun'] as const;
+  const lightRequirement = validLight.includes(extraData?.lightRequirement as any)
+    ? (extraData?.lightRequirement as any)
+    : 'Bright Indirect';
+
+  const validWatering = ['Dry Out Completely', 'Top 2 Inches Dry', 'Consistently Moist'] as const;
+  const wateringNeed = validWatering.includes(extraData?.wateringNeed as any)
+    ? (extraData?.wateringNeed as any)
+    : 'Top 2 Inches Dry';
+
+  const validHumidity = ['30% - 50% (Standard)', '50% - 70% (High)', '70%+ (Greenhouse)'] as const;
+  const humidityRange = validHumidity.includes(extraData?.humidityRange as any)
+    ? (extraData?.humidityRange as any)
+    : '50% - 70% (High)';
+
+  const finalHeroImage = imageUrl || 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1200&q=80';
+
   return {
     ...base,
-    id: `custom-${slug}`,
-    slug: slug,
+    id: `custom-${slug || Date.now()}`,
+    slug: slug || `custom-${Date.now()}`,
     commonName: cleanCommon,
     scientificName: cleanScientific,
     family: cleanFamily,
-    heroImage: imageUrl || base.heroImage,
-    shortHook: `Identified by Google Vision AI: ${cleanCommon}`,
-    overview: `A healthy specimen of ${cleanCommon} (${cleanScientific}), detected via Google Vision AI taxonomy engine.`
+    category,
+    difficulty,
+    lightRequirement,
+    wateringNeed,
+    humidityRange,
+    petSafe: typeof extraData?.petSafe === 'boolean' ? extraData.petSafe : false,
+    heroImage: finalHeroImage,
+    galleryImages: [finalHeroImage],
+    shortHook: extraData?.shortHook || `Google Vision AI verified botanical specimen: ${cleanCommon}`,
+    overview: extraData?.overview || `A verified specimen of ${cleanCommon} (${cleanScientific}), detected via Google Vision AI. Thrives in ${lightRequirement} with ${wateringNeed} hydration.`,
+    likes: (extraData?.likes && extraData.likes.length > 0) ? extraData.likes : [
+      `Consistent ${lightRequirement} lighting without scorch`,
+      `Potting substrate respecting "${wateringNeed}" hydration guideline`,
+      `Well-draining planter with unobstructed bottom aeration`,
+      `Stable indoor room temperatures between 65°F and 82°F`
+    ],
+    dislikes: (extraData?.dislikes && extraData.dislikes.length > 0) ? extraData.dislikes : [
+      `Stagnant water in drainage saucers causing root suffocation`,
+      `Cold air drafts from air conditioning vents or winter windows`,
+      `Dense un-aerated garden soil without perlite or bark`,
+      `Severe deviation from "${wateringNeed}" watering intervals`
+    ],
+    howToGuide: extraData?.howToGuide || {
+      title: `How to Care for & Propagate ${cleanCommon}`,
+      subtitle: `Botanical protocol generated by Dr. Flora & Google Lens AI`,
+      steps: [
+        {
+          stepNumber: 1,
+          title: "Optimize Light Placement",
+          instruction: `Position your ${cleanCommon} in ${lightRequirement}. Rotate container 90 degrees monthly for balanced foliar growth.`
+        },
+        {
+          stepNumber: 2,
+          title: "Implement Hydration Schedule",
+          instruction: `Adhere strictly to the "${wateringNeed}" guideline. Check moisture level 2 inches beneath the surface before watering.`
+        },
+        {
+          stepNumber: 3,
+          title: "Maintain Foliage Vitality",
+          instruction: `Wipe leaf surfaces gently with a damp microfiber cloth to remove dust and maximize photosynthetic photon absorption.`
+        }
+      ]
+    },
+    troubleshooting: extraData?.troubleshooting || [
+      {
+        symptom: "Yellowing lower foliage",
+        cause: "Waterlogged roots or compacted substrate",
+        remedy: "Allow potting mix to dry out further and confirm bottom drainage holes are open."
+      },
+      {
+        symptom: "Crispy brown leaf tips",
+        cause: "Low room humidity or tap water mineral accumulation",
+        remedy: "Group with other plants or use a humidifier; water with filtered or resting water."
+      }
+    ],
+    soilRecipe: extraData?.soilRecipe || {
+      name: `${cleanCommon} Aerated Botanical Blend`,
+      ingredients: ["50% Organic Potting Soil", "30% Coarse Perlite or Pumice", "20% Orchid Bark / Coco Coir"],
+      pHRange: "6.0 - 6.8 (Mildly Acidic to Neutral)"
+    },
+    fertilizerProtocol: extraData?.fertilizerProtocol || "Feed with balanced organic houseplant fertilizer diluted to half-strength once a month during active spring and summer growth.",
+    amazonProducts: [
+      {
+        name: `${cleanCommon} Essential Soil Moisture & Light Meter`,
+        category: "Diagnostic Tool",
+        price: "$14.99",
+        rating: 4.8,
+        reviewsCount: 1840,
+        searchQuery: "soil moisture meter plant light tester",
+        badge: "Dr. Flora Choice",
+        image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=400&q=80",
+        description: `Ensure your newly discovered ${cleanCommon} never suffers from overwatering or insufficient lighting with this battery-free dual probe.`
+      },
+      {
+        name: "Organic Liquid Plant Food & Micronutrient Tonic",
+        category: "Plant Nutrition",
+        price: "$18.50",
+        rating: 4.9,
+        reviewsCount: 3120,
+        searchQuery: "organic liquid plant food indoor houseplants",
+        image: "https://images.unsplash.com/photo-1617173944883-6ffbd35d584d?auto=format&fit=crop&w=400&q=80",
+        description: "Gentle seaweed and kelp extract designed to strengthen cellular turgor and enhance lush leaf coloration."
+      }
+    ]
   };
 }
+
 
 /**
  * Robust client-side image compression.
@@ -467,6 +598,18 @@ FIRST QUESTION: IS THIS A LIVING BOTANICAL PLANT?
   CRITICAL ACCURACY INSTRUCTIONS:
   * Identify the EXACT botanical species shown. NEVER default, guess, or bias towards "Monstera" or "Swiss Cheese Plant" unless the photo genuinely shows split fenestrated Monstera leaves.
   * If the photo is too dark, blurry, distant, or ambiguous to determine the exact species with confidence, set "commonName": "Unconfirmed Species", "confidenceScore": 0.45. DO NOT GUESS.
+  Set "category": "Indoor Houseplants" | "Ornamental & Flowering" | "Edible Gardens & Herbs" | "Succulents & Rare Tropicals".
+  Set "difficulty": "Beginner-Friendly" | "Intermediate" | "Plant Connoisseur".
+  Set "lightRequirement": "Low Light Tolerant" | "Bright Indirect" | "Direct Sunlight / Full Sun".
+  Set "wateringNeed": "Dry Out Completely" | "Top 2 Inches Dry" | "Consistently Moist".
+  Set "humidityRange": "30% - 50% (Standard)" | "50% - 70% (High)" | "70%+ (Greenhouse)".
+  Set "petSafe": boolean (true if non-toxic to cats/dogs, false if toxic).
+  Set "shortHook": 1-sentence engaging summary of this plant.
+  Set "overview": 2-sentence description of botanical native habitat and growth habit.
+  Set "likes": array of 4 concise bullet points on what this plant loves.
+  Set "dislikes": array of 4 concise bullet points on what harms this plant.
+  Set "soilRecipe": { "name": string, "ingredients": string[], "pHRange": string }.
+  Set "fertilizerProtocol": 1-sentence feeding schedule.
   Set "conditionStatus": "healthy" | "chlorosis" | "necrosis" | "moderate-stress" | "pest-risk".
   Set "conditionTitle" and "conditionDescription".
   Set "vitalSigns" with accurate chlorophyllIndex (0-100), hydrationStatus, pestFungalRisk, and turgorPressure.
@@ -480,6 +623,22 @@ Return ONLY valid JSON matching this schema:
   "scientificName": string,
   "family": string,
   "confidenceScore": number,
+  "category": "Indoor Houseplants" | "Ornamental & Flowering" | "Edible Gardens & Herbs" | "Succulents & Rare Tropicals",
+  "difficulty": "Beginner-Friendly" | "Intermediate" | "Plant Connoisseur",
+  "lightRequirement": "Low Light Tolerant" | "Bright Indirect" | "Direct Sunlight / Full Sun",
+  "wateringNeed": "Dry Out Completely" | "Top 2 Inches Dry" | "Consistently Moist",
+  "humidityRange": "30% - 50% (Standard)" | "50% - 70% (High)" | "70%+ (Greenhouse)",
+  "petSafe": boolean,
+  "shortHook": string,
+  "overview": string,
+  "likes": string[],
+  "dislikes": string[],
+  "soilRecipe": {
+    "name": string,
+    "ingredients": string[],
+    "pHRange": string
+  },
+  "fertilizerProtocol": string,
   "conditionStatus": "healthy" | "chlorosis" | "necrosis" | "moderate-stress" | "pest-risk" | "not-applicable",
   "conditionTitle": string,
   "conditionDescription": string,
@@ -624,11 +783,39 @@ Return ONLY valid JSON matching this schema:
     }
 
     const matchedCatalogPlant = matchCatalogPlant(parsed.scientificName, parsed.commonName, hintPlantSlug);
-    const finalPlant = matchedCatalogPlant || createDynamicPlantGuide(
-      parsed.commonName,
-      parsed.scientificName,
-      parsed.family
-    );
+    let finalPlant: PlantCareGuide;
+    let isNewDiscovery = false;
+
+    if (matchedCatalogPlant) {
+      finalPlant = matchedCatalogPlant;
+    } else {
+      // Plant is not in catalog -> Dynamically create and add it to the catalog!
+      isNewDiscovery = true;
+      const photoHeroUrl = base64Data ? `data:image/jpeg;base64,${base64Data}` : undefined;
+      finalPlant = createDynamicPlantGuide(
+        parsed.commonName,
+        parsed.scientificName,
+        parsed.family,
+        photoHeroUrl,
+        {
+          category: parsed.category,
+          difficulty: parsed.difficulty,
+          lightRequirement: parsed.lightRequirement,
+          wateringNeed: parsed.wateringNeed,
+          humidityRange: parsed.humidityRange,
+          petSafe: parsed.petSafe,
+          shortHook: parsed.shortHook,
+          overview: parsed.overview,
+          likes: parsed.likes,
+          dislikes: parsed.dislikes,
+          soilRecipe: parsed.soilRecipe,
+          fertilizerProtocol: parsed.fertilizerProtocol
+        }
+      );
+
+      // Persist to user's Greenhouse Catalog
+      saveCustomPlantToCatalog(finalPlant);
+    }
 
     const conf = Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 96);
 
@@ -656,7 +843,8 @@ Return ONLY valid JSON matching this schema:
       recommendedGearTitle: finalPlant.amazonProducts?.[0]?.name || "3-in-1 Soil Moisture & Light Meter",
       recommendedGearQuery: finalPlant.amazonProducts?.[0]?.searchQuery || "soil moisture meter plant light tester",
       engineUsed: 'Google Vision AI (Gemini 3.5)',
-      rawApiResponse: rawText
+      rawApiResponse: rawText,
+      isNewDiscovery
     };
 
   } catch (err: any) {

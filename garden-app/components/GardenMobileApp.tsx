@@ -67,7 +67,16 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
   const [isIOS, setIsIOS] = useState(false);
 
   const dailyData = getDailyFeaturedPlant();
-  const allPlants = getAllPlantGuides();
+  const [allPlants, setAllPlants] = useState<PlantCareGuide[]>(() => getAllPlantGuides());
+
+  useEffect(() => {
+    const handleCatalogUpdate = () => {
+      setAllPlants(getAllPlantGuides());
+    };
+    handleCatalogUpdate();
+    window.addEventListener('garden_catalog_updated', handleCatalogUpdate);
+    return () => window.removeEventListener('garden_catalog_updated', handleCatalogUpdate);
+  }, []);
 
   useEffect(() => {
     // Check if device is iOS
@@ -719,8 +728,13 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                     className="w-16 h-16 rounded-xl object-cover shrink-0"
                   />
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       <h4 className="text-xs font-bold text-slate-900 truncate">{plant.commonName}</h4>
+                      {plant.id.startsWith('custom-') && (
+                        <span className="text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded-full font-bold flex items-center gap-0.5 shadow-2xs">
+                          <Sparkles className="w-2 h-2" /> Scanned
+                        </span>
+                      )}
                       {plant.petSafe && (
                         <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Pet Safe</span>
                       )}

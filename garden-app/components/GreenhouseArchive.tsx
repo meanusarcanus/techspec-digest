@@ -142,10 +142,16 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
-                <div className="absolute top-3 left-3">
+                <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap max-w-[70%]">
                   <span className="px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider bg-white/95 text-emerald-950 backdrop-blur-md rounded-xl shadow-md">
                     {plant.category}
                   </span>
+                  {plant.id.startsWith('custom-') && (
+                    <span className="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-emerald-600 text-white rounded-lg shadow-sm flex items-center gap-1">
+                      <Sparkles className="w-2.5 h-2.5" />
+                      <span>Scanned Discovery</span>
+                    </span>
+                  )}
                 </div>
 
                 {plant.petSafe ? (

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GardenNavbar from '../../components/GardenNavbar';
 import GardenFooter from '../../components/GardenFooter';
 import GreenhouseArchive from '../../components/GreenhouseArchive';
@@ -8,11 +8,22 @@ import GardenNewsletter from '../../components/GardenNewsletter';
 import GardenMobileApp from '../../components/GardenMobileApp';
 import { useDeviceMode } from '../../lib/useDeviceMode';
 import { getAllPlantGuides } from '../../lib/gardenDailyEngine';
+import { PlantCareGuide } from '../../data/plantCareGuides';
 
 export default function GreenhousePage() {
   const [newsletterModalOpen, setNewsletterModalOpen] = useState(false);
   const { isMounted, isMobileView, setViewMode } = useDeviceMode();
-  const allPlants = getAllPlantGuides();
+  const [allPlants, setAllPlants] = useState<PlantCareGuide[]>(() => getAllPlantGuides());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setAllPlants(getAllPlantGuides());
+    };
+    // Sync initially on mount after hydration
+    handleUpdate();
+    window.addEventListener('garden_catalog_updated', handleUpdate);
+    return () => window.removeEventListener('garden_catalog_updated', handleUpdate);
+  }, []);
 
   if (isMounted && isMobileView) {
     return (
