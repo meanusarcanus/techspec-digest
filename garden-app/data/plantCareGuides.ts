@@ -47,6 +47,13 @@ export interface PlantCareGuide {
   };
   fertilizerProtocol: string;
   amazonProducts: AmazonProduct[];
+  addedBy?: {
+    username: string;
+    displayName?: string;
+    avatarEmoji?: string;
+    badge: string;
+    addedAt: string;
+  };
 }
 
 export const PLANT_CARE_GUIDES: PlantCareGuide[] = [

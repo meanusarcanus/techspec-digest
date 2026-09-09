@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Leaf, Search, Sparkles, MessageCircleHeart, Sprout, ShoppingBag, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Leaf, Search, Sparkles, MessageCircleHeart, Sprout, ShoppingBag, Menu, X, ArrowUpRight, User, LogOut } from 'lucide-react';
+import BotanistLoginModal from './BotanistLoginModal';
+import { getCurrentGardenUser, logoutGardenUser, GardenUser } from '../lib/gardenAuthEngine';
 
 interface NavbarProps {
   onOpenNewsletter?: () => void;
@@ -13,6 +15,17 @@ interface NavbarProps {
 export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitchToMobile }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [portalDropdownOpen, setPortalDropdownOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<GardenUser | null>(() => getCurrentGardenUser());
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleUserUpdate = () => {
+      setCurrentUser(getCurrentGardenUser());
+    };
+    handleUserUpdate();
+    window.addEventListener('garden_user_updated', handleUserUpdate);
+    return () => window.removeEventListener('garden_user_updated', handleUserUpdate);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-emerald-100 shadow-sm transition-all duration-200">
@@ -121,6 +134,31 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
 
           {/* Right Action CTA */}
           <div className="hidden sm:flex items-center gap-3">
+            {currentUser ? (
+              <div className="flex items-center gap-2 pl-2.5 pr-2 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-950 shadow-2xs">
+                <span className="text-sm">{currentUser.avatarEmoji || '🌿'}</span>
+                <span className="font-extrabold text-emerald-900">@{currentUser.username}</span>
+                <span className="px-1.5 py-0.2 rounded-md bg-emerald-700 text-white text-[9px] uppercase tracking-wider font-black">
+                  {currentUser.badge}
+                </span>
+                <button
+                  onClick={() => logoutGardenUser()}
+                  className="p-1 text-slate-400 hover:text-red-500 rounded-lg hover:bg-white/60 transition-colors ml-0.5 cursor-pointer"
+                  title="Log out"
+                >
+                  <LogOut className="w-3 h-3" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setLoginModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 text-xs font-bold border border-slate-200 shadow-2xs transition-all cursor-pointer"
+              >
+                <User className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Botanist Sign In</span>
+              </button>
+            )}
+
             {onSwitchToMobile && (
               <button
                 onClick={onSwitchToMobile}
@@ -196,6 +234,14 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
           </button>
         </div>
       )}
+
+      {/* Botanist Login Modal */}
+      <BotanistLoginModal
+        isOpen={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+        onSuccess={(u) => setCurrentUser(u)}
+        actionTitle="Botanist Sign In"
+      />
     </header>
   );
 }

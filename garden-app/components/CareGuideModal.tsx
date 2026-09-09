@@ -36,6 +36,17 @@ export default function CareGuideModal({ plant, onClose }: CareGuideModalProps) 
             <p className="text-xs text-emerald-600 font-serif italic">
               {plant.scientificName}
             </p>
+            {plant.addedBy && (
+              <div className="inline-flex items-center gap-2 mt-2 px-3 py-1 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs font-semibold shadow-2xs">
+                <span>{plant.addedBy.avatarEmoji || '🌿'}</span>
+                <span>Added by <strong className="text-emerald-800">@{plant.addedBy.username}</strong></span>
+                <span className="text-emerald-400">•</span>
+                <span className="text-[11px] font-bold text-emerald-700 bg-white px-2 py-0.5 rounded-lg border border-emerald-200">
+                  {plant.addedBy.badge}
+                </span>
+                <span className="text-[10px] text-slate-400 font-normal">({plant.addedBy.addedAt})</span>
+              </div>
+            )}
           </div>
 
           <button

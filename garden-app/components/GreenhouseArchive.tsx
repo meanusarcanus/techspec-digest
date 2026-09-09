@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Search, Filter, Sprout, ArrowRight, ShieldCheck, ShieldAlert, Sparkles, Check, Globe, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, Filter, Sprout, ArrowRight, ShieldCheck, ShieldAlert, Sparkles, Check, Globe, X, User, Award } from 'lucide-react';
 import { PlantCareGuide } from '../data/plantCareGuides';
 import CareGuideModal from './CareGuideModal';
 import { searchBotanicalWebImage, confirmAndSaveWebPlant, BotanicalWebResult } from '../lib/botanicalWebEngine';
+import BotanistLoginModal from './BotanistLoginModal';
+import { getCurrentGardenUser, GardenUser } from '../lib/gardenAuthEngine';
 
 interface GreenhouseArchiveProps {
   plants: PlantCareGuide[];
@@ -23,6 +25,20 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
   const [webSearchAttempted, setWebSearchAttempted] = useState(false);
   const [isAddingPlant, setIsAddingPlant] = useState(false);
   const [addedNotification, setAddedNotification] = useState<string | null>(null);
+
+  // User Authentication & Contributor Badge states
+  const [currentUser, setCurrentUser] = useState<GardenUser | null>(() => getCurrentGardenUser());
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [pendingAddPlant, setPendingAddPlant] = useState<BotanicalWebResult | null>(null);
+
+  useEffect(() => {
+    const handleUserUpdate = () => {
+      setCurrentUser(getCurrentGardenUser());
+    };
+    handleUserUpdate();
+    window.addEventListener('garden_user_updated', handleUserUpdate);
+    return () => window.removeEventListener('garden_user_updated', handleUserUpdate);
+  }, []);
 
   const categories = ['All', 'Indoor Houseplants', 'Ornamental & Flowering', 'Edible Gardens & Herbs', 'Succulents & Rare Tropicals'];
   const difficulties = ['All', 'Beginner-Friendly', 'Intermediate', 'Plant Connoisseur'];
@@ -63,12 +79,19 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
     }
   };
 
-  const handleConfirmAddWebPlant = async () => {
+  const handleConfirmAddWebPlant = async (overrideUser?: GardenUser) => {
     if (!webSearchResult) return;
+    const userToUse = overrideUser || currentUser;
+    if (!userToUse) {
+      setPendingAddPlant(webSearchResult);
+      setLoginModalOpen(true);
+      return;
+    }
+
     setIsAddingPlant(true);
     try {
-      const newGuide = await confirmAndSaveWebPlant(webSearchResult);
-      setAddedNotification(`"${newGuide.commonName}" confirmed & added to your Greenhouse Catalogue!`);
+      const newGuide = await confirmAndSaveWebPlant(webSearchResult, userToUse);
+      setAddedNotification(`"${newGuide.commonName}" confirmed & added to Greenhouse catalogue by @${userToUse.username} (${userToUse.badge})!`);
       setWebSearchResult(null);
       setWebSearchAttempted(false);
       setSearchQuery('');
@@ -83,10 +106,21 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
     }
   };
 
+  const handleLoginSuccess = (user: GardenUser) => {
+    setCurrentUser(user);
+    if (pendingAddPlant) {
+      const plantToAdd = pendingAddPlant;
+      setPendingAddPlant(null);
+      handleConfirmAddWebPlant(user);
+    }
+  };
+
   const handleCancelConfirmation = () => {
     setWebSearchResult(null);
     setWebSearchAttempted(false);
+    setPendingAddPlant(null);
   };
+
 
   return (
     <section id="greenhouse" className="pt-8 pb-16">
@@ -220,12 +254,22 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
         <div className="max-w-6xl mx-auto mb-8 px-4">
           <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 text-white rounded-3xl p-6 md:p-8 border-2 border-emerald-400 shadow-2xl space-y-5 animate-in zoom-in-95">
             <div className="flex items-start justify-between gap-3 border-b border-emerald-500/20 pb-4">
-              <div>
+              <div className="space-y-1.5">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-900/90 text-emerald-300 text-[11px] font-black uppercase tracking-wider border border-emerald-400/40">
                   <Globe className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Botanical Web Specimen Found</span>
                 </div>
-                <h3 className="text-xl md:text-2xl font-black mt-2 text-white">
+                
+                {webSearchResult.correctedFrom && (
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-amber-400/20 border border-amber-400/40 text-amber-200 text-xs font-bold block w-fit">
+                    <span>💡</span>
+                    <span>
+                      Did you mean <strong className="text-white underline">{webSearchResult.commonName}</strong>? (Closest match for "{webSearchResult.correctedFrom}")
+                    </span>
+                  </div>
+                )}
+
+                <h3 className="text-xl md:text-2xl font-black text-white">
                   Is this what you're looking for?
                 </h3>
                 <p className="text-xs text-slate-300 mt-1">
@@ -267,6 +311,29 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
               </div>
             </div>
 
+            {/* Contributor Badge Notice */}
+            <div className="p-3 rounded-2xl bg-white/5 border border-emerald-400/30 flex items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2">
+                <Award className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span className="text-slate-300">
+                  {currentUser ? (
+                    <>Adding as <strong className="text-emerald-300">@{currentUser.username}</strong> ({currentUser.badge})</>
+                  ) : (
+                    <>Sign in to engrave your username & contributor badge onto this plant</>
+                  )}
+                </span>
+              </div>
+              {!currentUser && (
+                <button
+                  type="button"
+                  onClick={() => setLoginModalOpen(true)}
+                  className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-emerald-300 text-[11px] font-bold shrink-0 cursor-pointer"
+                >
+                  Sign In First
+                </button>
+              )}
+            </div>
+
             {/* Confirmation Action Buttons */}
             <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
               <button
@@ -278,7 +345,7 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
               </button>
               <button
                 type="button"
-                onClick={handleConfirmAddWebPlant}
+                onClick={() => handleConfirmAddWebPlant()}
                 disabled={isAddingPlant}
                 className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 active:scale-98 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
@@ -287,10 +354,15 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
                     <div className="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
                     <span>Compiling Care Guide & Adding...</span>
                   </>
-                ) : (
+                ) : currentUser ? (
                   <>
                     <Check className="w-4 h-4 text-slate-950" />
-                    <span>Yes, Add to Catalogue</span>
+                    <span>Yes, Add to Catalogue (@{currentUser.username})</span>
+                  </>
+                ) : (
+                  <>
+                    <User className="w-4 h-4 text-slate-950" />
+                    <span>Sign In & Add to Catalogue</span>
                   </>
                 )}
               </button>
@@ -393,7 +465,13 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
                   {plant.id.startsWith('custom-') && (
                     <span className="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-emerald-600 text-white rounded-lg shadow-sm flex items-center gap-1">
                       <Sparkles className="w-2.5 h-2.5" />
-                      <span>Scanned Discovery</span>
+                      <span>{plant.addedBy ? 'Community Added' : 'Scanned Discovery'}</span>
+                    </span>
+                  )}
+                  {plant.addedBy && (
+                    <span className="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-emerald-950/90 backdrop-blur-md text-emerald-200 rounded-lg shadow-sm flex items-center gap-1 border border-emerald-400/40">
+                      <span>{plant.addedBy.avatarEmoji || '🌿'}</span>
+                      <span>@{plant.addedBy.username}</span>
                     </span>
                   )}
                 </div>
@@ -435,9 +513,22 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
                   <div>💧 {plant.wateringNeed}</div>
                 </div>
 
+                {/* Contributor Badge on Catalogue Card */}
+                {plant.addedBy && (
+                  <div className="flex items-center justify-between p-2.5 rounded-2xl bg-emerald-50/80 border border-emerald-200/70 text-emerald-950 text-xs shadow-2xs">
+                    <div className="flex items-center gap-1.5 min-w-0 truncate">
+                      <span className="text-sm shrink-0">{plant.addedBy.avatarEmoji || '🌿'}</span>
+                      <span className="truncate">Added by <strong className="text-emerald-900 font-black">@{plant.addedBy.username}</strong></span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-lg bg-emerald-700 text-white font-black text-[9px] uppercase tracking-wider shrink-0 shadow-xs">
+                      {plant.addedBy.badge}
+                    </span>
+                  </div>
+                )}
+
                 <button
                   onClick={() => setSelectedPlantModal(plant)}
-                  className="w-full py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-600 text-emerald-800 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition-all group-hover:shadow-md"
+                  className="w-full py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-600 text-emerald-800 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition-all group-hover:shadow-md cursor-pointer"
                 >
                   <span>Read Complete Care Guide</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -453,6 +544,17 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
       <CareGuideModal
         plant={selectedPlantModal}
         onClose={() => setSelectedPlantModal(null)}
+      />
+
+      {/* Botanist Login & Profile Modal */}
+      <BotanistLoginModal
+        isOpen={loginModalOpen}
+        onClose={() => {
+          setLoginModalOpen(false);
+          setPendingAddPlant(null);
+        }}
+        onSuccess={handleLoginSuccess}
+        actionTitle="Sign In to Add Plant to Catalogue"
       />
 
     </section>

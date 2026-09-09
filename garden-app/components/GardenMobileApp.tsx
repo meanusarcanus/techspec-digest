@@ -29,14 +29,17 @@ import {
   ShieldCheck,
   Flame,
   BookOpen,
-  Globe
+  Globe,
+  User
 } from 'lucide-react';
 import { getDailyFeaturedPlant, getAllPlantGuides } from '../lib/gardenDailyEngine';
 import { generatePlantDoctorDiagnosis, DoctorDiagnosis } from '../lib/botanicalDoctor';
 import { PlantCareGuide } from '../data/plantCareGuides';
 import CareGuideModal from './CareGuideModal';
 import PlantCameraScannerModal from './PlantCameraScannerModal';
+import BotanistLoginModal from './BotanistLoginModal';
 import { searchBotanicalWebImage, confirmAndSaveWebPlant, BotanicalWebResult } from '../lib/botanicalWebEngine';
+import { getCurrentGardenUser, GardenUser } from '../lib/gardenAuthEngine';
 
 interface GardenMobileAppProps {
   onSwitchToDesktop: () => void;
@@ -50,6 +53,11 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
   const [todaySection, setTodaySection] = useState<'likes' | 'steps' | 'trouble' | 'soil'>('likes');
   const [selectedPlant, setSelectedPlant] = useState<PlantCareGuide | null>(null);
   const [scannerModalOpen, setScannerModalOpen] = useState<boolean>(false);
+
+  // User Authentication & Contributor Badge
+  const [currentUser, setCurrentUser] = useState<GardenUser | null>(() => getCurrentGardenUser());
+  const [loginModalOpen, setLoginModalOpen] = useState<boolean>(false);
+  const [pendingAddPlant, setPendingAddPlant] = useState<BotanicalWebResult | null>(null);
 
   // Doctor state
   const [symptomInput, setSymptomInput] = useState('');
@@ -82,9 +90,17 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
     const handleCatalogUpdate = () => {
       setAllPlants(getAllPlantGuides());
     };
+    const handleUserUpdate = () => {
+      setCurrentUser(getCurrentGardenUser());
+    };
     handleCatalogUpdate();
+    handleUserUpdate();
     window.addEventListener('garden_catalog_updated', handleCatalogUpdate);
-    return () => window.removeEventListener('garden_catalog_updated', handleCatalogUpdate);
+    window.addEventListener('garden_user_updated', handleUserUpdate);
+    return () => {
+      window.removeEventListener('garden_catalog_updated', handleCatalogUpdate);
+      window.removeEventListener('garden_user_updated', handleUserUpdate);
+    };
   }, []);
 
   useEffect(() => {
@@ -169,12 +185,19 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
     }
   };
 
-  const handleConfirmAddWebPlant = async () => {
+  const handleConfirmAddWebPlant = async (overrideUser?: GardenUser) => {
     if (!webSearchResult) return;
+    const userToUse = overrideUser || currentUser;
+    if (!userToUse) {
+      setPendingAddPlant(webSearchResult);
+      setLoginModalOpen(true);
+      return;
+    }
+
     setIsAddingPlant(true);
     try {
-      const newGuide = await confirmAndSaveWebPlant(webSearchResult);
-      setAddedNotification(`"${newGuide.commonName}" added to your Greenhouse!`);
+      const newGuide = await confirmAndSaveWebPlant(webSearchResult, userToUse);
+      setAddedNotification(`"${newGuide.commonName}" added to Greenhouse by @${userToUse.username}!`);
       setWebSearchResult(null);
       setWebSearchAttempted(false);
       setSearchQuery('');
@@ -188,9 +211,19 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
     }
   };
 
+  const handleLoginSuccess = (user: GardenUser) => {
+    setCurrentUser(user);
+    if (pendingAddPlant) {
+      const plantToAdd = pendingAddPlant;
+      setPendingAddPlant(null);
+      handleConfirmAddWebPlant(user);
+    }
+  };
+
   const handleCancelConfirmation = () => {
     setWebSearchResult(null);
     setWebSearchAttempted(false);
+    setPendingAddPlant(null);
   };
 
 
@@ -792,6 +825,13 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                   <Globe className="w-3 h-3 text-emerald-400" />
                   <span>Botanical Specimen Found</span>
                 </div>
+
+                {webSearchResult.correctedFrom && (
+                  <div className="text-[11px] bg-amber-400/20 text-amber-200 px-2.5 py-1.5 rounded-xl border border-amber-400/40 font-bold">
+                    💡 Closest match for "{webSearchResult.correctedFrom}" &rarr; <strong className="text-white underline">{webSearchResult.commonName}</strong>
+                  </div>
+                )}
+
                 <h4 className="text-sm font-black text-white">
                   Is this what you're looking for?
                 </h4>
@@ -814,6 +854,26 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                   </div>
                 </div>
 
+                {/* Contributor Badge Note */}
+                <div className="p-2 rounded-xl bg-white/5 border border-emerald-400/30 text-[10px] text-slate-300 flex items-center justify-between gap-2">
+                  <span className="truncate">
+                    {currentUser ? (
+                      <>Adding as <strong className="text-emerald-300">@{currentUser.username}</strong> ({currentUser.badge})</>
+                    ) : (
+                      <>Sign in to engrave your handle & earn badge</>
+                    )}
+                  </span>
+                  {!currentUser && (
+                    <button
+                      type="button"
+                      onClick={() => setLoginModalOpen(true)}
+                      className="px-2 py-0.5 rounded bg-white/15 text-emerald-300 font-bold shrink-0 text-[10px]"
+                    >
+                      Sign In
+                    </button>
+                  )}
+                </div>
+
                 <div className="flex items-center justify-end gap-2 pt-1">
                   <button
                     type="button"
@@ -824,7 +884,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                   </button>
                   <button
                     type="button"
-                    onClick={handleConfirmAddWebPlant}
+                    onClick={() => handleConfirmAddWebPlant()}
                     disabled={isAddingPlant}
                     className="px-4 py-1.5 rounded-xl bg-emerald-400 text-slate-950 text-[11px] font-black shadow-md flex items-center gap-1 cursor-pointer active:scale-95"
                   >
@@ -833,10 +893,15 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                         <div className="w-3 h-3 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
                         <span>Adding...</span>
                       </>
-                    ) : (
+                    ) : currentUser ? (
                       <>
                         <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>Yes, Add to Catalogue</span>
+                        <span>Yes, Add (@{currentUser.username})</span>
+                      </>
+                    ) : (
+                      <>
+                        <User className="w-3.5 h-3.5" />
+                        <span>Sign In & Add</span>
                       </>
                     )}
                   </button>
@@ -941,6 +1006,14 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                         )}
                       </div>
                       <p className="text-[10px] italic text-slate-500 truncate">{plant.scientificName}</p>
+                      {plant.addedBy && (
+                        <div className="flex items-center gap-1 text-[10px] text-emerald-800 font-semibold mt-0.5 truncate">
+                          <span>{plant.addedBy.avatarEmoji || '🌿'}</span>
+                          <span>Added by <strong className="text-emerald-950">@{plant.addedBy.username}</strong></span>
+                          <span className="text-slate-400">•</span>
+                          <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1 py-0.2 rounded font-bold">{plant.addedBy.badge}</span>
+                        </div>
+                      )}
                       <div className="flex items-center gap-3 text-[10px] text-slate-600 mt-1">
                         <span>☀️ {plant.lightRequirement.slice(0, 15)}...</span>
                         <span>💧 {plant.wateringNeed.slice(0, 15)}...</span>
@@ -1260,6 +1333,17 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
         isOpen={scannerModalOpen}
         onClose={() => setScannerModalOpen(false)}
         onOpenCareGuide={(plant) => setSelectedPlant(plant)}
+      />
+
+      {/* 7. Botanist Login & Profile Modal */}
+      <BotanistLoginModal
+        isOpen={loginModalOpen}
+        onClose={() => {
+          setLoginModalOpen(false);
+          setPendingAddPlant(null);
+        }}
+        onSuccess={handleLoginSuccess}
+        actionTitle="Sign In to Add Plant to Catalogue"
       />
 
     </div>

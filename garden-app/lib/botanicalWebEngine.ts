@@ -10,20 +10,57 @@ export interface BotanicalWebResult {
   family: string;
   description: string;
   imageUrl: string;
+  correctedFrom?: string;
+  matchedTerm?: string;
 }
+
+const BOTANICAL_TYPO_MAP: Record<string, string> = {
+  'anturium': 'anthurium',
+  'anturio': 'anthurium',
+  'calatea': 'calathea',
+  'monstara': 'monstera',
+  'begona': 'begonia',
+  'philodren': 'philodendron',
+  'philodendrom': 'philodendron',
+  'sanseveria': 'sansevieria',
+  'spathipillum': 'spathiphyllum',
+  'potos': 'pothos',
+  'aglaonima': 'aglaonema',
+  'dieffenbakia': 'dieffenbachia',
+  'syngoneum': 'syngonium',
+  'alocacia': 'alocasia',
+  'colocacia': 'colocasia',
+  'dracena': 'dracaena',
+  'scheflera': 'schefflera',
+  'peperomea': 'peperomia',
+  'orchidea': 'orchid',
+  'hawortia': 'haworthia',
+  'bouganvillea': 'bougainvillea',
+  'hibiskus': 'hibiscus',
+  'ficus lirata': 'ficus lyrata'
+};
+
+import { getCurrentGardenUser, recordUserPlantContribution, GardenUser } from './gardenAuthEngine';
 
 /**
  * Searches Wikipedia and Wikimedia Commons API for authentic high-res botanical photography.
+ * Features automated typo correction and Wikipedia search suggestions for misspelled plant names.
  */
 export async function searchBotanicalWebImage(rawQuery: string): Promise<BotanicalWebResult | null> {
   const terms: string[] = [];
+  const normalized = rawQuery.trim().toLowerCase();
+
+  // Check known botanical typo substitutions first
+  if (BOTANICAL_TYPO_MAP[normalized]) {
+    terms.push(BOTANICAL_TYPO_MAP[normalized]);
+  }
 
   // 1. Extract terms in parenthesis, e.g. "Water Jasmine (Wrightia religiosa)" -> "Wrightia religiosa"
   const parenMatches = rawQuery.match(/\(([^)]+)\)/g);
   if (parenMatches) {
     for (const m of parenMatches) {
       const clean = m.replace(/[()]/g, '').trim();
-      if (clean) terms.push(clean);
+      if (clean && !terms.includes(clean)) terms.push(clean);
     }
   }
 
@@ -45,21 +82,55 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
     terms.unshift('Wrightia religiosa');
   }
 
-  for (const term of terms) {
+  for (let i = 0; i < terms.length; i++) {
+    const term = terms[i];
     try {
       const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(term)}&format=json&origin=*`;
       const res = await fetch(searchUrl, {
-        headers: { 'Accept': 'application/json' }
+        headers: { 
+          'Accept': 'application/json',
+          'Api-User-Agent': 'GardenPerksBotanicalApp/1.0'
+        }
       });
       if (!res.ok) continue;
       const data = await res.json();
-      const searchItems = data?.query?.search || [];
+      
+      // Auto-detect Wikipedia search spelling suggestions (e.g. "anturium" -> "anthurium")
+      const suggestion = data?.query?.searchinfo?.suggestion;
+      if (suggestion && !terms.includes(suggestion)) {
+        terms.splice(i + 1, 0, suggestion);
+      }
 
-      for (const item of searchItems.slice(0, 3)) {
+      let searchItems = data?.query?.search || [];
+
+      // If no search items were found, try the suggestion or term + " plant"
+      if (searchItems.length === 0 && suggestion) {
+        const suggUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(suggestion)}&format=json&origin=*`;
+        const suggRes = await fetch(suggUrl, {
+          headers: { 'Accept': 'application/json', 'Api-User-Agent': 'GardenPerksBotanicalApp/1.0' }
+        });
+        if (suggRes.ok) {
+          const suggData = await suggRes.json();
+          searchItems = suggData?.query?.search || [];
+        }
+      }
+
+      if (searchItems.length === 0 && !term.includes('plant')) {
+        const plantUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(term + ' plant')}&format=json&origin=*`;
+        const plantRes = await fetch(plantUrl, {
+          headers: { 'Accept': 'application/json', 'Api-User-Agent': 'GardenPerksBotanicalApp/1.0' }
+        });
+        if (plantRes.ok) {
+          const plantData = await plantRes.json();
+          searchItems = plantData?.query?.search || [];
+        }
+      }
+
+      for (const item of searchItems.slice(0, 4)) {
         const title = item.title;
         const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
         const sumRes = await fetch(summaryUrl, {
-          headers: { 'Accept': 'application/json' }
+          headers: { 'Accept': 'application/json', 'Api-User-Agent': 'GardenPerksBotanicalApp/1.0' }
         });
         if (!sumRes.ok) continue;
         const sumData = await sumRes.json();
@@ -72,12 +143,16 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
             family = familyMatch[1];
           }
 
+          const isTypoCorrection = term.toLowerCase() !== rawQuery.trim().toLowerCase() || !!suggestion;
+
           return {
-            commonName: rawQuery.replace(/\(.*?\)/g, '').trim() || sumData.title,
+            commonName: isTypoCorrection ? sumData.title : (rawQuery.replace(/\(.*?\)/g, '').trim() || sumData.title),
             scientificName: sumData.title,
             family,
             description: sumData.extract || sumData.description || `Botanical specimen of ${sumData.title}.`,
-            imageUrl: img
+            imageUrl: img,
+            correctedFrom: isTypoCorrection ? rawQuery.trim() : undefined,
+            matchedTerm: sumData.title
           };
         }
       }
@@ -95,7 +170,8 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
  */
 export async function createCareGuideForPlantName(
   plantName: string,
-  preloadedWebResult?: BotanicalWebResult | null
+  preloadedWebResult?: BotanicalWebResult | null,
+  currentUser?: GardenUser | null
 ): Promise<PlantCareGuide> {
   const webResult = preloadedWebResult !== undefined 
     ? preloadedWebResult 
@@ -106,11 +182,14 @@ export async function createCareGuideForPlantName(
   const family = webResult?.family || 'Plantae';
   const heroImage = webResult?.imageUrl || 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1200&q=80';
 
+  // Determine user attribution
+  const activeUser = currentUser || getCurrentGardenUser();
+
   // Ask Gemini to generate tailored botanical care specifications
   const apiKey = getGoogleVisionApiKey();
   if (apiKey) {
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
       const prompt = `You are Dr. Flora, master horticulturalist.
 Generate a complete botanical care profile for the plant: "${common} (${scientific})".
 Return JSON with:
@@ -150,6 +229,16 @@ Return JSON with:
             heroImage,
             parsed
           );
+          if (activeUser) {
+            guide.addedBy = {
+              username: activeUser.username,
+              displayName: activeUser.displayName,
+              avatarEmoji: activeUser.avatarEmoji,
+              badge: activeUser.badge,
+              addedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            };
+            recordUserPlantContribution();
+          }
           saveCustomPlantToCatalog(guide);
           return guide;
         }
@@ -170,6 +259,16 @@ Return JSON with:
       shortHook: `Verified botanical specimen: ${common}`
     }
   );
+  if (activeUser) {
+    fallbackGuide.addedBy = {
+      username: activeUser.username,
+      displayName: activeUser.displayName,
+      avatarEmoji: activeUser.avatarEmoji,
+      badge: activeUser.badge,
+      addedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    };
+    recordUserPlantContribution();
+  }
   saveCustomPlantToCatalog(fallbackGuide);
   return fallbackGuide;
 }
@@ -177,7 +276,11 @@ Return JSON with:
 /**
  * Convenience helper to confirm and persist a plant found on the web into the user's Greenhouse catalogue.
  */
-export async function confirmAndSaveWebPlant(webResult: BotanicalWebResult): Promise<PlantCareGuide> {
-  return createCareGuideForPlantName(webResult.scientificName || webResult.commonName, webResult);
+export async function confirmAndSaveWebPlant(
+  webResult: BotanicalWebResult,
+  currentUser?: GardenUser | null
+): Promise<PlantCareGuide> {
+  return createCareGuideForPlantName(webResult.scientificName || webResult.commonName, webResult, currentUser);
 }
+
 
