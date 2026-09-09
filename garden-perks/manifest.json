@@ -1,0 +1,30 @@
+{
+  "name": "The Garden Perks — Daily Botanical Care & AI Plant Doctor",
+  "short_name": "Garden Perks",
+  "description": "Your daily botanical sanctuary. Daily plant care profiles, Likes & Dislikes matrix, AI Plant Doctor clinic, and organic gardening essentials.",
+  "start_url": "/techspec-digest/garden-perks/",
+  "scope": "/techspec-digest/garden-perks/",
+  "display": "standalone",
+  "background_color": "#064e3b",
+  "theme_color": "#059669",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/techspec-digest/garden-perks/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/techspec-digest/garden-perks/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "lifestyle",
+    "utilities",
+    "education"
+  ]
+}
