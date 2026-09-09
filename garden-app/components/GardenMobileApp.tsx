@@ -31,7 +31,8 @@ import {
   BookOpen,
   Globe,
   User,
-  Lock
+  Lock,
+  AlertCircle
 } from 'lucide-react';
 import { getDailyFeaturedPlant, getAllPlantGuides } from '../lib/gardenDailyEngine';
 import { generatePlantDoctorDiagnosis, DoctorDiagnosis } from '../lib/botanicalDoctor';
@@ -911,8 +912,33 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
               </div>
             )}
 
-            {/* Mobile Web Confirmation Card */}
-            {webSearchResult && (
+            {/* Mobile Non-Plant Rejection Notice */}
+            {webSearchResult && webSearchResult.isPlant === false && (
+              <div className="bg-gradient-to-br from-red-950 via-slate-900 to-rose-950 text-white rounded-2xl p-4 border-2 border-rose-500 shadow-xl space-y-2.5 animate-in zoom-in-95">
+                <div className="flex items-center gap-1.5 text-rose-300 text-[10px] font-black uppercase tracking-wider">
+                  <AlertCircle className="w-3.5 h-3.5 text-rose-400" />
+                  <span>⚠️ Non-Botanical Entity</span>
+                </div>
+                <h4 className="text-sm font-black text-white">
+                  "{searchQuery}" cannot be added to Catalogue
+                </h4>
+                <p className="text-[11px] text-rose-200/90 leading-snug">
+                  {webSearchResult.nonPlantExplanation || `"${searchQuery}" is not a botanical plant organism. The Greenhouse only catalogues living plants and flora.`}
+                </p>
+                <div className="pt-1">
+                  <button
+                    type="button"
+                    onClick={handleCancelConfirmation}
+                    className="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Mobile Web Confirmation Card (Visible when web search returns a genuine plant) */}
+            {webSearchResult && webSearchResult.isPlant !== false && (
               <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 text-white rounded-2xl p-4 border-2 border-emerald-400 shadow-xl space-y-3 animate-in zoom-in-95">
                 <div className="flex items-center gap-1.5 text-emerald-300 text-[10px] font-black uppercase tracking-wider">
                   {webSearchResult.alreadyInCatalog ? (

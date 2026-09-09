@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, Sprout, ArrowRight, ShieldCheck, ShieldAlert, Sparkles, Check, Globe, X, User, Award } from 'lucide-react';
+import { Search, Filter, Sprout, ArrowRight, ShieldCheck, ShieldAlert, Sparkles, Check, Globe, X, User, Award, AlertCircle } from 'lucide-react';
 import { PlantCareGuide } from '../data/plantCareGuides';
 import CareGuideModal from './CareGuideModal';
 import { searchBotanicalWebImage, confirmAndSaveWebPlant, BotanicalWebResult } from '../lib/botanicalWebEngine';
@@ -262,8 +262,35 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
         </div>
       )}
 
-      {/* Interactive Web Confirmation Card (Visible when web search returns a candidate) */}
-      {webSearchResult && (
+      {/* Non-Plant Rejection Notice */}
+      {webSearchResult && webSearchResult.isPlant === false && (
+        <div className="max-w-6xl mx-auto mb-8 px-4">
+          <div className="bg-gradient-to-br from-red-950 via-slate-900 to-rose-950 text-white rounded-3xl p-6 md:p-8 border-2 border-rose-500/80 shadow-2xl space-y-4 animate-in zoom-in-95">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-900/90 text-rose-300 text-[11px] font-black uppercase tracking-wider border border-rose-400/40">
+              <AlertCircle className="w-3.5 h-3.5 text-rose-400" />
+              <span>⚠️ Non-Botanical Entity Detected</span>
+            </div>
+            <h3 className="text-xl md:text-2xl font-black text-white">
+              "{searchQuery}" cannot be added to the Greenhouse Catalogue
+            </h3>
+            <p className="text-xs sm:text-sm text-rose-200/90 leading-relaxed max-w-2xl">
+              {webSearchResult.nonPlantExplanation || `"${searchQuery}" is not a botanical plant organism. The Greenhouse encyclopedia strictly catalogues living flora, houseplants, flowers, trees, and succulents.`}
+            </p>
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={handleCancelConfirmation}
+                className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all cursor-pointer"
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Interactive Web Confirmation Card (Visible when web search returns a genuine plant specimen) */}
+      {webSearchResult && webSearchResult.isPlant !== false && (
         <div className="max-w-6xl mx-auto mb-8 px-4">
           <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 text-white rounded-3xl p-6 md:p-8 border-2 border-emerald-400 shadow-2xl space-y-5 animate-in zoom-in-95">
             <div className="flex items-start justify-between gap-3 border-b border-emerald-500/20 pb-4">
