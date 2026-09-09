@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="50%" stop-color="#047857" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a7f3d0" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="192" height="192" rx="44" fill="url(#bgGrad)" />
+
+  <!-- Subtle glow ring -->
+  <circle cx="96" cy="96" r="76" fill="none" stroke="#10b981" stroke-width="2" stroke-opacity="0.25" stroke-dasharray="8 6"/>
+
+  <!-- Botanical Sprout Leaf Group -->
+  <g filter="url(#shadow)" transform="translate(16, 12)">
+    <!-- Main Big Leaf -->
+    <path d="M80 135 C 80 135, 80 85, 35 60 C 35 110, 65 135, 80 135 Z" fill="url(#leafGrad)" />
+    <!-- Secondary Right Leaf -->
+    <path d="M80 135 C 80 135, 85 95, 125 75 C 125 115, 95 135, 80 135 Z" fill="#6ee7b7" opacity="0.9" />
+    <!-- Center Vein -->
+    <path d="M80 135 Q 75 95 50 70" fill="none" stroke="#065f46" stroke-width="3" stroke-linecap="round" />
+    <path d="M80 115 Q 95 100 110 88" fill="none" stroke="#065f46" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Doctor / Plant Clinic Cross Badge -->
+  <g transform="translate(126, 32)" filter="url(#shadow)">
+    <circle cx="16" cy="16" r="18" fill="#ffffff" />
+    <rect x="13" y="6" width="6" height="20" rx="2" fill="#059669" />
+    <rect x="6" y="13" width="20" height="6" rx="2" fill="#059669" />
+  </g>
+
+  <!-- Golden Sparkle Accent -->
+  <path d="M42 40 L 45 48 L 53 51 L 45 54 L 42 62 L 39 54 L 31 51 L 39 48 Z" fill="url(#goldGrad)" opacity="0.9" />
+</svg>

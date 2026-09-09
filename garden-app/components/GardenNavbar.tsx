@@ -7,9 +7,10 @@ import { Leaf, Search, Sparkles, MessageCircleHeart, Sprout, ShoppingBag, Menu, 
 interface NavbarProps {
   onOpenNewsletter?: () => void;
   onSearchFocus?: () => void;
+  onSwitchToMobile?: () => void;
 }
 
-export default function GardenNavbar({ onOpenNewsletter, onSearchFocus }: NavbarProps) {
+export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitchToMobile }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [portalDropdownOpen, setPortalDropdownOpen] = useState(false);
 
@@ -120,6 +121,15 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus }: Navbar
 
           {/* Right Action CTA */}
           <div className="hidden sm:flex items-center gap-3">
+            {onSwitchToMobile && (
+              <button
+                onClick={onSwitchToMobile}
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 shadow-2xs transition-all cursor-pointer"
+                title="Switch to Phone PWA View"
+              >
+                <span>📱 Phone View</span>
+              </button>
+            )}
             <button
               onClick={onOpenNewsletter}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-bold shadow-md shadow-emerald-600/20 hover:shadow-lg hover:shadow-emerald-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all"

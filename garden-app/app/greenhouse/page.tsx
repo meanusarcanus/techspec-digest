@@ -5,11 +5,23 @@ import GardenNavbar from '../../components/GardenNavbar';
 import GardenFooter from '../../components/GardenFooter';
 import GreenhouseArchive from '../../components/GreenhouseArchive';
 import GardenNewsletter from '../../components/GardenNewsletter';
+import GardenMobileApp from '../../components/GardenMobileApp';
+import { useDeviceMode } from '../../lib/useDeviceMode';
 import { getAllPlantGuides } from '../../lib/gardenDailyEngine';
 
 export default function GreenhousePage() {
   const [newsletterModalOpen, setNewsletterModalOpen] = useState(false);
+  const { isMounted, isMobileView, setViewMode } = useDeviceMode();
   const allPlants = getAllPlantGuides();
+
+  if (isMounted && isMobileView) {
+    return (
+      <GardenMobileApp 
+        initialTab="greenhouse" 
+        onSwitchToDesktop={() => setViewMode('desktop')} 
+      />
+    );
+  }
 
   return (
     <div className="flex-1 flex flex-col">
