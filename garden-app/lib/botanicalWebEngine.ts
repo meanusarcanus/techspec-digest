@@ -91,9 +91,16 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
 
 /**
  * Builds a complete PlantCareGuide using Gemini AI combined with the fetched web photo.
+ * If preloadedWebResult is passed, reuses it without re-querying the web.
  */
-export async function createCareGuideForPlantName(plantName: string): Promise<PlantCareGuide> {
-  const webResult = await searchBotanicalWebImage(plantName);
+export async function createCareGuideForPlantName(
+  plantName: string,
+  preloadedWebResult?: BotanicalWebResult | null
+): Promise<PlantCareGuide> {
+  const webResult = preloadedWebResult !== undefined 
+    ? preloadedWebResult 
+    : await searchBotanicalWebImage(plantName);
+
   const common = webResult?.commonName || plantName.trim();
   const scientific = webResult?.scientificName || plantName.trim();
   const family = webResult?.family || 'Plantae';
@@ -166,3 +173,11 @@ Return JSON with:
   saveCustomPlantToCatalog(fallbackGuide);
   return fallbackGuide;
 }
+
+/**
+ * Convenience helper to confirm and persist a plant found on the web into the user's Greenhouse catalogue.
+ */
+export async function confirmAndSaveWebPlant(webResult: BotanicalWebResult): Promise<PlantCareGuide> {
+  return createCareGuideForPlantName(webResult.scientificName || webResult.commonName, webResult);
+}
+

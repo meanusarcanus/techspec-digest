@@ -28,13 +28,15 @@ import {
   X,
   ShieldCheck,
   Flame,
-  BookOpen
+  BookOpen,
+  Globe
 } from 'lucide-react';
 import { getDailyFeaturedPlant, getAllPlantGuides } from '../lib/gardenDailyEngine';
 import { generatePlantDoctorDiagnosis, DoctorDiagnosis } from '../lib/botanicalDoctor';
 import { PlantCareGuide } from '../data/plantCareGuides';
 import CareGuideModal from './CareGuideModal';
 import PlantCameraScannerModal from './PlantCameraScannerModal';
+import { searchBotanicalWebImage, confirmAndSaveWebPlant, BotanicalWebResult } from '../lib/botanicalWebEngine';
 
 interface GardenMobileAppProps {
   onSwitchToDesktop: () => void;
@@ -56,6 +58,13 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
   // Greenhouse search & filter
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+
+  // Web search & user confirmation state
+  const [isSearchingWeb, setIsSearchingWeb] = useState(false);
+  const [webSearchResult, setWebSearchResult] = useState<BotanicalWebResult | null>(null);
+  const [webSearchAttempted, setWebSearchAttempted] = useState(false);
+  const [isAddingPlant, setIsAddingPlant] = useState(false);
+  const [addedNotification, setAddedNotification] = useState<string | null>(null);
 
   // Newsletter form
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -137,6 +146,53 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                           p.scientificName.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCat && matchesSearch;
   });
+
+  const handleTriggerWebSearch = async (termToSearch?: string) => {
+    const term = (termToSearch || searchQuery).trim();
+    if (!term) return;
+
+    setIsSearchingWeb(true);
+    setWebSearchResult(null);
+    setWebSearchAttempted(false);
+    setAddedNotification(null);
+
+    try {
+      const result = await searchBotanicalWebImage(term);
+      setWebSearchResult(result);
+      setWebSearchAttempted(true);
+    } catch (err) {
+      console.error('Mobile web search error:', err);
+      setWebSearchResult(null);
+      setWebSearchAttempted(true);
+    } finally {
+      setIsSearchingWeb(false);
+    }
+  };
+
+  const handleConfirmAddWebPlant = async () => {
+    if (!webSearchResult) return;
+    setIsAddingPlant(true);
+    try {
+      const newGuide = await confirmAndSaveWebPlant(webSearchResult);
+      setAddedNotification(`"${newGuide.commonName}" added to your Greenhouse!`);
+      setWebSearchResult(null);
+      setWebSearchAttempted(false);
+      setSearchQuery('');
+      setSelectedCategory('All');
+      setSelectedPlant(newGuide);
+      setTimeout(() => setAddedNotification(null), 5000);
+    } catch (err) {
+      console.error('Failed to add plant to catalog:', err);
+    } finally {
+      setIsAddingPlant(false);
+    }
+  };
+
+  const handleCancelConfirmation = () => {
+    setWebSearchResult(null);
+    setWebSearchAttempted(false);
+  };
+
 
   return (
     <div className="flex flex-col min-h-screen bg-[#f7faf8] text-slate-900 selection:bg-emerald-200">
@@ -686,10 +742,107 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                 type="text"
                 placeholder="Search plants by name or species..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 text-xs rounded-2xl bg-white border border-slate-200 focus:outline-none focus:border-emerald-500 shadow-2xs"
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  if (webSearchResult || webSearchAttempted) {
+                    setWebSearchResult(null);
+                    setWebSearchAttempted(false);
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && filteredPlants.length === 0 && searchQuery.trim()) {
+                    e.preventDefault();
+                    handleTriggerWebSearch();
+                  }
+                }}
+                className="w-full pl-9 pr-9 py-2.5 text-xs rounded-2xl bg-white border border-slate-200 focus:outline-none focus:border-emerald-500 shadow-2xs"
               />
+              {searchQuery && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setWebSearchResult(null);
+                    setWebSearchAttempted(false);
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 rounded-full cursor-pointer"
+                  title="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
+
+            {/* Success Notification Banner */}
+            {addedNotification && (
+              <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-bold flex items-center justify-between shadow-2xs animate-in fade-in">
+                <div className="flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>{addedNotification}</span>
+                </div>
+                <button onClick={() => setAddedNotification(null)} className="text-[10px] text-emerald-700 underline cursor-pointer">
+                  Dismiss
+                </button>
+              </div>
+            )}
+
+            {/* Mobile Web Confirmation Card */}
+            {webSearchResult && (
+              <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 text-white rounded-2xl p-4 border-2 border-emerald-400 shadow-xl space-y-3 animate-in zoom-in-95">
+                <div className="flex items-center gap-1.5 text-emerald-300 text-[10px] font-black uppercase tracking-wider">
+                  <Globe className="w-3 h-3 text-emerald-400" />
+                  <span>Botanical Specimen Found</span>
+                </div>
+                <h4 className="text-sm font-black text-white">
+                  Is this what you're looking for?
+                </h4>
+                
+                <div className="flex gap-3 bg-black/40 p-2.5 rounded-xl border border-emerald-500/30">
+                  <img
+                    src={webSearchResult.imageUrl}
+                    alt={webSearchResult.commonName}
+                    className="w-20 h-20 rounded-lg object-cover shrink-0 border border-emerald-400/40 shadow-xs"
+                  />
+                  <div className="flex-1 min-w-0 space-y-1 text-left">
+                    <h5 className="text-xs font-bold text-emerald-200 truncate">{webSearchResult.commonName}</h5>
+                    <p className="text-[10px] italic text-slate-300 truncate">{webSearchResult.scientificName}</p>
+                    <span className="inline-block text-[9px] font-semibold text-emerald-400 bg-emerald-950/80 px-1.5 py-0.2 rounded border border-emerald-500/30">
+                      {webSearchResult.family}
+                    </span>
+                    <p className="text-[10px] text-slate-300 line-clamp-2 leading-tight">
+                      {webSearchResult.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={handleCancelConfirmation}
+                    className="px-3 py-1.5 rounded-xl bg-white/10 text-slate-300 text-[11px] font-semibold cursor-pointer"
+                  >
+                    ✕ No, not this
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleConfirmAddWebPlant}
+                    disabled={isAddingPlant}
+                    className="px-4 py-1.5 rounded-xl bg-emerald-400 text-slate-950 text-[11px] font-black shadow-md flex items-center gap-1 cursor-pointer active:scale-95"
+                  >
+                    {isAddingPlant ? (
+                      <>
+                        <div className="w-3 h-3 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                        <span>Adding...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>Yes, Add to Catalogue</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Category Pills */}
             <div className="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
@@ -697,7 +850,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                     selectedCategory === cat
                       ? 'bg-emerald-700 text-white shadow-xs'
                       : 'bg-white text-slate-600 border border-slate-200'
@@ -708,47 +861,96 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
               ))}
             </div>
 
-            {/* Plants Count */}
-            <div className="text-[11px] text-slate-500 font-medium px-1 flex items-center justify-between">
+            {/* Plants Count & Optional Web Search Shortcut */}
+            <div className="text-[11px] text-slate-500 font-medium px-1 flex items-center justify-between flex-wrap gap-1">
               <span>Showing {filteredPlants.length} Botanical Profiles</span>
-              <span>Tap card to view guide</span>
+              {filteredPlants.length > 0 && searchQuery.trim().length > 1 && !webSearchResult && !isSearchingWeb ? (
+                <button
+                  onClick={() => handleTriggerWebSearch()}
+                  className="text-emerald-700 font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  <Globe className="w-2.5 h-2.5" />
+                  <span>Search web for "{searchQuery}"</span>
+                </button>
+              ) : (
+                <span>Tap card to view guide</span>
+              )}
             </div>
 
-            {/* Plant Cards List */}
-            <div className="space-y-2.5">
-              {filteredPlants.map((plant) => (
-                <div
-                  key={plant.id}
-                  onClick={() => setSelectedPlant(plant)}
-                  className="p-3 rounded-2xl bg-white border border-emerald-100 shadow-2xs hover:border-emerald-300 transition-all flex items-center gap-3 cursor-pointer active:scale-98"
-                >
-                  <img
-                    src={plant.heroImage}
-                    alt={plant.commonName}
-                    className="w-16 h-16 rounded-xl object-cover shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <h4 className="text-xs font-bold text-slate-900 truncate">{plant.commonName}</h4>
-                      {plant.id.startsWith('custom-') && (
-                        <span className="text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded-full font-bold flex items-center gap-0.5 shadow-2xs">
-                          <Sparkles className="w-2 h-2" /> Scanned
-                        </span>
-                      )}
-                      {plant.petSafe && (
-                        <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Pet Safe</span>
-                      )}
-                    </div>
-                    <p className="text-[10px] italic text-slate-500 truncate">{plant.scientificName}</p>
-                    <div className="flex items-center gap-3 text-[10px] text-slate-600 mt-1">
-                      <span>☀️ {plant.lightRequirement.slice(0, 15)}...</span>
-                      <span>💧 {plant.wateringNeed.slice(0, 15)}...</span>
-                    </div>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+            {/* Plant Cards List or Empty/Search States */}
+            {filteredPlants.length === 0 ? (
+              isSearchingWeb ? (
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-emerald-950 to-slate-900 text-white border border-emerald-500/30 text-center space-y-2 shadow-sm animate-in fade-in">
+                  <div className="w-8 h-8 rounded-full border-2 border-emerald-400/40 border-t-emerald-300 animate-spin mx-auto" />
+                  <p className="text-xs font-bold text-emerald-200">Searching Botanical Web Archives...</p>
+                  <p className="text-[10px] text-slate-400">Finding records for "{searchQuery}"...</p>
                 </div>
-              ))}
-            </div>
+              ) : webSearchAttempted && !webSearchResult ? (
+                <div className="p-6 rounded-2xl bg-white border border-slate-200 text-center space-y-2 shadow-2xs">
+                  <Sprout className="w-8 h-8 text-slate-300 mx-auto" />
+                  <p className="text-xs font-bold text-slate-800">No Web Matches Found</p>
+                  <p className="text-[10px] text-slate-500">Could not find botanical records for "{searchQuery}".</p>
+                  <button
+                    onClick={() => { setSearchQuery(''); setWebSearchAttempted(false); }}
+                    className="px-3 py-1 text-xs font-bold bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 cursor-pointer"
+                  >
+                    Reset Search
+                  </button>
+                </div>
+              ) : searchQuery.trim().length > 0 ? (
+                <div className="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-center space-y-2 shadow-2xs">
+                  <Globe className="w-8 h-8 text-emerald-600 mx-auto" />
+                  <p className="text-xs font-bold text-slate-900">"{searchQuery}" is not in your catalogue</p>
+                  <p className="text-[10px] text-slate-600">Search botanical web archives to preview & add it?</p>
+                  <button
+                    onClick={() => handleTriggerWebSearch()}
+                    className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 mx-auto cursor-pointer active:scale-95"
+                  >
+                    <Globe className="w-3.5 h-3.5" />
+                    <span>Search Web for "{searchQuery}"</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-xs text-slate-500 shadow-2xs">
+                  No plants match this category.
+                </div>
+              )
+            ) : (
+              <div className="space-y-2.5">
+                {filteredPlants.map((plant) => (
+                  <div
+                    key={plant.id}
+                    onClick={() => setSelectedPlant(plant)}
+                    className="p-3 rounded-2xl bg-white border border-emerald-100 shadow-2xs hover:border-emerald-300 transition-all flex items-center gap-3 cursor-pointer active:scale-98"
+                  >
+                    <img
+                      src={plant.heroImage}
+                      alt={plant.commonName}
+                      className="w-16 h-16 rounded-xl object-cover shrink-0"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <h4 className="text-xs font-bold text-slate-900 truncate">{plant.commonName}</h4>
+                        {plant.id.startsWith('custom-') && (
+                          <span className="text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded-full font-bold flex items-center gap-0.5 shadow-2xs">
+                            <Sparkles className="w-2 h-2" /> Scanned
+                          </span>
+                        )}
+                        {plant.petSafe && (
+                          <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1 rounded font-bold">Pet Safe</span>
+                        )}
+                      </div>
+                      <p className="text-[10px] italic text-slate-500 truncate">{plant.scientificName}</p>
+                      <div className="flex items-center gap-3 text-[10px] text-slate-600 mt-1">
+                        <span>☀️ {plant.lightRequirement.slice(0, 15)}...</span>
+                        <span>💧 {plant.wateringNeed.slice(0, 15)}...</span>
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                  </div>
+                ))}
+              </div>
+            )}
 
           </div>
         )}
