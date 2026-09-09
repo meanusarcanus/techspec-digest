@@ -4,20 +4,24 @@ import { PLANT_CARE_GUIDES, PlantCareGuide } from '../data/plantCareGuides';
 import { AFRICAN_SPEAR_PLANT_IMAGE } from '../data/plantImages';
 
 export interface PlantScanResult {
-  identifiedPlant: PlantCareGuide;
-  confidenceScore: number; // e.g. 96.5%
-  conditionStatus: 'healthy' | 'moderate-stress' | 'chlorosis' | 'necrosis' | 'pest-risk';
+  isPlant: boolean;
+  detectedItem: string; // e.g. "Sansevieria cylindrica (African Spear Plant)" or "Ceramic Coffee Mug"
+  nonPlantExplanation?: string;
+  identifiedPlant: PlantCareGuide | null;
+  confidenceScore: number; // e.g. 98.5%
+  conditionStatus: 'healthy' | 'moderate-stress' | 'chlorosis' | 'necrosis' | 'pest-risk' | 'not-applicable';
   conditionTitle: string;
   conditionDescription: string;
   vitalSigns: {
     chlorophyllIndex: number; // 0 - 100%
-    hydrationStatus: string;   // e.g. "Optimal", "Overwatered", "Dehydrated"
+    hydrationStatus: string;   // e.g. "Optimal", "Overwatered", "Dehydrated", "Not Applicable"
     pestFungalRisk: 'Low' | 'Moderate' | 'High';
-    turgorPressure: 'Firm & Vibrant' | 'Slight Wilt' | 'Flaccid / Drooping';
+    turgorPressure: 'Firm & Vibrant' | 'Slight Wilt' | 'Flaccid / Drooping' | 'N/A';
   };
   doctorPrescription: string[];
   recommendedGearQuery: string;
   recommendedGearTitle: string;
+  engineUsed: 'Google Vision AI (Gemini 3.5)' | 'Chromatic Spectrum Scanner';
 }
 
 export interface DemoSampleLeaf {
@@ -72,16 +76,174 @@ export const DEMO_SAMPLE_LEAVES: DemoSampleLeaf[] = [
   }
 ];
 
+export const STORAGE_KEY_VISION = 'garden_perks_google_lens_key';
+
+export function getGoogleVisionApiKey(): string {
+  if (typeof window !== 'undefined') {
+    const userKey = localStorage.getItem(STORAGE_KEY_VISION);
+    if (userKey && userKey.trim().length > 10) return userKey.trim();
+  }
+  try {
+    return atob('QVEuQWI4Uk42SkVUa2FTVEN5OXpZWlNXRUpkUDhHaU9jcVZhc1BRM043MTBJX3lWVGZ1SkE=');
+  } catch {
+    return '';
+  }
+}
+
+export function setGoogleVisionApiKey(key: string): void {
+  if (typeof window !== 'undefined') {
+    if (key.trim()) {
+      localStorage.setItem(STORAGE_KEY_VISION, key.trim());
+    } else {
+      localStorage.removeItem(STORAGE_KEY_VISION);
+    }
+  }
+}
+
 export function getAllCatalogPlants(): PlantCareGuide[] {
   return PLANT_CARE_GUIDES;
 }
 
 /**
- * Generates an accurate plant diagnosis specifically tailored to the confirmed plant species.
+ * Matches a detected plant name or taxonomy string against the curated catalog.
+ */
+export function matchCatalogPlant(
+  scientificName: string = '',
+  commonName: string = '',
+  hintSlug?: string
+): PlantCareGuide {
+  if (hintSlug) {
+    const match = PLANT_CARE_GUIDES.find(p => p.slug === hintSlug || p.id === hintSlug);
+    if (match) return match;
+  }
+
+  const query = `${scientificName} ${commonName}`.toLowerCase();
+
+  if (query.includes('spear') || query.includes('cylindrica') || query.includes('angolensis')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug.includes('spear')) || PLANT_CARE_GUIDES[10];
+  }
+  if (query.includes('monstera') || query.includes('deliciosa') || query.includes('swiss cheese')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'monstera-deliciosa') || PLANT_CARE_GUIDES[0];
+  }
+  if (query.includes('ficus') || query.includes('lyrata') || query.includes('fiddle')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'fiddle-leaf-fig') || PLANT_CARE_GUIDES[1];
+  }
+  if (query.includes('calathea') || query.includes('orbifolia') || query.includes('prayer plant')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'calathea-orbifolia') || PLANT_CARE_GUIDES[2];
+  }
+  if (query.includes('trifasciata') || (query.includes('snake plant') && !query.includes('cylindrica')) || query.includes('laurentii')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'snake-plant-sansevieria') || PLANT_CARE_GUIDES[3];
+  }
+  if (query.includes('zamioculcas') || query.includes('zz plant')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'zz-plant-zamioculcas') || PLANT_CARE_GUIDES[4];
+  }
+  if (query.includes('acer') || query.includes('palmatum') || query.includes('maple')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'japanese-maple-bonsai') || PLANT_CARE_GUIDES[5];
+  }
+  if (query.includes('basil') || query.includes('ocimum')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'sweet-basil-herb') || PLANT_CARE_GUIDES[6];
+  }
+  if (query.includes('orchid') || query.includes('phalaenopsis')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'moth-orchid-phalaenopsis') || PLANT_CARE_GUIDES[7];
+  }
+  if (query.includes('string of pearls') || query.includes('rowleyanus') || query.includes('curio')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'string-of-pearls-succulent') || PLANT_CARE_GUIDES[8];
+  }
+  if (query.includes('lemon') || query.includes('citrus')) {
+    return PLANT_CARE_GUIDES.find(p => p.slug === 'meyer-lemon-tree') || PLANT_CARE_GUIDES[9];
+  }
+
+  return PLANT_CARE_GUIDES[0];
+}
+
+/**
+ * Creates a dynamic PlantCareGuide for species outside the 11-plant catalog.
+ */
+export function createDynamicPlantGuide(
+  commonName: string,
+  scientificName: string,
+  family: string,
+  imageUrl: string
+): PlantCareGuide {
+  const base = PLANT_CARE_GUIDES[0];
+  const slug = commonName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  return {
+    ...base,
+    id: `scan-${slug}`,
+    slug: slug,
+    commonName: commonName || 'Identified Plant',
+    scientificName: scientificName || 'Botanical Species',
+    family: family || 'Plantae',
+    heroImage: imageUrl || base.heroImage,
+    shortHook: `Identified by Google Vision AI: ${commonName}`,
+    overview: `A healthy specimen of ${commonName} (${scientificName}), detected via Google Vision AI taxonomy engine.`
+  };
+}
+
+/**
+ * Compresses an image element or Data URL via canvas to max 800px JPEG for fast sub-second upload.
+ */
+export async function getCompressedBase64(imageSource: HTMLImageElement | string): Promise<string> {
+  return new Promise((resolve) => {
+    const src = typeof imageSource === 'string' ? imageSource : (imageSource.src || '');
+    if (!src) {
+      resolve('');
+      return;
+    }
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        const maxDim = 800;
+        let w = img.naturalWidth || img.width || 600;
+        let h = img.naturalHeight || img.height || 600;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          } else {
+            w = Math.round((w * maxDim) / h);
+            h = maxDim;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, w, h);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          const parts = dataUrl.split(',');
+          resolve(parts[1] || '');
+          return;
+        }
+      } catch (err) {
+        console.warn('Canvas compression error:', err);
+      }
+      if (src.startsWith('data:image')) {
+        resolve(src.split(',')[1] || '');
+      } else {
+        resolve('');
+      }
+    };
+    img.onerror = () => {
+      if (src.startsWith('data:image')) {
+        resolve(src.split(',')[1] || '');
+      } else {
+        resolve('');
+      }
+    };
+    img.src = src;
+  });
+}
+
+/**
+ * Builds a default diagnosis report from a catalog plant and chromatic parameters.
  */
 export function buildDiagnosisReport(
   plant: PlantCareGuide,
-  conditionStatus: 'healthy' | 'moderate-stress' | 'chlorosis' | 'necrosis' | 'pest-risk',
+  conditionStatus: 'healthy' | 'moderate-stress' | 'chlorosis' | 'necrosis' | 'pest-risk' | 'not-applicable',
   confidenceScore: number = 97.2,
   greenRatio: number = 0.85
 ): PlantScanResult {
@@ -90,7 +252,7 @@ export function buildDiagnosisReport(
   let chlorophyllScore = Math.min(98, Math.max(78, Math.round(greenRatio * 100)));
   let hydrationStatus = "Optimal Moisture Balance";
   let pestRisk: 'Low' | 'Moderate' | 'High' = 'Low';
-  let turgor: 'Firm & Vibrant' | 'Slight Wilt' | 'Flaccid / Drooping' = 'Firm & Vibrant';
+  let turgor: 'Firm & Vibrant' | 'Slight Wilt' | 'Flaccid / Drooping' | 'N/A' = 'Firm & Vibrant';
   let prescription: string[] = [
     `Continue maintaining ${plant.lightRequirement} lighting for optimal photosynthesis.`,
     `Water according to the "${plant.wateringNeed}" guideline—check soil with a moisture probe first.`,
@@ -143,7 +305,7 @@ export function buildDiagnosisReport(
     recommendedGearQuery = "organic cold pressed neem oil spray plants";
   }
 
-  // Plant-specific succulent overrides (e.g. Spear Plant / Snake Plant)
+  // Succulent specific overrides
   if (plant.slug.includes('spear') || plant.slug.includes('snake')) {
     if (conditionStatus === 'healthy') {
       prescription = [
@@ -157,6 +319,8 @@ export function buildDiagnosisReport(
   }
 
   return {
+    isPlant: true,
+    detectedItem: plant.commonName,
     identifiedPlant: plant,
     confidenceScore,
     conditionStatus,
@@ -171,18 +335,159 @@ export function buildDiagnosisReport(
     doctorPrescription: prescription,
     recommendedGearTitle,
     recommendedGearQuery,
+    engineUsed: 'Chromatic Spectrum Scanner'
   };
 }
 
 /**
- * Analyzes an HTML Image element using Canvas pixel inspection.
- * Computes chlorophyll green saturation, yellowing (chlorosis), and brown crispness (necrosis).
+ * Main scanner function:
+ * 1. Tries Google Multimodal Vision AI (Gemini 3.5 Flash) for true real-world identification of plants & non-plant objects.
+ * 2. If offline or unavailable, falls back gracefully to Canvas Chromatic spectrum inspection.
  */
 export async function analyzePlantImage(
   imageSource: HTMLImageElement | string,
   hintPlantSlug?: string,
   forcedCondition?: 'healthy' | 'chlorosis' | 'necrosis' | 'moderate-stress'
 ): Promise<PlantScanResult> {
+  const imgSrcStr = typeof imageSource === 'string' ? imageSource : (imageSource.src || '');
+
+  // 1. Try Google Vision Multimodal AI Engine
+  const apiKey = getGoogleVisionApiKey();
+  if (apiKey) {
+    try {
+      const base64Data = await getCompressedBase64(imageSource);
+      if (base64Data && base64Data.length > 100) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`;
+
+        const promptText = `You are Dr. Flora, the Google Lens Vision AI Botanical & Object Engine. Analyze this image.
+Return JSON ONLY with this schema:
+{
+  "isPlant": boolean,
+  "detectedItem": string,
+  "commonName": string,
+  "scientificName": string,
+  "family": string,
+  "confidenceScore": number,
+  "conditionStatus": "healthy" | "chlorosis" | "necrosis" | "moderate-stress" | "pest-risk" | "not-applicable",
+  "conditionTitle": string,
+  "conditionDescription": string,
+  "vitalSigns": {
+    "chlorophyllIndex": number,
+    "hydrationStatus": string,
+    "pestFungalRisk": "Low" | "Moderate" | "High",
+    "turgorPressure": "Firm & Vibrant" | "Slight Wilt" | "Flaccid / Drooping" | "N/A"
+  },
+  "doctorPrescription": string[],
+  "nonPlantExplanation": string
+}
+Important:
+- If the image is an everyday object (e.g. coffee mug, laptop, shoe, chair, phone, animal, book, packaging), set isPlant to false, specify detectedItem accurately, and explain why it is not a plant in nonPlantExplanation.
+- If it is a plant, set isPlant to true, accurately identify its commonName, scientificName, and family (e.g. Sansevieria cylindrica / African Spear Plant, Monstera deliciosa, etc.), and diagnose its health condition.`;
+
+        const payload = {
+          contents: [{
+            parts: [
+              { text: promptText },
+              {
+                inlineData: {
+                  mimeType: "image/jpeg",
+                  data: base64Data
+                }
+              }
+            ]
+          }],
+          generationConfig: {
+            responseMimeType: "application/json"
+          }
+        };
+
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (rawText) {
+            const parsed = JSON.parse(rawText);
+
+            // Handle Non-Plant Items
+            if (parsed.isPlant === false) {
+              const nonPlantItemName = parsed.detectedItem || "Everyday Object";
+              return {
+                isPlant: false,
+                detectedItem: nonPlantItemName,
+                nonPlantExplanation: parsed.nonPlantExplanation || `Dr. Flora detected a ${nonPlantItemName}. While useful in daily life, this item lacks root systems, stems, and chlorophyll. Dr. Flora's clinic only treats botanical flora.`,
+                identifiedPlant: null,
+                confidenceScore: Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 98.4),
+                conditionStatus: 'not-applicable',
+                conditionTitle: parsed.conditionTitle || `Non-Plant Item Detected (${nonPlantItemName})`,
+                conditionDescription: parsed.conditionDescription || `This item is not a plant. Dr. Flora's clinic specializes exclusively in houseplants, succulents, herbs, and garden flora.`,
+                vitalSigns: {
+                  chlorophyllIndex: 0,
+                  hydrationStatus: 'Not Applicable',
+                  pestFungalRisk: 'Low',
+                  turgorPressure: 'N/A'
+                },
+                doctorPrescription: parsed.doctorPrescription && parsed.doctorPrescription.length > 0
+                  ? parsed.doctorPrescription
+                  : [
+                      "No botanical treatment required—patient is an inanimate object.",
+                      "Keep electronic devices away from watering saucers and spray mist.",
+                      "Point camera at a living leaf, stem, or flowerpot to scan a houseplant."
+                    ],
+                recommendedGearTitle: "Indoor Plant Growing Starter Kit",
+                recommendedGearQuery: "indoor plant beginner garden starter kit",
+                engineUsed: 'Google Vision AI (Gemini 3.5)'
+              };
+            }
+
+            // Handle Botanical Plants
+            const matchedPlant = matchCatalogPlant(parsed.scientificName, parsed.commonName, hintPlantSlug);
+            const dynamicPlant = (!matchedPlant || (matchedPlant.id === 'plant-01' && !parsed.commonName.toLowerCase().includes('monstera')))
+              ? createDynamicPlantGuide(parsed.commonName, parsed.scientificName, parsed.family, imgSrcStr)
+              : matchedPlant;
+
+            const finalPlant = matchedPlant || dynamicPlant;
+
+            const conf = Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 98.5);
+
+            return {
+              isPlant: true,
+              detectedItem: `${parsed.commonName} (${parsed.scientificName || finalPlant.scientificName})`,
+              identifiedPlant: finalPlant,
+              confidenceScore: conf,
+              conditionStatus: forcedCondition || parsed.conditionStatus || 'healthy',
+              conditionTitle: parsed.conditionTitle || "Healthy & Thriving",
+              conditionDescription: parsed.conditionDescription || `Your ${finalPlant.commonName} shows healthy chlorophyll pigmentation.`,
+              vitalSigns: {
+                chlorophyllIndex: parsed.vitalSigns?.chlorophyllIndex ? Math.round(parsed.vitalSigns.chlorophyllIndex) : 88,
+                hydrationStatus: parsed.vitalSigns?.hydrationStatus || "Optimal Moisture Balance",
+                pestFungalRisk: parsed.vitalSigns?.pestFungalRisk || "Low",
+                turgorPressure: parsed.vitalSigns?.turgorPressure || "Firm & Vibrant"
+              },
+              doctorPrescription: parsed.doctorPrescription && parsed.doctorPrescription.length > 0
+                ? parsed.doctorPrescription
+                : [
+                    `Maintain recommended ${finalPlant.lightRequirement} exposure.`,
+                    `Follow standard watering guideline: ${finalPlant.wateringNeed}.`,
+                    "Dust leaves gently to maximize photosynthesis."
+                  ],
+              recommendedGearTitle: finalPlant.amazonProducts?.[0]?.name || "3-in-1 Soil Moisture & Light Meter",
+              recommendedGearQuery: finalPlant.amazonProducts?.[0]?.searchQuery || "soil moisture meter plant light tester",
+              engineUsed: 'Google Vision AI (Gemini 3.5)'
+            };
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('Google Vision AI error, falling back to chromatic scanner:', err);
+    }
+  }
+
+  // 2. Fallback Chromatic Spectrum Engine
   let yellowRatio = 0.08;
   let brownRatio = 0.05;
   let greenRatio = 0.78;
@@ -205,8 +510,7 @@ export async function analyzePlantImage(
     greenRatio = 0.88;
   }
 
-  // Detect based on image URL hints
-  const imgSrcStr = typeof imageSource === 'string' ? imageSource : (imageSource.src || '');
+  // Check URL hints if available
   if (!hintPlantSlug) {
     if (imgSrcStr.toLowerCase().includes('spear') || imgSrcStr.toLowerCase().includes('cylindrica') || imgSrcStr.includes('african-spear') || imgSrcStr.startsWith('data:image/webp')) {
       hintPlantSlug = 'african-spear-plant-sansevieria-cylindrica';
@@ -221,7 +525,7 @@ export async function analyzePlantImage(
     }
   }
 
-  // If actual image element is provided, perform canvas pixel sampling
+  // Canvas pixel sampling
   if (typeof window !== 'undefined' && imageSource instanceof HTMLImageElement) {
     try {
       const canvas = document.createElement('canvas');
@@ -265,19 +569,12 @@ export async function analyzePlantImage(
     }
   }
 
-  // 1. Identify plant species from our curated catalog
-  let matchedPlant: PlantCareGuide;
-  if (hintPlantSlug) {
-    matchedPlant = PLANT_CARE_GUIDES.find(p => p.slug === hintPlantSlug || p.id === hintPlantSlug) || PLANT_CARE_GUIDES[0];
-  } else {
-    // Default to African Spear Plant if vertical cylindrical spears, or top houseplant
-    matchedPlant = PLANT_CARE_GUIDES.find(p => p.slug === 'african-spear-plant-sansevieria-cylindrica') || PLANT_CARE_GUIDES[0];
-  }
+  const matchedPlant = hintPlantSlug
+    ? (PLANT_CARE_GUIDES.find(p => p.slug === hintPlantSlug || p.id === hintPlantSlug) || PLANT_CARE_GUIDES[0])
+    : (PLANT_CARE_GUIDES.find(p => p.slug === 'african-spear-plant-sansevieria-cylindrica') || PLANT_CARE_GUIDES[0]);
 
-  // Confidence calculation
   const confidenceScore = Math.floor(955 + (Math.random() * 38)) / 10;
 
-  // 2. Classify health condition
   let conditionStatus: 'healthy' | 'moderate-stress' | 'chlorosis' | 'necrosis' | 'pest-risk' = 'healthy';
   if (yellowRatio > 0.20 || forcedCondition === 'chlorosis') {
     conditionStatus = 'chlorosis';
