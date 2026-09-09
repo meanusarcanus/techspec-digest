@@ -196,6 +196,38 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white/95 border-b border-emerald-100 px-4 pt-2 pb-6 space-y-2">
+          {currentUser ? (
+            <div className="p-3 bg-emerald-50 rounded-2xl border border-emerald-200 flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">{currentUser.avatarEmoji || '🌿'}</span>
+                <div>
+                  <span className="font-extrabold text-emerald-950 text-sm">@{currentUser.username}</span>
+                  <span className="text-[10px] text-emerald-700 block">{currentUser.badge}</span>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  logoutGardenUser();
+                  setMobileMenuOpen(false);
+                }}
+                className="text-xs text-red-600 font-bold px-2.5 py-1 rounded-lg hover:bg-red-50 border border-red-200 cursor-pointer"
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setLoginModalOpen(true);
+              }}
+              className="w-full py-2.5 px-4 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-800 text-sm font-bold flex items-center justify-center gap-2 border border-slate-200 mb-2 cursor-pointer"
+            >
+              <User className="w-4 h-4 text-emerald-600" />
+              <span>Botanist Sign In (Email)</span>
+            </button>
+          )}
+
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}

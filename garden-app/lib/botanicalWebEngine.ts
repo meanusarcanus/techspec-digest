@@ -2,7 +2,7 @@
 
 import { PlantCareGuide } from '../data/plantCareGuides';
 import { createDynamicPlantGuide, getGoogleVisionApiKey } from './plantScannerEngine';
-import { saveCustomPlantToCatalog } from './gardenDailyEngine';
+import { saveCustomPlantToCatalog, findMatchingPlantInCatalog, addAliasToExistingPlant } from './gardenDailyEngine';
 
 export interface BotanicalWebResult {
   commonName: string;
@@ -12,6 +12,9 @@ export interface BotanicalWebResult {
   imageUrl: string;
   correctedFrom?: string;
   matchedTerm?: string;
+  aliases?: string[];
+  alreadyInCatalog?: boolean;
+  existingPlant?: PlantCareGuide;
 }
 
 const BOTANICAL_TYPO_MAP: Record<string, string> = {
@@ -41,6 +44,58 @@ const BOTANICAL_TYPO_MAP: Record<string, string> = {
 };
 
 import { getCurrentGardenUser, recordUserPlantContribution, GardenUser } from './gardenAuthEngine';
+
+export function extractCommonNamesAndAliases(extract: string, title: string, rawQuery: string): { commonName: string; aliases: string[] } {
+  const aliasesSet = new Set<string>();
+  const cleanQuery = rawQuery.trim().toLowerCase();
+  if (cleanQuery) {
+    aliasesSet.add(cleanQuery);
+  }
+  aliasesSet.add(title.toLowerCase());
+
+  let bestCommonName = '';
+
+  // Match common names in text: commonly known as X, Y, or Z
+  const match = extract?.match(/(?:commonly known as|common names? (?:are|include)|also called|known as|vernacularly called|local names? include)\s+([^.;\n]+)/i);
+  if (match && match[1]) {
+    const parts = match[1]
+      .replace(/\bor\b/gi, ',')
+      .replace(/\band\b/gi, ',')
+      .split(',')
+      .map(s => s.replace(/["'()]/g, '').trim())
+      .filter(s => s.length > 1 && !s.toLowerCase().includes('species') && !s.toLowerCase().includes('family') && !s.toLowerCase().includes('genus'));
+
+    for (const name of parts) {
+      aliasesSet.add(name.toLowerCase());
+      if (!bestCommonName && name.length >= 3) {
+        bestCommonName = name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+      }
+    }
+  }
+
+  const isBinomial = /^[A-Z][a-z]+\s+[a-z]+/.test(title);
+
+  if (!bestCommonName) {
+    if (!isBinomial) {
+      bestCommonName = title;
+    } else if (cleanQuery && cleanQuery !== title.toLowerCase()) {
+      bestCommonName = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
+    } else {
+      bestCommonName = title;
+    }
+  }
+
+  // If query is an alias (e.g. "suamei") and not already in bestCommonName, combine it (e.g. "Water Jasmine (Suamei)")
+  if (cleanQuery && !bestCommonName.toLowerCase().includes(cleanQuery) && cleanQuery !== title.toLowerCase()) {
+    const formattedQuery = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
+    bestCommonName = `${bestCommonName} (${formattedQuery})`;
+  }
+
+  return {
+    commonName: bestCommonName,
+    aliases: Array.from(aliasesSet)
+  };
+}
 
 /**
  * Searches Wikipedia and Wikimedia Commons API for authentic high-res botanical photography.
@@ -143,16 +198,41 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
             family = familyMatch[1];
           }
 
+          const { commonName: resolvedCommonName, aliases } = extractCommonNamesAndAliases(sumData.extract || '', sumData.title, rawQuery);
+
+          // Check if this plant is ALREADY in the catalogue!
+          const existingPlant = findMatchingPlantInCatalog(sumData.title) || 
+                                findMatchingPlantInCatalog(rawQuery) || 
+                                findMatchingPlantInCatalog(resolvedCommonName);
+
+          if (existingPlant) {
+            // Automatically attach user search query as alias so future catalogue lookups match instantly
+            addAliasToExistingPlant(existingPlant.id, rawQuery);
+            return {
+              commonName: existingPlant.commonName,
+              scientificName: existingPlant.scientificName,
+              family: existingPlant.family,
+              description: existingPlant.overview || sumData.extract || `Specimen of ${existingPlant.commonName}.`,
+              imageUrl: existingPlant.heroImage || img,
+              aliases: Array.from(new Set([...(existingPlant.aliases || []), ...aliases])),
+              alreadyInCatalog: true,
+              existingPlant: existingPlant,
+              matchedTerm: sumData.title
+            };
+          }
+
           const isTypoCorrection = term.toLowerCase() !== rawQuery.trim().toLowerCase() || !!suggestion;
 
           return {
-            commonName: isTypoCorrection ? sumData.title : (rawQuery.replace(/\(.*?\)/g, '').trim() || sumData.title),
+            commonName: resolvedCommonName,
             scientificName: sumData.title,
             family,
             description: sumData.extract || sumData.description || `Botanical specimen of ${sumData.title}.`,
             imageUrl: img,
             correctedFrom: isTypoCorrection ? rawQuery.trim() : undefined,
-            matchedTerm: sumData.title
+            matchedTerm: sumData.title,
+            aliases,
+            alreadyInCatalog: false
           };
         }
       }
@@ -177,10 +257,15 @@ export async function createCareGuideForPlantName(
     ? preloadedWebResult 
     : await searchBotanicalWebImage(plantName);
 
+  if (webResult?.alreadyInCatalog && webResult.existingPlant) {
+    return webResult.existingPlant;
+  }
+
   const common = webResult?.commonName || plantName.trim();
   const scientific = webResult?.scientificName || plantName.trim();
   const family = webResult?.family || 'Plantae';
   const heroImage = webResult?.imageUrl || 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1200&q=80';
+  const aliases = webResult?.aliases || [plantName.trim().toLowerCase()];
 
   // Determine user attribution
   const activeUser = currentUser || getCurrentGardenUser();
@@ -227,7 +312,7 @@ Return JSON with:
             scientific,
             family,
             heroImage,
-            parsed
+            { ...parsed, aliases }
           );
           if (activeUser) {
             guide.addedBy = {
@@ -256,7 +341,8 @@ Return JSON with:
     heroImage,
     {
       overview: webResult?.description || `Specimen of ${common} (${scientific}).`,
-      shortHook: `Verified botanical specimen: ${common}`
+      shortHook: `Verified botanical specimen: ${common}`,
+      aliases
     }
   );
   if (activeUser) {

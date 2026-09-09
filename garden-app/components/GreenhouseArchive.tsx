@@ -44,11 +44,13 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
   const difficulties = ['All', 'Beginner-Friendly', 'Intermediate', 'Plant Connoisseur'];
 
   const filteredPlants = plants.filter(plant => {
+    const q = searchQuery.toLowerCase().trim();
     const matchesSearch = 
-      plant.commonName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.scientificName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.family.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      plant.category.toLowerCase().includes(searchQuery.toLowerCase());
+      plant.commonName.toLowerCase().includes(q) ||
+      plant.scientificName.toLowerCase().includes(q) ||
+      plant.family.toLowerCase().includes(q) ||
+      plant.category.toLowerCase().includes(q) ||
+      (plant.aliases && plant.aliases.some(a => a.toLowerCase().includes(q) || q.includes(a.toLowerCase())));
 
     const matchesCategory = selectedCategory === 'All' || plant.category === selectedCategory;
     const matchesDifficulty = selectedDifficulty === 'All' || plant.difficulty === selectedDifficulty;
@@ -256,8 +258,17 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
             <div className="flex items-start justify-between gap-3 border-b border-emerald-500/20 pb-4">
               <div className="space-y-1.5">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-900/90 text-emerald-300 text-[11px] font-black uppercase tracking-wider border border-emerald-400/40">
-                  <Globe className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Botanical Web Specimen Found</span>
+                  {webSearchResult.alreadyInCatalog ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>🌿 Already in Catalogue</span>
+                    </>
+                  ) : (
+                    <>
+                      <Globe className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Botanical Web Specimen Found</span>
+                    </>
+                  )}
                 </div>
                 
                 {webSearchResult.correctedFrom && (
@@ -270,10 +281,14 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
                 )}
 
                 <h3 className="text-xl md:text-2xl font-black text-white">
-                  Is this what you're looking for?
+                  {webSearchResult.alreadyInCatalog && webSearchResult.existingPlant
+                    ? `"${webSearchResult.existingPlant.commonName}" is already in your catalogue!`
+                    : "Is this what you're looking for?"}
                 </h3>
                 <p className="text-xs text-slate-300 mt-1">
-                  We found this specimen in botanical archives. Confirm below to add its studio photography & complete care profile to your catalogue.
+                  {webSearchResult.alreadyInCatalog && webSearchResult.existingPlant
+                    ? `This specimen is already registered in your Greenhouse library. We've automatically linked "${searchQuery}" as an alias so searching either name will match directly!`
+                    : "We found this specimen in botanical archives. Confirm below to add its studio photography & complete care profile to your catalogue."}
                 </p>
               </div>
             </div>
@@ -287,7 +302,7 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute top-2 left-2 bg-black/70 backdrop-blur-xs text-[9px] font-bold text-emerald-300 px-2 py-0.5 rounded-md border border-emerald-400/30">
-                  Studio Photo
+                  {webSearchResult.alreadyInCatalog ? 'In Catalogue' : 'Studio Photo'}
                 </div>
               </div>
 
@@ -311,62 +326,89 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
               </div>
             </div>
 
-            {/* Contributor Badge Notice */}
-            <div className="p-3 rounded-2xl bg-white/5 border border-emerald-400/30 flex items-center justify-between gap-3 text-xs">
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span className="text-slate-300">
-                  {currentUser ? (
-                    <>Adding as <strong className="text-emerald-300">@{currentUser.username}</strong> ({currentUser.badge})</>
-                  ) : (
-                    <>Sign in to engrave your username & contributor badge onto this plant</>
-                  )}
-                </span>
-              </div>
-              {!currentUser && (
+            {webSearchResult.alreadyInCatalog && webSearchResult.existingPlant ? (
+              <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
                 <button
                   type="button"
-                  onClick={() => setLoginModalOpen(true)}
-                  className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-emerald-300 text-[11px] font-bold shrink-0 cursor-pointer"
+                  onClick={handleCancelConfirmation}
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-bold transition-all cursor-pointer text-center"
                 >
-                  Sign In First
+                  Close
                 </button>
-              )}
-            </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (webSearchResult.existingPlant) {
+                      setSelectedPlantModal(webSearchResult.existingPlant);
+                    }
+                    handleCancelConfirmation();
+                  }}
+                  className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 active:scale-98 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <ArrowRight className="w-4 h-4 text-slate-950" />
+                  <span>Open Care Guide for {webSearchResult.existingPlant.commonName}</span>
+                </button>
+              </div>
+            ) : (
+              <>
+                {/* Contributor Badge Notice */}
+                <div className="p-3 rounded-2xl bg-white/5 border border-emerald-400/30 flex items-center justify-between gap-3 text-xs">
+                  <div className="flex items-center gap-2">
+                    <Award className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-slate-300">
+                      {currentUser ? (
+                        <>Adding as <strong className="text-emerald-300">@{currentUser.username}</strong> ({currentUser.badge})</>
+                      ) : (
+                        <>Sign in to engrave your username & contributor badge onto this plant</>
+                      )}
+                    </span>
+                  </div>
+                  {!currentUser && (
+                    <button
+                      type="button"
+                      onClick={() => setLoginModalOpen(true)}
+                      className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-emerald-300 text-[11px] font-bold shrink-0 cursor-pointer"
+                    >
+                      Sign In First
+                    </button>
+                  )}
+                </div>
 
-            {/* Confirmation Action Buttons */}
-            <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
-              <button
-                type="button"
-                onClick={handleCancelConfirmation}
-                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-bold transition-all cursor-pointer text-center"
-              >
-                ✕ No, not this one
-              </button>
-              <button
-                type="button"
-                onClick={() => handleConfirmAddWebPlant()}
-                disabled={isAddingPlant}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 active:scale-98 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                {isAddingPlant ? (
-                  <>
-                    <div className="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-                    <span>Compiling Care Guide & Adding...</span>
-                  </>
-                ) : currentUser ? (
-                  <>
-                    <Check className="w-4 h-4 text-slate-950" />
-                    <span>Yes, Add to Catalogue (@{currentUser.username})</span>
-                  </>
-                ) : (
-                  <>
-                    <User className="w-4 h-4 text-slate-950" />
-                    <span>Sign In & Add to Catalogue</span>
-                  </>
-                )}
-              </button>
-            </div>
+                {/* Confirmation Action Buttons */}
+                <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={handleCancelConfirmation}
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-bold transition-all cursor-pointer text-center"
+                  >
+                    ✕ No, not this one
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleConfirmAddWebPlant()}
+                    disabled={isAddingPlant}
+                    className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 active:scale-98 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    {isAddingPlant ? (
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                        <span>Compiling Care Guide & Adding...</span>
+                      </>
+                    ) : currentUser ? (
+                      <>
+                        <Check className="w-4 h-4 text-slate-950" />
+                        <span>Yes, Add to Catalogue (@{currentUser.username})</span>
+                      </>
+                    ) : (
+                      <>
+                        <User className="w-4 h-4 text-slate-950" />
+                        <span>Sign In & Add to Catalogue</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

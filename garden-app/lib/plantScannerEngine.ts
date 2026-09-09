@@ -310,7 +310,8 @@ export function createDynamicPlantGuide(
         image: "https://images.unsplash.com/photo-1617173944883-6ffbd35d584d?auto=format&fit=crop&w=400&q=80",
         description: "Gentle seaweed and kelp extract designed to strengthen cellular turgor and enhance lush leaf coloration."
       }
-    ]
+    ],
+    aliases: extraData?.aliases || []
   };
 }
 

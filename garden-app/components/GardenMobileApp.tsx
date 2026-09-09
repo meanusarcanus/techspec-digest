@@ -170,9 +170,11 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
   // Categories
   const categories = ['All', 'Houseplants', 'Aroids', 'Tropical', 'Ficus', 'Succulents', 'Herbs'];
   const filteredPlants = allPlants.filter(p => {
+    const q = searchQuery.toLowerCase().trim();
     const matchesCat = selectedCategory === 'All' || p.category.toLowerCase().includes(selectedCategory.toLowerCase());
-    const matchesSearch = p.commonName.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          p.scientificName.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = p.commonName.toLowerCase().includes(q) || 
+                          p.scientificName.toLowerCase().includes(q) ||
+                          (p.aliases && p.aliases.some(a => a.toLowerCase().includes(q) || q.includes(a.toLowerCase())));
     return matchesCat && matchesSearch;
   });
 
@@ -265,8 +267,34 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
             </div>
           </div>
 
-          {/* Quick Actions (Scan, Install & Desktop Toggle) */}
+          {/* Quick Actions (User Sign In, Scan, Install & Desktop Toggle) */}
           <div className="flex items-center gap-1.5">
+            {currentUser ? (
+              <button
+                onClick={() => {
+                  setLoginModalTitle('Botanist Profile');
+                  setLoginModalOpen(true);
+                }}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-950 text-xs font-bold border border-emerald-300 shadow-2xs transition-transform active:scale-95 cursor-pointer"
+                title={`Signed in as @${currentUser.username} (${currentUser.badge})`}
+              >
+                <span>{currentUser.avatarEmoji || '🌿'}</span>
+                <span className="max-w-[65px] truncate">@{currentUser.username}</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setLoginModalTitle('Sign In with Email to Garden Perks');
+                  setLoginModalOpen(true);
+                }}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 shadow-2xs transition-transform active:scale-95 cursor-pointer"
+                title="Sign In with Email"
+              >
+                <User className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Sign In</span>
+              </button>
+            )}
+
             <button
               onClick={() => setScannerModalOpen(true)}
               className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 shadow-2xs transition-transform active:scale-95 cursor-pointer"
@@ -877,8 +905,17 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
             {webSearchResult && (
               <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 text-white rounded-2xl p-4 border-2 border-emerald-400 shadow-xl space-y-3 animate-in zoom-in-95">
                 <div className="flex items-center gap-1.5 text-emerald-300 text-[10px] font-black uppercase tracking-wider">
-                  <Globe className="w-3 h-3 text-emerald-400" />
-                  <span>Botanical Specimen Found</span>
+                  {webSearchResult.alreadyInCatalog ? (
+                    <>
+                      <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                      <span>🌿 Already in Catalogue</span>
+                    </>
+                  ) : (
+                    <>
+                      <Globe className="w-3 h-3 text-emerald-400" />
+                      <span>Botanical Specimen Found</span>
+                    </>
+                  )}
                 </div>
 
                 {webSearchResult.correctedFrom && (
@@ -888,9 +925,17 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                 )}
 
                 <h4 className="text-sm font-black text-white">
-                  Is this what you're looking for?
+                  {webSearchResult.alreadyInCatalog && webSearchResult.existingPlant
+                    ? `"${webSearchResult.existingPlant.commonName}" is already catalogued!`
+                    : "Is this what you're looking for?"}
                 </h4>
                 
+                <p className="text-[11px] text-slate-300 leading-snug">
+                  {webSearchResult.alreadyInCatalog && webSearchResult.existingPlant
+                    ? `This plant is already in your greenhouse library. We've linked "${searchQuery}" as an alias so searching either name will locate it!`
+                    : "We found this specimen in botanical archives. Confirm below to add its studio photo and complete care profile to your catalogue."}
+                </p>
+
                 <div className="flex gap-3 bg-black/40 p-2.5 rounded-xl border border-emerald-500/30">
                   <img
                     src={webSearchResult.imageUrl}
@@ -909,58 +954,88 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                   </div>
                 </div>
 
-                {/* Contributor Badge Note */}
-                <div className="p-2 rounded-xl bg-white/5 border border-emerald-400/30 text-[10px] text-slate-300 flex items-center justify-between gap-2">
-                  <span className="truncate">
-                    {currentUser ? (
-                      <>Adding as <strong className="text-emerald-300">@{currentUser.username}</strong> ({currentUser.badge})</>
-                    ) : (
-                      <>Sign in to engrave your handle & earn badge</>
-                    )}
-                  </span>
-                  {!currentUser && (
+                {webSearchResult.alreadyInCatalog && webSearchResult.existingPlant ? (
+                  <div className="flex items-center justify-end gap-2 pt-1">
                     <button
                       type="button"
-                      onClick={() => setLoginModalOpen(true)}
-                      className="px-2 py-0.5 rounded bg-white/15 text-emerald-300 font-bold shrink-0 text-[10px]"
+                      onClick={handleCancelConfirmation}
+                      className="px-3 py-1.5 rounded-xl bg-white/10 text-slate-300 text-[11px] font-semibold cursor-pointer"
                     >
-                      Sign In
+                      Close
                     </button>
-                  )}
-                </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (webSearchResult.existingPlant) {
+                          setSelectedPlant(webSearchResult.existingPlant);
+                        }
+                        handleCancelConfirmation();
+                      }}
+                      className="px-4 py-1.5 rounded-xl bg-emerald-400 text-slate-950 text-[11px] font-black shadow-md flex items-center gap-1 cursor-pointer active:scale-95"
+                    >
+                      <span>Open Care Guide</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    {/* Contributor Badge Note */}
+                    <div className="p-2 rounded-xl bg-white/5 border border-emerald-400/30 text-[10px] text-slate-300 flex items-center justify-between gap-2">
+                      <span className="truncate">
+                        {currentUser ? (
+                          <>Adding as <strong className="text-emerald-300">@{currentUser.username}</strong> ({currentUser.badge})</>
+                        ) : (
+                          <>Sign in to engrave your handle & earn badge</>
+                        )}
+                      </span>
+                      {!currentUser && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setLoginModalTitle('Sign In to Add Plant to Catalogue');
+                            setLoginModalOpen(true);
+                          }}
+                          className="px-2 py-0.5 rounded bg-white/15 text-emerald-300 font-bold shrink-0 text-[10px]"
+                        >
+                          Sign In
+                        </button>
+                      )}
+                    </div>
 
-                <div className="flex items-center justify-end gap-2 pt-1">
-                  <button
-                    type="button"
-                    onClick={handleCancelConfirmation}
-                    className="px-3 py-1.5 rounded-xl bg-white/10 text-slate-300 text-[11px] font-semibold cursor-pointer"
-                  >
-                    ✕ No, not this
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleConfirmAddWebPlant()}
-                    disabled={isAddingPlant}
-                    className="px-4 py-1.5 rounded-xl bg-emerald-400 text-slate-950 text-[11px] font-black shadow-md flex items-center gap-1 cursor-pointer active:scale-95"
-                  >
-                    {isAddingPlant ? (
-                      <>
-                        <div className="w-3 h-3 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-                        <span>Adding...</span>
-                      </>
-                    ) : currentUser ? (
-                      <>
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>Yes, Add (@{currentUser.username})</span>
-                      </>
-                    ) : (
-                      <>
-                        <User className="w-3.5 h-3.5" />
-                        <span>Sign In & Add</span>
-                      </>
-                    )}
-                  </button>
-                </div>
+                    <div className="flex items-center justify-end gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={handleCancelConfirmation}
+                        className="px-3 py-1.5 rounded-xl bg-white/10 text-slate-300 text-[11px] font-semibold cursor-pointer"
+                      >
+                        ✕ No, not this
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleConfirmAddWebPlant()}
+                        disabled={isAddingPlant}
+                        className="px-4 py-1.5 rounded-xl bg-emerald-400 text-slate-950 text-[11px] font-black shadow-md flex items-center gap-1 cursor-pointer active:scale-95"
+                      >
+                        {isAddingPlant ? (
+                          <>
+                            <div className="w-3 h-3 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                            <span>Adding...</span>
+                          </>
+                        ) : currentUser ? (
+                          <>
+                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <span>Yes, Add (@{currentUser.username})</span>
+                          </>
+                        ) : (
+                          <>
+                            <User className="w-3.5 h-3.5" />
+                            <span>Sign In & Add</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             )}
 

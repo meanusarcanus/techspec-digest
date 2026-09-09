@@ -54,6 +54,7 @@ export interface PlantCareGuide {
     badge: string;
     addedAt: string;
   };
+  aliases?: string[];
 }
 
 export const PLANT_CARE_GUIDES: PlantCareGuide[] = [

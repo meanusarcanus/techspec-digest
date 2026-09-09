@@ -1,4 +1,4 @@
-const CACHE_NAME = 'garden-perks-v1';
+const CACHE_NAME = 'garden-perks-v4';
 const PRECACHE_URLS = [
   '/techspec-digest/garden-perks/',
   '/techspec-digest/garden-perks/manifest.json',
@@ -32,7 +32,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch: Stale-While-Revalidate with offline resilience
+// Fetch: Network-First for HTML navigation, Stale-While-Revalidate for static assets
 self.addEventListener('fetch', (event) => {
   const request = event.request;
 
@@ -41,10 +41,31 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Handle static assets & pages
+  // 1. Navigation requests (HTML pages): Network-First
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, responseToCache);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          return caches.match(request).then((cached) => {
+            return cached || caches.match('/techspec-digest/garden-perks/');
+          });
+        })
+    );
+    return;
+  }
+
+  // 2. Static assets: Stale-While-Revalidate
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
-      // Return cached response if found, but fetch a fresh copy in the background
       const fetchPromise = fetch(request)
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
@@ -55,12 +76,7 @@ self.addEventListener('fetch', (event) => {
           }
           return networkResponse;
         })
-        .catch(() => {
-          // If offline and request is a navigation, return cached home page
-          if (request.mode === 'navigate') {
-            return caches.match('/techspec-digest/garden-perks/');
-          }
-        });
+        .catch(() => cachedResponse);
 
       return cachedResponse || fetchPromise;
     })
