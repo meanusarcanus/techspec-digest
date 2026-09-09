@@ -43,41 +43,8 @@ export default function GardenFooter() {
             </ul>
           </div>
 
-          {/* Network Portals */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-emerald-200">
-              Network Ecosystem
-            </h4>
-            <ul className="space-y-2 text-sm text-emerald-300/80">
-              <li>
-                <a href="/techspec-digest/" target="_self" className="hover:text-white transition-colors flex items-center gap-1">
-                  <span>⚡ TechSpec Digest (Master Hub)</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
-              </li>
-              <li>
-                <a href="/techspec-digest/consciousness/" target="_self" className="hover:text-white transition-colors flex items-center gap-1">
-                  <span>🌌 Consciousness Lab</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
-              </li>
-              <li>
-                <a href="/techspec-digest/baby-care/" target="_self" className="hover:text-white transition-colors flex items-center gap-1">
-                  <span>🍼 Calm Baby Nursery</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
-              </li>
-              <li>
-                <a href="/techspec-digest/dashboard/" target="_self" className="hover:text-white transition-colors flex items-center gap-1">
-                  <span>📊 Executive Network Analytics</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
-              </li>
-            </ul>
-          </div>
-
           {/* Amazon Affiliate Disclosure & Mission */}
-          <div className="space-y-3">
+          <div className="space-y-3 md:col-span-2">
             <h4 className="text-sm font-bold uppercase tracking-wider text-emerald-200">
               Affiliate Transparency
             </h4>

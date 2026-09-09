@@ -58,11 +58,13 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus }: Navbar
               Plant Clinic Q&A
             </Link>
             <a 
-              href="#gear" 
+              href="https://www.amazon.com/s?k=garden+plants+care+tools+indoor+houseplants&tag=techspecdiges-20"
+              target="_blank"
+              rel="noopener noreferrer" 
               className="px-3.5 py-2 text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/80 rounded-xl transition-all flex items-center gap-1.5"
             >
               <ShoppingBag className="w-4 h-4 text-emerald-600" />
-              Amazon Gear
+              Amazon Gears
             </a>
 
             {/* Portal Network Switcher Dropdown */}
@@ -165,11 +167,13 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus }: Navbar
             🩺 Plant Clinic Q&A & Auto-Doctor
           </Link>
           <a
-            href="#gear"
+            href="https://www.amazon.com/s?k=garden+plants+care+tools+indoor+houseplants&tag=techspecdiges-20"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2.5 rounded-xl text-base font-semibold text-slate-800 hover:bg-emerald-50"
           >
-            🛍️ Amazon Botanical Gear
+            🛍️ Amazon Gears
           </a>
           <button
             onClick={() => {
