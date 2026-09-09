@@ -1163,6 +1163,112 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
         description: "Delivers 5000K daylight spectrum so potted lemon trees fruit indoors year-round."
       }
     ]
+  },
+  {
+    id: "plant-11",
+    slug: "african-spear-plant-sansevieria-cylindrica",
+    commonName: "African Spear Plant (Sansevieria Cylindrica)",
+    scientificName: "Dracaena angolensis (formerly Sansevieria cylindrica)",
+    family: "Asparagaceae",
+    category: "Indoor Houseplants",
+    difficulty: "Beginner-Friendly",
+    lightRequirement: "Bright Indirect",
+    wateringNeed: "Dry Out Completely",
+    humidityRange: "30% - 50% (Standard)",
+    petSafe: false,
+    heroImage: "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1200&q=85",
+    galleryImages: [
+      "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=80"
+    ],
+    shortHook: "Iconic architectural spear-shaped succulent with smooth, rigid cylindrical leaves that thrive on minimal water.",
+    overview: "Native to Angola, Sansevieria cylindrica (also known as the African Spear or Cylindrical Snake Plant) features stiff, upright, spear-like leaves with distinctive dark green concentric rings. It is an exceptionally drought-tolerant succulent adapted to arid climates, filtering airborne toxics while needing water only once every 3-4 weeks.",
+    likes: [
+      "Allowing soil to dry out 100% completely between waterings",
+      "Fast-draining gritty cactus & succulent potting mix with coarse pumice",
+      "Bright indirect sunlight or morning direct sun",
+      "Snug terracotta containers with unobstructed bottom drainage holes",
+      "Dry, warm room temperatures with low humidity"
+    ],
+    dislikes: [
+      "Overwatering and wet feet (causes mushy root and base rot)",
+      "Dense, moisture-retentive peat moss soils without aeration",
+      "Cold window drafts or temperatures plunging below 50°F (10°C)",
+      "Pouring water into the crown rosette center"
+    ],
+    howToGuide: {
+      title: "Cylindrical Spear Plant Care & Propagation Masterclass",
+      subtitle: "How to maintain rigid upright spears and propagate healthy offsets",
+      steps: [
+        {
+          stepNumber: 1,
+          title: "The Zero-Guesswork Soak & Dry Routine",
+          instruction: "Water thoroughly only when the entire potting mix is bone-dry down to the root base. In winter months, reduce watering to once every 4 to 6 weeks."
+        },
+        {
+          stepNumber: 2,
+          title: "Substrate & Terracotta Potting",
+          instruction: "Plant in an unglazed terracotta pot filled with 50% succulent soil and 50% pumice or perlite. Terracotta walls breathe, rapidly evaporating excess moisture."
+        },
+        {
+          stepNumber: 3,
+          title: "Propagating Spear Offsets (Pups)",
+          instruction: "Wait until spear offsets develop at the soil base. Gently slice the rhizome connecting the pup to the mother plant using sterilized shears, let callous for 24 hours, and pot in dry gritty mix."
+        }
+      ]
+    },
+    troubleshooting: [
+      {
+        symptom: "Mushy, wrinkled, or yellowing spear base",
+        cause: "Overwatering and root rot from waterlogged potting soil.",
+        remedy: "Unpot immediately, prune away all brown mushy roots, dust clean cuts with cinnamon or sulfur, and repot into bone-dry cactus mix."
+      },
+      {
+        symptom: "Spears leaning or losing vertical rigidity",
+        cause: "Insufficient sunlight causing etiolation or root loss from moisture stress.",
+        remedy: "Relocate closer to an east or south-facing window with bright indirect sunlight and verify soil dryness."
+      },
+      {
+        symptom: "Brown dry scarring on spear tips",
+        cause: "Physical bumping or brief dry scorch.",
+        remedy: "Avoid cutting the hard spear tip spine as it seals the cylinder. Keep in stable ambient warmth."
+      }
+    ],
+    soilRecipe: {
+      name: "High-Drainage Arid Succulent Blend",
+      ingredients: [
+        "40% Coarse Horticultural Pumice / Perlite",
+        "30% Low-Peat Cactus Potting Soil",
+        "20% Coarse Quartz Sand",
+        "10% Crushed Granite Grit"
+      ],
+      pHRange: "5.8 - 7.0 (Slightly Acidic to Neutral)"
+    },
+    fertilizerProtocol: "Feed sparingly just twice a year (once in spring, once in mid-summer) with a balanced half-strength succulent fertilizer.",
+    amazonProducts: [
+      {
+        name: "Hoffman Organic Cactus & Succulent Soil Mix 4 Quarts",
+        category: "Substrate",
+        price: "$13.99",
+        rating: 4.8,
+        reviewsCount: 16200,
+        searchQuery: "Hoffman+organic+cactus+succulent+soil+mix",
+        badge: "Perfect Drain",
+        image: "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=400&q=80",
+        description: "Professionally formulated for African spears, snake plants, and desert succulents to eliminate root rot."
+      },
+      {
+        name: "XLUX Precision Long-Probe Soil Moisture Meter",
+        category: "Diagnostic",
+        price: "$12.99",
+        rating: 4.8,
+        reviewsCount: 42000,
+        searchQuery: "XLUX+Soil+Moisture+Meter+plant",
+        badge: "Essential",
+        image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=400&q=80",
+        description: "Zero batteries required. Know instantly when deep spear roots are bone dry before adding water."
+      }
+    ]
   }
 ];
 

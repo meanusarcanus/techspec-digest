@@ -23,7 +23,9 @@ import {
   analyzePlantImage, 
   PlantScanResult, 
   DEMO_SAMPLE_LEAVES, 
-  DemoSampleLeaf 
+  DemoSampleLeaf,
+  getAllCatalogPlants,
+  buildDiagnosisReport
 } from '../lib/plantScannerEngine';
 import { PlantCareGuide } from '../data/plantCareGuides';
 
@@ -42,6 +44,7 @@ export default function PlantCameraScannerModal({
   const [isScanning, setIsScanning] = useState<boolean>(false);
   const [scanStepText, setScanStepText] = useState<string>('Initializing camera...');
   const [scanResult, setScanResult] = useState<PlantScanResult | null>(null);
+  const [isChangingSpecies, setIsChangingSpecies] = useState<boolean>(false);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const galleryInputRef = useRef<HTMLInputElement>(null);
@@ -50,6 +53,7 @@ export default function PlantCameraScannerModal({
     setCapturedImage(null);
     setScanResult(null);
     setIsScanning(false);
+    setIsChangingSpecies(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
     if (galleryInputRef.current) galleryInputRef.current.value = '';
   };
@@ -328,6 +332,69 @@ export default function PlantCameraScannerModal({
                     </p>
                   </div>
                 </div>
+
+                {/* Species Confirmation / Change Bar */}
+                <div className="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-700 min-w-0 pr-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span className="truncate font-medium">Species: <strong className="text-slate-900">{scanResult.identifiedPlant.commonName}</strong></span>
+                  </div>
+                  <button
+                    onClick={() => setIsChangingSpecies(!isChangingSpecies)}
+                    className="text-xs font-bold text-emerald-700 hover:text-emerald-800 underline shrink-0 cursor-pointer"
+                  >
+                    {isChangingSpecies ? 'Close' : 'Change / Confirm'}
+                  </button>
+                </div>
+
+                {/* Species Picker List */}
+                {isChangingSpecies && (
+                  <div className="p-3 bg-emerald-50/70 border-t border-emerald-100 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <p className="text-[11px] font-extrabold text-emerald-950">Confirm or change plant species:</p>
+                      <span className="text-[10px] text-emerald-700 font-medium">{getAllCatalogPlants().length} species in catalog</span>
+                    </div>
+                    <div className="max-h-52 overflow-y-auto space-y-1.5 pr-1">
+                      {getAllCatalogPlants().map((plant) => {
+                        const isSelected = plant.id === scanResult.identifiedPlant.id;
+                        return (
+                          <button
+                            key={plant.id}
+                            onClick={() => {
+                              const updatedResult = buildDiagnosisReport(
+                                plant,
+                                scanResult.conditionStatus,
+                                100, // 100% confirmed by user
+                                scanResult.vitalSigns.chlorophyllIndex / 100
+                              );
+                              setScanResult(updatedResult);
+                              setIsChangingSpecies(false);
+                            }}
+                            className={`w-full text-left p-2.5 rounded-xl flex items-center justify-between transition-all cursor-pointer text-xs ${
+                              isSelected 
+                                ? 'bg-emerald-600 text-white font-bold shadow-xs' 
+                                : 'bg-white hover:bg-emerald-100/70 text-slate-800 border border-emerald-100/80'
+                            }`}
+                          >
+                            <div className="min-w-0 pr-2">
+                              <p className="truncate font-bold">{plant.commonName}</p>
+                              <p className={`text-[10px] truncate ${isSelected ? 'text-emerald-100' : 'text-slate-400 font-serif italic'}`}>
+                                {plant.scientificName}
+                              </p>
+                            </div>
+                            {isSelected ? (
+                              <CheckCircle2 className="w-4 h-4 text-white shrink-0" />
+                            ) : (
+                              <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
+                                Select
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Doctor Condition & Health Status Banner */}
