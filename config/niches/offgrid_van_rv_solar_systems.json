@@ -1,0 +1,54 @@
+{
+  "id": "offgrid_van_rv_solar_systems",
+  "topic": "Solar & Off-Grid Energy",
+  "name": "Off-Grid 48V Camper Van & Overland RV Solar Systems",
+  "tagline": "High-Amp DC-DC Smart Chargers, MPPT Solar Controllers & 48V Marine Lithium Rigs",
+  "core_angle": "Vanlifers, digital nomads, and overland RV explorers engineering high-amperage 48V electrical architectures for continuous induction cooking, mini-split air conditioning, and Starlink operation.",
+  "target_audience": "Van conversion builders, RV owners, marine cruisers, off-grid overland adventurers.",
+  "seed_keywords": [
+    "Best 48V camper van electrical system setup for continuous AC",
+    "Victron MultiPlus II 48V vs Renogy Rego power system comparison",
+    "DC to DC alternator charger sizing for 400Ah LiFePO4 battery bank",
+    "Walkable marine solar panels for overland camper roof racks",
+    "How to run Starlink off-grid in a camper van without power waste"
+  ],
+  "affiliates": [
+    {
+      "name": "Off-Grid Van & RV Power Equipment",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Victron MultiPlus-II 48V 3000VA Inverter Charger",
+        "Renogy Rego 12V 400Ah Lithium Iron Phosphate Battery Kit",
+        "Victron SmartSolar MPPT 150/70 Charge Controller with Bluetooth"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best 48V camper van electrical system setup for continuous AC",
+    "Victron MultiPlus II 48V vs Renogy Rego power system comparison",
+    "DC to DC alternator charger sizing for 400Ah LiFePO4 battery bank"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

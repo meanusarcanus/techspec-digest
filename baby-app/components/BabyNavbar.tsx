@@ -99,6 +99,16 @@ export default function BabyNavbar() {
               ✉️ Newsletter
             </a>
 
+            {/* Garden Perks Link */}
+            <a
+              href="/techspec-digest/garden-perks/"
+              target="_self"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300 hover:text-emerald-200 hover:bg-emerald-900/40 text-xs font-bold transition-all shadow-sm"
+              title="The Garden Perks Botanical Portal"
+            >
+              <span>🌱 Garden Perks</span>
+            </a>
+
             {/* YouTube Channel Button */}
             <a
               href="https://www.youtube.com/channel/UC61MVViTRqXAQVKqqfIoqbA"

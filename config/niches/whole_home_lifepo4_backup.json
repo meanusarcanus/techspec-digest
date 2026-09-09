@@ -1,0 +1,54 @@
+{
+  "id": "whole_home_lifepo4_backup",
+  "topic": "Solar & Off-Grid Energy",
+  "name": "Whole-Home LiFePO4 Battery Backup & Transfer Switches",
+  "tagline": "Split-Phase 240V Multi-Kilowatt Emergency Power Stations for Whole-House Outages",
+  "core_angle": "Homeowners in storm-prone and aging grid areas upgrading from noisy gas generators to whisper-quiet 240V split-phase LiFePO4 battery stations capable of powering central HVAC and full-panel sub-circuits.",
+  "target_audience": "Suburban homeowners, emergency preppers, off-grid cabins, medical equipment users.",
+  "seed_keywords": [
+    "Best whole house battery backup without solar panels",
+    "EcoFlow Delta Pro Ultra vs Bluetti EP500 Pro runtime test",
+    "How to wire a 50A manual transfer switch to portable power station",
+    "LiFePO4 battery storage safety indoor installation standards",
+    "Can a 6000W portable power station run central AC unit"
+  ],
+  "affiliates": [
+    {
+      "name": "Whole-Home Battery Stations & Transfer Switches",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "EcoFlow DELTA Pro Ultra Whole Home Battery Generator 6kWh",
+        "BLUETTI EP500Pro Solar Power Station 5100Wh 3000W",
+        "Reliance Controls 50-Amp 10-Circuit Manual Transfer Switch Kit"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best whole house battery backup without solar panels",
+    "EcoFlow Delta Pro Ultra vs Bluetti EP500 Pro runtime test",
+    "How to wire a 50A manual transfer switch to portable power station"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

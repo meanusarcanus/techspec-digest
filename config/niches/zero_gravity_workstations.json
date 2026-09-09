@@ -1,0 +1,54 @@
+{
+  "id": "zero_gravity_workstations",
+  "topic": "Executive Active Ergonomics",
+  "name": "Zero-Gravity Reclining Workstations & Cockpit Desks",
+  "tagline": "Motorized Supine Computer Workstations, Counterbalanced Triple Monitor Arms & Neutral-Posture Pods",
+  "core_angle": "Software developers, chronic spinal injury sufferers, and high-output day traders seeking fully reclining ergonomic cockpits that distribute spinal compression at 135-degree neutral body angles.",
+  "target_audience": "Programmers, financial traders, executive remote workers, chronic back pain sufferers.",
+  "seed_keywords": [
+    "Best zero gravity computer workstation for lumbar disc herniation",
+    "Altwork Station vs ErgoQuest reclining desk side by side review",
+    "Triple monitor counterbalanced arm rigidity during 135 degree recline",
+    "Zero gravity workstation footprint and apartment doorway clearance",
+    "Motorized magnetic keyboard tray stability for high speed touch typing"
+  ],
+  "affiliates": [
+    {
+      "name": "Zero-Gravity Reclining Workstations & Accessories",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Zero Gravity Reclining Ergonomic Computer Workstation Cockpit",
+        "Ergotron HX Triple Monitor Arm Heavy Duty with HD Pivot",
+        "Kinesis Advantage360 Professional Split Mechanical Keyboard"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best zero gravity computer workstation for lumbar disc herniation",
+    "Altwork Station vs ErgoQuest reclining desk side by side review",
+    "Triple monitor counterbalanced arm rigidity during 135 degree recline"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

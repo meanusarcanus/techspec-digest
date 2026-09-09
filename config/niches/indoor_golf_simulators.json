@@ -1,0 +1,54 @@
+{
+  "id": "indoor_golf_simulators",
+  "topic": "Premium Lifestyle & Simulation",
+  "name": "Photometric & Radar Indoor Golf Simulators & Enclosures",
+  "tagline": "High-Speed Dual Camera Launch Monitors, 4K Impact Screens & Garage Enclosure Bays",
+  "core_angle": "Golfers building year-round residential training bays requiring accurate clubhead and ball-flight photometric launch monitors paired with commercial impact screens that absorb 170+ MPH ball speeds safely.",
+  "target_audience": "Golfers, home simulator builders, luxury residential homeowners.",
+  "seed_keywords": [
+    "SkyTrak Plus vs Bushnell Launch Pro photometric accuracy test",
+    "Best indoor golf simulator package for 9 foot ceiling height",
+    "Triple layer commercial golf impact screen ball rebound and noise test",
+    "Short throw 4K laser projector positioning for shadow-free golf simulation",
+    "Golf hitting mat turf density and wrist injury prevention comparisons"
+  ],
+  "affiliates": [
+    {
+      "name": "Golf Launch Monitors & Simulator Enclosures",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "SkyTrak Plus Golf Launch Monitor and Simulator",
+        "Carl's Place DIY Golf Simulator Enclosure with Impact Screen",
+        "Optoma Short Throw Laser Projector for Golf Simulation 4K"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "SkyTrak Plus vs Bushnell Launch Pro photometric accuracy test",
+    "Best indoor golf simulator package for 9 foot ceiling height",
+    "Triple layer commercial golf impact screen ball rebound and noise test"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

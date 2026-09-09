@@ -1,0 +1,54 @@
+{
+  "id": "balcony_solar_storage",
+  "topic": "Solar & Off-Grid Energy",
+  "name": "Plug-and-Play Balcony Solar & Micro-Storage Systems",
+  "tagline": "Zero-Drilling Balcony Solar Panels, Grid-Tie Microinverters & LiFePO4 Battery Units",
+  "core_angle": "Urban apartment residents and condo homeowners seeking 600W-800W plug-and-play balcony solar kits with integrated smart battery storage to slash daytime grid dependency without structural drilling.",
+  "target_audience": "Apartment dwellers, condo owners, urban renters, smart energy optimizers.",
+  "seed_keywords": [
+    "Best plug and play balcony solar kit with battery storage",
+    "EcoFlow PowerStream vs Anker SOLIX Solarbank comparison",
+    "Zero drilling flexible solar panel railing mounts for apartment balcony",
+    "800W microinverter grid tie regulations and safety certifications",
+    "Balcony solar battery payback period and kWh generation efficiency"
+  ],
+  "affiliates": [
+    {
+      "name": "Balcony Solar Kits & Storage Units",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "EcoFlow PowerStream 800W Microinverter with Delta 2 Max Battery",
+        "Anker SOLIX Solarbank 2 E1600 Pro Balcony Solar Storage System",
+        "Renogy 400W Flexible Monocrystalline Solar Panel Balcony Kit"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best plug and play balcony solar kit with battery storage",
+    "EcoFlow PowerStream vs Anker SOLIX Solarbank comparison",
+    "Zero drilling flexible solar panel railing mounts for apartment balcony"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

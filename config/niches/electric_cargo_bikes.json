@@ -1,0 +1,54 @@
+{
+  "id": "electric_cargo_bikes",
+  "topic": "Premium Lifestyle & Simulation",
+  "name": "Heavy-Payload Long-Tail Electric Cargo Bikes",
+  "tagline": "400+ Lb Payloads, Dual Bosch Cargo Line Mid-Drive Motors & Car-Replacement Utility Rigs",
+  "core_angle": "Urban families and logistics couriers replacing a second automobile with commercial-grade electric cargo bikes engineered with 85Nm torque mid-drive motors, 4-piston hydraulic disc brakes, and dual battery ranges.",
+  "target_audience": "Urban families, cargo couriers, car-free commuters, utility cyclists.",
+  "seed_keywords": [
+    "Tern GSD vs RadWagon 4 hill climbing and payload capacity test",
+    "Best heavy duty electric cargo bike for 2 toddlers and grocery hauling",
+    "Bosch Cargo Line vs Bafang mid drive motor reliability and torque",
+    "4 piston hydraulic disc brake stopping distance at 400 lbs total weight",
+    "Dual battery range test under heavy urban stop and go commuter loads"
+  ],
+  "affiliates": [
+    {
+      "name": "Heavy Duty Electric Cargo Bikes & Accessories",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Heavy Duty Electric Cargo Bike 750W Dual Battery 400lb Capacity",
+        "Thule Yepp Maxi Child Bike Seat for Long Tail Cargo Bikes",
+        "Kryptonite New York Fahgettaboudit Heavy Duty Chain Lock"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Tern GSD vs RadWagon 4 hill climbing and payload capacity test",
+    "Best heavy duty electric cargo bike for 2 toddlers and grocery hauling",
+    "Bosch Cargo Line vs Bafang mid drive motor reliability and torque"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

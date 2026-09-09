@@ -1,0 +1,54 @@
+{
+  "id": "executive_ergonomic_chairs",
+  "topic": "Executive Active Ergonomics",
+  "name": "Commercial-Grade Orthopaedic Executive Ergonomic Chairs",
+  "tagline": "High-End Task Seating with Dynamic Harmonic Tilt, PostureFit Sacral Support & Breathable Elastomer",
+  "core_angle": "Knowledge workers and engineering executives spending 10+ hours seated requiring certified commercial task seating that eliminates coccyx pressure, supports micro-movements, and preserves spinal curvature.",
+  "target_audience": "Remote executives, software engineers, data analysts, creative directors.",
+  "seed_keywords": [
+    "Herman Miller Embody vs Steelcase Gesture long term durability review",
+    "Best ergonomic office chair for sciatica and tailbone pain relief",
+    "Forward tilt mechanism benefit for intense keyboard coding sessions",
+    "Elastomer suspension vs memory foam cushion heat dissipation test",
+    "How to adjust 4D armrests to prevent cubital tunnel syndrome"
+  ],
+  "affiliates": [
+    {
+      "name": "High-End Ergonomic Executive Chairs",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Herman Miller Embody Ergonomic Office Chair Fully Adjustable",
+        "Steelcase Gesture Ergonomic Desk Chair with 360-Degree Arms",
+        "Humanscale Freedom Desk Chair with Dynamic Weight-Sensitive Recline"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Herman Miller Embody vs Steelcase Gesture long term durability review",
+    "Best ergonomic office chair for sciatica and tailbone pain relief",
+    "Forward tilt mechanism benefit for intense keyboard coding sessions"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "benchtop_cnc_mills",
+  "topic": "Precision Digital Fabrication",
+  "name": "Precision Benchtop CNC Mills & Routing Machines",
+  "tagline": "VFD Water-Cooled Spindles, Rigid Ball-Screw Drives & Desktop Aluminum Milling Rigs",
+  "core_angle": "Machinists, luthiers, and electronics enclosure fabricators upgrading from hobby belt-driven routers to rigid ball-screw desktop CNC mills capable of repeatable sub-0.001\" tolerances in 6061 aluminum and exotic hardwoods.",
+  "target_audience": "Hardware engineers, luthiers, prototype machinists, custom electronics builders.",
+  "seed_keywords": [
+    "Shapeoko 5 Pro vs Onefinity CNC rigidity for aluminum milling",
+    "Best desktop CNC router for small machine shop and garage prototyping",
+    "Water-cooled VFD spindle vs router motor decibel and thermal test",
+    "Ball screw vs lead screw backlash comparison in benchtop CNC machines",
+    "Mist coolant and chip evacuation systems for aluminum machining"
+  ],
+  "affiliates": [
+    {
+      "name": "Benchtop CNC Mills & Precision Tooling",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Carbide 3D Shapeoko Pro CNC Router Machine Heavy Duty",
+        "Genmitsu PROVerXL 4030 V2 CNC Router with Closed Loop Steppers",
+        "Water Cooled VFD Spindle Kit 2.2KW with Inverter Drive"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Shapeoko 5 Pro vs Onefinity CNC rigidity for aluminum milling",
+    "Best desktop CNC router for small machine shop and garage prototyping",
+    "Water-cooled VFD spindle vs router motor decibel and thermal test"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

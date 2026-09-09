@@ -1,0 +1,54 @@
+{
+  "id": "hyperbaric_oxygen_chambers",
+  "topic": "Clinical Longevity & Biohacking",
+  "name": "Mild Hyperbaric Oxygen Chambers (mHBOT) & Concentrators",
+  "tagline": "1.3 to 1.5 ATA Soft Hyperbaric Chambers, 10LPM Medical Oxygen Concentrators & Air Coolers",
+  "core_angle": "Biohackers, neurological rehabilitation patients, and elite endurance athletes setting up home mild hyperbaric therapy chambers operating at 1.3 to 1.4 ATA to dramatically accelerate stem cell mobilization and tissue repair.",
+  "target_audience": "Biohacking practitioners, concussion recovery patients, regenerative medicine enthusiasts.",
+  "seed_keywords": [
+    "Best home mild hyperbaric chamber 1.3 ATA vs 1.5 ATA safety",
+    "How to pair 10LPM oxygen concentrator with soft shell hyperbaric pod",
+    "Hyperbaric chamber air conditioning and humidity management protocols",
+    "mHBOT vs hard shell clinical hyperbaric oxygen therapy differences",
+    "Emergency pressure release valves and safety decompression drills"
+  ],
+  "affiliates": [
+    {
+      "name": "Hyperbaric Oxygen Equipment & Concentrators",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "10L Continuous Flow Oxygen Concentrator Medical Grade",
+        "Soft Shell Lying Type Hyperbaric Oxygen Chamber 1.4 ATA Kit",
+        "Digital Fingertip Pulse Oximeter with Perfusion Index Monitor"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best home mild hyperbaric chamber 1.3 ATA vs 1.5 ATA safety",
+    "How to pair 10LPM oxygen concentrator with soft shell hyperbaric pod",
+    "Hyperbaric chamber air conditioning and humidity management protocols"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "heavy_duty_treadmill_desks",
+  "topic": "Executive Active Ergonomics",
+  "name": "Heavy-Duty Under-Desk Treadmills & Dual-Motor Standing Desks",
+  "tagline": "Commercial 3.0 HP Whisper-Quiet Walking Bases & 350-Pound Capacity Motorized Lift Frames",
+  "core_angle": "Home office professionals seeking commercial-grade continuous-duty walking treadmills rated for 6+ hours of daily use without motor overheating, paired with wobble-free dual-motor standing desks.",
+  "target_audience": "Remote knowledge workers, fitness enthusiasts, sedentary workers targeting 15k daily steps.",
+  "seed_keywords": [
+    "Best commercial under desk treadmill for 6 plus hours continuous walking",
+    "LifeSpan TR5000 vs WalkingPad motor heat and decibel comparison",
+    "How to eliminate monitor wobble when walking on standing desk treadmill",
+    "Under desk treadmill belt lubrication and maintenance intervals",
+    "Standing desk motorized dual motor vs triple motor stability test"
+  ],
+  "affiliates": [
+    {
+      "name": "Heavy-Duty Walking Desks & Commercial Lift Frames",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "LifeSpan Fitness TR5000-DT3 Under Desk Walking Treadmill Base",
+        "Uplift V2 Commercial Dual-Motor Height Adjustable Standing Desk 72-Inch",
+        "WalkingPad Pro Heavy Duty Under Desk Treadmill Foldable"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best commercial under desk treadmill for 6 plus hours continuous walking",
+    "LifeSpan TR5000 vs WalkingPad motor heat and decibel comparison",
+    "How to eliminate monitor wobble when walking on standing desk treadmill"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

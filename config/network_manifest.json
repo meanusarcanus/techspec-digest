@@ -247,6 +247,126 @@
       "config_file": "config/niches/smart_electrical_circuit_testing.json",
       "output_content_dir": "content/posts",
       "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "balcony_solar_storage",
+      "topic": "Solar & Off-Grid Energy",
+      "name": "Plug-and-Play Balcony Solar & Micro-Storage Systems",
+      "config_file": "config/niches/balcony_solar_storage.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "whole_home_lifepo4_backup",
+      "topic": "Solar & Off-Grid Energy",
+      "name": "Whole-Home LiFePO4 Battery Backup & Transfer Switches",
+      "config_file": "config/niches/whole_home_lifepo4_backup.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "offgrid_van_rv_solar_systems",
+      "topic": "Solar & Off-Grid Energy",
+      "name": "Off-Grid 48V Camper Van & Overland RV Solar Systems",
+      "config_file": "config/niches/offgrid_van_rv_solar_systems.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "zero_gravity_workstations",
+      "topic": "Executive Active Ergonomics",
+      "name": "Zero-Gravity Reclining Workstations & Cockpit Desks",
+      "config_file": "config/niches/zero_gravity_workstations.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "executive_ergonomic_chairs",
+      "topic": "Executive Active Ergonomics",
+      "name": "Commercial-Grade Orthopaedic Executive Ergonomic Chairs",
+      "config_file": "config/niches/executive_ergonomic_chairs.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "heavy_duty_treadmill_desks",
+      "topic": "Executive Active Ergonomics",
+      "name": "Heavy-Duty Under-Desk Treadmills & Dual-Motor Standing Desks",
+      "config_file": "config/niches/heavy_duty_treadmill_desks.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "commercial_cold_plunge_chillers",
+      "topic": "Clinical Longevity & Biohacking",
+      "name": "Commercial 1.5HP Cold Plunge Chillers & Self-Sanitizing Tubs",
+      "config_file": "config/niches/commercial_cold_plunge_chillers.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "full_body_infrared_saunas",
+      "topic": "Clinical Longevity & Biohacking",
+      "name": "Low-EMF Full-Spectrum Cedar Infrared Saunas",
+      "config_file": "config/niches/full_body_infrared_saunas.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "hyperbaric_oxygen_chambers",
+      "topic": "Clinical Longevity & Biohacking",
+      "name": "Mild Hyperbaric Oxygen Chambers (mHBOT) & Concentrators",
+      "config_file": "config/niches/hyperbaric_oxygen_chambers.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "commercial_grade_3d_printers",
+      "topic": "Precision Digital Fabrication",
+      "name": "Commercial-Grade Enclosed Multi-Material 3D Printers",
+      "config_file": "config/niches/commercial_grade_3d_printers.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "enclosed_diode_co2_laser_cutters",
+      "topic": "Precision Digital Fabrication",
+      "name": "Enclosed 55W CO2 & Fiber Laser Cutters for Small Studios",
+      "config_file": "config/niches/enclosed_diode_co2_laser_cutters.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "benchtop_cnc_mills",
+      "topic": "Precision Digital Fabrication",
+      "name": "Precision Benchtop CNC Mills & Routing Machines",
+      "config_file": "config/niches/benchtop_cnc_mills.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "indoor_golf_simulators",
+      "topic": "Premium Lifestyle & Simulation",
+      "name": "Photometric & Radar Indoor Golf Simulators & Enclosures",
+      "config_file": "config/niches/indoor_golf_simulators.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "commercial_dual_boiler_espresso",
+      "topic": "Premium Lifestyle & Simulation",
+      "name": "Commercial Dual-Boiler Rotary Pump Espresso Machines",
+      "config_file": "config/niches/commercial_dual_boiler_espresso.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
+    },
+    {
+      "id": "electric_cargo_bikes",
+      "topic": "Premium Lifestyle & Simulation",
+      "name": "Heavy-Payload Long-Tail Electric Cargo Bikes",
+      "config_file": "config/niches/electric_cargo_bikes.json",
+      "output_content_dir": "content/posts",
+      "target_domain": "meanusarcanus.github.io/techspec-digest"
     }
   ]
 }

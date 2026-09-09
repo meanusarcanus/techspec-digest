@@ -94,6 +94,51 @@
         "precision_laser_measurement",
         "smart_electrical_circuit_testing"
       ]
+    },
+    {
+      "id": "solar_offgrid_energy",
+      "name": "Solar & Off-Grid Energy",
+      "niches": [
+        "balcony_solar_storage",
+        "whole_home_lifepo4_backup",
+        "offgrid_van_rv_solar_systems"
+      ]
+    },
+    {
+      "id": "executive_active_ergonomics",
+      "name": "Executive Active Ergonomics",
+      "niches": [
+        "zero_gravity_workstations",
+        "executive_ergonomic_chairs",
+        "heavy_duty_treadmill_desks"
+      ]
+    },
+    {
+      "id": "clinical_longevity_biohacking",
+      "name": "Clinical Longevity & Biohacking",
+      "niches": [
+        "commercial_cold_plunge_chillers",
+        "full_body_infrared_saunas",
+        "hyperbaric_oxygen_chambers"
+      ]
+    },
+    {
+      "id": "precision_digital_fabrication",
+      "name": "Precision Digital Fabrication",
+      "niches": [
+        "commercial_grade_3d_printers",
+        "enclosed_diode_co2_laser_cutters",
+        "benchtop_cnc_mills"
+      ]
+    },
+    {
+      "id": "premium_lifestyle_simulation",
+      "name": "Premium Lifestyle & Simulation",
+      "niches": [
+        "indoor_golf_simulators",
+        "commercial_dual_boiler_espresso",
+        "electric_cargo_bikes"
+      ]
     }
   ],
   "schedule_frequency": "everyday"

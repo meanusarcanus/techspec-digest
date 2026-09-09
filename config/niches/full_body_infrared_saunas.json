@@ -1,0 +1,54 @@
+{
+  "id": "full_body_infrared_saunas",
+  "topic": "Clinical Longevity & Biohacking",
+  "name": "Low-EMF Full-Spectrum Cedar Infrared Saunas",
+  "tagline": "Near/Mid/Far Infrared Carbon Ceramic Heaters, Chromotherapy & Medical-Grade Low-EMF Cabins",
+  "core_angle": "Health-conscious homeowners and longevity practitioners seeking residential full-spectrum infrared saunas that deliver verifiable cellular detoxification and cardiovascular conditioning with verified sub-2mG EMF ratings.",
+  "target_audience": "Longevity seekers, functional medicine patients, endurance athletes, spa home remodelers.",
+  "seed_keywords": [
+    "Best low EMF full spectrum infrared sauna for home installation",
+    "Carbon vs ceramic infrared heaters surface temperature and wavelength",
+    "EMF milligauss meter testing on 2 person Canadian cedar saunas",
+    "Near infrared vs far infrared mitochondrial ATP production evidence",
+    "120V 15A vs 240V dedicated electrical requirements for home saunas"
+  ],
+  "affiliates": [
+    {
+      "name": "Full-Spectrum Low-EMF Saunas",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Dynamic Saunas 2-Person Low EMF Far Infrared Cedar Sauna",
+        "HigherDOSE Infrared Sauna Blanket V3 Pro Heavy Duty",
+        "TriField EMF Meter Model TF2 for EMF Radiation Detection"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best low EMF full spectrum infrared sauna for home installation",
+    "Carbon vs ceramic infrared heaters surface temperature and wavelength",
+    "EMF milligauss meter testing on 2 person Canadian cedar saunas"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

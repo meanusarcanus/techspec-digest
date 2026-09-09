@@ -1,0 +1,54 @@
+{
+  "id": "commercial_dual_boiler_espresso",
+  "topic": "Premium Lifestyle & Simulation",
+  "name": "Commercial Dual-Boiler Rotary Pump Espresso Machines",
+  "tagline": "Saturated Groupheads, Commercial Rotary Vane Pumps & 64mm Flat-Burr Grinders",
+  "core_angle": "Coffee connoisseurs and prosumer home baristas demanding cafe-quality extraction stability with dual dedicated boilers, precise digital PID temperature control, direct water line plumbing, and variable pressure profiling.",
+  "target_audience": "Specialty coffee enthusiasts, home baristas, executive home kitchen remodelers.",
+  "seed_keywords": [
+    "La Marzocco Micra vs Rocket R58 dual boiler temperature stability",
+    "Rotary vane pump vs vibratory pump decibel and pre-infusion test",
+    "Direct water line plumbing and BWT water filtration setup for espresso",
+    "64mm vs 83mm flat burr single dosing grinder retention test",
+    "Dual boiler heat up time and back-to-back 5 shot thermal consistency"
+  ],
+  "affiliates": [
+    {
+      "name": "Prosumer Espresso Machines & Flat Burr Grinders",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Rocket Espresso R58 Dual Boiler Commercial Rotary Pump Machine",
+        "Lelit Bianca Dual Boiler Espresso Machine with Flow Profiling Paddle",
+        "Eureka Mignon Specialita Single Dose Flat Burr Espresso Grinder"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "La Marzocco Micra vs Rocket R58 dual boiler temperature stability",
+    "Rotary vane pump vs vibratory pump decibel and pre-infusion test",
+    "Direct water line plumbing and BWT water filtration setup for espresso"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

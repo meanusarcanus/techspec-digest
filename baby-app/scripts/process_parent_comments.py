@@ -13,7 +13,7 @@ import random
 from datetime import datetime
 
 DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "parent_questions.json")
-NOTIFICATION_EMAIL = "jnlittlelight@gmail.com"
+NOTIFICATION_EMAIL = "jnlittelight@gmail.com"
 
 # Try importing Google Gemini client if available
 try:

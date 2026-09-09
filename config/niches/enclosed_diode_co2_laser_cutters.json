@@ -1,0 +1,54 @@
+{
+  "id": "enclosed_diode_co2_laser_cutters",
+  "topic": "Precision Digital Fabrication",
+  "name": "Enclosed 55W CO2 & Fiber Laser Cutters for Small Studios",
+  "tagline": "Class 1 Laser Safety Enclosures, Dual HD Autofocus Cameras & Studio Fume Purification",
+  "core_angle": "Artisans, boutique manufacturing workshops, and Etsy creators seeking desktop enclosed 55W CO2 and infrared fiber lasers capable of high-speed acrylic cutting, metal engraving, and curved surface rotary fabrication.",
+  "target_audience": "Custom product makers, woodworkers, jewelers, design studios.",
+  "seed_keywords": [
+    "xTool P2 55W CO2 laser vs Glowforge Pro cutting speed and kerf test",
+    "Best enclosed desktop laser cutter for small apartment or indoor studio",
+    "Fume extractor CFM requirements for cutting cast acrylic safely indoors",
+    "Curved surface rotary chuck attachment calibration guide",
+    "Diode vs CO2 vs Fiber laser wavelength selection for metal engraving"
+  ],
+  "affiliates": [
+    {
+      "name": "Enclosed Laser Cutters & Fume Purifiers",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "xTool P2 55W CO2 Laser Cutter Desktop Enclosed Engraver",
+        "Glowforge Plus 3D Laser Printer and Craft Laser Engraver",
+        "xTool Smoke Purifier Fume Extractor for Enclosed Laser Cutters"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "xTool P2 55W CO2 laser vs Glowforge Pro cutting speed and kerf test",
+    "Best enclosed desktop laser cutter for small apartment or indoor studio",
+    "Fume extractor CFM requirements for cutting cast acrylic safely indoors"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}

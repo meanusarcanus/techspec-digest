@@ -1,0 +1,54 @@
+{
+  "id": "commercial_cold_plunge_chillers",
+  "topic": "Clinical Longevity & Biohacking",
+  "name": "Commercial 1.5HP Cold Plunge Chillers & Self-Sanitizing Tubs",
+  "tagline": "Sub-37°F Titanium Heat-Exchanger Chillers, Ozone Sterilization & Insulated Tubs",
+  "core_angle": "Athletic facilities, wellness biohackers, and recovery centers requiring commercial 1HP to 1.5HP titanium heat exchanger chillers that reach sub-37°F water in high-ambient outdoor temperatures with zero chemical maintenance.",
+  "target_audience": "Biohackers, collegiate athletes, physical therapy clinics, premium home gym builders.",
+  "seed_keywords": [
+    "Best commercial cold plunge water chiller 1HP vs 1.5HP comparison",
+    "How to keep ice bath water clean without chlorine or harsh chemicals",
+    "Ozone generator and 5 micron filtration setup for daily cold plunge",
+    "Penguin Water Chiller vs Active Aqua industrial ice bath cooling time",
+    "Insulated acrylic vs rotomolded cold plunge barrel heat transfer test"
+  ],
+  "affiliates": [
+    {
+      "name": "Commercial Water Chillers & Integrated Plunge Systems",
+      "program": "Amazon Associates",
+      "tracking_tag": "tag=techspecdiges-20",
+      "base_url": "https://www.amazon.com/s?k=",
+      "anchors": [
+        "Active Aqua Commercial Water Chiller 1 HP for Cold Plunge",
+        "Commercial Grade Rotomolded Insulated Ice Bath Cold Plunge Tub",
+        "Commercial Ozone Generator with 20 Micron Sediment Water Filter"
+      ]
+    }
+  ],
+  "seed_topics": [
+    "Best commercial cold plunge water chiller 1HP vs 1.5HP comparison",
+    "How to keep ice bath water clean without chlorine or harsh chemicals",
+    "Ozone generator and 5 micron filtration setup for daily cold plunge"
+  ],
+  "formatting_constraints": {
+    "target_word_count_min": 1000,
+    "target_word_count_max": 1500,
+    "required_sections": [
+      "Technical Specification Matrix",
+      "Field Benchmark Testing & Protocol",
+      "Pros, Cons & Engineering Trade-Offs",
+      "Buyer Guidance & Implementation Steps",
+      "Frequently Asked Questions"
+    ],
+    "anti_spam_guardrails": {
+      "must_include_specs_table": true,
+      "must_include_unique_faq": true,
+      "must_include_pros_cons": true,
+      "prohibited_generic_phrases": [
+        "In today's fast-paced world",
+        "In conclusion",
+        "As we all know"
+      ]
+    }
+  }
+}
