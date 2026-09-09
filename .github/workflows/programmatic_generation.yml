@@ -68,12 +68,13 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Check for changes in content directories
-          if [[ -n $(git status --porcelain content/) ]]; then
-            git add content/
+          # Stage all generated content and state updates
+          git add -A
+          
+          if ! git diff --staged --quiet; then
             git commit -m "auto(content): publish scheduled programmatic affiliate post [skip ci]"
-            git pull --rebase origin main || true
-            git push origin HEAD:${{ github.ref }}
+            git pull --rebase --autostash origin main || git pull --rebase -X theirs origin main
+            git push origin HEAD:main
           else
             echo "No new content changes to commit."
           fi
