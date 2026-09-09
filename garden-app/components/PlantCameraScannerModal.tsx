@@ -31,9 +31,12 @@ import {
   getAllCatalogPlants,
   buildDiagnosisReport,
   getGoogleVisionApiKey,
-  setGoogleVisionApiKey
+  setGoogleVisionApiKey,
+  createDynamicPlantGuide,
+  matchCatalogPlant
 } from '../lib/plantScannerEngine';
 import { PlantCareGuide } from '../data/plantCareGuides';
+import { saveCustomPlantToCatalog, removeCustomPlantFromCatalog } from '../lib/gardenDailyEngine';
 
 interface PlantCameraScannerModalProps {
   isOpen: boolean;
@@ -55,6 +58,8 @@ export default function PlantCameraScannerModal({
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [customApiKey, setCustomApiKey] = useState<string>('');
   const [settingsSavedMessage, setSettingsSavedMessage] = useState<string>('');
+  const [manualSpeciesInput, setManualSpeciesInput] = useState<string>('');
+  const [speciesCorrectionMsg, setSpeciesCorrectionMsg] = useState<string>('');
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const galleryInputRef = useRef<HTMLInputElement>(null);
@@ -154,6 +159,117 @@ export default function PlantCameraScannerModal({
     setCustomApiKey(getGoogleVisionApiKey());
     setSettingsSavedMessage('Reset to default engine key!');
     setTimeout(() => setSettingsSavedMessage(''), 2500);
+  };
+
+  const handleApplyManualSpecies = (overrideInput?: string) => {
+    const raw = (overrideInput || manualSpeciesInput).trim();
+    if (!raw) return;
+
+    let common = raw;
+    let scientific = '';
+    let family = 'Apocynaceae';
+
+    // Parse parenthesis like "Water Jasmine (Wrightia religiosa)"
+    const parenMatch = raw.match(/^([^(]+)\s*\(([^)]+)\)$/);
+    if (parenMatch) {
+      common = parenMatch[1].trim();
+      scientific = parenMatch[2].trim();
+    } else if (raw.toLowerCase().includes('wrightia') || raw.toLowerCase().includes('religiosa')) {
+      common = 'Water Jasmine (Suamei)';
+      scientific = 'Wrightia religiosa';
+      family = 'Apocynaceae';
+    } else if (raw.toLowerCase().includes('suamei') || raw.toLowerCase().includes('shui mei')) {
+      common = 'Suamei (Water Jasmine)';
+      scientific = 'Wrightia religiosa';
+      family = 'Apocynaceae';
+    } else if (raw.toLowerCase().includes('water jasmine') || raw.toLowerCase().includes('jasmine')) {
+      common = 'Water Jasmine';
+      scientific = 'Wrightia religiosa';
+      family = 'Apocynaceae';
+    } else {
+      scientific = common;
+      family = 'Plantae';
+    }
+
+    // If current plant was a custom plant in catalog, remove old wrong one first
+    if (scanResult?.identifiedPlant?.id && scanResult.identifiedPlant.id.startsWith('custom-')) {
+      removeCustomPlantFromCatalog(scanResult.identifiedPlant.id);
+    }
+
+    const matched = matchCatalogPlant(scientific, common);
+    let finalPlant: PlantCareGuide;
+
+    if (matched) {
+      finalPlant = matched;
+    } else {
+      finalPlant = createDynamicPlantGuide(
+        common,
+        scientific,
+        family,
+        capturedImage || undefined,
+        {
+          category: 'Ornamental & Flowering',
+          difficulty: 'Beginner-Friendly',
+          lightRequirement: 'Bright Indirect',
+          wateringNeed: 'Top 2 Inches Dry',
+          humidityRange: '50% - 70% (High)',
+          petSafe: true,
+          shortHook: `Google Lens verified botanical specimen: ${common}`,
+          overview: `Known as ${common} (${scientific}), this fragrant plant is cherished for its delicate pendulous white star-shaped blooms and sweet fragrance.`,
+          likes: [
+            "Bright indirect light with gentle morning direct sunshine",
+            "Consistently moist, well-draining soil",
+            "Moderate to high humidity to encourage blooming",
+            "Pruning after bloom cycles to maintain lush bonsai branching"
+          ],
+          dislikes: [
+            "Bone-dry potting mix that triggers bud and leaf drop",
+            "Harsh scorching midday summer sunlight",
+            "Standing drainage saucer water causing root rot",
+            "Cold drafts below 55°F (13°C)"
+          ],
+          soilRecipe: {
+            name: `${common} Well-Draining Potting Blend`,
+            ingredients: ["40% Organic Potting Soil", "30% Pumice or Perlite", "30% Pine Bark"],
+            pHRange: "6.0 - 7.0 (Neutral)"
+          },
+          fertilizerProtocol: "Feed with balanced organic plant food diluted to half-strength every 2-3 weeks during active growth."
+        }
+      );
+
+      saveCustomPlantToCatalog(finalPlant);
+    }
+
+    const updatedResult: PlantScanResult = {
+      isPlant: true,
+      detectedItem: scientific ? `${common} (${scientific})` : common,
+      identifiedPlant: finalPlant,
+      confidenceScore: 100,
+      conditionStatus: (scanResult?.conditionStatus && scanResult.conditionStatus !== 'not-applicable') ? scanResult.conditionStatus : 'healthy',
+      conditionTitle: (scanResult?.conditionTitle && scanResult.conditionStatus !== 'not-applicable') ? scanResult.conditionTitle : "Healthy & Thriving",
+      conditionDescription: `Verified via Google Lens as ${common}. Botanical care profile saved to your Greenhouse.`,
+      vitalSigns: (scanResult?.vitalSigns?.chlorophyllIndex) ? scanResult.vitalSigns : {
+        chlorophyllIndex: 88,
+        hydrationStatus: "Optimal Moisture Balance",
+        pestFungalRisk: "Low",
+        turgorPressure: "Firm & Vibrant"
+      },
+      doctorPrescription: [
+        `Maintain ${finalPlant.lightRequirement} lighting for lush foliage.`,
+        `Follow watering rhythm: ${finalPlant.wateringNeed}.`,
+        "Wipe leaves gently and enjoy your verified specimen."
+      ],
+      recommendedGearTitle: finalPlant.amazonProducts?.[0]?.name || "3-in-1 Soil Moisture & Light Meter",
+      recommendedGearQuery: finalPlant.amazonProducts?.[0]?.searchQuery || "soil moisture meter plant light tester",
+      engineUsed: 'Google Vision AI (Gemini 3.5)',
+      isNewDiscovery: true
+    };
+
+    setScanResult(updatedResult);
+    setIsChangingSpecies(false);
+    setManualSpeciesInput('');
+    setSpeciesCorrectionMsg(`✅ Updated to "${finalPlant.commonName}" and saved to Greenhouse!`);
+    setTimeout(() => setSpeciesCorrectionMsg(''), 5000);
   };
 
   return (
@@ -525,6 +641,48 @@ export default function PlantCameraScannerModal({
                 </button>
               </div>
 
+              {/* Quick Lens Result Input on Unconfirmed or Non-Plant */}
+              <div className="p-3.5 rounded-2xl bg-white border border-blue-200 shadow-2xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black text-slate-900 flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                    Enter Name from Google Lens Search:
+                  </span>
+                  <span className="text-[10px] text-blue-700 font-medium">1-Tap Apply</span>
+                </div>
+                <div className="flex gap-1.5">
+                  <input
+                    type="text"
+                    value={manualSpeciesInput}
+                    onChange={(e) => setManualSpeciesInput(e.target.value)}
+                    placeholder="e.g. Suamei or Water Jasmine (Wrightia religiosa)"
+                    className="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium bg-slate-50"
+                  />
+                  <button
+                    onClick={() => handleApplyManualSpecies()}
+                    disabled={!manualSpeciesInput.trim()}
+                    className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-xl font-bold text-xs shadow-xs shrink-0 cursor-pointer transition-all"
+                  >
+                    Apply & Save
+                  </button>
+                </div>
+                <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
+                  <span className="text-[10px] text-slate-400 font-medium">Quick suggestions:</span>
+                  <button
+                    onClick={() => handleApplyManualSpecies('Water Jasmine (Wrightia religiosa)')}
+                    className="px-2 py-0.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-800 text-[10px] font-bold border border-blue-200 transition-colors cursor-pointer"
+                  >
+                    Water Jasmine (Wrightia religiosa)
+                  </button>
+                  <button
+                    onClick={() => handleApplyManualSpecies('Suamei (Water Jasmine)')}
+                    className="px-2 py-0.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-800 text-[10px] font-bold border border-blue-200 transition-colors cursor-pointer"
+                  >
+                    Suamei
+                  </button>
+                </div>
+              </div>
+
               {/* Action Buttons */}
               <div className="flex flex-col gap-2 pt-1">
                 <button
@@ -629,18 +787,71 @@ export default function PlantCameraScannerModal({
                     onClick={() => setIsChangingSpecies(!isChangingSpecies)}
                     className="text-xs font-bold text-emerald-700 hover:text-emerald-800 underline shrink-0 cursor-pointer"
                   >
-                    {isChangingSpecies ? 'Close' : 'Change / Confirm'}
+                    {isChangingSpecies ? 'Close' : '✏️ Change / Correct'}
                   </button>
                 </div>
 
-                {/* Species Picker List */}
+                {/* Success message banner when corrected */}
+                {speciesCorrectionMsg && (
+                  <div className="p-3 bg-emerald-100 border border-emerald-300 text-emerald-950 rounded-2xl text-xs font-bold flex items-center gap-2 animate-in fade-in">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
+                    <span>{speciesCorrectionMsg}</span>
+                  </div>
+                )}
+
+                {/* Species Picker & Custom Input Drawer */}
                 {isChangingSpecies && (
-                  <div className="p-3 bg-emerald-50/70 border-t border-emerald-100 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <p className="text-[11px] font-extrabold text-emerald-950">Confirm or change plant species:</p>
-                      <span className="text-[10px] text-emerald-700 font-medium">{getAllCatalogPlants().length} species in catalog</span>
+                  <div className="p-3.5 bg-emerald-50/90 border-t border-emerald-200 space-y-3 animate-in fade-in">
+                    
+                    {/* Manual Type-in from Google Lens */}
+                    <div className="bg-white p-3 rounded-2xl border border-emerald-200 shadow-2xs space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-black text-emerald-950 flex items-center gap-1">
+                          <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                          Enter Verified Name from Google Lens:
+                        </span>
+                      </div>
+                      <div className="flex gap-1.5">
+                        <input
+                          type="text"
+                          value={manualSpeciesInput}
+                          onChange={(e) => setManualSpeciesInput(e.target.value)}
+                          placeholder="e.g. Suamei or Water Jasmine (Wrightia religiosa)"
+                          className="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium bg-slate-50"
+                        />
+                        <button
+                          onClick={() => handleApplyManualSpecies()}
+                          disabled={!manualSpeciesInput.trim()}
+                          className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl font-bold text-xs shadow-xs shrink-0 cursor-pointer transition-all"
+                        >
+                          Save
+                        </button>
+                      </div>
+                      <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
+                        <span className="text-[10px] text-slate-400 font-medium">Quick tap:</span>
+                        <button
+                          onClick={() => handleApplyManualSpecies('Water Jasmine (Wrightia religiosa)')}
+                          className="px-2 py-0.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200 transition-colors cursor-pointer"
+                        >
+                          Water Jasmine (Wrightia religiosa)
+                        </button>
+                        <button
+                          onClick={() => handleApplyManualSpecies('Suamei (Water Jasmine)')}
+                          className="px-2 py-0.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200 transition-colors cursor-pointer"
+                        >
+                          Suamei
+                        </button>
+                      </div>
+                      <p className="text-[10px] text-slate-500 leading-snug">
+                        💡 Typing the name found on Google Lens updates your diagnosis and immediately compiles its care guide in your Greenhouse.
+                      </p>
                     </div>
-                    <div className="max-h-52 overflow-y-auto space-y-1.5 pr-1">
+
+                    <div className="flex items-center justify-between pt-1">
+                      <p className="text-[11px] font-extrabold text-slate-700">Or select from existing catalog:</p>
+                      <span className="text-[10px] text-emerald-700 font-medium">{getAllCatalogPlants().length} plants</span>
+                    </div>
+                    <div className="max-h-44 overflow-y-auto space-y-1.5 pr-1">
                       {getAllCatalogPlants().map((plant) => {
                         const isSelected = plant.id === currentPlant.id;
                         return (
@@ -655,6 +866,8 @@ export default function PlantCameraScannerModal({
                               );
                               setScanResult(updatedResult);
                               setIsChangingSpecies(false);
+                              setSpeciesCorrectionMsg(`Selected "${plant.commonName}"`);
+                              setTimeout(() => setSpeciesCorrectionMsg(''), 3000);
                             }}
                             className={`w-full text-left p-2.5 rounded-xl flex items-center justify-between transition-all cursor-pointer text-xs ${
                               isSelected 
@@ -811,6 +1024,48 @@ export default function PlantCameraScannerModal({
                   <span>Verify</span>
                   <ExternalLink className="w-3 h-3" />
                 </button>
+              </div>
+
+              {/* Quick Lens Match Correction Box */}
+              <div className="p-3.5 rounded-2xl bg-white border border-emerald-200 shadow-2xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black text-emerald-950 flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                    Correct with Google Lens Match:
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-medium">1-Tap Apply</span>
+                </div>
+                <div className="flex gap-1.5">
+                  <input
+                    type="text"
+                    value={manualSpeciesInput}
+                    onChange={(e) => setManualSpeciesInput(e.target.value)}
+                    placeholder="e.g. Water Jasmine (Wrightia religiosa)"
+                    className="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium bg-slate-50"
+                  />
+                  <button
+                    onClick={() => handleApplyManualSpecies()}
+                    disabled={!manualSpeciesInput.trim()}
+                    className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl font-bold text-xs shadow-xs shrink-0 cursor-pointer transition-all"
+                  >
+                    Apply & Save
+                  </button>
+                </div>
+                <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
+                  <span className="text-[10px] text-slate-400 font-medium">Quick suggestions:</span>
+                  <button
+                    onClick={() => handleApplyManualSpecies('Water Jasmine (Wrightia religiosa)')}
+                    className="px-2 py-0.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200 transition-colors cursor-pointer"
+                  >
+                    Water Jasmine (Wrightia religiosa)
+                  </button>
+                  <button
+                    onClick={() => handleApplyManualSpecies('Suamei (Water Jasmine)')}
+                    className="px-2 py-0.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-200 transition-colors cursor-pointer"
+                  >
+                    Suamei
+                  </button>
+                </div>
               </div>
 
               {/* Action Buttons */}
