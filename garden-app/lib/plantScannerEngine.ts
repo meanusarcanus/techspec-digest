@@ -25,6 +25,13 @@ export interface PlantScanResult {
   engineUsed: 'Google Vision AI (Gemini 3.5)' | 'Catalog Demo Engine';
   rawApiResponse?: string;
   isNewDiscovery?: boolean;
+  existingRecordNotice?: {
+    alreadyInCatalog: boolean;
+    howToFindIt: string;
+    commonName: string;
+    scientificName: string;
+    category: string;
+  };
 }
 
 export interface DemoSampleLeaf {

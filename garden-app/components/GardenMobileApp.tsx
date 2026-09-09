@@ -178,6 +178,16 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
     return matchesCat && matchesSearch;
   });
 
+  // Check if plant exists in catalog but was filtered out by active category
+  const hiddenMatchingPlant = (filteredPlants.length === 0 && searchQuery.trim().length > 1)
+    ? allPlants.find(p => {
+        const q = searchQuery.toLowerCase().trim();
+        return p.commonName.toLowerCase().includes(q) ||
+          p.scientificName.toLowerCase().includes(q) ||
+          (p.aliases && p.aliases.some(a => a.toLowerCase().includes(q) || q.includes(a.toLowerCase())));
+      })
+    : undefined;
+
   const handleTriggerWebSearch = async (termToSearch?: string) => {
     const term = (termToSearch || searchQuery).trim();
     if (!term) return;
@@ -955,27 +965,41 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                 </div>
 
                 {webSearchResult.alreadyInCatalog && webSearchResult.existingPlant ? (
-                  <div className="flex items-center justify-end gap-2 pt-1">
-                    <button
-                      type="button"
-                      onClick={handleCancelConfirmation}
-                      className="px-3 py-1.5 rounded-xl bg-white/10 text-slate-300 text-[11px] font-semibold cursor-pointer"
-                    >
-                      Close
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (webSearchResult.existingPlant) {
-                          setSelectedPlant(webSearchResult.existingPlant);
-                        }
-                        handleCancelConfirmation();
-                      }}
-                      className="px-4 py-1.5 rounded-xl bg-emerald-400 text-slate-950 text-[11px] font-black shadow-md flex items-center gap-1 cursor-pointer active:scale-95"
-                    >
-                      <span>Open Care Guide</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </button>
+                  <div className="space-y-2 pt-1 border-t border-emerald-500/20">
+                    <div className="p-2.5 rounded-xl bg-black/40 border border-emerald-400/30 text-[11px] space-y-1.5 text-left">
+                      <p className="font-bold text-emerald-300 flex items-center gap-1 text-[10px] uppercase tracking-wider">
+                        <Search className="w-3 h-3 text-emerald-400" />
+                        <span>How to find this pre-existing record:</span>
+                      </p>
+                      <div className="space-y-1 text-slate-200 text-[10px] leading-relaxed">
+                        <p>• <strong>Filed under:</strong> "{webSearchResult.existingPlant.commonName}" (<em>{webSearchResult.existingPlant.scientificName}</em>)</p>
+                        <p>• <strong>Category tab:</strong> "{webSearchResult.existingPlant.category}"</p>
+                        <p>• <strong>Search term:</strong> Type "{searchQuery.trim() || webSearchResult.existingPlant.commonName}" in the Greenhouse search bar</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-end gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={handleCancelConfirmation}
+                        className="px-3 py-1.5 rounded-xl bg-white/10 text-slate-300 text-[11px] font-semibold cursor-pointer"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (webSearchResult.existingPlant) {
+                            setSelectedPlant(webSearchResult.existingPlant);
+                          }
+                          handleCancelConfirmation();
+                        }}
+                        className="px-4 py-1.5 rounded-xl bg-emerald-400 text-slate-950 text-[11px] font-black shadow-md flex items-center gap-1 cursor-pointer active:scale-95"
+                      >
+                        <span>Open Care Guide</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <>
@@ -1091,6 +1115,41 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                   >
                     Reset Search
                   </button>
+                </div>
+              ) : hiddenMatchingPlant ? (
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-950 via-teal-950 to-slate-900 text-white border-2 border-emerald-400 text-center space-y-3 shadow-md animate-in zoom-in-95">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-800/90 text-emerald-300 text-[10px] font-black uppercase tracking-wider border border-emerald-400/40">
+                    <span>📋 Pre-Existing Record Found</span>
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-white">
+                      "{hiddenMatchingPlant.commonName}" is already catalogued!
+                    </h4>
+                    <p className="text-[11px] text-emerald-200/80 mt-0.5">
+                      Filed under <strong>"{hiddenMatchingPlant.category}"</strong>. It was hidden because your filter is set to "{selectedCategory}".
+                    </p>
+                  </div>
+
+                  <div className="bg-black/40 p-2.5 rounded-xl border border-emerald-500/20 text-left text-[10px] space-y-1 text-slate-200">
+                    <p>• <strong>Category:</strong> Switch category to "{hiddenMatchingPlant.category}"</p>
+                    <p>• <strong>Search term:</strong> "{searchQuery}" matches this record</p>
+                  </div>
+
+                  <div className="flex items-center justify-center gap-2 pt-1">
+                    <button
+                      onClick={() => setSelectedCategory('All')}
+                      className="px-3 py-1.5 rounded-xl bg-white/10 text-slate-200 text-xs font-bold cursor-pointer"
+                    >
+                      Show All
+                    </button>
+                    <button
+                      onClick={() => setSelectedPlant(hiddenMatchingPlant)}
+                      className="px-3.5 py-1.5 rounded-xl bg-emerald-400 text-slate-950 text-xs font-black shadow-md flex items-center gap-1 cursor-pointer active:scale-95"
+                    >
+                      <span>Open Care Guide</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               ) : searchQuery.trim().length > 0 ? (
                 <div className="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-center space-y-2 shadow-2xs">

@@ -36,7 +36,7 @@ import {
   matchCatalogPlant
 } from '../lib/plantScannerEngine';
 import { PlantCareGuide } from '../data/plantCareGuides';
-import { saveCustomPlantToCatalog, removeCustomPlantFromCatalog } from '../lib/gardenDailyEngine';
+import { saveCustomPlantToCatalog, removeCustomPlantFromCatalog, findMatchingPlantInCatalog, getPlantCatalogLocationGuide } from '../lib/gardenDailyEngine';
 import { createCareGuideForPlantName } from '../lib/botanicalWebEngine';
 
 interface PlantCameraScannerModalProps {
@@ -176,8 +176,13 @@ export default function PlantCameraScannerModal({
     setScanStepText('Compiling Dr. Flora care guide & soil recipe...');
 
     try {
+      const preExisting = findMatchingPlantInCatalog(query);
       const guide = await createCareGuideForPlantName(query);
       setCapturedImage(guide.heroImage);
+
+      const isPreExisting = !!preExisting || !guide.id.startsWith('custom-');
+      const foundPlant = preExisting || guide;
+      const locationGuide = getPlantCatalogLocationGuide(foundPlant, query);
 
       const result: PlantScanResult = {
         isPlant: true,
@@ -185,8 +190,10 @@ export default function PlantCameraScannerModal({
         identifiedPlant: guide,
         confidenceScore: 99.5,
         conditionStatus: 'healthy',
-        conditionTitle: 'Healthy & Thriving (Verified Specimen)',
-        conditionDescription: `Verified botanical profile for ${guide.commonName} (${guide.scientificName}). Studio photograph sourced and complete care profile saved to your Greenhouse.`,
+        conditionTitle: isPreExisting ? 'Pre-Existing Catalogue Record' : 'Healthy & Thriving (Verified Specimen)',
+        conditionDescription: isPreExisting
+          ? `${locationGuide.explanation} Find it under "${foundPlant.category}" or by typing "${query}".`
+          : `Verified botanical profile for ${guide.commonName} (${guide.scientificName}). Studio photograph sourced and complete care profile saved to your Greenhouse.`,
         vitalSigns: {
           chlorophyllIndex: 94,
           hydrationStatus: 'Optimal Moisture Balance',
@@ -201,7 +208,14 @@ export default function PlantCameraScannerModal({
         recommendedGearTitle: guide.amazonProducts?.[0]?.name || "3-in-1 Soil Moisture & Light Meter",
         recommendedGearQuery: guide.amazonProducts?.[0]?.searchQuery || "soil moisture meter plant light tester",
         engineUsed: 'Google Vision AI (Gemini 3.5)',
-        isNewDiscovery: true
+        isNewDiscovery: !isPreExisting,
+        existingRecordNotice: isPreExisting ? {
+          alreadyInCatalog: true,
+          commonName: foundPlant.commonName,
+          scientificName: foundPlant.scientificName,
+          category: foundPlant.category,
+          howToFindIt: `Filter by "${foundPlant.category}" in the Greenhouse tab or search "${query}".`
+        } : undefined
       };
 
       setScanResult(result);
@@ -248,11 +262,13 @@ export default function PlantCameraScannerModal({
       removeCustomPlantFromCatalog(scanResult.identifiedPlant.id);
     }
 
-    const matched = matchCatalogPlant(scientific, common);
+    const preExisting = findMatchingPlantInCatalog(raw) || matchCatalogPlant(scientific, common);
     let finalPlant: PlantCareGuide;
+    let isPreExisting = false;
 
-    if (matched) {
-      finalPlant = matched;
+    if (preExisting) {
+      finalPlant = preExisting;
+      isPreExisting = true;
     } else {
       finalPlant = createDynamicPlantGuide(
         common,
@@ -292,14 +308,18 @@ export default function PlantCameraScannerModal({
       saveCustomPlantToCatalog(finalPlant);
     }
 
+    const locationGuide = getPlantCatalogLocationGuide(finalPlant, raw);
+
     const updatedResult: PlantScanResult = {
       isPlant: true,
       detectedItem: scientific ? `${common} (${scientific})` : common,
       identifiedPlant: finalPlant,
       confidenceScore: 100,
       conditionStatus: (scanResult?.conditionStatus && scanResult.conditionStatus !== 'not-applicable') ? scanResult.conditionStatus : 'healthy',
-      conditionTitle: (scanResult?.conditionTitle && scanResult.conditionStatus !== 'not-applicable') ? scanResult.conditionTitle : "Healthy & Thriving",
-      conditionDescription: `Verified via Google Lens as ${common}. Botanical care profile saved to your Greenhouse.`,
+      conditionTitle: isPreExisting ? 'Pre-Existing Catalogue Record' : (scanResult?.conditionTitle && scanResult.conditionStatus !== 'not-applicable') ? scanResult.conditionTitle : "Healthy & Thriving",
+      conditionDescription: isPreExisting
+        ? `${locationGuide.explanation} Find it under "${finalPlant.category}" or by typing "${raw}".`
+        : `Verified via Google Lens as ${common}. Botanical care profile saved to your Greenhouse.`,
       vitalSigns: (scanResult?.vitalSigns?.chlorophyllIndex) ? scanResult.vitalSigns : {
         chlorophyllIndex: 88,
         hydrationStatus: "Optimal Moisture Balance",
@@ -314,13 +334,24 @@ export default function PlantCameraScannerModal({
       recommendedGearTitle: finalPlant.amazonProducts?.[0]?.name || "3-in-1 Soil Moisture & Light Meter",
       recommendedGearQuery: finalPlant.amazonProducts?.[0]?.searchQuery || "soil moisture meter plant light tester",
       engineUsed: 'Google Vision AI (Gemini 3.5)',
-      isNewDiscovery: true
+      isNewDiscovery: !isPreExisting,
+      existingRecordNotice: isPreExisting ? {
+        alreadyInCatalog: true,
+        commonName: finalPlant.commonName,
+        scientificName: finalPlant.scientificName,
+        category: finalPlant.category,
+        howToFindIt: `Filter by "${finalPlant.category}" in the Greenhouse tab or search "${raw}".`
+      } : undefined
     };
 
     setScanResult(updatedResult);
     setIsChangingSpecies(false);
     setManualSpeciesInput('');
-    setSpeciesCorrectionMsg(`✅ Updated to "${finalPlant.commonName}" and saved to Greenhouse!`);
+    if (isPreExisting) {
+      setSpeciesCorrectionMsg(`📋 Pre-existing record found for "${finalPlant.commonName}" in "${finalPlant.category}".`);
+    } else {
+      setSpeciesCorrectionMsg(`✅ Updated to "${finalPlant.commonName}" and saved to Greenhouse!`);
+    }
     setTimeout(() => setSpeciesCorrectionMsg(''), 5000);
   };
 
@@ -871,8 +902,47 @@ export default function PlantCameraScannerModal({
             return (
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
               
-              {/* Discovery Banner when plant was not in catalog and added */}
-              {scanResult.isNewDiscovery && (
+              {/* Discovery or Pre-Existing Record Banner */}
+              {scanResult.existingRecordNotice ? (
+                <div className="bg-gradient-to-br from-teal-900 via-emerald-950 to-slate-900 text-white p-4 rounded-3xl shadow-lg border-2 border-emerald-400 space-y-2.5 animate-in fade-in">
+                  <div className="flex items-center justify-between gap-2 border-b border-emerald-500/30 pb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">📋</span>
+                      <div>
+                        <span className="text-[10px] font-black uppercase tracking-wider text-emerald-300 block">
+                          Pre-Existing Catalogue Record Found
+                        </span>
+                        <h4 className="text-sm font-black text-white">
+                          "{scanResult.existingRecordNotice.commonName}" is already in your Greenhouse!
+                        </h4>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold bg-emerald-400 text-slate-950 px-2 py-0.5 rounded-full shrink-0">
+                      Already Saved
+                    </span>
+                  </div>
+
+                  <div className="text-xs text-slate-200 space-y-1 bg-black/30 p-2.5 rounded-xl border border-emerald-500/20">
+                    <p className="font-bold text-emerald-300 flex items-center gap-1">
+                      <Search className="w-3 h-3" />
+                      <span>How to find this record:</span>
+                    </p>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      {scanResult.existingRecordNotice.howToFindIt}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-end pt-1">
+                    <button
+                      onClick={() => onOpenCareGuide(currentPlant)}
+                      className="w-full sm:w-auto px-4 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-slate-950 text-xs font-black shadow-md flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 transition-transform"
+                    >
+                      <BookOpen className="w-3.5 h-3.5" />
+                      <span>Open Care Guide for {currentPlant.commonName}</span>
+                    </button>
+                  </div>
+                </div>
+              ) : scanResult.isNewDiscovery ? (
                 <div className="bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-700 text-white p-3.5 rounded-2xl shadow-md flex items-center justify-between gap-3 border border-emerald-400/30">
                   <div className="flex items-center gap-2.5 min-w-0">
                     <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
@@ -895,7 +965,7 @@ export default function PlantCameraScannerModal({
                     <BookOpen className="w-3 h-3 text-emerald-700" />
                   </button>
                 </div>
-              )}
+              ) : null}
 
               {/* Photo & Species Identification Card */}
               <div className="bg-white rounded-3xl border border-emerald-100 shadow-sm overflow-hidden">

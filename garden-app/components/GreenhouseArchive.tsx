@@ -59,6 +59,17 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
     return matchesSearch && matchesCategory && matchesDifficulty && matchesPetSafe;
   });
 
+  // Check if plant exists in catalog but was filtered out by active category/difficulty/petSafe filter
+  const hiddenMatchingPlant = (filteredPlants.length === 0 && searchQuery.trim().length > 1)
+    ? plants.find(plant => {
+        const q = searchQuery.toLowerCase().trim();
+        return plant.commonName.toLowerCase().includes(q) ||
+          plant.scientificName.toLowerCase().includes(q) ||
+          plant.family.toLowerCase().includes(q) ||
+          (plant.aliases && plant.aliases.some(a => a.toLowerCase().includes(q) || q.includes(a.toLowerCase())));
+      })
+    : undefined;
+
   const handleTriggerWebSearch = async (termToSearch?: string) => {
     const term = (termToSearch || searchQuery).trim();
     if (!term) return;
@@ -327,27 +338,50 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
             </div>
 
             {webSearchResult.alreadyInCatalog && webSearchResult.existingPlant ? (
-              <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={handleCancelConfirmation}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-bold transition-all cursor-pointer text-center"
-                >
-                  Close
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (webSearchResult.existingPlant) {
-                      setSelectedPlantModal(webSearchResult.existingPlant);
-                    }
-                    handleCancelConfirmation();
-                  }}
-                  className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 active:scale-98 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <ArrowRight className="w-4 h-4 text-slate-950" />
-                  <span>Open Care Guide for {webSearchResult.existingPlant.commonName}</span>
-                </button>
+              <div className="space-y-3 pt-2 border-t border-emerald-500/20">
+                <div className="p-4 rounded-2xl bg-black/40 border border-emerald-400/40 text-xs space-y-2.5 text-left">
+                  <div className="flex items-center gap-2 text-emerald-300 font-black uppercase tracking-wider text-[11px]">
+                    <Search className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>How to find this pre-existing record:</span>
+                  </div>
+                  <ul className="space-y-1.5 text-slate-200 text-xs">
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 font-bold">•</span>
+                      <span><strong>Filed Under:</strong> "<strong className="text-white">{webSearchResult.existingPlant.commonName}</strong>" (<em>{webSearchResult.existingPlant.scientificName}</em>)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 font-bold">•</span>
+                      <span><strong>Category Tab:</strong> Select the "<strong className="text-emerald-300">{webSearchResult.existingPlant.category}</strong>" tab in the Greenhouse</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 font-bold">•</span>
+                      <span><strong>Search Keywords:</strong> Type "<span className="text-emerald-200 font-mono bg-emerald-950 px-1.5 py-0.5 rounded">{searchQuery.trim() || webSearchResult.existingPlant.commonName}</span>" into the Explore All search bar</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-1">
+                  <button
+                    type="button"
+                    onClick={handleCancelConfirmation}
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-bold transition-all cursor-pointer text-center"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (webSearchResult.existingPlant) {
+                        setSelectedPlantModal(webSearchResult.existingPlant);
+                      }
+                      handleCancelConfirmation();
+                    }}
+                    className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 active:scale-98 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <ArrowRight className="w-4 h-4 text-slate-950" />
+                    <span>Open Care Guide for {webSearchResult.existingPlant.commonName}</span>
+                  </button>
+                </div>
               </div>
             ) : (
               <>
@@ -456,6 +490,55 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
               >
                 Reset Search
               </button>
+            </div>
+          ) : hiddenMatchingPlant ? (
+            <div className="col-span-full py-10 px-6 bg-gradient-to-br from-emerald-950 via-teal-950 to-slate-900 text-white rounded-3xl border-2 border-emerald-400 shadow-xl text-center space-y-4 animate-in zoom-in-95">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-800/80 text-emerald-300 text-xs font-black uppercase tracking-wider border border-emerald-400/40">
+                <span>📋 Pre-Existing Catalogue Record Found</span>
+              </div>
+              <div className="max-w-xl mx-auto space-y-2">
+                <h3 className="text-xl sm:text-2xl font-black text-white">
+                  "{hiddenMatchingPlant.commonName}" is already in your Greenhouse!
+                </h3>
+                <p className="text-xs sm:text-sm text-emerald-200/90 leading-relaxed">
+                  A pre-existing record was found for "{searchQuery}". Here is how to locate it:
+                </p>
+              </div>
+
+              <div className="max-w-md mx-auto bg-black/40 p-4 rounded-2xl border border-emerald-500/30 text-left text-xs space-y-2">
+                <div className="flex items-start gap-2 text-slate-200">
+                  <span className="text-emerald-400 font-bold">•</span>
+                  <span><strong>Filed Under:</strong> {hiddenMatchingPlant.commonName} (<em>{hiddenMatchingPlant.scientificName}</em>)</span>
+                </div>
+                <div className="flex items-start gap-2 text-slate-200">
+                  <span className="text-emerald-400 font-bold">•</span>
+                  <span><strong>Category Tab:</strong> <span className="text-emerald-300 font-bold">"{hiddenMatchingPlant.category}"</span> (Currently hidden because your filter is set to "{selectedCategory}")</span>
+                </div>
+                <div className="flex items-start gap-2 text-slate-200">
+                  <span className="text-emerald-400 font-bold">•</span>
+                  <span><strong>Search Query:</strong> Searching "{searchQuery}" or "{hiddenMatchingPlant.commonName}" will locate this record</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => {
+                    setSelectedCategory('All');
+                    setSelectedDifficulty('All');
+                    setPetSafeOnly(false);
+                  }}
+                  className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 text-xs font-bold transition-all cursor-pointer"
+                >
+                  Reset Category Filter to "All"
+                </button>
+                <button
+                  onClick={() => setSelectedPlantModal(hiddenMatchingPlant)}
+                  className="px-5 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 active:scale-98 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/30 transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                  <span>Open Care Guide for {hiddenMatchingPlant.commonName}</span>
+                </button>
+              </div>
             </div>
           ) : searchQuery.trim().length > 0 ? (
             <div className="col-span-full py-12 px-6 bg-gradient-to-br from-slate-50 to-emerald-50/60 rounded-3xl border-2 border-dashed border-emerald-300 text-center space-y-3">

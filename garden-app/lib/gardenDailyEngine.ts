@@ -111,7 +111,8 @@ export function findMatchingPlantInCatalog(queryOrScientific: string): PlantCare
   const q = queryOrScientific.trim().toLowerCase();
   if (!q) return undefined;
   
-  return all.find(p => {
+  // 1. Exact match pass
+  const exact = all.find(p => {
     if (p.scientificName && p.scientificName.trim().toLowerCase() === q) return true;
     if (p.commonName && p.commonName.trim().toLowerCase() === q) return true;
     if (p.slug && p.slug.trim().toLowerCase() === q) return true;
@@ -119,6 +120,49 @@ export function findMatchingPlantInCatalog(queryOrScientific: string): PlantCare
     if (p.aliases && p.aliases.some(a => a.trim().toLowerCase() === q)) return true;
     return false;
   });
+  if (exact) return exact;
+
+  // 2. Substring match pass (if query is at least 3 characters)
+  if (q.length >= 3) {
+    return all.find(p => {
+      const commonLower = p.commonName.toLowerCase();
+      const sciLower = p.scientificName.toLowerCase();
+      if (commonLower.includes(q) || q.includes(commonLower)) return true;
+      if (sciLower.includes(q) || q.includes(sciLower)) return true;
+      if (p.aliases && p.aliases.some(a => a.toLowerCase().includes(q) || q.includes(a.toLowerCase()))) return true;
+      return false;
+    });
+  }
+
+  return undefined;
+}
+
+export interface PlantLocationGuide {
+  plant: PlantCareGuide;
+  title: string;
+  foundName: string;
+  category: string;
+  searchTips: string[];
+  explanation: string;
+}
+
+/**
+ * Returns structured instructions telling the user exactly how to locate the pre-existing record in the catalogue.
+ */
+export function getPlantCatalogLocationGuide(plant: PlantCareGuide, queriedTerm?: string): PlantLocationGuide {
+  const term = (queriedTerm || plant.commonName).trim();
+  return {
+    plant,
+    title: `Pre-existing record found for "${plant.commonName}"`,
+    foundName: `${plant.commonName} (${plant.scientificName})`,
+    category: plant.category,
+    searchTips: [
+      `Type "${term}" or "${plant.commonName}" into the Explore All search bar`,
+      `Switch to the "${plant.category}" category tab in the Greenhouse Archive`,
+      `Look up by scientific name: "${plant.scientificName}"`
+    ],
+    explanation: `This plant is already registered in your Greenhouse encyclopedia filed under "${plant.category}". You can view its complete care guide immediately or find it using the search bar.`
+  };
 }
 
 /**

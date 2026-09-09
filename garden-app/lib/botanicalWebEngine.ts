@@ -128,6 +128,23 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
     }
   }
 
+  // 0. Immediate Catalogue Check: if user is searching for something already in their collection
+  const immediateMatch = findMatchingPlantInCatalog(rawQuery);
+  if (immediateMatch) {
+    addAliasToExistingPlant(immediateMatch.id, rawQuery);
+    return {
+      commonName: immediateMatch.commonName,
+      scientificName: immediateMatch.scientificName,
+      family: immediateMatch.family,
+      description: immediateMatch.overview || `Botanical specimen of ${immediateMatch.commonName}.`,
+      imageUrl: immediateMatch.heroImage,
+      aliases: immediateMatch.aliases || [],
+      alreadyInCatalog: true,
+      existingPlant: immediateMatch,
+      matchedTerm: immediateMatch.commonName
+    };
+  }
+
   if (!terms.includes(rawQuery.trim())) {
     terms.push(rawQuery.trim());
   }
