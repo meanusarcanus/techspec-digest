@@ -1,6 +1,6 @@
 ---
 title: "Best low EMF full spectrum infrared sauna for home installation"
-date: 2026-09-09T08:02:16Z
+date: 2026-09-09T08:16:27Z
 draft: false
 description: "In-depth guide on Best low EMF full spectrum infrared sauna for home installation. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "best-low-emf-full-spectrum-infrared-sauna-for-home-installation"
