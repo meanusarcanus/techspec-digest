@@ -5,7 +5,7 @@ import { AFRICAN_SPEAR_PLANT_IMAGE } from '../data/plantImages';
 
 export interface PlantScanResult {
   isPlant: boolean;
-  detectedItem: string; // e.g. "Sansevieria cylindrica (African Spear Plant)" or "Ceramic Coffee Mug"
+  detectedItem: string; // e.g. "Computer Mouse" or "Sansevieria cylindrica (African Spear Plant)"
   nonPlantExplanation?: string;
   identifiedPlant: PlantCareGuide | null;
   confidenceScore: number; // e.g. 98.5%
@@ -14,14 +14,15 @@ export interface PlantScanResult {
   conditionDescription: string;
   vitalSigns: {
     chlorophyllIndex: number; // 0 - 100%
-    hydrationStatus: string;   // e.g. "Optimal", "Overwatered", "Dehydrated", "Not Applicable"
+    hydrationStatus: string;
     pestFungalRisk: 'Low' | 'Moderate' | 'High';
     turgorPressure: 'Firm & Vibrant' | 'Slight Wilt' | 'Flaccid / Drooping' | 'N/A';
   };
   doctorPrescription: string[];
   recommendedGearQuery: string;
   recommendedGearTitle: string;
-  engineUsed: 'Google Vision AI (Gemini 3.5)' | 'Chromatic Spectrum Scanner';
+  engineUsed: 'Google Vision AI (Gemini 3.5)' | 'Catalog Demo Engine';
+  rawApiResponse?: string;
 }
 
 export interface DemoSampleLeaf {
@@ -181,23 +182,45 @@ export function createDynamicPlantGuide(
 }
 
 /**
- * Compresses an image element or Data URL via canvas to max 800px JPEG for fast sub-second upload.
+ * Robust client-side image compression.
+ * Downscales camera photos from 12-50MP down to max 800px JPEG (~60-90KB).
+ * NEVER sets crossOrigin on blob: or data: URIs to prevent WebKit / Safari security errors.
  */
-export async function getCompressedBase64(imageSource: HTMLImageElement | string): Promise<string> {
-  return new Promise((resolve) => {
-    const src = typeof imageSource === 'string' ? imageSource : (imageSource.src || '');
-    if (!src) {
-      resolve('');
+export async function compressImageToJpegBase64(source: File | Blob | HTMLImageElement | string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    let tempUrl = '';
+    let isTempUrl = false;
+    let imgSrc = '';
+
+    if (typeof source === 'string') {
+      imgSrc = source;
+    } else if (source instanceof HTMLImageElement) {
+      imgSrc = source.src;
+    } else {
+      // File or Blob
+      tempUrl = URL.createObjectURL(source);
+      isTempUrl = true;
+      imgSrc = tempUrl;
+    }
+
+    if (!imgSrc) {
+      if (isTempUrl) URL.revokeObjectURL(tempUrl);
+      reject(new Error('No image source provided'));
       return;
     }
 
     const img = new Image();
-    img.crossOrigin = 'anonymous';
+    // Only set crossOrigin for remote HTTP(S) URLs
+    if (imgSrc.startsWith('http://') || imgSrc.startsWith('https://')) {
+      img.crossOrigin = 'anonymous';
+    }
+
     img.onload = () => {
       try {
         const maxDim = 800;
-        let w = img.naturalWidth || img.width || 600;
+        let w = img.naturalWidth || img.width || 800;
         let h = img.naturalHeight || img.height || 600;
+
         if (w > maxDim || h > maxDim) {
           if (w > h) {
             h = Math.round((h * maxDim) / w);
@@ -207,39 +230,35 @@ export async function getCompressedBase64(imageSource: HTMLImageElement | string
             h = maxDim;
           }
         }
+
         const canvas = document.createElement('canvas');
         canvas.width = w;
         canvas.height = h;
         const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, w, h);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-          const parts = dataUrl.split(',');
-          resolve(parts[1] || '');
-          return;
-        }
+        if (!ctx) throw new Error('Canvas 2D context unavailable');
+
+        ctx.drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        if (isTempUrl) URL.revokeObjectURL(tempUrl);
+        const base64 = dataUrl.split(',')[1] || '';
+        resolve(base64);
       } catch (err) {
-        console.warn('Canvas compression error:', err);
-      }
-      if (src.startsWith('data:image')) {
-        resolve(src.split(',')[1] || '');
-      } else {
-        resolve('');
+        if (isTempUrl) URL.revokeObjectURL(tempUrl);
+        reject(err);
       }
     };
-    img.onerror = () => {
-      if (src.startsWith('data:image')) {
-        resolve(src.split(',')[1] || '');
-      } else {
-        resolve('');
-      }
+
+    img.onerror = (err) => {
+      if (isTempUrl) URL.revokeObjectURL(tempUrl);
+      reject(err);
     };
-    img.src = src;
+
+    img.src = imgSrc;
   });
 }
 
 /**
- * Builds a default diagnosis report from a catalog plant and chromatic parameters.
+ * Builds a default diagnosis report for demo sample leaves.
  */
 export function buildDiagnosisReport(
   plant: PlantCareGuide,
@@ -335,32 +354,119 @@ export function buildDiagnosisReport(
     doctorPrescription: prescription,
     recommendedGearTitle,
     recommendedGearQuery,
-    engineUsed: 'Chromatic Spectrum Scanner'
+    engineUsed: 'Catalog Demo Engine'
   };
 }
 
 /**
  * Main scanner function:
- * 1. Tries Google Multimodal Vision AI (Gemini 3.5 Flash) for true real-world identification of plants & non-plant objects.
- * 2. If offline or unavailable, falls back gracefully to Canvas Chromatic spectrum inspection.
+ * 1. For real camera photos / uploads: Sends compressed image to Google Multimodal Vision AI (Gemini 3.5 Flash).
+ *    Accurately identifies whether it is a plant or an everyday object (e.g. Computer Mouse, Mug, Phone).
+ * 2. Never assigns a random catalog plant to a camera capture if the API fails.
  */
 export async function analyzePlantImage(
-  imageSource: HTMLImageElement | string,
+  imageSource: File | Blob | HTMLImageElement | string,
   hintPlantSlug?: string,
   forcedCondition?: 'healthy' | 'chlorosis' | 'necrosis' | 'moderate-stress'
 ): Promise<PlantScanResult> {
-  const imgSrcStr = typeof imageSource === 'string' ? imageSource : (imageSource.src || '');
+  const isDemoClick = Boolean(hintPlantSlug && !forcedCondition);
 
-  // 1. Try Google Vision Multimodal AI Engine
+  // If this is an explicit demo sample click, use the catalog demo generator directly
+  if (isDemoClick) {
+    const demoPlant = PLANT_CARE_GUIDES.find(p => p.slug === hintPlantSlug) || PLANT_CARE_GUIDES[0];
+    return buildDiagnosisReport(demoPlant, forcedCondition || 'healthy', 98.2, 0.88);
+  }
+
+  // Real Camera Photo or Upload -> Must run through Google Vision AI
   const apiKey = getGoogleVisionApiKey();
-  if (apiKey) {
-    try {
-      const base64Data = await getCompressedBase64(imageSource);
-      if (base64Data && base64Data.length > 100) {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`;
+  if (!apiKey) {
+    return {
+      isPlant: false,
+      detectedItem: "API Key Required",
+      nonPlantExplanation: "Google Vision AI engine requires an active API key. Please tap the Settings gear above to enter your key or verify on Google Lens directly.",
+      identifiedPlant: null,
+      confidenceScore: 0,
+      conditionStatus: 'not-applicable',
+      conditionTitle: "API Key Not Found",
+      conditionDescription: "Please configure your Google AI Studio API key in scanner settings.",
+      vitalSigns: {
+        chlorophyllIndex: 0,
+        hydrationStatus: "N/A",
+        pestFungalRisk: "Low",
+        turgorPressure: "N/A"
+      },
+      doctorPrescription: [
+        "Tap the Settings icon in the top header to enter your API key.",
+        "Or tap 'Open Lens' below to search directly with Google Lens."
+      ],
+      recommendedGearTitle: "3-in-1 Soil Moisture & Light Meter",
+      recommendedGearQuery: "soil moisture meter plant light tester",
+      engineUsed: 'Google Vision AI (Gemini 3.5)'
+    };
+  }
 
-        const promptText = `You are Dr. Flora, the Google Lens Vision AI Botanical & Object Engine. Analyze this image.
-Return JSON ONLY with this schema:
+  let base64Data = '';
+  try {
+    base64Data = await compressImageToJpegBase64(imageSource);
+  } catch (compressErr) {
+    console.error('Image compression error:', compressErr);
+    return {
+      isPlant: false,
+      detectedItem: "Image Processing Error",
+      nonPlantExplanation: "Could not read or compress the camera photo. Please try retaking the photo.",
+      identifiedPlant: null,
+      confidenceScore: 0,
+      conditionStatus: 'not-applicable',
+      conditionTitle: "Camera Capture Error",
+      conditionDescription: "Unable to process camera image stream.",
+      vitalSigns: {
+        chlorophyllIndex: 0,
+        hydrationStatus: "N/A",
+        pestFungalRisk: "Low",
+        turgorPressure: "N/A"
+      },
+      doctorPrescription: [
+        "Ensure camera permissions are enabled in your mobile browser.",
+        "Retake photo in good lighting."
+      ],
+      recommendedGearTitle: "3-in-1 Soil Moisture & Light Meter",
+      recommendedGearQuery: "soil moisture meter plant light tester",
+      engineUsed: 'Google Vision AI (Gemini 3.5)'
+    };
+  }
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`;
+
+    const promptText = `You are Dr. Flora & Google Lens Vision AI.
+Analyze this photo carefully.
+FIRST QUESTION: IS THIS A LIVING BOTANICAL PLANT?
+- If it is NOT a plant (e.g. computer mouse, coffee mug, keyboard, phone, watch, furniture, clothing, animal, electronic device, packaging, human):
+  Set "isPlant": false.
+  Set "detectedItem" to the EXACT object name (e.g. "Computer Mouse", "Logitech Wireless Mouse", "Ceramic Coffee Mug", "Apple MacBook").
+  Set "confidenceScore" between 90 and 99.
+  Set "nonPlantExplanation" with a friendly note from Dr. Flora explaining what item this is and humorously/firmly stating that Dr. Flora only treats living plants.
+  Set "conditionStatus": "not-applicable", "conditionTitle": "Non-Plant Item Detected".
+  Set "vitalSigns": { "chlorophyllIndex": 0, "hydrationStatus": "Inanimate", "pestFungalRisk": "Low", "turgorPressure": "N/A" }.
+  Set "doctorPrescription": [
+    "Keep this item away from watering saucers and misting sprays!",
+    "No botanical treatment needed—patient is an inanimate object.",
+    "Point your camera at a living leaf, stem, or houseplant to scan a plant."
+  ].
+
+- If it IS a living plant:
+  Set "isPlant": true.
+  Set "detectedItem" to the plant common name (e.g. "African Spear Plant (Sansevieria cylindrica)").
+  Set "commonName" (e.g. "African Spear Plant").
+  Set "scientificName" (e.g. "Dracaena angolensis" or "Sansevieria cylindrica").
+  Set "family" (e.g. "Asparagaceae").
+  Set "confidenceScore" between 85 and 99.
+  Set "conditionStatus": "healthy" | "chlorosis" | "necrosis" | "moderate-stress" | "pest-risk".
+  Set "conditionTitle" and "conditionDescription".
+  Set "vitalSigns" with accurate chlorophyllIndex (0-100), hydrationStatus, pestFungalRisk, and turgorPressure.
+  Set "doctorPrescription": 3 actionable plant care recovery steps.
+
+Return ONLY valid JSON matching this schema:
 {
   "isPlant": boolean,
   "detectedItem": string,
@@ -379,210 +485,160 @@ Return JSON ONLY with this schema:
   },
   "doctorPrescription": string[],
   "nonPlantExplanation": string
-}
-Important:
-- If the image is an everyday object (e.g. coffee mug, laptop, shoe, chair, phone, animal, book, packaging), set isPlant to false, specify detectedItem accurately, and explain why it is not a plant in nonPlantExplanation.
-- If it is a plant, set isPlant to true, accurately identify its commonName, scientificName, and family (e.g. Sansevieria cylindrica / African Spear Plant, Monstera deliciosa, etc.), and diagnose its health condition.`;
+}`;
 
-        const payload = {
-          contents: [{
-            parts: [
-              { text: promptText },
-              {
-                inlineData: {
-                  mimeType: "image/jpeg",
-                  data: base64Data
-                }
-              }
-            ]
-          }],
-          generationConfig: {
-            responseMimeType: "application/json"
-          }
-        };
-
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (rawText) {
-            const parsed = JSON.parse(rawText);
-
-            // Handle Non-Plant Items
-            if (parsed.isPlant === false) {
-              const nonPlantItemName = parsed.detectedItem || "Everyday Object";
-              return {
-                isPlant: false,
-                detectedItem: nonPlantItemName,
-                nonPlantExplanation: parsed.nonPlantExplanation || `Dr. Flora detected a ${nonPlantItemName}. While useful in daily life, this item lacks root systems, stems, and chlorophyll. Dr. Flora's clinic only treats botanical flora.`,
-                identifiedPlant: null,
-                confidenceScore: Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 98.4),
-                conditionStatus: 'not-applicable',
-                conditionTitle: parsed.conditionTitle || `Non-Plant Item Detected (${nonPlantItemName})`,
-                conditionDescription: parsed.conditionDescription || `This item is not a plant. Dr. Flora's clinic specializes exclusively in houseplants, succulents, herbs, and garden flora.`,
-                vitalSigns: {
-                  chlorophyllIndex: 0,
-                  hydrationStatus: 'Not Applicable',
-                  pestFungalRisk: 'Low',
-                  turgorPressure: 'N/A'
-                },
-                doctorPrescription: parsed.doctorPrescription && parsed.doctorPrescription.length > 0
-                  ? parsed.doctorPrescription
-                  : [
-                      "No botanical treatment required—patient is an inanimate object.",
-                      "Keep electronic devices away from watering saucers and spray mist.",
-                      "Point camera at a living leaf, stem, or flowerpot to scan a houseplant."
-                    ],
-                recommendedGearTitle: "Indoor Plant Growing Starter Kit",
-                recommendedGearQuery: "indoor plant beginner garden starter kit",
-                engineUsed: 'Google Vision AI (Gemini 3.5)'
-              };
+    const payload = {
+      contents: [{
+        parts: [
+          { text: promptText },
+          {
+            inlineData: {
+              mimeType: "image/jpeg",
+              data: base64Data
             }
-
-            // Handle Botanical Plants
-            const matchedPlant = matchCatalogPlant(parsed.scientificName, parsed.commonName, hintPlantSlug);
-            const dynamicPlant = (!matchedPlant || (matchedPlant.id === 'plant-01' && !parsed.commonName.toLowerCase().includes('monstera')))
-              ? createDynamicPlantGuide(parsed.commonName, parsed.scientificName, parsed.family, imgSrcStr)
-              : matchedPlant;
-
-            const finalPlant = matchedPlant || dynamicPlant;
-
-            const conf = Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 98.5);
-
-            return {
-              isPlant: true,
-              detectedItem: `${parsed.commonName} (${parsed.scientificName || finalPlant.scientificName})`,
-              identifiedPlant: finalPlant,
-              confidenceScore: conf,
-              conditionStatus: forcedCondition || parsed.conditionStatus || 'healthy',
-              conditionTitle: parsed.conditionTitle || "Healthy & Thriving",
-              conditionDescription: parsed.conditionDescription || `Your ${finalPlant.commonName} shows healthy chlorophyll pigmentation.`,
-              vitalSigns: {
-                chlorophyllIndex: parsed.vitalSigns?.chlorophyllIndex ? Math.round(parsed.vitalSigns.chlorophyllIndex) : 88,
-                hydrationStatus: parsed.vitalSigns?.hydrationStatus || "Optimal Moisture Balance",
-                pestFungalRisk: parsed.vitalSigns?.pestFungalRisk || "Low",
-                turgorPressure: parsed.vitalSigns?.turgorPressure || "Firm & Vibrant"
-              },
-              doctorPrescription: parsed.doctorPrescription && parsed.doctorPrescription.length > 0
-                ? parsed.doctorPrescription
-                : [
-                    `Maintain recommended ${finalPlant.lightRequirement} exposure.`,
-                    `Follow standard watering guideline: ${finalPlant.wateringNeed}.`,
-                    "Dust leaves gently to maximize photosynthesis."
-                  ],
-              recommendedGearTitle: finalPlant.amazonProducts?.[0]?.name || "3-in-1 Soil Moisture & Light Meter",
-              recommendedGearQuery: finalPlant.amazonProducts?.[0]?.searchQuery || "soil moisture meter plant light tester",
-              engineUsed: 'Google Vision AI (Gemini 3.5)'
-            };
           }
-        }
+        ]
+      }],
+      generationConfig: {
+        responseMimeType: "application/json"
       }
-    } catch (err) {
-      console.warn('Google Vision AI error, falling back to chromatic scanner:', err);
+    };
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error('Google Vision AI API Error:', res.status, errText);
+      return {
+        isPlant: false,
+        detectedItem: "Vision Engine Error",
+        nonPlantExplanation: `Google Vision AI encountered an error (${res.status}). Tap 'Open Lens' below to search directly with Google Lens on your device.`,
+        identifiedPlant: null,
+        confidenceScore: 0,
+        conditionStatus: 'not-applicable',
+        conditionTitle: `Service Response ${res.status}`,
+        conditionDescription: "The visual analysis service did not complete.",
+        vitalSigns: {
+          chlorophyllIndex: 0,
+          hydrationStatus: "N/A",
+          pestFungalRisk: "Low",
+          turgorPressure: "N/A"
+        },
+        doctorPrescription: [
+          "Tap 'Open Lens' below to search this exact photo directly on Google Lens.",
+          "Check your internet connection and retry."
+        ],
+        recommendedGearTitle: "3-in-1 Soil Moisture & Light Meter",
+        recommendedGearQuery: "soil moisture meter plant light tester",
+        engineUsed: 'Google Vision AI (Gemini 3.5)',
+        rawApiResponse: errText
+      };
     }
-  }
 
-  // 2. Fallback Chromatic Spectrum Engine
-  let yellowRatio = 0.08;
-  let brownRatio = 0.05;
-  let greenRatio = 0.78;
-
-  if (forcedCondition === 'chlorosis') {
-    yellowRatio = 0.42;
-    brownRatio = 0.12;
-    greenRatio = 0.46;
-  } else if (forcedCondition === 'necrosis') {
-    yellowRatio = 0.18;
-    brownRatio = 0.38;
-    greenRatio = 0.44;
-  } else if (forcedCondition === 'moderate-stress') {
-    yellowRatio = 0.28;
-    brownRatio = 0.14;
-    greenRatio = 0.58;
-  } else if (forcedCondition === 'healthy') {
-    yellowRatio = 0.04;
-    brownRatio = 0.03;
-    greenRatio = 0.88;
-  }
-
-  // Check URL hints if available
-  if (!hintPlantSlug) {
-    if (imgSrcStr.toLowerCase().includes('spear') || imgSrcStr.toLowerCase().includes('cylindrica') || imgSrcStr.includes('african-spear') || imgSrcStr.startsWith('data:image/webp')) {
-      hintPlantSlug = 'african-spear-plant-sansevieria-cylindrica';
-    } else if (imgSrcStr.includes('1614594975') || imgSrcStr.includes('1545241047') || imgSrcStr.toLowerCase().includes('monstera')) {
-      hintPlantSlug = 'monstera-deliciosa';
-    } else if (imgSrcStr.includes('1598880940') || imgSrcStr.toLowerCase().includes('ficus') || imgSrcStr.toLowerCase().includes('fig')) {
-      hintPlantSlug = 'fiddle-leaf-fig';
-    } else if (imgSrcStr.includes('1509423350') || imgSrcStr.toLowerCase().includes('snake')) {
-      hintPlantSlug = 'snake-plant-sansevieria';
-    } else if (imgSrcStr.includes('1596724803') || imgSrcStr.toLowerCase().includes('calathea')) {
-      hintPlantSlug = 'calathea-orbifolia';
+    const data = await res.json();
+    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!rawText) {
+      throw new Error('No candidate content received from Google Vision AI');
     }
-  }
 
-  // Canvas pixel sampling
-  if (typeof window !== 'undefined' && imageSource instanceof HTMLImageElement) {
-    try {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (ctx && imageSource.naturalWidth > 0 && imageSource.naturalHeight > 0) {
-        const width = 120;
-        const height = 120;
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(imageSource, 0, 0, width, height);
+    const parsed = JSON.parse(rawText);
 
-        const imgData = ctx.getImageData(0, 0, width, height).data;
-        let greenCount = 0;
-        let yellowCount = 0;
-        let brownCount = 0;
-        let totalPixels = 0;
-
-        for (let i = 0; i < imgData.length; i += 16) {
-          const r = imgData[i];
-          const g = imgData[i + 1];
-          const b = imgData[i + 2];
-          totalPixels++;
-
-          if (g > r * 1.15 && g > b * 1.25 && g > 60) {
-            greenCount++;
-          } else if (r > 130 && g > 130 && Math.abs(r - g) < 45 && b < 100) {
-            yellowCount++;
-          } else if (r > 80 && r < 175 && g > 45 && g < 130 && b < 80 && r > g * 1.2) {
-            brownCount++;
-          }
-        }
-
-        if (totalPixels > 0 && !forcedCondition) {
-          greenRatio = greenCount / totalPixels;
-          yellowRatio = yellowCount / totalPixels;
-          brownRatio = brownCount / totalPixels;
-        }
-      }
-    } catch {
-      // Fallback
+    // 1. NON-PLANT ITEM (e.g. Mouse, Mug, Laptop, Phone, Chair, Shoe)
+    if (parsed.isPlant === false) {
+      const nonPlantItemName = parsed.detectedItem || "Everyday Object";
+      return {
+        isPlant: false,
+        detectedItem: nonPlantItemName,
+        nonPlantExplanation: parsed.nonPlantExplanation || `Dr. Flora detected a ${nonPlantItemName}. While useful in daily life, this item lacks root systems, stems, and chlorophyll. Dr. Flora's clinic only treats botanical flora.`,
+        identifiedPlant: null,
+        confidenceScore: Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 98.4),
+        conditionStatus: 'not-applicable',
+        conditionTitle: parsed.conditionTitle || `Non-Plant Item Detected (${nonPlantItemName})`,
+        conditionDescription: parsed.conditionDescription || `This item is not a plant. Dr. Flora's clinic specializes exclusively in houseplants, succulents, herbs, and garden flora.`,
+        vitalSigns: {
+          chlorophyllIndex: 0,
+          hydrationStatus: 'Inanimate Object',
+          pestFungalRisk: 'Low',
+          turgorPressure: 'N/A'
+        },
+        doctorPrescription: (parsed.doctorPrescription && parsed.doctorPrescription.length > 0)
+          ? parsed.doctorPrescription
+          : [
+              "Keep electronic devices away from watering saucers and spray mist.",
+              "No botanical treatment required—patient is an inanimate object.",
+              "Point camera at a living leaf, stem, or flowerpot to scan a houseplant."
+            ],
+        recommendedGearTitle: "Indoor Plant Growing Starter Kit",
+        recommendedGearQuery: "indoor plant beginner garden starter kit",
+        engineUsed: 'Google Vision AI (Gemini 3.5)',
+        rawApiResponse: rawText
+      };
     }
+
+    // 2. BOTANICAL PLANT FOUND
+    const matchedPlant = matchCatalogPlant(parsed.scientificName, parsed.commonName, hintPlantSlug);
+    const dynamicPlant = (!matchedPlant || (matchedPlant.id === 'plant-01' && !parsed.commonName.toLowerCase().includes('monstera')))
+      ? createDynamicPlantGuide(parsed.commonName, parsed.scientificName, parsed.family, AFRICAN_SPEAR_PLANT_IMAGE)
+      : matchedPlant;
+
+    const finalPlant = matchedPlant || dynamicPlant;
+    const conf = Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 98.5);
+
+    return {
+      isPlant: true,
+      detectedItem: `${parsed.commonName} (${parsed.scientificName || finalPlant.scientificName})`,
+      identifiedPlant: finalPlant,
+      confidenceScore: conf,
+      conditionStatus: forcedCondition || parsed.conditionStatus || 'healthy',
+      conditionTitle: parsed.conditionTitle || "Healthy & Thriving",
+      conditionDescription: parsed.conditionDescription || `Your ${finalPlant.commonName} shows healthy chlorophyll pigmentation.`,
+      vitalSigns: {
+        chlorophyllIndex: parsed.vitalSigns?.chlorophyllIndex ? Math.round(parsed.vitalSigns.chlorophyllIndex) : 88,
+        hydrationStatus: parsed.vitalSigns?.hydrationStatus || "Optimal Moisture Balance",
+        pestFungalRisk: parsed.vitalSigns?.pestFungalRisk || "Low",
+        turgorPressure: parsed.vitalSigns?.turgorPressure || "Firm & Vibrant"
+      },
+      doctorPrescription: (parsed.doctorPrescription && parsed.doctorPrescription.length > 0)
+        ? parsed.doctorPrescription
+        : [
+            `Maintain recommended ${finalPlant.lightRequirement} exposure.`,
+            `Follow standard watering guideline: ${finalPlant.wateringNeed}.`,
+            "Dust leaves gently to maximize photosynthesis."
+          ],
+      recommendedGearTitle: finalPlant.amazonProducts?.[0]?.name || "3-in-1 Soil Moisture & Light Meter",
+      recommendedGearQuery: finalPlant.amazonProducts?.[0]?.searchQuery || "soil moisture meter plant light tester",
+      engineUsed: 'Google Vision AI (Gemini 3.5)',
+      rawApiResponse: rawText
+    };
+
+  } catch (err: any) {
+    console.error('Vision AI Exception:', err);
+    return {
+      isPlant: false,
+      detectedItem: "Analysis Interrupted",
+      nonPlantExplanation: `Google Vision AI encountered an issue (${err?.message || 'Network Timeout'}). Tap 'Open Lens' below to verify directly on Google Lens.`,
+      identifiedPlant: null,
+      confidenceScore: 0,
+      conditionStatus: 'not-applicable',
+      conditionTitle: "Connection Error",
+      conditionDescription: "Could not reach Google Vision neural servers.",
+      vitalSigns: {
+        chlorophyllIndex: 0,
+        hydrationStatus: "N/A",
+        pestFungalRisk: "Low",
+        turgorPressure: "N/A"
+      },
+      doctorPrescription: [
+        "Tap 'Open Lens' below to search this image with Google Lens.",
+        "Check that your phone has an internet connection and retry."
+      ],
+      recommendedGearTitle: "3-in-1 Soil Moisture & Light Meter",
+      recommendedGearQuery: "soil moisture meter plant light tester",
+      engineUsed: 'Google Vision AI (Gemini 3.5)'
+    };
   }
-
-  const matchedPlant = hintPlantSlug
-    ? (PLANT_CARE_GUIDES.find(p => p.slug === hintPlantSlug || p.id === hintPlantSlug) || PLANT_CARE_GUIDES[0])
-    : (PLANT_CARE_GUIDES.find(p => p.slug === 'african-spear-plant-sansevieria-cylindrica') || PLANT_CARE_GUIDES[0]);
-
-  const confidenceScore = Math.floor(955 + (Math.random() * 38)) / 10;
-
-  let conditionStatus: 'healthy' | 'moderate-stress' | 'chlorosis' | 'necrosis' | 'pest-risk' = 'healthy';
-  if (yellowRatio > 0.20 || forcedCondition === 'chlorosis') {
-    conditionStatus = 'chlorosis';
-  } else if (brownRatio > 0.18 || forcedCondition === 'necrosis') {
-    conditionStatus = 'necrosis';
-  } else if (forcedCondition === 'moderate-stress' || yellowRatio > 0.12 || brownRatio > 0.10) {
-    conditionStatus = 'moderate-stress';
-  }
-
-  return buildDiagnosisReport(matchedPlant, conditionStatus, confidenceScore, greenRatio);
 }

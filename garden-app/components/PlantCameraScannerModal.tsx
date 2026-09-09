@@ -81,44 +81,39 @@ export default function PlantCameraScannerModal({
   if (!isOpen) return null;
 
   // Process captured/selected image
-  const processImageFile = (file: File, hintSlug?: string, forcedCondition?: any) => {
+  const processImageFile = (file: File) => {
     setCapturedRawFile(file);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const imgDataUrl = e.target?.result as string;
-      startScanAnalysis(imgDataUrl, hintSlug, forcedCondition);
-    };
-    reader.readAsDataURL(file);
+    const objectUrl = URL.createObjectURL(file);
+    setCapturedImage(objectUrl);
+    startScanAnalysis(file);
   };
 
-  const startScanAnalysis = async (imgUrl: string, hintSlug?: string, forcedCondition?: any) => {
-    setCapturedImage(imgUrl);
+  const startScanAnalysis = async (imgSource: File | Blob | string, hintSlug?: string, forcedCondition?: any) => {
+    if (typeof imgSource === 'string') {
+      setCapturedImage(imgSource);
+    }
     setScanResult(null);
     setIsScanning(true);
 
-    setScanStepText('Analyzing leaf contour, structure & objects...');
+    setScanStepText('Inspecting image structure & objects...');
     await new Promise(r => setTimeout(r, 450));
     setScanStepText('Querying Google Vision AI neural engine...');
     await new Promise(r => setTimeout(r, 450));
     setScanStepText('Verifying botanical taxonomy & Dr. Flora diagnosis...');
 
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = async () => {
-      const result = await analyzePlantImage(img, hintSlug, forcedCondition);
+    try {
+      const result = await analyzePlantImage(imgSource, hintSlug, forcedCondition);
       setScanResult(result);
+    } catch (err) {
+      console.error('Analysis error:', err);
+    } finally {
       setIsScanning(false);
-    };
-    img.onerror = async () => {
-      const result = await analyzePlantImage(imgUrl, hintSlug, forcedCondition);
-      setScanResult(result);
-      setIsScanning(false);
-    };
-    img.src = imgUrl;
+    }
   };
 
   const handleSelectDemoLeaf = (sample: DemoSampleLeaf) => {
     setCapturedRawFile(null);
+    setCapturedImage(sample.imageUrl);
     startScanAnalysis(sample.imageUrl, sample.targetPlantSlug, sample.expectedCondition);
   };
 
