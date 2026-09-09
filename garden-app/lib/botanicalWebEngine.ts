@@ -595,14 +595,14 @@ Return JSON with:
             { ...parsed, aliases }
           );
           if (activeUser) {
+            const updatedUser = recordUserPlantContribution() || activeUser;
             guide.addedBy = {
-              username: activeUser.username,
-              displayName: activeUser.displayName,
-              avatarEmoji: activeUser.avatarEmoji,
-              badge: activeUser.badge,
+              username: updatedUser.username,
+              displayName: updatedUser.displayName,
+              avatarEmoji: updatedUser.avatarEmoji,
+              badge: updatedUser.badge,
               addedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
             };
-            recordUserPlantContribution();
           }
           saveCustomPlantToCatalog(guide);
           return guide;
@@ -626,14 +626,14 @@ Return JSON with:
     }
   );
   if (activeUser) {
+    const updatedUser = recordUserPlantContribution() || activeUser;
     fallbackGuide.addedBy = {
-      username: activeUser.username,
-      displayName: activeUser.displayName,
-      avatarEmoji: activeUser.avatarEmoji,
-      badge: activeUser.badge,
+      username: updatedUser.username,
+      displayName: updatedUser.displayName,
+      avatarEmoji: updatedUser.avatarEmoji,
+      badge: updatedUser.badge,
       addedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
     };
-    recordUserPlantContribution();
   }
   saveCustomPlantToCatalog(fallbackGuide);
   return fallbackGuide;

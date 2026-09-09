@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Mail, Sparkles, CheckCircle2, X, Leaf, ShieldCheck, Heart, BellRing } from 'lucide-react';
-import { getCurrentGardenUser, autoSubscribeToNewsletter, GardenUser } from '../lib/gardenAuthEngine';
+import { getCurrentGardenUser, autoSubscribeToNewsletter, loginGardenUser, sendWelcomeSignUpEmail, GardenUser } from '../lib/gardenAuthEngine';
 
 interface NewsletterProps {
   isOpen?: boolean;
@@ -31,12 +31,14 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
     return () => window.removeEventListener('garden_user_updated', handleSync);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanEmail = email.trim().toLowerCase();
     if (!cleanEmail || !cleanEmail.includes('@')) return;
 
-    autoSubscribeToNewsletter(cleanEmail, currentUser?.username);
+    const user = currentUser || loginGardenUser(cleanEmail);
+    autoSubscribeToNewsletter(cleanEmail, user.username);
+    await sendWelcomeSignUpEmail(user);
 
     setSubmitted(true);
     setTimeout(() => {
