@@ -7,7 +7,7 @@ import GreenhouseArchive from '../../components/GreenhouseArchive';
 import GardenNewsletter from '../../components/GardenNewsletter';
 import GardenMobileApp from '../../components/GardenMobileApp';
 import { useDeviceMode } from '../../lib/useDeviceMode';
-import { getAllPlantGuides } from '../../lib/gardenDailyEngine';
+import { getAllPlantGuides, purgeDuplicateCatalogEntries } from '../../lib/gardenDailyEngine';
 import { PlantCareGuide } from '../../data/plantCareGuides';
 
 export default function GreenhousePage() {
@@ -16,6 +16,7 @@ export default function GreenhousePage() {
   const [allPlants, setAllPlants] = useState<PlantCareGuide[]>(() => getAllPlantGuides());
 
   useEffect(() => {
+    purgeDuplicateCatalogEntries();
     const handleUpdate = () => {
       setAllPlants(getAllPlantGuides());
     };

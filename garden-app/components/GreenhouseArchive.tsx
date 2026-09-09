@@ -7,6 +7,7 @@ import CareGuideModal from './CareGuideModal';
 import { searchBotanicalWebImage, confirmAndSaveWebPlant, BotanicalWebResult } from '../lib/botanicalWebEngine';
 import BotanistLoginModal from './BotanistLoginModal';
 import { getCurrentGardenUser, GardenUser } from '../lib/gardenAuthEngine';
+import { purgeDuplicateCatalogEntries, deduplicatePlantGuides } from '../lib/gardenDailyEngine';
 
 interface GreenhouseArchiveProps {
   plants: PlantCareGuide[];
@@ -40,10 +41,18 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
     return () => window.removeEventListener('garden_user_updated', handleUserUpdate);
   }, []);
 
+  useEffect(() => {
+    // Automatically purge duplicate records from local catalogue storage on mount
+    purgeDuplicateCatalogEntries();
+  }, []);
+
   const categories = ['All', 'Indoor Houseplants', 'Ornamental & Flowering', 'Edible Gardens & Herbs', 'Succulents & Rare Tropicals'];
   const difficulties = ['All', 'Beginner-Friendly', 'Intermediate', 'Plant Connoisseur'];
 
-  const filteredPlants = plants.filter(plant => {
+  // Guarantee strict deduplication of catalogue entries
+  const uniquePlants = deduplicatePlantGuides(plants);
+
+  const filteredPlants = uniquePlants.filter(plant => {
     const q = searchQuery.toLowerCase().trim();
     const matchesSearch = 
       plant.commonName.toLowerCase().includes(q) ||
@@ -61,7 +70,7 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
 
   // Check if plant exists in catalog but was filtered out by active category/difficulty/petSafe filter
   const hiddenMatchingPlant = (filteredPlants.length === 0 && searchQuery.trim().length > 1)
-    ? plants.find(plant => {
+    ? uniquePlants.find(plant => {
         const q = searchQuery.toLowerCase().trim();
         return plant.commonName.toLowerCase().includes(q) ||
           plant.scientificName.toLowerCase().includes(q) ||
@@ -145,7 +154,7 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
           <span>The Botanical Greenhouse Archive</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-          Explore All Botanical Care Guides ({plants.length})
+          Explore All Botanical Care Guides ({uniquePlants.length})
         </h2>
         <p className="text-sm sm:text-base text-slate-600 mt-2 max-w-2xl mx-auto leading-relaxed">
           Filter through our complete encyclopedia of houseplants, flowering ornamentals, edible herbs, and exotic succulents.

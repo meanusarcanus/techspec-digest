@@ -34,7 +34,7 @@ import {
   Lock,
   AlertCircle
 } from 'lucide-react';
-import { getDailyFeaturedPlant, getAllPlantGuides } from '../lib/gardenDailyEngine';
+import { getDailyFeaturedPlant, getAllPlantGuides, purgeDuplicateCatalogEntries, deduplicatePlantGuides } from '../lib/gardenDailyEngine';
 import { generatePlantDoctorDiagnosis, DoctorDiagnosis } from '../lib/botanicalDoctor';
 import { PlantCareGuide } from '../data/plantCareGuides';
 import CareGuideModal from './CareGuideModal';
@@ -90,6 +90,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
   const [allPlants, setAllPlants] = useState<PlantCareGuide[]>(() => getAllPlantGuides());
 
   useEffect(() => {
+    purgeDuplicateCatalogEntries();
     const handleCatalogUpdate = () => {
       setAllPlants(getAllPlantGuides());
     };

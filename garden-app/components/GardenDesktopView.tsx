@@ -9,7 +9,7 @@ import GreenhouseArchive from './GreenhouseArchive';
 import GardenNewsletter from './GardenNewsletter';
 import CareGuideModal from './CareGuideModal';
 import PlantCameraScannerModal from './PlantCameraScannerModal';
-import { getDailyFeaturedPlant, getAllPlantGuides } from '../lib/gardenDailyEngine';
+import { getDailyFeaturedPlant, getAllPlantGuides, purgeDuplicateCatalogEntries } from '../lib/gardenDailyEngine';
 import { PlantCareGuide } from '../data/plantCareGuides';
 import { Smartphone, Camera } from 'lucide-react';
 
@@ -26,6 +26,7 @@ export default function GardenDesktopView({ onSwitchToMobile }: GardenDesktopVie
   const [allPlants, setAllPlants] = useState<PlantCareGuide[]>(() => getAllPlantGuides());
 
   useEffect(() => {
+    purgeDuplicateCatalogEntries();
     const handleUpdate = () => {
       setAllPlants(getAllPlantGuides());
     };

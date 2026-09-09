@@ -36,7 +36,133 @@ export function getDailyFeaturedPlant(targetDate?: Date): {
 export const STORAGE_KEY_CUSTOM_CATALOG = 'garden_perks_custom_catalog';
 
 /**
- * Retrieves custom plants discovered and saved by Google Vision AI in the browser.
+ * Rigorously checks if two plant records refer to the same botanical organism.
+ * Compares IDs, slugs, scientific names (accounting for author suffixes like 'Liebm.' or 'Blume'),
+ * common names (accounting for parentheses / alternate names), and cross-referenced aliases.
+ */
+export function isSamePlant(a: PlantCareGuide, b: PlantCareGuide): boolean {
+  if (!a || !b) return false;
+  if (a.id && b.id && a.id === b.id) return true;
+  if (a.slug && b.slug && a.slug === b.slug) return true;
+
+  const getGenusSpecies = (sci: string) => 
+    (sci || '').trim().toLowerCase().split(/\s+/).slice(0, 2).join(' ');
+
+  const sciA = getGenusSpecies(a.scientificName);
+  const sciB = getGenusSpecies(b.scientificName);
+  if (sciA && sciB && sciA === sciB) return true;
+
+  const normalizeCommon = (name: string) =>
+    (name || '').toLowerCase()
+      .replace(/\(.*?\)/g, '')
+      .replace(/[^a-z0-9]/g, ' ')
+      .trim()
+      .replace(/\s+/g, ' ');
+
+  const normA = normalizeCommon(a.commonName);
+  const normB = normalizeCommon(b.commonName);
+  if (normA && normB) {
+    if (normA === normB) return true;
+    if (normA.includes(normB) || normB.includes(normA)) {
+      const wordsA = normA.split(' ');
+      const wordsB = normB.split(' ');
+      const commonWords = wordsA.filter(w => wordsB.includes(w) && w.length >= 3);
+      if (commonWords.length >= 2 || (wordsA.includes('orchid') && wordsB.includes('orchid'))) {
+        return true;
+      }
+    }
+  }
+
+  // Cross-reference aliases
+  const aliasesA = (a.aliases || []).map(x => x.toLowerCase().trim());
+  const aliasesB = (b.aliases || []).map(x => x.toLowerCase().trim());
+  if (normB && aliasesA.some(al => al === normB || al === sciB)) return true;
+  if (normA && aliasesB.some(al => al === normA || al === sciA)) return true;
+
+  return false;
+}
+
+/**
+ * Consolidates an array of PlantCareGuide objects by merging duplicate records into a single canonical guide.
+ * Merges aliases, keeps contributor attributions, and preserves the richest guide content.
+ */
+export function deduplicatePlantGuides(guides: PlantCareGuide[]): PlantCareGuide[] {
+  const result: PlantCareGuide[] = [];
+
+  for (const plant of guides) {
+    if (!plant) continue;
+    const existingIndex = result.findIndex(existing => isSamePlant(existing, plant));
+    if (existingIndex >= 0) {
+      const existing = result[existingIndex];
+      const mergedAliases = Array.from(new Set([
+        ...(existing.aliases || []),
+        ...(plant.aliases || []),
+        existing.commonName.toLowerCase(),
+        plant.commonName.toLowerCase(),
+        existing.scientificName.toLowerCase(),
+        plant.scientificName.toLowerCase()
+      ])).filter(Boolean);
+
+      result[existingIndex] = {
+        ...existing,
+        ...plant,
+        id: existing.id || plant.id,
+        slug: existing.slug || plant.slug,
+        commonName: (existing.commonName.length > plant.commonName.length) ? existing.commonName : plant.commonName,
+        scientificName: (existing.scientificName.length > plant.scientificName.length) ? existing.scientificName : plant.scientificName,
+        addedBy: plant.addedBy || existing.addedBy,
+        heroImage: plant.heroImage || existing.heroImage,
+        overview: (plant.overview && plant.overview.length > (existing.overview?.length || 0)) ? plant.overview : existing.overview,
+        aliases: mergedAliases
+      };
+    } else {
+      result.push(plant);
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Purges all duplicate records from localStorage custom catalog and dispatches an update event.
+ */
+export function purgeDuplicateCatalogEntries(): { beforeCount: number; afterCount: number; purgedCount: number } {
+  if (typeof window === 'undefined') return { beforeCount: 0, afterCount: 0, purgedCount: 0 };
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_CUSTOM_CATALOG);
+    if (!raw) return { beforeCount: 0, afterCount: 0, purgedCount: 0 };
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return { beforeCount: 0, afterCount: 0, purgedCount: 0 };
+
+    const beforeCount = parsed.length;
+
+    // Filter out any custom plant that is an identical or redundant copy of a core guide without unique custom additions
+    const dedupedCustom = deduplicatePlantGuides(parsed).filter(customPlant => {
+      const coreMatch = PLANT_CARE_GUIDES.find(core => isSamePlant(core, customPlant));
+      if (coreMatch && !customPlant.addedBy) {
+        return false;
+      }
+      return true;
+    });
+
+    const afterCount = dedupedCustom.length;
+    const purgedCount = beforeCount - afterCount;
+
+    if (purgedCount > 0 || beforeCount !== parsed.length) {
+      localStorage.setItem(STORAGE_KEY_CUSTOM_CATALOG, JSON.stringify(dedupedCustom));
+      window.dispatchEvent(new CustomEvent('garden_catalog_updated'));
+    }
+
+    return { beforeCount, afterCount, purgedCount };
+  } catch (e) {
+    console.error('Failed to purge duplicate catalog entries:', e);
+    return { beforeCount: 0, afterCount: 0, purgedCount: 0 };
+  }
+}
+
+/**
+ * Retrieves custom plants discovered and saved by Google Vision AI in the browser,
+ * automatically deduplicating them and saving the cleaned list back to localStorage.
  */
 export function getCustomCatalogPlants(): PlantCareGuide[] {
   if (typeof window === 'undefined') return [];
@@ -44,7 +170,13 @@ export function getCustomCatalogPlants(): PlantCareGuide[] {
     const raw = localStorage.getItem(STORAGE_KEY_CUSTOM_CATALOG);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    if (!Array.isArray(parsed)) return [];
+
+    const deduped = deduplicatePlantGuides(parsed);
+    if (deduped.length !== parsed.length) {
+      localStorage.setItem(STORAGE_KEY_CUSTOM_CATALOG, JSON.stringify(deduped));
+    }
+    return deduped;
   } catch (e) {
     console.error('Failed to load custom plants from localStorage:', e);
     return [];
@@ -53,7 +185,7 @@ export function getCustomCatalogPlants(): PlantCareGuide[] {
 
 /**
  * Saves or updates a discovered plant in the local custom catalog and notifies listeners.
- * Prevents duplicates by matching scientificName, slug, id, or commonName.
+ * Prevents duplicates by matching scientificName, slug, id, or commonName using isSamePlant.
  */
 export function saveCustomPlantToCatalog(plant: PlantCareGuide): void {
   if (typeof window === 'undefined') return;
@@ -62,13 +194,8 @@ export function saveCustomPlantToCatalog(plant: PlantCareGuide): void {
     const cleanScientific = plant.scientificName.trim().toLowerCase();
     const cleanCommon = plant.commonName.trim().toLowerCase();
 
-    // Check if plant with same scientificName, slug, id, or commonName already exists
-    const index = existing.findIndex(p => 
-      (cleanScientific && p.scientificName && p.scientificName.trim().toLowerCase() === cleanScientific) ||
-      (cleanCommon && p.commonName && p.commonName.trim().toLowerCase() === cleanCommon) ||
-      p.id === plant.id || 
-      p.slug === plant.slug
-    );
+    // Check if plant already exists in custom catalog using isSamePlant
+    const index = existing.findIndex(p => isSamePlant(p, plant));
     
     let updated: PlantCareGuide[];
     if (index >= 0) {
@@ -96,7 +223,8 @@ export function saveCustomPlantToCatalog(plant: PlantCareGuide): void {
       updated = [{ ...plant, aliases: initialAliases }, ...existing];
     }
     
-    localStorage.setItem(STORAGE_KEY_CUSTOM_CATALOG, JSON.stringify(updated));
+    const deduped = deduplicatePlantGuides(updated);
+    localStorage.setItem(STORAGE_KEY_CUSTOM_CATALOG, JSON.stringify(deduped));
     window.dispatchEvent(new CustomEvent('garden_catalog_updated', { detail: plant }));
   } catch (e) {
     console.error('Failed to save custom plant to localStorage:', e);
@@ -238,8 +366,7 @@ export function removeCustomPlantFromCatalog(idOrSlug: string): void {
 
 export function getAllPlantGuides(): PlantCareGuide[] {
   const custom = getCustomCatalogPlants();
-  if (custom.length === 0) return PLANT_CARE_GUIDES;
-  return [...custom, ...PLANT_CARE_GUIDES];
+  return deduplicatePlantGuides([...custom, ...PLANT_CARE_GUIDES]);
 }
 
 export function getPlantGuideBySlug(slug: string): PlantCareGuide | undefined {
