@@ -312,6 +312,29 @@ export function loginGardenUser(
     
     // Dispatch welcome email
     sendWelcomeSignUpEmail(user);
+
+    // Sync botanist account to Firestore cloud
+    import('./userCloudSync')
+      .then(async ({ fetchUserFromCloud, saveUserToCloud }) => {
+        const cloudUser = await fetchUserFromCloud(cleanUsername);
+        if (cloudUser && (cloudUser.contributionsCount || 0) > user.contributionsCount) {
+          const mergedUser: GardenUser = {
+            ...user,
+            ...cloudUser,
+            contributionsCount: Math.max(user.contributionsCount, cloudUser.contributionsCount || 0),
+            joinedAt: cloudUser.joinedAt || user.joinedAt
+          };
+          const { badge: cloudBadge, tier: cloudTier } = getBadgeForCount(mergedUser.contributionsCount);
+          mergedUser.badge = cloudBadge;
+          mergedUser.badgeTier = cloudTier;
+          saveGardenUserToDatabase(mergedUser);
+          localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(mergedUser));
+          window.dispatchEvent(new CustomEvent('garden_user_updated', { detail: mergedUser }));
+        } else {
+          await saveUserToCloud(user);
+        }
+      })
+      .catch((err) => console.warn('User cloud sync notice:', err));
   }
 
   return user;
@@ -345,5 +368,13 @@ export function recordUserPlantContribution(): GardenUser | null {
   // Persist to active session
   localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(updatedUser));
   window.dispatchEvent(new CustomEvent('garden_user_updated', { detail: updatedUser }));
+
+  // Sync to Firestore
+  if (typeof window !== 'undefined') {
+    import('./userCloudSync')
+      .then(({ saveUserToCloud }) => saveUserToCloud(updatedUser))
+      .catch((err) => console.warn('Contribution cloud sync notice:', err));
+  }
+
   return updatedUser;
 }

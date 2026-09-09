@@ -5,6 +5,7 @@ import { MessageCircleHeart, Send, Bot, User, ThumbsUp, Sparkles, CheckCircle2, 
 import { generatePlantDoctorDiagnosis, DoctorDiagnosis } from '../lib/botanicalDoctor';
 import { getCurrentGardenUser, GardenUser } from '../lib/gardenAuthEngine';
 import BotanistLoginModal from './BotanistLoginModal';
+import { subscribeToClinicConsultations, saveClinicPostToCloud, likeClinicPostInCloud } from '../lib/clinicCloudSync';
 
 export interface ClinicPost {
   id: string;
@@ -72,16 +73,14 @@ export default function PlantClinicCommunity() {
   const [successToast, setSuccessToast] = useState(false);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem('garden_perks_clinic_posts');
-      if (saved) {
-        setPosts(JSON.parse(saved));
-      } else {
-        setPosts(INITIAL_COMMUNITY_POSTS);
-      }
-    } catch (e) {
-      setPosts(INITIAL_COMMUNITY_POSTS);
-    }
+    // Real-time synchronization with Firebase Firestore
+    const unsub = subscribeToClinicConsultations((cloudPosts) => {
+      setPosts(cloudPosts);
+    }, INITIAL_COMMUNITY_POSTS);
+
+    return () => {
+      if (typeof unsub === 'function') unsub();
+    };
   }, []);
 
   useEffect(() => {
@@ -108,6 +107,9 @@ export default function PlantClinicCommunity() {
     try {
       localStorage.setItem('garden_perks_clinic_posts', JSON.stringify(updated));
     } catch (e) {}
+
+    // Cloud sync like to Firestore
+    likeClinicPostInCloud(id).catch(() => {});
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -147,6 +149,9 @@ export default function PlantClinicCommunity() {
       try {
         localStorage.setItem('garden_perks_clinic_posts', JSON.stringify(updated));
       } catch (e) {}
+
+      // Save to Firebase Firestore cloud in background
+      saveClinicPostToCloud(newPost).catch(() => {});
 
       setQuestionInput('');
       setPlantInput('');
