@@ -112,7 +112,7 @@ export function matchCatalogPlant(
   scientificName: string = '',
   commonName: string = '',
   hintSlug?: string
-): PlantCareGuide {
+): PlantCareGuide | null {
   if (hintSlug) {
     const match = PLANT_CARE_GUIDES.find(p => p.slug === hintSlug || p.id === hintSlug);
     if (match) return match;
@@ -129,7 +129,7 @@ export function matchCatalogPlant(
   if (query.includes('ficus') || query.includes('lyrata') || query.includes('fiddle')) {
     return PLANT_CARE_GUIDES.find(p => p.slug === 'fiddle-leaf-fig') || PLANT_CARE_GUIDES[1];
   }
-  if (query.includes('calathea') || query.includes('orbifolia') || query.includes('prayer plant')) {
+  if (query.includes('calathea') || query.includes('orbifolia') || query.includes('prayer plant') || query.includes('geoppertia') || query.includes('goeppertia')) {
     return PLANT_CARE_GUIDES.find(p => p.slug === 'calathea-orbifolia') || PLANT_CARE_GUIDES[2];
   }
   if (query.includes('trifasciata') || (query.includes('snake plant') && !query.includes('cylindrica')) || query.includes('laurentii')) {
@@ -154,7 +154,7 @@ export function matchCatalogPlant(
     return PLANT_CARE_GUIDES.find(p => p.slug === 'meyer-lemon-tree') || PLANT_CARE_GUIDES[9];
   }
 
-  return PLANT_CARE_GUIDES[0];
+  return null;
 }
 
 /**
@@ -164,20 +164,23 @@ export function createDynamicPlantGuide(
   commonName: string,
   scientificName: string,
   family: string,
-  imageUrl: string
+  imageUrl?: string
 ): PlantCareGuide {
   const base = PLANT_CARE_GUIDES[0];
-  const slug = commonName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const cleanCommon = commonName && commonName.trim() ? commonName.trim() : 'Identified Plant';
+  const cleanScientific = scientificName && scientificName.trim() ? scientificName.trim() : 'Botanical Species';
+  const cleanFamily = family && family.trim() ? family.trim() : 'Plantae';
+  const slug = cleanCommon.toLowerCase().replace(/[^a-z0-9]+/g, '-');
   return {
     ...base,
-    id: `scan-${slug}`,
+    id: `custom-${slug}`,
     slug: slug,
-    commonName: commonName || 'Identified Plant',
-    scientificName: scientificName || 'Botanical Species',
-    family: family || 'Plantae',
+    commonName: cleanCommon,
+    scientificName: cleanScientific,
+    family: cleanFamily,
     heroImage: imageUrl || base.heroImage,
-    shortHook: `Identified by Google Vision AI: ${commonName}`,
-    overview: `A healthy specimen of ${commonName} (${scientificName}), detected via Google Vision AI taxonomy engine.`
+    shortHook: `Identified by Google Vision AI: ${cleanCommon}`,
+    overview: `A healthy specimen of ${cleanCommon} (${cleanScientific}), detected via Google Vision AI taxonomy engine.`
   };
 }
 
@@ -456,11 +459,14 @@ FIRST QUESTION: IS THIS A LIVING BOTANICAL PLANT?
 
 - If it IS a living plant:
   Set "isPlant": true.
-  Set "detectedItem" to the plant common name (e.g. "African Spear Plant (Sansevieria cylindrica)").
-  Set "commonName" (e.g. "African Spear Plant").
-  Set "scientificName" (e.g. "Dracaena angolensis" or "Sansevieria cylindrica").
-  Set "family" (e.g. "Asparagaceae").
-  Set "confidenceScore" between 85 and 99.
+  Set "detectedItem" to the EXACT plant common name (e.g. "Golden Pothos (Epipremnum aureum)", "Aloe Vera", "Jade Plant", "African Spear Plant", etc.).
+  Set "commonName" (e.g. "Golden Pothos", "Aloe Vera", "Snake Plant", "African Spear Plant").
+  Set "scientificName" (e.g. "Epipremnum aureum", "Aloe barbadensis", "Dracaena angolensis").
+  Set "family" (e.g. "Araceae", "Asphodelaceae", "Asparagaceae").
+  Set "confidenceScore" between 0.0 and 1.0 (e.g. 0.96).
+  CRITICAL ACCURACY INSTRUCTIONS:
+  * Identify the EXACT botanical species shown. NEVER default, guess, or bias towards "Monstera" or "Swiss Cheese Plant" unless the photo genuinely shows split fenestrated Monstera leaves.
+  * If the photo is too dark, blurry, distant, or ambiguous to determine the exact species with confidence, set "commonName": "Unconfirmed Species", "confidenceScore": 0.45. DO NOT GUESS.
   Set "conditionStatus": "healthy" | "chlorosis" | "necrosis" | "moderate-stress" | "pest-risk".
   Set "conditionTitle" and "conditionDescription".
   Set "vitalSigns" with accurate chlorophyllIndex (0-100), hydrationStatus, pestFungalRisk, and turgorPressure.
@@ -547,7 +553,7 @@ Return ONLY valid JSON matching this schema:
 
     const parsed = JSON.parse(rawText);
 
-    // 1. NON-PLANT ITEM (e.g. Mouse, Mug, Laptop, Phone, Chair, Shoe)
+    // 1. NON-PLANT ITEM (e.g. Tennis Ball, Mouse, Mug, Laptop, Phone, Chair, Shoe)
     if (parsed.isPlant === false) {
       const nonPlantItemName = parsed.detectedItem || "Everyday Object";
       return {
@@ -568,7 +574,7 @@ Return ONLY valid JSON matching this schema:
         doctorPrescription: (parsed.doctorPrescription && parsed.doctorPrescription.length > 0)
           ? parsed.doctorPrescription
           : [
-              "Keep electronic devices away from watering saucers and spray mist.",
+              "Keep electronic devices and sports equipment away from watering saucers.",
               "No botanical treatment required—patient is an inanimate object.",
               "Point camera at a living leaf, stem, or flowerpot to scan a houseplant."
             ],
@@ -580,17 +586,55 @@ Return ONLY valid JSON matching this schema:
     }
 
     // 2. BOTANICAL PLANT FOUND
-    const matchedPlant = matchCatalogPlant(parsed.scientificName, parsed.commonName, hintPlantSlug);
-    const dynamicPlant = (!matchedPlant || (matchedPlant.id === 'plant-01' && !parsed.commonName.toLowerCase().includes('monstera')))
-      ? createDynamicPlantGuide(parsed.commonName, parsed.scientificName, parsed.family, AFRICAN_SPEAR_PLANT_IMAGE)
-      : matchedPlant;
+    // If the model itself says it's uncertain, unknown, or low confidence:
+    const isUncertain = (
+      !parsed.commonName ||
+      parsed.commonName.toLowerCase().includes('unconfirmed') ||
+      parsed.commonName.toLowerCase().includes('unknown') ||
+      parsed.commonName.toLowerCase().includes('unidentified') ||
+      (parsed.confidenceScore && (parsed.confidenceScore < 0.60 || (parsed.confidenceScore > 1 && parsed.confidenceScore < 60)))
+    );
 
-    const finalPlant = matchedPlant || dynamicPlant;
-    const conf = Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 98.5);
+    if (isUncertain) {
+      return {
+        isPlant: true,
+        detectedItem: "Botanical Species Unconfirmed",
+        nonPlantExplanation: "Dr. Flora detected plant foliage, but the exact species could not be determined with high confidence from this camera angle. Dr. Flora does not guess. Please try a closer, well-lit photo of a single leaf or stem, or verify with Google Lens below.",
+        identifiedPlant: null,
+        confidenceScore: Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 50),
+        conditionStatus: 'not-applicable',
+        conditionTitle: "Species Unconfirmed (No Guessing)",
+        conditionDescription: "Visual details were insufficient to confirm the botanical taxonomy with certainty.",
+        vitalSigns: {
+          chlorophyllIndex: 50,
+          hydrationStatus: "Unconfirmed",
+          pestFungalRisk: "Low",
+          turgorPressure: "N/A"
+        },
+        doctorPrescription: [
+          "Get closer to a single mature leaf so vein patterns and leaf margins are sharp.",
+          "Ensure bright, even lighting without strong backlight or shadows.",
+          "Tap 'Open Lens' below to compare with Google Lens visual database."
+        ],
+        recommendedGearTitle: "3-in-1 Soil Moisture & Light Meter",
+        recommendedGearQuery: "soil moisture meter plant light tester",
+        engineUsed: 'Google Vision AI (Gemini 3.5)',
+        rawApiResponse: rawText
+      };
+    }
+
+    const matchedCatalogPlant = matchCatalogPlant(parsed.scientificName, parsed.commonName, hintPlantSlug);
+    const finalPlant = matchedCatalogPlant || createDynamicPlantGuide(
+      parsed.commonName,
+      parsed.scientificName,
+      parsed.family
+    );
+
+    const conf = Math.round((parsed.confidenceScore > 1 ? parsed.confidenceScore : (parsed.confidenceScore * 100)) || 96);
 
     return {
       isPlant: true,
-      detectedItem: `${parsed.commonName} (${parsed.scientificName || finalPlant.scientificName})`,
+      detectedItem: parsed.commonName ? `${parsed.commonName} (${parsed.scientificName || finalPlant.scientificName})` : finalPlant.commonName,
       identifiedPlant: finalPlant,
       confidenceScore: conf,
       conditionStatus: forcedCondition || parsed.conditionStatus || 'healthy',

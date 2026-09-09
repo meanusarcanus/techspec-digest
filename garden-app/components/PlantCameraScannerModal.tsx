@@ -401,11 +401,11 @@ export default function PlantCameraScannerModal({
             </div>
           )}
 
-          {/* 3A. Non-Plant Object Detected Result */}
-          {scanResult && !isScanning && !scanResult.isPlant && (
+          {/* 3A. Non-Plant Object or Unconfirmed Botanical Result */}
+          {scanResult && !isScanning && (!scanResult.isPlant || !scanResult.identifiedPlant) && (
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
               
-              {/* Photo & Non-Plant Object Card */}
+              {/* Photo & Detected Item Card */}
               <div className="bg-white rounded-3xl border border-amber-200 shadow-sm overflow-hidden">
                 <div className="relative h-44 w-full bg-slate-900">
                   {capturedImage && (
@@ -420,24 +420,24 @@ export default function PlantCameraScannerModal({
                   {/* Badge */}
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
                     <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider bg-amber-500 text-slate-950 rounded-lg shadow-md flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" />
-                      {scanResult.confidenceScore}% Object Match
+                      {scanResult.isPlant ? <AlertTriangle className="w-3 h-3" /> : <Sparkles className="w-3 h-3" />}
+                      {scanResult.isPlant ? 'Species Unconfirmed' : `${scanResult.confidenceScore}% Object Match`}
                     </span>
                     <span className="px-2 py-0.5 text-[10px] font-bold bg-white/95 text-slate-900 rounded-lg shadow-sm">
-                      Non-Plant Item
+                      {scanResult.isPlant ? 'Botanical Foliage' : 'Non-Plant Item'}
                     </span>
                   </div>
 
                   {/* Detected Item Title */}
                   <div className="absolute bottom-3 left-3 right-3 text-white">
                     <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-300 block">
-                      Google Lens Engine Detected:
+                      Google Lens Engine Analysis:
                     </span>
                     <h3 className="text-lg font-black tracking-tight leading-tight">
                       {scanResult.detectedItem}
                     </h3>
                     <p className="text-xs text-slate-300">
-                      Everyday Object • Not a Living Plant
+                      {scanResult.isPlant ? 'Foliage Detected • Species Unconfirmed (No Guessing)' : 'Everyday Object • Not a Living Plant'}
                     </p>
                   </div>
                 </div>
@@ -453,7 +453,7 @@ export default function PlantCameraScannerModal({
                         Dr. Flora's Clinical Assessment
                       </span>
                       <h4 className="text-xs font-black text-slate-900 leading-tight">
-                        Non-Plant Item Detected
+                        {scanResult.conditionTitle}
                       </h4>
                     </div>
                   </div>
