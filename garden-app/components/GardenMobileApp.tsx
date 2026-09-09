@@ -30,7 +30,8 @@ import {
   Flame,
   BookOpen,
   Globe,
-  User
+  User,
+  Lock
 } from 'lucide-react';
 import { getDailyFeaturedPlant, getAllPlantGuides } from '../lib/gardenDailyEngine';
 import { generatePlantDoctorDiagnosis, DoctorDiagnosis } from '../lib/botanicalDoctor';
@@ -39,7 +40,7 @@ import CareGuideModal from './CareGuideModal';
 import PlantCameraScannerModal from './PlantCameraScannerModal';
 import BotanistLoginModal from './BotanistLoginModal';
 import { searchBotanicalWebImage, confirmAndSaveWebPlant, BotanicalWebResult } from '../lib/botanicalWebEngine';
-import { getCurrentGardenUser, GardenUser } from '../lib/gardenAuthEngine';
+import { getCurrentGardenUser, GardenUser, autoSubscribeToNewsletter } from '../lib/gardenAuthEngine';
 
 interface GardenMobileAppProps {
   onSwitchToDesktop: () => void;
@@ -57,6 +58,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
   // User Authentication & Contributor Badge
   const [currentUser, setCurrentUser] = useState<GardenUser | null>(() => getCurrentGardenUser());
   const [loginModalOpen, setLoginModalOpen] = useState<boolean>(false);
+  const [loginModalTitle, setLoginModalTitle] = useState<string>('Sign In to Garden Perks');
   const [pendingAddPlant, setPendingAddPlant] = useState<BotanicalWebResult | null>(null);
 
   // Doctor state
@@ -133,6 +135,11 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
   };
 
   const runQuickDiagnosis = (symptom: string) => {
+    if (!currentUser) {
+      setLoginModalTitle('Sign In with Email to Ask Dr. Flora');
+      setLoginModalOpen(true);
+      return;
+    }
     setSymptomInput(symptom);
     const result = generatePlantDoctorDiagnosis(symptom, dailyData.plant.commonName);
     setDiagnosis(result);
@@ -140,6 +147,11 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
 
   const handleCustomDiagnosis = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!currentUser) {
+      setLoginModalTitle('Sign In with Email to Ask Dr. Flora');
+      setLoginModalOpen(true);
+      return;
+    }
     if (!symptomInput.trim()) return;
     const result = generatePlantDoctorDiagnosis(symptomInput, dailyData.plant.commonName);
     setDiagnosis(result);
@@ -148,6 +160,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail) {
+      autoSubscribeToNewsletter(newsletterEmail);
       setNewsletterSuccess(true);
       setTimeout(() => setNewsletterSuccess(false), 5000);
       setNewsletterEmail('');
@@ -651,6 +664,48 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                 <span>Scan Now</span>
               </button>
             </div>
+
+            {/* Signed-in status or Locked Gate */}
+            {!currentUser ? (
+              <div className="bg-gradient-to-br from-emerald-950 via-teal-950 to-slate-900 rounded-3xl p-4 text-white shadow-md text-center space-y-2.5 border border-emerald-800/40">
+                <div className="w-9 h-9 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center mx-auto text-lg shadow-xs">
+                  🩺
+                </div>
+                <div>
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-[10px] font-black uppercase tracking-wider border border-amber-400/30 mb-1">
+                    <Lock className="w-3 h-3" />
+                    <span>Botanist Sign-In Required</span>
+                  </div>
+                  <h3 className="text-xs font-black text-white">Sign In with Email to Ask Dr. Flora</h3>
+                  <p className="text-[11px] text-emerald-200/80 leading-snug mt-0.5">
+                    Sign in with your email to consult Dr. Flora, diagnose plant symptoms, and automatically activate your free subscription to <strong>The Daily Sprout Newsletter</strong>.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setLoginModalTitle('Sign In with Email to Ask Dr. Flora');
+                    setLoginModalOpen(true);
+                  }}
+                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 text-slate-950 text-xs font-black uppercase tracking-wider shadow-md shadow-amber-500/20 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Sign In with Email</span>
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between p-2.5 bg-emerald-50 rounded-2xl border border-emerald-200 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">{currentUser.avatarEmoji || '🌿'}</span>
+                  <div>
+                    <span className="font-extrabold text-emerald-950">@{currentUser.username}</span>
+                    <span className="text-slate-500 text-[10px] block">{currentUser.email}</span>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 rounded-md bg-emerald-200 text-emerald-900 text-[10px] font-black uppercase tracking-wider">
+                  VIP Subscriber ✓
+                </span>
+              </div>
+            )}
 
             {/* Quick 1-Tap Symptom Tags */}
             <div className="bg-white p-3.5 rounded-2xl border border-emerald-100 shadow-xs space-y-2">
@@ -1343,7 +1398,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
           setPendingAddPlant(null);
         }}
         onSuccess={handleLoginSuccess}
-        actionTitle="Sign In to Add Plant to Catalogue"
+        actionTitle={loginModalTitle}
       />
 
     </div>

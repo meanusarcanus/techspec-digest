@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { MessageCircleHeart, Send, Bot, User, ThumbsUp, Sparkles, CheckCircle2, ShieldAlert, Clock } from 'lucide-react';
+import { MessageCircleHeart, Send, Bot, User, ThumbsUp, Sparkles, CheckCircle2, ShieldAlert, Clock, Lock, Mail, BellRing } from 'lucide-react';
 import { generatePlantDoctorDiagnosis, DoctorDiagnosis } from '../lib/botanicalDoctor';
+import { getCurrentGardenUser, GardenUser } from '../lib/gardenAuthEngine';
+import BotanistLoginModal from './BotanistLoginModal';
 
 export interface ClinicPost {
   id: string;
@@ -61,6 +63,8 @@ const INITIAL_COMMUNITY_POSTS: ClinicPost[] = [
 
 export default function PlantClinicCommunity() {
   const [posts, setPosts] = useState<ClinicPost[]>([]);
+  const [activeUser, setActiveUser] = useState<GardenUser | null>(() => getCurrentGardenUser());
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [authorInput, setAuthorInput] = useState('');
   const [plantInput, setPlantInput] = useState('');
   const [questionInput, setQuestionInput] = useState('');
@@ -80,6 +84,19 @@ export default function PlantClinicCommunity() {
     }
   }, []);
 
+  useEffect(() => {
+    const handleUserSync = () => {
+      const u = getCurrentGardenUser();
+      setActiveUser(u);
+      if (u) {
+        setAuthorInput(`@${u.username}`);
+      }
+    };
+    handleUserSync();
+    window.addEventListener('garden_user_updated', handleUserSync);
+    return () => window.removeEventListener('garden_user_updated', handleUserSync);
+  }, []);
+
   const handleLike = (id: string) => {
     const updated = posts.map(p => {
       if (p.id === id) {
@@ -95,9 +112,17 @@ export default function PlantClinicCommunity() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!questionInput.trim() || !authorInput.trim()) return;
+    if (!activeUser) {
+      setShowLoginModal(true);
+      return;
+    }
+    if (!questionInput.trim()) return;
 
     setIsSubmitting(true);
+
+    const displayName = activeUser.displayName 
+      ? `${activeUser.displayName} (@${activeUser.username})` 
+      : `@${activeUser.username}`;
 
     // Generate intelligent AI doctor reply based on symptoms
     const generatedDoctorReply = generatePlantDoctorDiagnosis(
@@ -108,7 +133,7 @@ export default function PlantClinicCommunity() {
     setTimeout(() => {
       const newPost: ClinicPost = {
         id: `post-${Date.now()}`,
-        author: authorInput.trim(),
+        author: displayName,
         avatarColor: 'from-emerald-600 to-teal-500',
         plantName: plantInput.trim() || 'Indoor Houseplant',
         question: questionInput.trim(),
@@ -166,66 +191,101 @@ export default function PlantClinicCommunity() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Your Name / Garden Handle
-              </label>
-              <input
-                type="text"
-                required
-                value={authorInput}
-                onChange={(e) => setAuthorInput(e.target.value)}
-                placeholder="e.g. Sarah K. (Succulent Collector)"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/50"
-              />
-            </div>
+          {!activeUser ? (
+            /* Signed Out Gate */
+            <div className="bg-gradient-to-br from-emerald-950 via-teal-950 to-slate-900 rounded-2xl p-6 text-white text-center space-y-4 shadow-inner border border-emerald-800/40">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center mx-auto text-2xl shadow-md">
+                🩺
+              </div>
+              <div className="space-y-1.5">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-400/20 text-amber-300 text-[10px] font-black uppercase tracking-wider border border-amber-400/30">
+                  <Lock className="w-3 h-3" />
+                  <span>Botanist Sign-In Required</span>
+                </div>
+                <h4 className="text-base font-black text-white">
+                  Sign In with Email to Ask Dr. Flora
+                </h4>
+                <p className="text-xs text-emerald-200/80 max-w-xs mx-auto leading-relaxed">
+                  Doctor consultations are reserved for registered botanists. Sign in with your email to receive instant AI diagnoses and automatically activate your free subscription to <strong>The Daily Sprout Newsletter</strong>.
+                </p>
+              </div>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Plant Name or Variety
-              </label>
-              <input
-                type="text"
-                value={plantInput}
-                onChange={(e) => setPlantInput(e.target.value)}
-                placeholder="e.g. Fiddle Leaf Fig, Monstera, Basil..."
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/50"
-              />
-            </div>
+              <button
+                type="button"
+                onClick={() => setShowLoginModal(true)}
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider shadow-lg shadow-amber-500/20 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
+              >
+                <Mail className="w-4 h-4 text-slate-950" />
+                <span>Sign In with Email to Ask Doctor</span>
+              </button>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Describe Symptoms or Question
-              </label>
-              <textarea
-                required
-                rows={4}
-                value={questionInput}
-                onChange={(e) => setQuestionInput(e.target.value)}
-                placeholder="e.g. My leaves have yellow patches and dark brown crispy tips. I water once a week..."
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/50 resize-none"
-              />
+              <div className="pt-2 border-t border-white/10 text-[10px] text-emerald-300/80 flex items-center justify-center gap-3">
+                <span>✓ Instant AI Prescriptions</span>
+                <span>✓ Daily Sprout Newsletter</span>
+              </div>
             </div>
+          ) : (
+            /* Authenticated Form */
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="flex items-center justify-between p-2.5 bg-emerald-50 rounded-2xl border border-emerald-200 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">{activeUser.avatarEmoji || '🌿'}</span>
+                  <div>
+                    <span className="font-extrabold text-emerald-950">@{activeUser.username}</span>
+                    <span className="text-slate-500 text-[10px] block">{activeUser.email}</span>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 rounded-md bg-emerald-200 text-emerald-900 text-[10px] font-black uppercase tracking-wider">
+                  VIP Subscriber ✓
+                </span>
+              </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-sm font-bold shadow-md shadow-emerald-700/20 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-            >
-              {isSubmitting ? (
-                <>
-                  <Sparkles className="w-4 h-4 animate-spin" />
-                  <span>Dr. Flora Diagnosing...</span>
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4" />
-                  <span>Post & Get Instant Doctor Diagnosis</span>
-                </>
-              )}
-            </button>
-          </form>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Plant Name or Variety
+                </label>
+                <input
+                  type="text"
+                  value={plantInput}
+                  onChange={(e) => setPlantInput(e.target.value)}
+                  placeholder="e.g. Fiddle Leaf Fig, Monstera, Basil..."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/50 font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Describe Symptoms or Question
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  value={questionInput}
+                  onChange={(e) => setQuestionInput(e.target.value)}
+                  placeholder="e.g. My leaves have yellow patches and dark brown crispy tips. I water once a week..."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50/50 resize-none font-medium"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-sm font-bold shadow-md shadow-emerald-700/20 flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Sparkles className="w-4 h-4 animate-spin" />
+                    <span>Dr. Flora Diagnosing...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    <span>Post & Get Instant Doctor Diagnosis</span>
+                  </>
+                )}
+              </button>
+            </form>
+          )}
 
           {successToast && (
             <div className="mt-4 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2 animate-in fade-in">
@@ -340,6 +400,17 @@ export default function PlantClinicCommunity() {
         </div>
 
       </div>
+
+      <BotanistLoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSuccess={(u) => {
+          setActiveUser(u);
+          setAuthorInput(`@${u.username}`);
+        }}
+        actionTitle="Sign In to Ask Dr. Flora"
+        actionSubtitle="Enter your email to unlock instant AI botanical diagnoses and automatically subscribe to The Daily Sprout Newsletter."
+      />
 
     </section>
   );

@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Mail, Sparkles, CheckCircle2, X, Leaf, ShieldCheck, Heart } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mail, Sparkles, CheckCircle2, X, Leaf, ShieldCheck, Heart, BellRing } from 'lucide-react';
+import { getCurrentGardenUser, autoSubscribeToNewsletter, GardenUser } from '../lib/gardenAuthEngine';
 
 interface NewsletterProps {
   isOpen?: boolean;
@@ -10,25 +11,32 @@ interface NewsletterProps {
 }
 
 export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: NewsletterProps) {
+  const [currentUser, setCurrentUser] = useState<GardenUser | null>(() => getCurrentGardenUser());
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [indoorChecked, setIndoorChecked] = useState(true);
   const [edibleChecked, setEdibleChecked] = useState(true);
   const [pestChecked, setPestChecked] = useState(true);
 
+  useEffect(() => {
+    const handleSync = () => {
+      const u = getCurrentGardenUser();
+      setCurrentUser(u);
+      if (u?.email) {
+        setEmail(u.email);
+      }
+    };
+    handleSync();
+    window.addEventListener('garden_user_updated', handleSync);
+    return () => window.removeEventListener('garden_user_updated', handleSync);
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim() || !email.includes('@')) return;
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail || !cleanEmail.includes('@')) return;
 
-    try {
-      const subs = JSON.parse(localStorage.getItem('garden_perks_subscribers') || '[]');
-      subs.push({
-        email: email.trim(),
-        date: new Date().toISOString(),
-        preferences: { indoor: indoorChecked, edible: edibleChecked, pests: pestChecked }
-      });
-      localStorage.setItem('garden_perks_subscribers', JSON.stringify(subs));
-    } catch (e) {}
+    autoSubscribeToNewsletter(cleanEmail, currentUser?.username);
 
     setSubmitted(true);
     setTimeout(() => {
@@ -59,6 +67,13 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
           <p className="text-sm sm:text-base text-emerald-200/90 leading-relaxed">
             Join over 12,000 passionate plant parents. Get our daily plant care profile, organic troubleshooting recipes, and private Amazon gear deals delivered straight to your inbox.
           </p>
+
+          {currentUser && (
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-emerald-700/80 border border-emerald-400/40 text-emerald-100 text-xs font-semibold shadow-inner">
+              <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
+              <span>Signed in as @{currentUser.username} ({currentUser.email}) — automatically enrolled in The Daily Sprout VIP!</span>
+            </div>
+          )}
 
           {submitted ? (
             <div className="p-4 rounded-2xl bg-emerald-700/80 border border-emerald-400/40 text-emerald-100 flex items-center justify-center gap-2 text-sm font-bold animate-in fade-in">
@@ -141,6 +156,12 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
+            {currentUser && (
+              <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Signed in as <strong>@{currentUser.username}</strong> ({currentUser.email}). VIP perks active!</span>
+              </div>
+            )}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Your Email Address

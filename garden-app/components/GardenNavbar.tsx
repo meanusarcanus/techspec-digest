@@ -137,8 +137,11 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
             {currentUser ? (
               <div className="flex items-center gap-2 pl-2.5 pr-2 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-950 shadow-2xs">
                 <span className="text-sm">{currentUser.avatarEmoji || '🌿'}</span>
-                <span className="font-extrabold text-emerald-900">@{currentUser.username}</span>
-                <span className="px-1.5 py-0.2 rounded-md bg-emerald-700 text-white text-[9px] uppercase tracking-wider font-black">
+                <div className="flex flex-col text-left">
+                  <span className="font-extrabold text-emerald-900 leading-none">@{currentUser.username}</span>
+                  <span className="text-[9px] text-emerald-600 font-semibold leading-none mt-0.5">📬 Subscribed</span>
+                </div>
+                <span className="px-1.5 py-0.5 rounded-md bg-emerald-700 text-white text-[9px] uppercase tracking-wider font-black">
                   {currentUser.badge}
                 </span>
                 <button
