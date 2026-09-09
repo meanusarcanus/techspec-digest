@@ -7,6 +7,7 @@ import {
   Stethoscope, 
   Sprout, 
   ShoppingBag, 
+  Camera, 
   Mail, 
   Sun, 
   Droplets, 
@@ -33,6 +34,7 @@ import { getDailyFeaturedPlant, getAllPlantGuides } from '../lib/gardenDailyEngi
 import { generatePlantDoctorDiagnosis, DoctorDiagnosis } from '../lib/botanicalDoctor';
 import { PlantCareGuide } from '../data/plantCareGuides';
 import CareGuideModal from './CareGuideModal';
+import PlantCameraScannerModal from './PlantCameraScannerModal';
 
 interface GardenMobileAppProps {
   onSwitchToDesktop: () => void;
@@ -45,6 +47,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
   const [activeTab, setActiveTab] = useState<MobileTab>(initialTab);
   const [todaySection, setTodaySection] = useState<'likes' | 'steps' | 'trouble' | 'soil'>('likes');
   const [selectedPlant, setSelectedPlant] = useState<PlantCareGuide | null>(null);
+  const [scannerModalOpen, setScannerModalOpen] = useState<boolean>(false);
 
   // Doctor state
   const [symptomInput, setSymptomInput] = useState('');
@@ -151,11 +154,20 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
             </div>
           </div>
 
-          {/* Quick Actions (Install & Desktop Toggle) */}
+          {/* Quick Actions (Scan, Install & Desktop Toggle) */}
           <div className="flex items-center gap-1.5">
             <button
+              onClick={() => setScannerModalOpen(true)}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 shadow-2xs transition-transform active:scale-95 cursor-pointer"
+              title="Scan Plant with Camera"
+            >
+              <Camera className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Scan</span>
+            </button>
+
+            <button
               onClick={handleInstallClick}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition-transform active:scale-95"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition-transform active:scale-95 cursor-pointer"
               title="Install PWA to Home Screen"
             >
               <Download className="w-3.5 h-3.5" />
@@ -164,7 +176,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
 
             <button
               onClick={onSwitchToDesktop}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
               title="Switch to Desktop Portal View"
             >
               <Monitor className="w-3.5 h-3.5 text-slate-600" />
@@ -483,6 +495,29 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
               <p className="text-xs text-emerald-100 leading-relaxed">
                 Notice drooping stems, yellow leaf spots, or pests? Pick a symptom below or describe what you see for an instant remedy.
               </p>
+            </div>
+
+            {/* 📷 Featured AI Camera Scanner Card */}
+            <div className="bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800 p-4 rounded-3xl text-white shadow-md flex items-center justify-between border border-emerald-500/30">
+              <div className="pr-3 space-y-0.5">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[9px] font-black uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full text-emerald-100">
+                    Camera Vision
+                  </span>
+                  <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-300 animate-ping" />
+                </div>
+                <h3 className="text-xs font-black">Scan Plant with Phone Camera</h3>
+                <p className="text-[11px] text-emerald-100 leading-snug">
+                  Identify species & detect current health condition in seconds.
+                </p>
+              </div>
+              <button
+                onClick={() => setScannerModalOpen(true)}
+                className="px-3.5 py-2.5 rounded-2xl bg-white text-emerald-950 font-bold text-xs shadow-lg shrink-0 flex items-center gap-1.5 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              >
+                <Camera className="w-4 h-4 text-emerald-700" />
+                <span>Scan Now</span>
+              </button>
             </div>
 
             {/* Quick 1-Tap Symptom Tags */}
@@ -969,6 +1004,13 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
           </div>
         </div>
       )}
+
+      {/* 6. AI Plant Camera Scanner Modal */}
+      <PlantCameraScannerModal
+        isOpen={scannerModalOpen}
+        onClose={() => setScannerModalOpen(false)}
+        onOpenCareGuide={(plant) => setSelectedPlant(plant)}
+      />
 
     </div>
   );
