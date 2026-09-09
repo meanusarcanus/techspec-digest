@@ -1272,6 +1272,257 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
         description: "Zero batteries required. Know instantly when deep spear roots are bone dry before adding water."
       }
     ]
+  },
+  {
+    id: "plant-12",
+    slug: "water-jasmine-suamei",
+    commonName: "Water Jasmine (Suamei)",
+    scientificName: "Wrightia religiosa (Teijsm. & Binn.) Benth.",
+    family: "Apocynaceae",
+    category: "Ornamental & Flowering",
+    difficulty: "Intermediate",
+    lightRequirement: "Bright Indirect",
+    wateringNeed: "Consistently Moist",
+    humidityRange: "50% - 70% (High)",
+    petSafe: false,
+    heroImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Water_jasmine_flowers.jpg/3840px-Water_jasmine_flowers.jpg",
+    galleryImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Water_jasmine_flowers.jpg/3840px-Water_jasmine_flowers.jpg"
+    ],
+    shortHook: "Fragrant sacred Buddhist bloom revered for delicate pendulous white star flowers.",
+    overview: "Wrightia religiosa, widely celebrated as Water Jasmine or Suamei (Shui Mei), is a prized tropical ornamental in the Apocynaceae family. Renowned in Southeast Asian garden traditions and sacred Buddhist temples, its delicate, downward-hanging white blossoms release an intensely sweet jasmine-like perfume, especially in early morning and dusk. Highly responsive to gentle pruning, Suamei is one of the most prestigious flowering bonsai species.",
+    likes: [
+      "Bright indirect light with gentle morning sun to fuel heavy floral flushes",
+      "Consistently moist, nutrient-rich, free-draining substrate",
+      "Regular misting and elevated humidity between 55% and 75%",
+      "Warm room conditions between 68°F and 85°F (20°C - 30°C)"
+    ],
+    dislikes: [
+      "Bone-dry potting mix that causes immediate flower bud abort and leaf shedding",
+      "Standing water in drainage saucers causing hypoxic root rot",
+      "Cold winter drafts or ambient temperatures below 55°F (13°C)",
+      "Low indoor winter humidity without tray or humidification support"
+    ],
+    howToGuide: {
+      title: "How to Grow & Care for Water Jasmine (Suamei)",
+      subtitle: "A Complete Botanical Protocol for Flowering & Bonsai Management",
+      steps: [
+        {
+          stepNumber: 1,
+          title: "Lighting & Position",
+          instruction: "Position your Water Jasmine where it receives 5-6 hours of bright filtered sunlight daily, preferably morning sun. Abundant light is essential to trigger continuous flower bud production."
+        },
+        {
+          stepNumber: 2,
+          title: "Hydration Balance",
+          instruction: "Keep the substrate consistently moist but never soggy. Water thoroughly when the top half-inch of soil feels slightly dry to the touch, ensuring water drains freely."
+        },
+        {
+          stepNumber: 3,
+          title: "Bonsai Pruning & Pinching",
+          instruction: "After each flowering cycle, trim back elongated branch tips to two leaves. This encourages ramification and dense flowering shoots for the next blooming flush."
+        },
+        {
+          stepNumber: 4,
+          title: "Atmospheric Humidity",
+          instruction: "Suamei loves tropical moisture. Group with neighboring humidity-loving houseplants or place on a wide pebble tray filled with water to elevate local microclimate humidity."
+        }
+      ]
+    },
+    troubleshooting: [
+      {
+        symptom: "Unopened flower buds turning brown and dropping",
+        cause: "Inconsistent moisture intervals or sudden drop in room humidity",
+        remedy: "Maintain steady watering schedule and move plant away from forced heating/cooling vents."
+      },
+      {
+        symptom: "Pale yellowing leaves with dark green veins (chlorosis)",
+        cause: "High soil pH or micronutrient iron deficiency in tap water",
+        remedy: "Apply chelated iron tonic and water with collected rainwater or filtered resting water."
+      },
+      {
+        symptom: "Sparse foliage and lack of flowers",
+        cause: "Insufficient sunlight intensity or lack of phosphorus-potassium feeding",
+        remedy: "Move to a brighter sunny window and feed with organic bloom-boosting botanical fertilizer."
+      }
+    ],
+    soilRecipe: {
+      name: "Tropical Suamei Flowering & Bonsai Blend",
+      ingredients: [
+        "40% Organic Rich Potting Loam",
+        "30% Horticultural Pumice / Akadama",
+        "20% Pine Bark / Coco Coir",
+        "10% Worm Castings"
+      ],
+      pHRange: "6.0 - 7.0 (Neutral)"
+    },
+    fertilizerProtocol: "Feed every two weeks during spring and summer with organic blossom-encouraging balanced liquid fertilizer diluted to half-strength.",
+    amazonProducts: [
+      {
+        name: "Espoma Organic Bloom! Liquid Plant Food 16 oz",
+        category: "Nutrient",
+        price: "$14.99",
+        rating: 4.8,
+        reviewsCount: 6800,
+        searchQuery: "Espoma+Organic+Bloom+Liquid+Plant+Food",
+        badge: "Dr. Flora Choice",
+        image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=400&q=80",
+        description: "Natural organic liquid fertilizer packed with kelp and bone meal to stimulate abundant Suamei blossoms."
+      },
+      {
+        name: "MuciHom Bonsai Pruning Shears & Trimming Tool Set",
+        category: "Pruning",
+        price: "$16.50",
+        rating: 4.9,
+        reviewsCount: 3400,
+        searchQuery: "Bonsai+Pruning+Shears+Carbon+Steel",
+        badge: "Essential Gear",
+        image: "https://images.unsplash.com/photo-1617173944883-6ffbd35d584d?auto=format&fit=crop&w=400&q=80",
+        description: "Razor-sharp carbon steel snips designed for precision shaping and deadheading of Water Jasmine bonsai."
+      }
+    ],
+    addedBy: {
+      username: "theodisius",
+      displayName: "Theo",
+      avatarEmoji: "🌿",
+      badge: "🌿 Botanical Scout",
+      addedAt: "Sep 9, 2026"
+    },
+    aliases: [
+      "suamei",
+      "shui mei",
+      "water jasmine",
+      "wrightia religiosa",
+      "sacred buddhist flower",
+      "sua mei"
+    ]
+  },
+  {
+    id: "plant-13",
+    slug: "yucca-adams-needle",
+    commonName: "Yucca (Adam's Needle)",
+    scientificName: "Yucca L.",
+    family: "Asparagaceae",
+    category: "Indoor Houseplants",
+    difficulty: "Beginner-Friendly",
+    lightRequirement: "Direct Sunlight / Full Sun",
+    wateringNeed: "Dry Out Completely",
+    humidityRange: "30% - 50% (Standard)",
+    petSafe: false,
+    heroImage: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Yucca_elata_-_tmcelrath_01.jpg",
+    galleryImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/5/5e/Yucca_elata_-_tmcelrath_01.jpg"
+    ],
+    shortHook: "Architectural desert succulent featuring striking rosettes of sword-like evergreen foliage.",
+    overview: "Yucca is an iconic genus of perennial shrubs and sculptural tree-like succulents in the Asparagaceae family, native to arid regions of the Americas. Renowned for its bold, sword-shaped evergreen leaves and tough woody cane stems, Yucca is celebrated as one of the most forgiving indoor statement plants. It thrives in abundant sunshine and handles neglect, dry household air, and drought with stoic resilience.",
+    likes: [
+      "Full sunshine and direct windowsill sun to preserve upright, stiff foliar rosettes",
+      "Fast-draining gritty cactus substrate that empties water rapidly",
+      "Extended drying periods between waterings",
+      "Sturdy, heavy ceramic pots that prevent top-heavy canes from tipping"
+    ],
+    dislikes: [
+      "Overwatering and saturated roots, which lead directly to soft squishy cane rot",
+      "Dim dark room corners that cause leggy, floppy, pale green leaves",
+      "Dense clay soils that retain moisture around the base",
+      "Sub-freezing drafty winter windows"
+    ],
+    howToGuide: {
+      title: "How to Care for Indoor Yucca",
+      subtitle: "The Complete Architectural Houseplant Guide",
+      steps: [
+        {
+          stepNumber: 1,
+          title: "Select Brightest Window",
+          instruction: "Place your Yucca in the brightest position available, ideally near a south- or west-facing window receiving several hours of direct sunshine daily."
+        },
+        {
+          stepNumber: 2,
+          title: "Drying Protocol",
+          instruction: "Allow the potting substrate to dry out 100% all the way through the bottom of the pot before watering. In winter, water only once every 3 to 4 weeks."
+        },
+        {
+          stepNumber: 3,
+          title: "Drench & Drain",
+          instruction: "When watering, soak the soil thoroughly until excess drains out into the saucer. Empty the saucer after 15 minutes to ensure roots never sit in standing liquid."
+        },
+        {
+          stepNumber: 4,
+          title: "Foliage Grooming",
+          instruction: "Gently pull downward on yellowing lower leaves to detach them cleanly from the trunk, exposing a clean, textured architectural wooden cane."
+        }
+      ]
+    },
+    troubleshooting: [
+      {
+        symptom: "Trunk cane feels squishy or soft at the soil line",
+        cause: "Severe root rot from overwatering or poorly draining soil",
+        remedy: "Immediately stop watering, inspect root ball, trim blackened mushy roots, and repot into dry perlite-heavy cactus soil."
+      },
+      {
+        symptom: "Leaves drooping, flattening out, and losing stiff sword posture",
+        cause: "Insufficient light intensity",
+        remedy: "Move to a sunny window or supplement with a full-spectrum LED horticultural grow light."
+      },
+      {
+        symptom: "Crisp brown leaf tips on lower fronds",
+        cause: "Natural foliar aging or temporary under-watering in hot summer sun",
+        remedy: "Trim dry brown tips or peel aging bottom leaves away cleanly."
+      }
+    ],
+    soilRecipe: {
+      name: "High-Drainage Arid Yucca Cane Substrate",
+      ingredients: [
+        "40% Coarse Horticultural Pumice or Perlite",
+        "30% Low-Peat Cactus Potting Mix",
+        "20% Coarse Quartz Sand",
+        "10% Crushed Granite Grit"
+      ],
+      pHRange: "6.0 - 7.5 (Neutral to Mildly Alkaline)"
+    },
+    fertilizerProtocol: "Feed sparingly just twice a year (once in mid-spring and once in mid-summer) with a balanced half-strength houseplant fertilizer.",
+    amazonProducts: [
+      {
+        name: "Hoffman Organic Cactus & Succulent Soil Mix 4 Quarts",
+        category: "Substrate",
+        price: "$13.99",
+        rating: 4.8,
+        reviewsCount: 16200,
+        searchQuery: "Hoffman+organic+cactus+succulent+soil+mix",
+        badge: "Perfect Drain",
+        image: "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=400&q=80",
+        description: "Specialized gritty formula for Yuccas and desert succulents ensuring rapid moisture drainage."
+      },
+      {
+        name: "XLUX Precision Long-Probe Soil Moisture Meter",
+        category: "Diagnostic",
+        price: "$12.99",
+        rating: 4.8,
+        reviewsCount: 42000,
+        searchQuery: "XLUX+Soil+Moisture+Meter+plant",
+        badge: "Essential",
+        image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=400&q=80",
+        description: "Know with 100% confidence when your Yucca cane is completely dry before adding water."
+      }
+    ],
+    addedBy: {
+      username: "theodisius",
+      displayName: "Theo",
+      avatarEmoji: "🌿",
+      badge: "🌿 Botanical Scout",
+      addedAt: "Sep 9, 2026"
+    },
+    aliases: [
+      "yucca",
+      "yucca plant",
+      "spineless yucca",
+      "adams needle",
+      "adam's needle",
+      "spanish dagger",
+      "yucca elephantipes",
+      "yucca gigantea",
+      "yucca cane"
+    ]
   }
 ];
 
