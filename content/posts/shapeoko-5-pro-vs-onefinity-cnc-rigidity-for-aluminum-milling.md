@@ -1,6 +1,6 @@
 ---
 title: "Shapeoko 5 Pro vs Onefinity CNC rigidity for aluminum milling"
-date: 2026-09-10T12:19:13Z
+date: 2026-09-10T12:33:49Z
 draft: false
 description: "In-depth guide on Shapeoko 5 Pro vs Onefinity CNC rigidity for aluminum milling. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "shapeoko-5-pro-vs-onefinity-cnc-rigidity-for-aluminum-milling"
