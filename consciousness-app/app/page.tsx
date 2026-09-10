@@ -4,6 +4,7 @@ import React from 'react';
 import { TodayHeroPost } from '@/components/TodayHeroPost';
 import FeaturedBookSpotlight from '@/components/FeaturedBookSpotlight';
 import ArchiveDrawer from '@/components/ArchiveDrawer';
+import SolfeggioFrequencyCalculator from '@/components/SolfeggioFrequencyCalculator';
 import CommunityReflections from '@/components/CommunityReflections';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import Link from 'next/link';
@@ -45,6 +46,9 @@ export default function HomePage() {
 
       {/* Archive Drawer */}
       <ArchiveDrawer />
+
+      {/* Interactive Solfeggio Bio-Resonance & Frequency Calculator */}
+      <SolfeggioFrequencyCalculator />
 
       {/* Community Inquiries, Feedback & Enlightened Q&A */}
       <CommunityReflections />

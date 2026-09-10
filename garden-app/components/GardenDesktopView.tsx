@@ -5,6 +5,7 @@ import GardenNavbar from './GardenNavbar';
 import GardenFooter from './GardenFooter';
 import TodayPlantHero from './TodayPlantHero';
 import PlantClinicCommunity from './PlantClinicCommunity';
+import PlantWateringCalculator from './PlantWateringCalculator';
 import GreenhouseArchive from './GreenhouseArchive';
 import GardenNewsletter from './GardenNewsletter';
 import CareGuideModal from './CareGuideModal';
@@ -89,7 +90,10 @@ export default function GardenDesktopView({ onSwitchToMobile }: GardenDesktopVie
         {/* 3. Community Plant Clinic & AI Auto-Doctor */}
         <PlantClinicCommunity />
 
-        {/* 4. Complete Greenhouse Botanical Archive */}
+        {/* 4. Interactive Plant Watering & Soil Calculator */}
+        <PlantWateringCalculator />
+
+        {/* 5. Complete Greenhouse Botanical Archive */}
         <GreenhouseArchive plants={allPlants} />
 
       </main>

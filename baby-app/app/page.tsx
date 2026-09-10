@@ -4,6 +4,7 @@ import React from 'react';
 import YouTubePlayerHero from '@/components/YouTubePlayerHero';
 import TodayBabyPost from '@/components/TodayBabyPost';
 import AmazonBabyGearGrid from '@/components/AmazonBabyGearGrid';
+import BabySleepCalculator from '@/components/BabySleepCalculator';
 import BabyBookSpotlight from '@/components/BabyBookSpotlight';
 import ParentReflections from '@/components/ParentReflections';
 import SweetDreamsNewsletter from '@/components/SweetDreamsNewsletter';
@@ -24,6 +25,9 @@ export default function BabyHomePage() {
 
       {/* Curated Nursery & Sleep Gear Essentials Matrix */}
       <AmazonBabyGearGrid />
+
+      {/* Interactive Baby Wake Window & Bedtime Schedule Calculator */}
+      <BabySleepCalculator />
 
       {/* Parent Reflections & Bedtime Q&A Community */}
       <ParentReflections />

@@ -25,6 +25,8 @@ BASE_HOST = "meanusarcanus.github.io"
 BASE_URL = f"https://{BASE_HOST}/techspec-digest"
 SITEMAP_URL = f"{BASE_URL}/sitemap.xml"
 CONSCIOUSNESS_SITEMAP = f"{BASE_URL}/consciousness/sitemap.xml"
+GARDEN_SITEMAP = f"{BASE_URL}/garden-perks/sitemap.xml"
+BABY_SITEMAP = f"{BASE_URL}/baby-care/sitemap.xml"
 INDEXNOW_KEY = "e4b67f1a9c8d3e2b5f0a7c6e1d4b8a2c"
 INDEXNOW_KEY_LOCATION = f"{BASE_URL}/{INDEXNOW_KEY}.txt"
 
@@ -47,11 +49,14 @@ def ping_url(endpoint_name: str, url: str) -> bool:
         logger.warning(f"⚠️ [{endpoint_name}] Ping request failed: {e}")
         return False
 
-def get_recent_post_urls(limit: int = 20) -> List[str]:
+def get_recent_post_urls(limit: int = 50) -> List[str]:
     posts_dir = WORKSPACE_ROOT / "content" / "posts"
     urls = [
         f"{BASE_URL}/",
         f"{BASE_URL}/posts/",
+        f"{BASE_URL}/garden-perks/",
+        f"{BASE_URL}/garden-perks/greenhouse",
+        f"{BASE_URL}/garden-perks/clinic",
         f"{BASE_URL}/consciousness/",
         f"{BASE_URL}/baby-care/"
     ]
@@ -104,13 +109,21 @@ def run_all_pings() -> Dict[str, Any]:
     ping_url("Google Sitemap Ping", f"https://www.google.com/ping?sitemap={encoded_sitemap}")
     ping_url("Bing Sitemap Ping", f"https://www.bing.com/ping?sitemap={encoded_sitemap}")
     
-    # 2. Sitemap Pings for Consciousness Portal
+    # 2. Sitemap Pings for Specialized Portals
     encoded_conscious = urllib.parse.quote(CONSCIOUSNESS_SITEMAP, safe="")
     ping_url("Google Consciousness Ping", f"https://www.google.com/ping?sitemap={encoded_conscious}")
     ping_url("Bing Consciousness Ping", f"https://www.bing.com/ping?sitemap={encoded_conscious}")
+
+    encoded_garden = urllib.parse.quote(GARDEN_SITEMAP, safe="")
+    ping_url("Google Garden Perks Ping", f"https://www.google.com/ping?sitemap={encoded_garden}")
+    ping_url("Bing Garden Perks Ping", f"https://www.bing.com/ping?sitemap={encoded_garden}")
+    
+    encoded_baby = urllib.parse.quote(BABY_SITEMAP, safe="")
+    ping_url("Google Baby Care Ping", f"https://www.google.com/ping?sitemap={encoded_baby}")
+    ping_url("Bing Baby Care Ping", f"https://www.bing.com/ping?sitemap={encoded_baby}")
     
     # 3. IndexNow Immediate URL Notification
-    recent_urls = get_recent_post_urls(limit=25)
+    recent_urls = get_recent_post_urls(limit=50)
     logger.info(f"📋 Queued {len(recent_urls)} URLs for IndexNow rapid indexing.")
     dispatch_indexnow(recent_urls)
     

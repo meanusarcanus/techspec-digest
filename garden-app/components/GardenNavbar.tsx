@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Leaf, Search, Sparkles, MessageCircleHeart, Sprout, ShoppingBag, Menu, X, ArrowUpRight, User, LogOut, Share2, Check } from 'lucide-react';
+import { Leaf, Search, Sparkles, MessageCircleHeart, Sprout, ShoppingBag, Menu, X, ArrowUpRight, User, LogOut, Share2, Check, Droplets } from 'lucide-react';
 import BotanistLoginModal from './BotanistLoginModal';
 import { getCurrentGardenUser, logoutGardenUser, GardenUser } from '../lib/gardenAuthEngine';
 
@@ -97,6 +97,13 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
               <MessageCircleHeart className="w-4 h-4 text-emerald-600" />
               Plant Clinic Q&A
             </Link>
+            <a 
+              href="/techspec-digest/garden-perks/#calculator" 
+              className="px-3.5 py-2 text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/80 rounded-xl transition-all flex items-center gap-1.5"
+            >
+              <Droplets className="w-4 h-4 text-emerald-600" />
+              Watering Calc
+            </a>
             <a 
               href="https://www.amazon.com/s?k=garden+plants+care+tools+indoor+houseplants&tag=techspecdiges-20"
               target="_blank"
