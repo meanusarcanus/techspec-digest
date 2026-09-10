@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Leaf, Search, Sparkles, MessageCircleHeart, Sprout, ShoppingBag, Menu, X, ArrowUpRight, User, LogOut } from 'lucide-react';
+import { Leaf, Search, Sparkles, MessageCircleHeart, Sprout, ShoppingBag, Menu, X, ArrowUpRight, User, LogOut, Share2, Check } from 'lucide-react';
 import BotanistLoginModal from './BotanistLoginModal';
 import { getCurrentGardenUser, logoutGardenUser, GardenUser } from '../lib/gardenAuthEngine';
 
@@ -17,6 +17,32 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
   const [portalDropdownOpen, setPortalDropdownOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<GardenUser | null>(() => getCurrentGardenUser());
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    const shareData = {
+      title: 'The Garden Perks | Daily Botanical Care & Guides',
+      text: 'Explore plant care guides, greenhouse archives, and expert plant clinic diagnostics.',
+      url: typeof window !== 'undefined' ? window.location.href : '',
+    };
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (err: any) {
+        if (err?.name === 'AbortError') return;
+      }
+    }
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(shareData.url || window.location.href);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      } catch (e) {
+        // fallback
+      }
+    }
+  };
 
   useEffect(() => {
     const handleUserUpdate = () => {
@@ -172,6 +198,14 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
               </button>
             )}
             <button
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200 shadow-2xs transition-all cursor-pointer"
+              title="Share The Garden Perks"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5 text-emerald-600" />}
+              <span>{copied ? 'Copied!' : 'Share'}</span>
+            </button>
+            <button
               onClick={onOpenNewsletter}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-bold shadow-md shadow-emerald-600/20 hover:shadow-lg hover:shadow-emerald-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
@@ -258,6 +292,13 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
           >
             🛍️ Amazon Gears
           </a>
+          <button
+            onClick={handleShare}
+            className="w-full py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 text-sm font-bold flex items-center justify-center gap-2 border border-emerald-200 cursor-pointer"
+          >
+            {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Share2 className="w-4 h-4 text-emerald-600" />}
+            <span>{copied ? 'Link Copied!' : 'Share The Garden Perks'}</span>
+          </button>
           <button
             onClick={() => {
               setMobileMenuOpen(false);

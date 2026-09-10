@@ -14,10 +14,38 @@ import {
   Menu,
   X,
   Heart,
+  Share2,
+  Check,
 } from 'lucide-react';
 
 export default function BabyNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    const shareData = {
+      title: 'Calm Baby Nursery | Sleep, Lullabies & Nursery Care',
+      text: 'Gentle infant sleep protocols, soothing lullabies, and curated nursery essentials for restful nights.',
+      url: typeof window !== 'undefined' ? window.location.href : '',
+    };
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (err: any) {
+        if (err?.name === 'AbortError') return;
+      }
+    }
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(shareData.url || window.location.href);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      } catch (e) {
+        // fallback
+      }
+    }
+  };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
@@ -120,6 +148,16 @@ export default function BabyNavbar() {
               <Youtube className="w-4 h-4 fill-red-500 text-red-500" />
               <span>YouTube</span>
             </a>
+
+            {/* Share Button */}
+            <button
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-300 hover:text-amber-200 hover:border-amber-400 text-xs font-semibold transition-all shadow-sm cursor-pointer"
+              title="Share Calm Baby Nursery"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5 text-amber-400" />}
+              <span>{copied ? 'Copied!' : 'Share'}</span>
+            </button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -190,6 +228,13 @@ export default function BabyNavbar() {
               <Youtube className="w-4 h-4 fill-red-500 text-red-500" />
               <span>Calm Baby Nursery YouTube</span>
             </a>
+            <button
+              onClick={handleShare}
+              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 font-semibold cursor-pointer"
+            >
+              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4 text-amber-400" />}
+              <span>{copied ? 'Link Copied!' : 'Share Calm Baby Nursery'}</span>
+            </button>
           </div>
         </div>
       )}

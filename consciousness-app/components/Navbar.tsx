@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Sparkles, Menu, X, Radio, Compass, ShieldCheck, Flame, Youtube, Headphones } from 'lucide-react';
+import { Search, Sparkles, Menu, X, Radio, Compass, ShieldCheck, Flame, Youtube, Headphones, Share2, Check } from 'lucide-react';
 import SearchModal from './SearchModal';
 
 const FREQUENCIES = [
@@ -43,6 +43,29 @@ export default function Navbar() {
   };
 
   const currentFreq = FREQUENCIES[freqIndex];
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = () => {
+    const shareData = {
+      title: 'Products of Consciousness & Enlightenment Daily',
+      text: 'Daily wisdom, sacred geometry, mindfulness insights, and curated Amazon practice tools.',
+      url: window.location.href,
+    };
+    if (navigator.share) {
+      navigator.share(shareData).catch((err) => {
+        if (err.name !== 'AbortError') copyLink();
+      });
+    } else {
+      copyLink();
+    }
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     const elem = document.getElementById(targetId);
@@ -179,6 +202,16 @@ export default function Navbar() {
               <span className="hidden xl:inline text-[10px] opacity-80">({currentFreq.name})</span>
             </button>
 
+            {/* Share Button */}
+            <button
+              onClick={handleShare}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 text-amber-300 hover:text-amber-200 text-xs font-semibold transition-all shadow-sm cursor-pointer active:scale-95"
+              title="Share Consciousness & Enlightenment Daily"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5 text-amber-400" />}
+              <span>{copied ? 'Copied!' : 'Share'}</span>
+            </button>
+
             {/* Mobile Hamburger Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -260,6 +293,16 @@ export default function Navbar() {
               <Headphones className="w-4 h-4 text-emerald-400" />
               <span>Arcane Books Spotify Podcast</span>
             </a>
+            <button
+              onClick={() => {
+                handleShare();
+                setIsMobileMenuOpen(false);
+              }}
+              className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-slate-950 bg-amber-400 hover:bg-amber-300 font-bold text-sm shadow-md"
+            >
+              {copied ? <Check className="w-4 h-4 text-slate-950" /> : <Share2 className="w-4 h-4 text-slate-950" />}
+              <span>{copied ? 'Link Copied!' : 'Share Consciousness Lab'}</span>
+            </button>
           </div>
         )}
       </header>

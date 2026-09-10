@@ -44,6 +44,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23064e3b'/><path d='M16 26 C16 26 8 20 8 13 C8 7 14 6 16 6 C18 6 24 7 24 13 C24 20 16 26 16 26 Z' fill='%2310b981'/><path d='M16 26 V11' stroke='%23a7f3d0' stroke-width='2' stroke-linecap='round'/><path d='M16 16 L20 13' stroke='%23a7f3d0' stroke-width='1.5' stroke-linecap='round'/><path d='M16 19 L12 16' stroke='%23a7f3d0' stroke-width='1.5' stroke-linecap='round'/></svg>" />
         
         {/* PWA Direct Head Tags */}
         <link rel="manifest" href="/techspec-digest/garden-perks/manifest.json" />
