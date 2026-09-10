@@ -217,6 +217,13 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
           {/* Mobile menu button */}
           <div className="flex md:hidden items-center gap-2">
             <button
+              onClick={handleShare}
+              className="p-2 rounded-xl text-emerald-700 bg-emerald-50 hover:bg-emerald-100 focus:outline-none"
+              title="Share The Garden Perks"
+            >
+              {copied ? <Check className="w-5 h-5 text-emerald-600" /> : <Share2 className="w-5 h-5 text-emerald-600" />}
+            </button>
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl text-slate-700 hover:bg-emerald-50 focus:outline-none"
             >
