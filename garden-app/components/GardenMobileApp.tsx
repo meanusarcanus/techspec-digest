@@ -34,7 +34,7 @@ import {
   Lock,
   AlertCircle
 } from 'lucide-react';
-import { getDailyFeaturedPlant, getAllPlantGuides, purgeDuplicateCatalogEntries, deduplicatePlantGuides } from '../lib/gardenDailyEngine';
+import { getDailyFeaturedPlant, getAllPlantGuides, purgeDuplicateCatalogEntries, deduplicatePlantGuides, resolvePlantImageUrl } from '../lib/gardenDailyEngine';
 import { generatePlantDoctorDiagnosis, DoctorDiagnosis } from '../lib/botanicalDoctor';
 import { PlantCareGuide } from '../data/plantCareGuides';
 import CareGuideModal from './CareGuideModal';
@@ -360,9 +360,17 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
             <div className="relative rounded-3xl overflow-hidden shadow-lg border border-emerald-100 bg-white">
               <div className="relative h-64 w-full bg-slate-100">
                 <img 
-                  src={dailyData.plant.heroImage} 
+                  src={resolvePlantImageUrl(dailyData.plant.heroImage)} 
                   alt={dailyData.plant.commonName}
                   className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.dataset.fallback) {
+                      target.dataset.fallback = 'true';
+                      target.src = 'https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=1200&q=85';
+                    }
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
@@ -1205,9 +1213,17 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                     className="p-3 rounded-2xl bg-white border border-emerald-100 shadow-2xs hover:border-emerald-300 transition-all flex items-center gap-3 cursor-pointer active:scale-98"
                   >
                     <img
-                      src={plant.heroImage}
+                      src={resolvePlantImageUrl(plant.heroImage)}
                       alt={plant.commonName}
                       className="w-16 h-16 rounded-xl object-cover shrink-0"
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.dataset.fallback) {
+                          target.dataset.fallback = 'true';
+                          target.src = 'https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=400&q=80';
+                        }
+                      }}
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5 flex-wrap">

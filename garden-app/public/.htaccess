@@ -1,0 +1,5 @@
+# LiteSpeed / Apache Rewrite for Garden Perks PWA
+RewriteEngine On
+
+# Ensure legacy or cached GitHub Pages asset URLs gracefully route to root assets
+RewriteRule ^techspec-digest/garden-perks/(.*)$ /$1 [L,QSA]

@@ -463,4 +463,30 @@ export function getPlantGuideBySlug(slug: string): PlantCareGuide | undefined {
   return all.find(p => p.slug === slug || p.id === slug);
 }
 
+/**
+ * Robust image URL resolver that transparently adapts between
+ * Hostinger custom subdomains (/) and GitHub Pages (/techspec-digest/garden-perks/).
+ */
+export function resolvePlantImageUrl(url?: string): string {
+  if (!url) {
+    return 'https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=1200&q=85';
+  }
+  if (url.startsWith('data:') || url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  
+  // Strip any hardcoded /techspec-digest/garden-perks prefix
+  const cleanPath = url.replace(/^\/techspec-digest\/garden-perks/, '');
+
+  // Detect runtime host: if pathname starts with /techspec-digest, we are on GitHub Pages
+  const isGitHubPages = typeof window !== 'undefined'
+    ? window.location.pathname.startsWith('/techspec-digest')
+    : process.env.NEXT_PUBLIC_SITE_MODE !== 'subdomain';
+
+  if (isGitHubPages) {
+    return `/techspec-digest/garden-perks${cleanPath.startsWith('/') ? '' : '/'}${cleanPath}`;
+  }
+  return cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+}
+
 

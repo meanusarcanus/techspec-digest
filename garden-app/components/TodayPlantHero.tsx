@@ -8,6 +8,7 @@ import {
   ExternalLink, Search
 } from 'lucide-react';
 import { PlantCareGuide } from '../data/plantCareGuides';
+import { resolvePlantImageUrl } from '../lib/gardenDailyEngine';
 import AmazonProductCard from './AmazonProductCard';
 
 interface TodayPlantHeroProps {
@@ -45,9 +46,17 @@ export default function TodayPlantHero({ plant, formattedDate }: TodayPlantHeroP
         <div className="lg:col-span-5 space-y-6">
           <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] bg-slate-100 group">
             <img 
-              src={plant.heroImage} 
+              src={resolvePlantImageUrl(plant.heroImage)} 
               alt={plant.commonName}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (!target.dataset.fallback) {
+                  target.dataset.fallback = 'true';
+                  target.src = 'https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=1200&q=85';
+                }
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10"></div>
             

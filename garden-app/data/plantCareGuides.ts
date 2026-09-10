@@ -194,9 +194,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Top 2 Inches Dry",
     humidityRange: "50% - 70% (High)",
     petSafe: false,
-    heroImage: "/techspec-digest/garden-perks/images/plants/ficus-lyrata.jpg",
+    heroImage: "/images/plants/ficus-lyrata.jpg",
     galleryImages: [
-      "/techspec-digest/garden-perks/images/plants/ficus-lyrata.jpg"
+      "/images/plants/ficus-lyrata.jpg"
     ],
     shortHook: "The architectural statement plant prized for dramatic violin-shaped leathery leaves.",
     overview: "Originating in the lowland tropical rainforests of Western Africa, the Fiddle Leaf Fig is revered by interior designers worldwide. While notoriously sensitive to relocation, establishing a consistent watering and light routine rewards you with a lush indoor tree reaching up to 10 feet tall.",
@@ -316,9 +316,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Consistently Moist",
     humidityRange: "70%+ (Greenhouse)",
     petSafe: true,
-    heroImage: "/techspec-digest/garden-perks/images/plants/calathea-orbifolia.jpg",
+    heroImage: "/images/plants/calathea-orbifolia.jpg",
     galleryImages: [
-      "/techspec-digest/garden-perks/images/plants/calathea-orbifolia.jpg"
+      "/images/plants/calathea-orbifolia.jpg"
     ],
     shortHook: "Stunning silver-striped circular foliage that gracefully folds upward at night in prayer.",
     overview: "Hailing from the lush tropical understory of Bolivia and Brazil, Calathea orbifolia is famous for its oversized round leaves painted with metallic silver-green brushstrokes. 100% non-toxic and pet-safe, it is the crown jewel for collectors who can provide steady moisture and pure water.",
@@ -438,9 +438,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Dry Out Completely",
     humidityRange: "30% - 50% (Standard)",
     petSafe: false,
-    heroImage: "/techspec-digest/garden-perks/images/plants/snake-plant-laurentii.jpg",
+    heroImage: "/images/plants/snake-plant-laurentii.jpg",
     galleryImages: [
-      "/techspec-digest/garden-perks/images/plants/snake-plant-laurentii.jpg"
+      "/images/plants/snake-plant-laurentii.jpg"
     ],
     shortHook: "Indestructible architectural air-purifier that thrives on neglect and cleanses indoor air.",
     overview: "Native to tropical West Africa, the Snake Plant is celebrated as one of the hardiest houseplants on earth. It utilizes Crassulacean Acid Metabolism (CAM) to release oxygen at night while tolerating dim corners, erratic watering, and dry indoor air with effortless elegance.",
@@ -683,9 +683,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Top 2 Inches Dry",
     humidityRange: "50% - 70% (High)",
     petSafe: true,
-    heroImage: "/techspec-digest/garden-perks/images/plants/japanese-maple.jpg",
+    heroImage: "/images/plants/japanese-maple.jpg",
     galleryImages: [
-      "/techspec-digest/garden-perks/images/plants/japanese-maple.jpg"
+      "/images/plants/japanese-maple.jpg"
     ],
     shortHook: "The quintessential zen tree offering breathtaking cascading scarlet and crimson lace foliage.",
     overview: "Treasured across Asian horticulture for centuries, Japanese Maples are iconic ornamental centerpiece trees. Whether grown in garden landscapes, zen courtyard containers, or trained as miniature bonsai, their graceful tiered branches and fiery autumn transformations inspire tranquility.",
@@ -806,9 +806,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Consistently Moist",
     humidityRange: "50% - 70% (High)",
     petSafe: true,
-    heroImage: "/techspec-digest/garden-perks/images/plants/sweet-basil.jpg",
+    heroImage: "/images/plants/sweet-basil.jpg",
     galleryImages: [
-      "/techspec-digest/garden-perks/images/plants/sweet-basil.jpg"
+      "/images/plants/sweet-basil.jpg"
     ],
     shortHook: "The ultimate aromatic kitchen herb for homemade pesto, culinary pizzas, and companion pest deterrence.",
     overview: "Prized across Italian gastronomy, Genovese sweet basil is renowned for its intoxicating fragrance and tender spicy-sweet leaves. Easy to grow in sunny windowsills or raised beds, frequent top pruning turns a single plant into a prolific bushy hedge.",
@@ -902,9 +902,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Top 2 Inches Dry",
     humidityRange: "50% - 70% (High)",
     petSafe: true,
-    heroImage: "/techspec-digest/garden-perks/images/plants/moth-orchid.jpg",
+    heroImage: "/images/plants/moth-orchid.jpg",
     galleryImages: [
-      "/techspec-digest/garden-perks/images/plants/moth-orchid.jpg"
+      "/images/plants/moth-orchid.jpg"
     ],
     shortHook: "Exotic long-lasting moth blossoms that bloom continuously for up to three months indoors.",
     overview: "Naturally growing as an epiphyte perched on tropical tree trunks across Southeast Asia, the Moth Orchid is surprisingly easy to maintain indoors. With roots adapted to absorb moisture from the air, proper orchid bark and a monthly soaking routine produce breathtaking cascading blooms year after year.",
@@ -998,9 +998,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Dry Out Completely",
     humidityRange: "30% - 50% (Standard)",
     petSafe: false,
-    heroImage: "/techspec-digest/garden-perks/images/plants/string-of-pearls.jpg",
+    heroImage: "/images/plants/string-of-pearls.jpg",
     galleryImages: [
-      "/techspec-digest/garden-perks/images/plants/string-of-pearls.jpg"
+      "/images/plants/string-of-pearls.jpg"
     ],
     shortHook: "Whimsical cascading succulent featuring succulent green pearls that spill over hanging baskets.",
     overview: "Native to dry arid cliffs of southwest Africa, String of Pearls stores water in tiny spherical bead-like leaves equipped with a translucent epidermal window slit that channels light deep into the leaf. Cascading gracefully over shelves, it is an eye-catching collector succulent.",
@@ -1083,9 +1083,9 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     wateringNeed: "Top 2 Inches Dry",
     humidityRange: "50% - 70% (High)",
     petSafe: false,
-    heroImage: "/techspec-digest/garden-perks/images/plants/meyer-lemon.jpg",
+    heroImage: "/images/plants/meyer-lemon.jpg",
     galleryImages: [
-      "/techspec-digest/garden-perks/images/plants/meyer-lemon.jpg"
+      "/images/plants/meyer-lemon.jpg"
     ],
     shortHook: "Sweet, juicy culinary citrus with heavenly scented white blossoms that thrives in patio containers.",
     overview: "A natural hybrid of lemon and sweet mandarin orange discovered near Beijing, Meyer Lemons produce thin-skinned, sweeter, less acidic lemons with distinct floral notes. Self-fertile and compact, they thrive in sunny patio containers or bright sunrooms, blooming and fruiting year-round.",
@@ -1182,7 +1182,7 @@ export const PLANT_CARE_GUIDES: PlantCareGuide[] = [
     heroImage: AFRICAN_SPEAR_PLANT_IMAGE,
     galleryImages: [
       AFRICAN_SPEAR_PLANT_IMAGE,
-      "/techspec-digest/garden-perks/images/plants/african-spear-plant.jpg"
+      "/images/plants/african-spear-plant.jpg"
     ],
     shortHook: "Iconic architectural spear-shaped succulent with smooth, rigid cylindrical leaves that thrive on minimal water.",
     overview: "Native to Angola, Sansevieria cylindrica (also known as the African Spear or Cylindrical Snake Plant) features stiff, upright, spear-like leaves with distinctive dark green concentric rings. It is an exceptionally drought-tolerant succulent adapted to arid climates, filtering airborne toxics while needing water only once every 3-4 weeks.",

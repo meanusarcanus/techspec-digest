@@ -7,7 +7,7 @@ import CareGuideModal from './CareGuideModal';
 import { searchBotanicalWebImage, confirmAndSaveWebPlant, BotanicalWebResult } from '../lib/botanicalWebEngine';
 import BotanistLoginModal from './BotanistLoginModal';
 import { getCurrentGardenUser, GardenUser } from '../lib/gardenAuthEngine';
-import { purgeDuplicateCatalogEntries, deduplicatePlantGuides, getAllPlantGuides, findMatchingPlantInCatalog } from '../lib/gardenDailyEngine';
+import { purgeDuplicateCatalogEntries, deduplicatePlantGuides, getAllPlantGuides, findMatchingPlantInCatalog, resolvePlantImageUrl } from '../lib/gardenDailyEngine';
 
 interface GreenhouseArchiveProps {
   plants: PlantCareGuide[];
@@ -647,10 +647,18 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
               {/* Image Banner */}
               <div className="relative h-56 w-full bg-slate-100 overflow-hidden">
                 <img
-                  src={plant.heroImage}
+                  src={resolvePlantImageUrl(plant.heroImage)}
                   alt={plant.commonName}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.dataset.fallback) {
+                      target.dataset.fallback = 'true';
+                      target.src = 'https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=800&q=80';
+                    }
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
