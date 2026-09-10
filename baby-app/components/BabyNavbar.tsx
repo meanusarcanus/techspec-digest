@@ -161,7 +161,14 @@ export default function BabyNavbar() {
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center lg:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              onClick={handleShare}
+              className="p-2 rounded-xl bg-slate-900/80 border border-slate-800 text-amber-400 hover:text-amber-300 focus:outline-none"
+              title="Share Calm Baby Nursery"
+            >
+              {copied ? <Check className="w-5 h-5 text-emerald-400" /> : <Share2 className="w-5 h-5 text-amber-400" />}
+            </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-amber-300 focus:outline-none"
