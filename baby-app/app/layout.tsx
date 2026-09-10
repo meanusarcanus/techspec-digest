@@ -17,7 +17,13 @@ export const metadata: Metadata = {
     'infant nursery gear',
   ],
   icons: {
-    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230a0d1a'/><path d='M20 7 A10 10 0 1 1 10 21 A11 11 0 0 0 20 7 Z' fill='%23fbbf24'/><polygon points='23,9 24.2,12.5 27.8,12.5 24.9,14.6 26,18.1 23,16 20,18.1 21.1,14.6 18.2,12.5 21.8,12.5' fill='%2338bdf8'/></svg>",
+    icon: [
+      { url: '/techspec-digest/baby-care/favicon.ico' },
+      { url: '/techspec-digest/baby-care/favicon.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/techspec-digest/baby-care/apple-touch-icon.png' },
+    ],
   },
 };
 
@@ -29,7 +35,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <head>
-        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230a0d1a'/><path d='M20 7 A10 10 0 1 1 10 21 A11 11 0 0 0 20 7 Z' fill='%23fbbf24'/><polygon points='23,9 24.2,12.5 27.8,12.5 24.9,14.6 26,18.1 23,16 20,18.1 21.1,14.6 18.2,12.5 21.8,12.5' fill='%2338bdf8'/></svg>" />
+        <link rel="shortcut icon" href="/techspec-digest/baby-care/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/techspec-digest/baby-care/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/techspec-digest/baby-care/favicon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/techspec-digest/baby-care/apple-touch-icon.png" />
       </head>
       <body className="bg-night-950 text-slate-100 font-sans antialiased relative selection:bg-amber-400 selection:text-night-950">
         <BabyAmbientBg />

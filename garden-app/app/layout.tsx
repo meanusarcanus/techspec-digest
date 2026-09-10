@@ -23,8 +23,12 @@ export const metadata: Metadata = {
     title: 'Garden Perks',
   },
   icons: {
-    icon: '/techspec-digest/garden-perks/icons/icon-192.svg',
-    apple: '/techspec-digest/garden-perks/icons/icon-192.svg',
+    icon: [
+      { url: '/techspec-digest/garden-perks/favicon.ico' },
+      { url: '/techspec-digest/garden-perks/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/techspec-digest/garden-perks/icons/icon-192.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/techspec-digest/garden-perks/apple-touch-icon.png',
   },
   openGraph: {
     title: 'The Garden Perks | Daily Botanical Plant Care & How-To Guides',
