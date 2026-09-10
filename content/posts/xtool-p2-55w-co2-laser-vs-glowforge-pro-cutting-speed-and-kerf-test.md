@@ -1,6 +1,6 @@
 ---
 title: "xTool P2 55W CO2 laser vs Glowforge Pro cutting speed and kerf test"
-date: 2026-09-10T09:48:30Z
+date: 2026-09-10T12:19:12Z
 draft: false
 description: "In-depth guide on xTool P2 55W CO2 laser vs Glowforge Pro cutting speed and kerf test. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "xtool-p2-55w-co2-laser-vs-glowforge-pro-cutting-speed-and-kerf-test"
