@@ -1,8 +1,9 @@
-/** @type {import('next').NextConfig} */
+const isSubdomain = process.env.NEXT_PUBLIC_SITE_MODE === 'subdomain';
+
 const nextConfig = {
   output: 'export',
-  basePath: '/techspec-digest/garden-perks',
-  assetPrefix: '/techspec-digest/garden-perks/',
+  basePath: isSubdomain ? '' : '/techspec-digest/garden-perks',
+  assetPrefix: isSubdomain ? '' : '/techspec-digest/garden-perks/',
   images: {
     unoptimized: true,
   },

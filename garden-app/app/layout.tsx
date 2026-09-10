@@ -12,11 +12,13 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 };
 
+const basePath = process.env.NEXT_PUBLIC_SITE_MODE === 'subdomain' ? '' : '/techspec-digest/garden-perks';
+
 export const metadata: Metadata = {
   title: 'The Garden Perks | Daily Botanical Plant Care & "How-To" Guides',
   description: 'Your daily botanical sanctuary. Discover comprehensive plant care profiles, likes & dislikes, propagation how-tos, organic troubleshooting, and curated Amazon gardening essentials.',
   keywords: 'garden plants, plant care, houseplants, monsteras, ficus, propagation, organic pest control, soil moisture, plant doctor, plant likes and dislikes',
-  manifest: '/techspec-digest/garden-perks/manifest.json',
+  manifest: `${basePath}/manifest.json`,
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -24,11 +26,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/techspec-digest/garden-perks/favicon.ico' },
-      { url: '/techspec-digest/garden-perks/favicon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/techspec-digest/garden-perks/icons/icon-192.svg', type: 'image/svg+xml' },
+      { url: `${basePath}/favicon.ico` },
+      { url: `${basePath}/favicon.png`, sizes: '32x32', type: 'image/png' },
+      { url: `${basePath}/icons/icon-192.svg`, type: 'image/svg+xml' },
     ],
-    apple: '/techspec-digest/garden-perks/apple-touch-icon.png',
+    apple: `${basePath}/apple-touch-icon.png`,
   },
   openGraph: {
     title: 'The Garden Perks | Daily Botanical Plant Care & How-To Guides',
@@ -51,12 +53,12 @@ export default function RootLayout({
         <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23064e3b'/><path d='M16 26 C16 26 8 20 8 13 C8 7 14 6 16 6 C18 6 24 7 24 13 C24 20 16 26 16 26 Z' fill='%2310b981'/><path d='M16 26 V11' stroke='%23a7f3d0' stroke-width='2' stroke-linecap='round'/><path d='M16 16 L20 13' stroke='%23a7f3d0' stroke-width='1.5' stroke-linecap='round'/><path d='M16 19 L12 16' stroke='%23a7f3d0' stroke-width='1.5' stroke-linecap='round'/></svg>" />
         
         {/* PWA Direct Head Tags */}
-        <link rel="manifest" href="/techspec-digest/garden-perks/manifest.json" />
+        <link rel="manifest" href={`${basePath}/manifest.json`} />
         <meta name="theme-color" content="#059669" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Garden Perks" />
-        <link rel="apple-touch-icon" href="/techspec-digest/garden-perks/icons/icon-192.svg" />
+        <link rel="apple-touch-icon" href={`${basePath}/icons/icon-192.svg`} />
       </head>
       <body className="min-h-screen flex flex-col bg-[#f8faf9] text-slate-900 selection:bg-emerald-200 selection:text-emerald-950">
         <CommunitySyncProvider />
@@ -68,8 +70,8 @@ export default function RootLayout({
             __html: `
               if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/techspec-digest/garden-perks/sw.js', {
-                    scope: '/techspec-digest/garden-perks/'
+                  navigator.serviceWorker.register('${basePath}/sw.js', {
+                    scope: '${basePath}/'
                   }).then(function(reg) {
                     console.log('[Garden Perks] PWA Service Worker registered:', reg.scope);
                   }).catch(function(err) {
