@@ -1411,21 +1411,27 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
               </span>
               <div className="grid grid-cols-1 gap-1.5">
                 <a 
-                  href="/techspec-digest/" 
+                  href="https://meanusarcanus.github.io/techspec-digest/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-200/80 text-slate-700 hover:text-emerald-700"
                 >
                   <span className="font-semibold">⚡ TechSpec Digest (Hub)</span>
                   <ExternalLink className="w-3 h-3 text-slate-400" />
                 </a>
                 <a 
-                  href="/techspec-digest/consciousness/" 
+                  href="https://meanusarcanus.github.io/techspec-digest/consciousness/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-200/80 text-slate-700 hover:text-indigo-700"
                 >
                   <span className="font-semibold">🌌 Consciousness Lab</span>
                   <ExternalLink className="w-3 h-3 text-slate-400" />
                 </a>
                 <a 
-                  href="/techspec-digest/baby-care/" 
+                  href="https://meanusarcanus.github.io/techspec-digest/baby-care/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-200/80 text-slate-700 hover:text-amber-700"
                 >
                   <span className="font-semibold">🍼 Calm Baby Nursery</span>
