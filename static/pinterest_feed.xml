@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+     xmlns:media="http://search.yahoo.com/mrss/" 
+     xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arcane Books - Consciousness & Reality</title>
+    <description>Daily high-frequency consciousness explorations, subconscious rewiring, wealth mindset, and bio-resonance mastery by Arcane Books.</description>
+    <link>https://youtube.com/@ArcaneBooks</link>
+    <language>en-us</language>
+    <atom:link href="https://meanusarcanus.github.io/techspec-digest/pinterest_feed.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
