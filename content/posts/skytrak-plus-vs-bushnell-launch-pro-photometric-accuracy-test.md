@@ -1,6 +1,6 @@
 ---
 title: "SkyTrak Plus vs Bushnell Launch Pro photometric accuracy test"
-date: 2026-09-11T14:27:58Z
+date: 2026-09-11T15:30:32Z
 draft: false
 description: "In-depth guide on SkyTrak Plus vs Bushnell Launch Pro photometric accuracy test. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "skytrak-plus-vs-bushnell-launch-pro-photometric-accuracy-test"
