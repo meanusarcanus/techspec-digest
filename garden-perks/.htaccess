@@ -1,0 +1,8 @@
+# LiteSpeed / Apache Rewrite for Garden Perks PWA
+RewriteEngine On
+
+# 1. Gracefully route any legacy garden-perks asset requests to root
+RewriteRule ^techspec-digest/garden-perks/(.*)$ /$1 [L,QSA]
+
+# 2. Redirect sister portals (baby-care, consciousness, hub) to canonical GitHub Pages
+RewriteRule ^techspec-digest/(.*)$ https://meanusarcanus.github.io/techspec-digest/$1 [R=301,L]
