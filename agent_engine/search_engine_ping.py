@@ -25,7 +25,7 @@ BASE_HOST = "meanusarcanus.github.io"
 BASE_URL = f"https://{BASE_HOST}/techspec-digest"
 SITEMAP_URL = f"{BASE_URL}/sitemap.xml"
 CONSCIOUSNESS_SITEMAP = f"{BASE_URL}/consciousness/sitemap.xml"
-GARDEN_SITEMAP = f"{BASE_URL}/garden-perks/sitemap.xml"
+GARDEN_SITEMAP = "https://garden.theodisius.com/sitemap.xml"
 BABY_SITEMAP = f"{BASE_URL}/baby-care/sitemap.xml"
 INDEXNOW_KEY = "e4b67f1a9c8d3e2b5f0a7c6e1d4b8a2c"
 INDEXNOW_KEY_LOCATION = f"{BASE_URL}/{INDEXNOW_KEY}.txt"
@@ -54,9 +54,9 @@ def get_recent_post_urls(limit: int = 50) -> List[str]:
     urls = [
         f"{BASE_URL}/",
         f"{BASE_URL}/posts/",
-        f"{BASE_URL}/garden-perks/",
-        f"{BASE_URL}/garden-perks/greenhouse",
-        f"{BASE_URL}/garden-perks/clinic",
+        "https://garden.theodisius.com/",
+        "https://garden.theodisius.com/greenhouse",
+        "https://garden.theodisius.com/clinic",
         f"{BASE_URL}/consciousness/",
         f"{BASE_URL}/baby-care/"
     ]

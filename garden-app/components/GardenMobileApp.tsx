@@ -413,7 +413,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                 const lensTargetUrl = dailyData.plant.heroImage.startsWith('http')
                   ? dailyData.plant.heroImage
                   : dailyData.plant.heroImage.startsWith('data:')
-                  ? 'https://meanusarcanus.github.io/techspec-digest/garden-perks/images/plants/african-spear-plant.jpg'
+                  ? 'https://garden.theodisius.com/images/plants/african-spear-plant.jpg'
                   : `https://meanusarcanus.github.io${dailyData.plant.heroImage}`;
                 return (
                   <div className="px-3.5 py-2.5 bg-emerald-50/70 border-b border-emerald-100 flex items-center justify-between">

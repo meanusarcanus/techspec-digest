@@ -146,7 +146,7 @@ export default function PlantCameraScannerModal({
       ? capturedImage
       : (scanResult?.identifiedPlant?.heroImage && scanResult.identifiedPlant.heroImage.startsWith('http'))
       ? scanResult.identifiedPlant.heroImage
-      : 'https://meanusarcanus.github.io/techspec-digest/garden-perks/images/plants/african-spear-plant.jpg';
+      : 'https://garden.theodisius.com/images/plants/african-spear-plant.jpg';
 
     window.open(`https://lens.google.com/uploadbyurl?url=${encodeURIComponent(targetUrl)}`, '_blank', 'noopener,noreferrer');
   };

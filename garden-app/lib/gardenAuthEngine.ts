@@ -178,7 +178,7 @@ Your Active Member Perks:
 4. 🛍️ Amazon Botanist Perks: Curated soil blends, moisture meters, and grow light recommendations.
 
 Explore Your Perks Online:
-https://theodisius.github.io/techspec-digest/garden-perks/
+https://garden.theodisius.com/
 
 With verdant regards,
 Dr. Flora & The Garden Perks Curatorial Board

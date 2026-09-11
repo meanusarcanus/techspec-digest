@@ -129,8 +129,9 @@ export default function BabyNavbar() {
 
             {/* Garden Perks Link */}
             <a
-              href="/techspec-digest/garden-perks/"
-              target="_self"
+              href="https://garden.theodisius.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300 hover:text-emerald-200 hover:bg-emerald-900/40 text-xs font-bold transition-all shadow-sm"
               title="The Garden Perks Botanical Portal"
             >

@@ -98,23 +98,23 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
               Plant Clinic Q&A
             </Link>
             <a 
-              href="/techspec-digest/garden-perks/#calculator" 
+              href="/#calculator" 
               className="px-3.5 py-2 text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/80 rounded-xl transition-all flex items-center gap-1.5"
             >
               <Droplets className="w-4 h-4 text-emerald-600" />
               Watering Calc
             </a>
             <a 
-              href="https://www.amazon.com/s?k=garden+plants+care+tools+indoor+houseplants&tag=techspecdiges-20"
-              target="_blank"
-              rel="noopener noreferrer" 
+              href="https://www.amazon.com/s?k=garden+plants+care+tools+indoor+houseplants&tag=techspecdiges-20" 
+              target="_blank" 
+              rel="noopener noreferrer"
               className="px-3.5 py-2 text-sm font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/80 rounded-xl transition-all flex items-center gap-1.5"
             >
               <ShoppingBag className="w-4 h-4 text-emerald-600" />
               Amazon Gears
             </a>
 
-            {/* Portal Network Switcher Dropdown */}
+            {/* Portal Switcher Dropdown */}
             <div className="relative ml-2">
               <button
                 onClick={() => setPortalDropdownOpen(!portalDropdownOpen)}
@@ -126,31 +126,34 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
 
               {portalDropdownOpen && (
                 <div 
-                  className="absolute right-0 mt-2 w-60 bg-white rounded-2xl shadow-xl border border-emerald-100 p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                  className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-emerald-100 p-2 z-50 animate-in fade-in zoom-in-95 duration-150"
                   onMouseLeave={() => setPortalDropdownOpen(false)}
                 >
                   <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                     Our Network Portals
                   </div>
                   <a 
-                    href="/techspec-digest/" 
-                    target="_self"
+                    href="https://meanusarcanus.github.io/techspec-digest/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-emerald-700"
                   >
                     <span>⚡ TechSpec Digest (Hub)</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
                   </a>
                   <a 
-                    href="/techspec-digest/consciousness/" 
-                    target="_self"
+                    href="https://meanusarcanus.github.io/techspec-digest/consciousness/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-indigo-50 hover:text-indigo-700"
                   >
                     <span>🌌 Consciousness Lab</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
                   </a>
                   <a 
-                    href="/techspec-digest/baby-care/" 
-                    target="_self"
+                    href="https://meanusarcanus.github.io/techspec-digest/baby-care/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700"
                   >
                     <span>🍼 Calm Baby Nursery</span>

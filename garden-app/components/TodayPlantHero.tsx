@@ -95,7 +95,7 @@ export default function TodayPlantHero({ plant, formattedDate }: TodayPlantHeroP
             const lensTargetUrl = plant.heroImage.startsWith('http')
               ? plant.heroImage
               : plant.heroImage.startsWith('data:')
-              ? 'https://meanusarcanus.github.io/techspec-digest/garden-perks/images/plants/african-spear-plant.jpg'
+              ? 'https://garden.theodisius.com/images/plants/african-spear-plant.jpg'
               : `https://meanusarcanus.github.io${plant.heroImage}`;
             return (
               <div className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-200/80 shadow-xs">
