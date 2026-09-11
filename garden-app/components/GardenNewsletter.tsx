@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Mail, Sparkles, CheckCircle2, X, Leaf, ShieldCheck, Heart, BellRing } from 'lucide-react';
+import { Mail, Sparkles, CheckCircle2, X, Leaf, ShieldCheck, Heart, BellRing, Loader2 } from 'lucide-react';
 import { getCurrentGardenUser, autoSubscribeToNewsletter, loginGardenUser, sendWelcomeSignUpEmail, GardenUser } from '../lib/gardenAuthEngine';
+import { syncNewsletterSubscriptionToCloud } from '../lib/newsletterCloudSync';
 
 interface NewsletterProps {
   isOpen?: boolean;
@@ -14,6 +15,8 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
   const [currentUser, setCurrentUser] = useState<GardenUser | null>(() => getCurrentGardenUser());
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailDispatched, setEmailDispatched] = useState<boolean | null>(null);
   const [indoorChecked, setIndoorChecked] = useState(true);
   const [edibleChecked, setEdibleChecked] = useState(true);
   const [pestChecked, setPestChecked] = useState(true);
@@ -34,20 +37,38 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanEmail = email.trim().toLowerCase();
-    if (!cleanEmail || !cleanEmail.includes('@')) return;
+    if (!cleanEmail || !cleanEmail.includes('@') || isSubmitting) return;
 
+    setIsSubmitting(true);
     const user = currentUser || loginGardenUser(cleanEmail);
     autoSubscribeToNewsletter(cleanEmail, user.username);
-    await sendWelcomeSignUpEmail(user);
 
+    // Sync to Firestore & dispatch real welcome email through Hostinger PHP mailer
+    const result = await syncNewsletterSubscriptionToCloud({
+      email: cleanEmail,
+      username: user.username,
+      user,
+      preferences: {
+        indoor: indoorChecked,
+        edible: edibleChecked,
+        pests: pestChecked
+      },
+      source: isBannerOnly ? 'newsletter_banner' : 'newsletter_modal'
+    });
+
+    await sendWelcomeSignUpEmail(user);
+    setEmailDispatched(result.emailDispatched);
+    setIsSubmitting(false);
     setSubmitted(true);
+
     setTimeout(() => {
       if (onClose && !isBannerOnly) {
         onClose();
         setSubmitted(false);
         setEmail('');
+        setEmailDispatched(null);
       }
-    }, 3500);
+    }, 4500);
   };
 
   // 1. In-Page Section / Banner Form
@@ -78,9 +99,14 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
           )}
 
           {submitted ? (
-            <div className="p-4 rounded-2xl bg-emerald-700/80 border border-emerald-400/40 text-emerald-100 flex items-center justify-center gap-2 text-sm font-bold animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-300" />
-              <span>Welcome to The Garden Perks Family! Check your inbox for your free Aroid Soil Recipe guide.</span>
+            <div className="p-5 rounded-2xl bg-emerald-700/90 border border-emerald-400/50 text-emerald-100 text-center space-y-1.5 animate-in fade-in">
+              <div className="flex items-center justify-center gap-2 text-sm font-bold text-emerald-200">
+                <CheckCircle2 className="w-5 h-5 text-emerald-300" />
+                <span>Welcome to The Daily Sprout VIP Society!</span>
+              </div>
+              <p className="text-xs text-emerald-200/90 max-w-md mx-auto">
+                Your email is registered with our botanical society. We've dispatched your VIP welcome guide and Master Aroid Soil Blend recipe to <strong>{email}</strong>!
+              </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -88,16 +114,25 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
                 <input
                   type="email"
                   required
+                  disabled={isSubmitting}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your best gardening email..."
-                  className="flex-1 px-4 py-3.5 rounded-xl bg-white text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 font-medium"
+                  className="flex-1 px-4 py-3.5 rounded-xl bg-white text-slate-900 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 font-medium disabled:opacity-70"
                 />
                 <button
                   type="submit"
-                  className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all transform active:scale-95 whitespace-nowrap"
+                  disabled={isSubmitting}
+                  className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 disabled:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all transform active:scale-95 whitespace-nowrap flex items-center justify-center gap-2"
                 >
-                  Subscribe Free
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <span>Subscribe Free</span>
+                  )}
                 </button>
               </div>
 
@@ -151,10 +186,12 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
         </div>
 
         {submitted ? (
-          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-center space-y-2 animate-in fade-in">
+          <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-center space-y-2 animate-in fade-in">
             <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
-            <h4 className="text-sm font-bold">You're on the list!</h4>
-            <p className="text-xs text-emerald-700">Check your email shortly for your welcome botanical guide.</p>
+            <h4 className="text-base font-bold text-emerald-900">You're officially on the list!</h4>
+            <p className="text-xs text-emerald-700 leading-relaxed max-w-sm mx-auto">
+              We have dispatched your VIP welcome guide and Master Aroid Soil Blend recipe to <strong>{email}</strong>. Check your inbox (or spam folder)!
+            </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -171,10 +208,11 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
               <input
                 type="email"
                 required
+                disabled={isSubmitting}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="green.thumb@example.com"
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium bg-slate-50/50"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium bg-slate-50/50 disabled:opacity-70"
               />
             </div>
 
@@ -200,9 +238,17 @@ export default function GardenNewsletter({ isOpen, onClose, isBannerOnly }: News
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-black uppercase tracking-wider shadow-md shadow-emerald-700/20 transition-all transform active:scale-98"
+              disabled={isSubmitting}
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 disabled:opacity-60 text-white text-xs font-black uppercase tracking-wider shadow-md shadow-emerald-700/20 transition-all transform active:scale-98 flex items-center justify-center gap-2"
             >
-              Subscribe Free
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Subscribing & Dispatching Email...</span>
+                </>
+              ) : (
+                <span>Subscribe Free</span>
+              )}
             </button>
 
             <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400">

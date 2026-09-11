@@ -207,6 +207,20 @@ Dr. Flora & The Garden Perks Curatorial Board
     }
   }
 
+  // 2. Dispatch real email via Hostinger PHP mailer & save to Firestore
+  if (typeof window !== 'undefined' && navigator.onLine) {
+    import('./newsletterCloudSync')
+      .then(({ syncNewsletterSubscriptionToCloud }) => {
+        syncNewsletterSubscriptionToCloud({
+          email: user.email,
+          username: user.username,
+          user,
+          source: 'botanist_signup_welcome'
+        });
+      })
+      .catch((err) => console.warn('Newsletter cloud dispatch notice:', err));
+  }
+
   return {
     success: true,
     mailtoUrl,
@@ -241,6 +255,17 @@ export function autoSubscribeToNewsletter(email: string, username?: string): voi
       });
       localStorage.setItem(STORAGE_KEY_SUBSCRIBERS, JSON.stringify(subs));
     }
+
+    // Background Firestore cloud sync & Hostinger email dispatch
+    import('./newsletterCloudSync')
+      .then(({ syncNewsletterSubscriptionToCloud }) => {
+        syncNewsletterSubscriptionToCloud({
+          email: cleanEmail,
+          username: username || cleanEmail.split('@')[0],
+          source: 'botanist_auto_signup'
+        });
+      })
+      .catch((err) => console.warn('Auto-subscribe cloud notice:', err));
 
     // Broadcast subscriber event
     window.dispatchEvent(new CustomEvent('garden_newsletter_updated', { detail: { email: cleanEmail } }));
