@@ -359,7 +359,7 @@ export default function GreenhouseArchive({ plants }: GreenhouseArchiveProps) {
                 </h3>
                 <p className="text-xs text-slate-300 mt-1">
                   {webSearchResult.alreadyInCatalog && webSearchResult.existingPlant
-                    ? `This specimen is already registered in your Greenhouse library. We've automatically linked "${searchQuery}" as an alias so searching either name will match directly!`
+                    ? `This specimen is already registered in your Greenhouse encyclopedia.`
                     : "We found this specimen in botanical archives. Confirm below to add its studio photography & complete care profile to your catalogue."}
                 </p>
               </div>

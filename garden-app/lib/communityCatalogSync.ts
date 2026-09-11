@@ -76,7 +76,18 @@ export function initCommunityCatalogSync(onUpdate?: (plants: PlantCareGuide[]) =
       snapshot.forEach((doc) => {
         const data = doc.data() as PlantCareGuide;
         if (data && (data.commonName || data.scientificName)) {
-          cloudPlants.push(data);
+          const com = (data.commonName || '').toLowerCase();
+          const sci = (data.scientificName || '').toLowerCase();
+          let cleanAliases = data.aliases;
+          if (cleanAliases && Array.isArray(cleanAliases)) {
+            cleanAliases = cleanAliases.filter(a => {
+              const lowerA = (a || '').trim().toLowerCase();
+              if (lowerA === 'horse' && !com.includes('horse') && !sci.includes('horse')) return false;
+              if (lowerA === 'tree' || lowerA === 'plant' || lowerA === 'flower') return false;
+              return true;
+            });
+          }
+          cloudPlants.push({ ...data, aliases: cleanAliases });
         }
       });
 

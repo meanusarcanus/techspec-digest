@@ -68,6 +68,7 @@ export function isBotanicalWikipediaArticle(title: string, description?: string,
   // Strict disqualifiers: non-botanical entities that might contain the word "plant" or match user queries
   const nonPlantDisqualifiers = [
     /\b(?:nuclear|power|chemical|industrial|manufacturing|assembly|processing|treatment|filtration|desalination|cement|sewage|water treatment|cogeneration)\s+plant\b/i,
+    /\b(?:mammal|domesticated animal|ungulate|canine|feline|equine|bovine|bird species|reptile|amphibian|insect|arachnid|crustacean|fish species|vertebrate|invertebrate|chordate|animalia)\b/i,
     /\b(?:archaeological|historic district|historic site|open pit|mine|quarry|monument|ruins|petroglyph|mound)\b/i,
     /\b(?:album|song|single by|soundtrack|film|movie|tv series|television series|video game|novel|comic)\b/i,
     /\b(?:politician|actor|actress|footballer|athlete|businessman|musician|singer|author|director|born in)\b/i,
@@ -252,24 +253,6 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
     }
   }
 
-  // 0. Immediate Catalogue Check: if user is searching for something already in their collection
-  const immediateMatch = findMatchingPlantInCatalog(rawQuery);
-  if (immediateMatch) {
-    addAliasToExistingPlant(immediateMatch.id, rawQuery);
-    return {
-      commonName: immediateMatch.commonName,
-      scientificName: immediateMatch.scientificName,
-      family: immediateMatch.family,
-      description: immediateMatch.overview || `Botanical specimen of ${immediateMatch.commonName}.`,
-      imageUrl: immediateMatch.heroImage,
-      aliases: immediateMatch.aliases || [],
-      alreadyInCatalog: true,
-      existingPlant: immediateMatch,
-      matchedTerm: immediateMatch.commonName,
-      isPlant: true
-    };
-  }
-
   if (!terms.includes(rawQuery.trim())) {
     terms.push(rawQuery.trim());
   }
@@ -347,14 +330,11 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
 
           const { commonName: resolvedCommonName, aliases } = extractCommonNamesAndAliases(sumData.extract || '', sumData.title, rawQuery);
 
-          // Check if this plant is ALREADY in the catalogue!
+          // Check if this plant is ALREADY in the catalogue by scientific name or standard common name
           const existingPlant = findMatchingPlantInCatalog(sumData.title) || 
-                                findMatchingPlantInCatalog(rawQuery) || 
                                 findMatchingPlantInCatalog(resolvedCommonName);
 
           if (existingPlant) {
-            // Automatically attach user search query as alias so future catalogue lookups match instantly
-            addAliasToExistingPlant(existingPlant.id, rawQuery);
             return {
               commonName: existingPlant.commonName,
               scientificName: existingPlant.scientificName,
@@ -415,14 +395,13 @@ export async function searchBotanicalWebImage(rawQuery: string): Promise<Botanic
       for (const cand of candidates) {
         const existingPlant = findMatchingPlantInCatalog(cand);
         if (existingPlant) {
-          addAliasToExistingPlant(existingPlant.id, rawQuery);
           return {
             commonName: existingPlant.commonName,
             scientificName: existingPlant.scientificName,
             family: existingPlant.family,
             description: existingPlant.overview || `Specimen of ${existingPlant.commonName}.`,
             imageUrl: existingPlant.heroImage,
-            aliases: Array.from(new Set([...(existingPlant.aliases || []), rawQuery.trim().toLowerCase()])),
+            aliases: existingPlant.aliases || [],
             alreadyInCatalog: true,
             existingPlant,
             matchedTerm: existingPlant.commonName,

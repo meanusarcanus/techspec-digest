@@ -69,40 +69,28 @@ export function isSamePlant(a: PlantCareGuide, b: PlantCareGuide): boolean {
 
   const normA = normalize(a.commonName);
   const normB = normalize(b.commonName);
-  if (normA && normB) {
-    if (normA === normB) return true;
-    if (normA.includes(normB) || normB.includes(normA)) {
-      const wordsA = normA.split(' ');
-      const wordsB = normB.split(' ');
-      const commonWords = wordsA.filter(w => wordsB.includes(w) && w.length >= 3);
-      if (
-        commonWords.length >= 1 || 
-        (wordsA.includes('orchid') && wordsB.includes('orchid')) ||
-        (wordsA.includes('yucca') && wordsB.includes('yucca'))
-      ) {
-        return true;
-      }
-    }
-  }
+  if (normA && normB && normA === normB) return true;
 
-  // Cross-reference aliases and genus
-  const aliasesA = (a.aliases || []).map(normalize);
-  const aliasesB = (b.aliases || []).map(normalize);
+  // Clean base common names without parenthetical additions
+  const baseA = normalize(a.commonName.replace(/\s*\(.*?\)\s*/g, ''));
+  const baseB = normalize(b.commonName.replace(/\s*\(.*?\)\s*/g, ''));
+  if (baseA && baseB && baseA === baseB) return true;
 
-  if (normB && (aliasesA.includes(normB) || aliasesA.some(al => al.includes(normB) || normB.includes(al)))) return true;
-  if (normA && (aliasesB.includes(normA) || aliasesB.some(al => al.includes(normA) || normA.includes(al)))) return true;
+  // Cross-reference aliases: EXACT match only
+  const aliasesA = (a.aliases || []).map(normalize).filter(Boolean);
+  const aliasesB = (b.aliases || []).map(normalize).filter(Boolean);
+
+  if (normB && aliasesA.includes(normB)) return true;
+  if (normA && aliasesB.includes(normA)) return true;
+  if (baseB && aliasesA.includes(baseB)) return true;
+  if (baseA && aliasesB.includes(baseA)) return true;
   if (sciB && aliasesA.includes(sciB)) return true;
   if (sciA && aliasesB.includes(sciA)) return true;
 
-  // Cross-match shared aliases
-  if (aliasesA.some(alA => alA.length >= 3 && aliasesB.includes(alA))) return true;
-
-  // Check if genus name appears in common names or aliases
-  if (genusA && genusA.length >= 4) {
-    if (normB.includes(genusA) || aliasesB.some(al => al.includes(genusA))) return true;
-  }
-  if (genusB && genusB.length >= 4) {
-    if (normA.includes(genusB) || aliasesA.some(al => al.includes(genusB))) return true;
+  // Cross-match shared exact aliases (excluding generic words)
+  const genericWords = new Set(['plant', 'tree', 'flower', 'leaf', 'herb', 'shrub', 'vine', 'grass', 'moss', 'fern', 'succulent', 'flora']);
+  if (aliasesA.some(alA => alA.length >= 4 && !genericWords.has(alA) && aliasesB.includes(alA))) {
+    return true;
   }
 
   return false;
@@ -192,7 +180,21 @@ export function purgeDuplicateCatalogEntries(): { beforeCount: number; afterCoun
           aliases
         };
       }
-      return plant;
+      // Clean up polluted aliases like 'horse' or single generic words that don't belong to the plant
+      let cleanAliases = plant.aliases;
+      if (cleanAliases && Array.isArray(cleanAliases)) {
+        cleanAliases = cleanAliases.filter((a: string) => {
+          const lowerA = (a || '').trim().toLowerCase();
+          if (lowerA === 'horse' && !com.includes('horse') && !sci.includes('horse')) return false;
+          if (lowerA === 'tree' || lowerA === 'plant' || lowerA === 'flower') return false;
+          return true;
+        });
+      }
+
+      return {
+        ...plant,
+        aliases: cleanAliases
+      };
     });
 
     // 2. Filter out any custom plant that is an identical or redundant copy of a core guide
@@ -307,13 +309,14 @@ export function saveCustomPlantToCatalog(plant: PlantCareGuide): void {
 
 /**
  * Checks if a plant with the given query, scientific name, or common name already exists in the catalogue.
+ * Uses exact match and base common name comparison. NEVER does loose substring matching on partial words.
  */
 export function findMatchingPlantInCatalog(queryOrScientific: string): PlantCareGuide | undefined {
   const all = getAllPlantGuides();
   const q = queryOrScientific.trim().toLowerCase();
   if (!q) return undefined;
   
-  // 1. Exact match pass
+  // 1. Exact match pass: scientificName, commonName, slug, id, or alias
   const exact = all.find(p => {
     if (p.scientificName && p.scientificName.trim().toLowerCase() === q) return true;
     if (p.commonName && p.commonName.trim().toLowerCase() === q) return true;
@@ -324,31 +327,25 @@ export function findMatchingPlantInCatalog(queryOrScientific: string): PlantCare
   });
   if (exact) return exact;
 
-  // 2. Substring match pass (if query is at least 3 characters)
-  if (q.length >= 3) {
-    const sub = all.find(p => {
-      const commonLower = p.commonName.toLowerCase();
-      const sciLower = p.scientificName.toLowerCase();
-      if (commonLower.includes(q) || q.includes(commonLower)) return true;
-      if (sciLower.includes(q) || q.includes(sciLower)) return true;
-      if (p.aliases && p.aliases.some(a => a.toLowerCase().includes(q) || q.includes(a.toLowerCase()))) return true;
-      return false;
+  // 2. Normalized primary common name match (ignoring parenthetical nicknames like "(Adam's Needle)" or "(Moringga)")
+  const cleanQ = q.replace(/\s*\(.*?\)\s*/g, '').trim();
+  if (cleanQ.length >= 3) {
+    const primaryMatch = all.find(p => {
+      const cleanCommon = p.commonName.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
+      return cleanCommon === cleanQ;
     });
-    if (sub) return sub;
+    if (primaryMatch) return primaryMatch;
+  }
 
-    // 3. Genus match pass (e.g. "yucca", "ficus", "monstera", "orchid")
-    const cleanWord = q.split(/\s+/)[0].replace(/[^a-z]/g, '');
-    if (cleanWord.length >= 4) {
-      const genusMatch = all.find(p => {
-        const sciGenus = p.scientificName.trim().toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g, '');
-        const comWords = p.commonName.toLowerCase().split(/\s+/).map(w => w.replace(/[^a-z]/g, ''));
-        if (sciGenus === cleanWord) return true;
-        if (comWords.includes(cleanWord)) return true;
-        if (p.aliases && p.aliases.some(a => a.toLowerCase().includes(cleanWord))) return true;
-        return false;
-      });
-      if (genusMatch) return genusMatch;
-    }
+  // 3. Strict Genus match pass: applies only when query is a single Latin genus word (e.g. "yucca", "ficus", "monstera", "wrightia")
+  const words = q.split(/\s+/).filter(Boolean);
+  if (words.length === 1 && words[0].length >= 4) {
+    const singleWord = words[0].replace(/[^a-z]/g, '');
+    const genusMatch = all.find(p => {
+      const sciGenus = p.scientificName.trim().toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g, '');
+      return sciGenus === singleWord;
+    });
+    if (genusMatch) return genusMatch;
   }
 
   return undefined;

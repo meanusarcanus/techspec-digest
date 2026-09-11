@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://meanusarcanus.github.io/techspec-digest/garden-perks/</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://garden.theodisius.com/</loc>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://meanusarcanus.github.io/techspec-digest/garden-perks/greenhouse</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://garden.theodisius.com/greenhouse/</loc>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://meanusarcanus.github.io/techspec-digest/garden-perks/clinic</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://garden.theodisius.com/clinic/</loc>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://meanusarcanus.github.io/techspec-digest/garden-perks/greenhouse?category=Indoor</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://garden.theodisius.com/greenhouse/?category=Indoor</loc>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://meanusarcanus.github.io/techspec-digest/garden-perks/greenhouse?category=Ornamental</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://garden.theodisius.com/greenhouse/?category=Ornamental</loc>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://meanusarcanus.github.io/techspec-digest/garden-perks/greenhouse?category=Edible</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://garden.theodisius.com/greenhouse/?category=Edible</loc>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://meanusarcanus.github.io/techspec-digest/garden-perks/greenhouse?category=Succulents</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://garden.theodisius.com/greenhouse/?category=Succulents</loc>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
