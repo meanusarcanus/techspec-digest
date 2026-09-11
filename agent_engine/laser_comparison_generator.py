@@ -34,7 +34,7 @@ COMPARISON_PAIRS = [
         "m1_id": "xtool-p2",
         "m2_id": "omtech-60w-co2-cabinet",
         "title": "xTool P2 vs OMTech 60W Cabinet: Smart Desktop vs Commercial Workhorse",
-        "subtitle": "Compact Enclosed 55W Desktop vs Industrial 20x28\" Ruida Cabinet: Sign Shop Production Analysis",
+        "subtitle": "Compact Enclosed 55W Desktop vs Industrial 20x28-inch Ruida Cabinet: Sign Shop Production Analysis",
         "primary_keyword": "xtool p2 vs omtech 60w",
         "secondary_keywords": ["commercial co2 laser cutter", "ruida vs xcs", "large bed laser cutter"]
     },
@@ -58,7 +58,7 @@ COMPARISON_PAIRS = [
         "m1_id": "omtech-polar-50w",
         "m2_id": "omtech-60w-co2-cabinet",
         "title": "OMTech Polar vs OMTech 60W Cabinet: Desktop Crafting vs Industrial Fabrication",
-        "subtitle": "Compact 50W Studio Laser vs Heavy-Duty 20\" x 28\" Floor Unit: Bed Drop, Pass-Through, and Chiller Setup",
+        "subtitle": "Compact 50W Studio Laser vs Heavy-Duty 20 x 28 inch Floor Unit: Bed Drop, Pass-Through, and Chiller Setup",
         "primary_keyword": "omtech polar vs 60w co2",
         "secondary_keywords": ["omtech laser comparison", "omtech polar vs mf2028", "best omtech laser for sign shop"]
     }
@@ -76,7 +76,7 @@ def generate_comparison_markdown(pair: Dict[str, Any], machines_by_id: Dict[str,
 title: "{pair['title']}"
 date: {now_iso}
 draft: false
-description: "{pair['subtitle']}. In-depth technical comparison of cutting depths, engraving speeds, LightBurn integration, and commercial workshop ROI."
+description: "{pair['subtitle'].replace('"', '\\"')}. In-depth technical comparison of cutting depths, engraving speeds, LightBurn integration, and commercial workshop ROI."
 slug: "{slug}"
 categories: ["Laser Cutters & CNC", "Hardware Comparisons"]
 tags: {json.dumps(pair['secondary_keywords'] + [pair['primary_keyword'], m1['brand'].lower(), m2['brand'].lower()])}

@@ -2,7 +2,7 @@
 title: "xTool P2 vs OMTech 60W Cabinet: Smart Desktop vs Commercial Workhorse"
 date: 2026-09-11T15:29:11Z
 draft: false
-description: "Compact Enclosed 55W Desktop vs Industrial 20x28" Ruida Cabinet: Sign Shop Production Analysis. In-depth technical comparison of cutting depths, engraving speeds, LightBurn integration, and commercial workshop ROI."
+description: "Compact Enclosed 55W Desktop vs Industrial 20x28\" Ruida Cabinet: Sign Shop Production Analysis. In-depth technical comparison of cutting depths, engraving speeds, LightBurn integration, and commercial workshop ROI."
 slug: "xtool-p2-vs-omtech-60w-cabinet-smart-desktop-vs-commercial-workhorse"
 categories: ["Laser Cutters & CNC", "Hardware Comparisons"]
 tags: ["commercial co2 laser cutter", "ruida vs xcs", "large bed laser cutter", "xtool p2 vs omtech 60w", "xtool", "omtech"]
