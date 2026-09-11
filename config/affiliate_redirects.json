@@ -1,0 +1,26 @@
+{
+  "xtool-p2": {
+    "title": "xTool P2 55W Desktop CO2 Laser",
+    "destination": "https://www.xtool.com/products/xtool-p2-55w-co2-laser-cutter?ref=theodisius"
+  },
+  "omtech-polar": {
+    "title": "OMTech Polar 50W Desktop CO2 Laser",
+    "destination": "https://omtechlaser.com/products/polar-50w-desktop-laser-cutter?ref=theodisius"
+  },
+  "xtool-f1-ultra": {
+    "title": "xTool F1 Ultra Dual Fiber & Diode Laser",
+    "destination": "https://www.xtool.com/products/xtool-f1-ultra-20w-fiber-20w-diode-dual-laser-engraver?ref=theodisius"
+  },
+  "omtech-mopa-fiber": {
+    "title": "OMTech 30W MOPA Fiber Laser Engraver",
+    "destination": "https://omtechlaser.com/collections/fiber-laser-machines?ref=theodisius"
+  },
+  "xtool-s1-40w": {
+    "title": "xTool S1 40W Enclosed Diode Laser Cutter",
+    "destination": "https://www.xtool.com/products/xtool-s1-laser-cutter?ref=theodisius"
+  },
+  "omtech-60w-cabinet": {
+    "title": "OMTech MF2028 60W CO2 Laser Machine",
+    "destination": "https://omtechlaser.com/collections/co2-laser-engravers?ref=theodisius"
+  }
+}

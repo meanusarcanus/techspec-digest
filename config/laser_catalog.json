@@ -1,0 +1,362 @@
+{
+  "vertical": "industrial_laser_cutters",
+  "name": "High-Ticket Commercial Laser & CNC Machines",
+  "updated_at": "2026-09-11",
+  "default_commission_rate": "5% - 7%",
+  "machines": [
+    {
+      "id": "xtool-p2",
+      "name": "xTool P2 55W Desktop CO2 Laser",
+      "brand": "xTool",
+      "laser_type": "CO2 (Glass Tube)",
+      "wavelength": "10,640 nm",
+      "optical_power": "55W",
+      "working_area_mm": "600 x 308 mm",
+      "working_area_in": "23.6\" x 12.1\"",
+      "max_workpiece_height_mm": "71 mm (215 mm with Riser Base)",
+      "max_engrave_speed_mms": 600,
+      "camera_system": "Dual 16MP Cameras (Panoramic + Close-Range Autofocus)",
+      "curved_surface_3d": true,
+      "pass_through": "Yes (Front & Rear + Automated Conveyor Feeder)",
+      "cooling_system": "Built-in Closed-Loop Water Chiller & Thermal Sensor",
+      "safety_class": "Class 1 (Fully enclosed, auto-lock lid, flame detection)",
+      "software_support": [
+        "xTool Creative Space (XCS)",
+        "LightBurn (DSP Official)"
+      ],
+      "air_assist": "Built-in Automatic 30 L/min Air Assist Pump",
+      "rotary_support": "RA2 Pro 4-in-1 Roller/Chuck Rotary",
+      "max_cut_depth": {
+        "wood": "18 mm Black Walnut / 20 mm Paulownia",
+        "cast_acrylic": "20 mm Clear/Colored Acrylic (Single Pass)",
+        "leather": "6 mm Genuine Leather",
+        "metal": "Marks coated/painted metals only (No bare metal cutting)"
+      },
+      "compatible_materials": [
+        "Clear/Colored Cast Acrylic",
+        "All Wood & Plywood",
+        "Leather",
+        "Glass",
+        "Rubber",
+        "Fabric",
+        "Stone/Ceramic",
+        "Anodized/Coated Metal"
+      ],
+      "incompatible_materials": [
+        "Raw Bare Silver/Gold/Copper",
+        "PVC/Vinyl (Corrosive Cl2 gas)"
+      ],
+      "msrp_usd": 4999,
+      "typical_sale_price_usd": 4199,
+      "commission_est_usd": 210,
+      "affiliate_slug": "xtool-p2",
+      "target_users": "Signmakers, custom merchandise businesses, acrylic crafters, prototyping labs",
+      "pros": [
+        "Cuts transparent cast acrylic with mirror-polished edges",
+        "Dual 16MP camera system with real-time drag-and-drop preview",
+        "Exclusive 3D curved surface modeling for convex/concave objects",
+        "Automated continuous conveyor feeder supports 118-inch banners",
+        "Official native LightBurn DSP profile out of the box"
+      ],
+      "cons": [
+        "Heavy unit (45 kg / 99 lbs) requiring a sturdy workshop workbench",
+        "Glass CO2 tube has ~6,000\u20138,000 hour operational lifespan",
+        "Higher initial price point compared to open-gantry diode kits"
+      ]
+    },
+    {
+      "id": "omtech-polar-50w",
+      "name": "OMTech Polar 50W Desktop CO2 Laser",
+      "brand": "OMTech",
+      "laser_type": "CO2 (Glass Tube)",
+      "wavelength": "10,640 nm",
+      "optical_power": "50W",
+      "working_area_mm": "510 x 300 mm",
+      "working_area_in": "20.1\" x 11.8\"",
+      "max_workpiece_height_mm": "50 mm (Tray in) / 70 mm (Tray removed)",
+      "max_engrave_speed_mms": 500,
+      "camera_system": "Single 5MP Overhead Panoramic Camera",
+      "curved_surface_3d": false,
+      "pass_through": "No (Fully sealed chassis for compact desktop safety)",
+      "cooling_system": "Built-in Internal Water Chiller",
+      "safety_class": "Class 1 (Fully enclosed with magnetic safety interlocks)",
+      "software_support": [
+        "LightBurn (Native Ruida DSP)",
+        "Gweike Cloud / Web UI"
+      ],
+      "air_assist": "Built-in Internal Air Assist Pump",
+      "rotary_support": "Includes 2 Rotary Attachments (Roller + Chuck) in Box",
+      "max_cut_depth": {
+        "wood": "12 mm Birch Plywood",
+        "cast_acrylic": "15 mm Cast Acrylic",
+        "leather": "4 mm Leather",
+        "metal": "Marks coated/anodized metal with laser spray"
+      },
+      "compatible_materials": [
+        "Clear/Colored Cast Acrylic",
+        "Plywood & Hardwood",
+        "Leather",
+        "Glass",
+        "Slate/Stone",
+        "Paper/Cardstock"
+      ],
+      "incompatible_materials": [
+        "Bare Metals",
+        "PVC/Polycarbonate"
+      ],
+      "msrp_usd": 2999,
+      "typical_sale_price_usd": 2599,
+      "commission_est_usd": 155,
+      "affiliate_slug": "omtech-polar",
+      "target_users": "Home hobbyists, Etsy craft shops, compact studio workshops, boutique gift makers",
+      "pros": [
+        "Exceptional price-to-performance for a 50W desktop CO2 unit",
+        "Bundles two rotary attachments and an external exhaust fan in the base box",
+        "Clean, modern form factor (similar to Glowforge Pro but with higher power)",
+        "Direct Ruida DSP controller fully supported by LightBurn",
+        "Quiet built-in internal water cooling"
+      ],
+      "cons": [
+        "Single 5MP camera suffers slight fisheye lens distortion at bed margins",
+        "No pass-through slot limits oversized signage projects",
+        "Z-axis height adjustment requires manual removal of honeycomb slats"
+      ]
+    },
+    {
+      "id": "xtool-f1-ultra",
+      "name": "xTool F1 Ultra 20W Fiber & 20W Diode Galvo",
+      "brand": "xTool",
+      "laser_type": "Dual Galvo: 20W MPO Fiber (1064nm) + 20W Blue Diode (455nm)",
+      "wavelength": "1064 nm (Fiber) & 455 nm (Diode)",
+      "optical_power": "20W Fiber + 20W Diode (40W Combined Output)",
+      "working_area_mm": "220 x 220 mm (Expandable to 220 x 500 mm with Auto Conveyor)",
+      "working_area_in": "8.7\" x 8.7\" (8.7\" x 19.7\" with Conveyor)",
+      "max_workpiece_height_mm": "120 mm",
+      "max_engrave_speed_mms": 10000,
+      "camera_system": "High-Speed 16MP Autofocus Galvo Camera",
+      "curved_surface_3d": true,
+      "pass_through": "Yes (Automated Industrial Conveyor Belt Mode)",
+      "cooling_system": "Air-Cooled Solid-State Core (Zero maintenance)",
+      "safety_class": "Class 1 (Enclosed protective hood with auto-pause)",
+      "software_support": [
+        "xTool Creative Space (XCS)",
+        "LightBurn (Galvo Profile)"
+      ],
+      "air_assist": "Optional high-pressure air nozzle & extraction",
+      "rotary_support": "RA2 Pro rotary & smart chuck jig",
+      "max_cut_depth": {
+        "wood": "15 mm Basswood (Diode mode)",
+        "cast_acrylic": "12 mm Dark/Black Acrylic (Diode mode)",
+        "leather": "4 mm Leather",
+        "metal": "Deep engraving + cuts 0.4 mm brass/stainless sheet metal (Fiber mode)"
+      },
+      "compatible_materials": [
+        "ALL Metals (Gold, Silver, Platinum, Brass, Stainless, Titanium)",
+        "Plastics & Acrylic (Diode for dark)",
+        "Wood",
+        "Leather",
+        "Ceramic/Slate"
+      ],
+      "incompatible_materials": [
+        "Clear/Transparent Acrylic (Requires CO2 10,640nm wavelength)"
+      ],
+      "msrp_usd": 4799,
+      "typical_sale_price_usd": 3999,
+      "commission_est_usd": 240,
+      "affiliate_slug": "xtool-f1-ultra",
+      "target_users": "Jewelers, gunsmiths, commercial tumbler makers, event pop-up personalization, industrial metal nameplates",
+      "pros": [
+        "Blistering 10,000 mm/s galvanometer speed (engraves metal coins in 4 seconds)",
+        "Dual laser technology: fiber for bare metals/jewelry, diode for wood/leather in ONE machine",
+        "Automated batch conveyor processes 50 custom tumblers or dog tags unattended",
+        "True deep metal engraving and color marking on titanium/stainless steel",
+        "Solid-state fiber source lasts 100,000+ operating hours with zero water chiller maintenance"
+      ],
+      "cons": [
+        "Cannot cut transparent clear or translucent neon acrylics (diode/fiber passes straight through)",
+        "Smaller native bed area than gantry CO2 cutters",
+        "Premium initial investment for small craft hobbies"
+      ]
+    },
+    {
+      "id": "omtech-mopa-fiber-30w",
+      "name": "OMTech 30W MOPA Fiber Laser Engraver",
+      "brand": "OMTech",
+      "laser_type": "MOPA Fiber Laser (Galvo)",
+      "wavelength": "1064 nm",
+      "optical_power": "30W (JPT M7 MOPA Source)",
+      "working_area_mm": "175 x 175 mm (Standard) / Up to 300 x 300 mm Lens",
+      "working_area_in": "6.9\" x 6.9\" / 11.8\" x 11.8\"",
+      "max_workpiece_height_mm": "300 mm Column Travel",
+      "max_engrave_speed_mms": 7000,
+      "camera_system": "Manual red-dot focus pointer / Optional EZCAD positioning",
+      "curved_surface_3d": false,
+      "pass_through": "Open-chassis workstation (Unlimited length pass)",
+      "cooling_system": "Forced Air Cooling (No water chiller needed)",
+      "safety_class": "Class 4 (Open Galvo; requires OD6+ 1064nm safety goggles)",
+      "software_support": [
+        "LightBurn (Galvo DSP License)",
+        "EZCAD 2.0 / EZCAD 3.0"
+      ],
+      "air_assist": "Not required for metal marking; optional fume evacuator",
+      "rotary_support": "Industrial Chuck Rotary Attachment included with package",
+      "max_cut_depth": {
+        "wood": "Not recommended (causes charring without clean cut)",
+        "cast_acrylic": "Surface marking on dark plastics only",
+        "leather": "Marking only",
+        "metal": "Deep 1.5 mm relief engraving on tool steel, cuts 0.5 mm brass foil"
+      },
+      "compatible_materials": [
+        "All Raw Metals",
+        "Titanium (Vibrant Color Oxide Marking)",
+        "Stainless Steel (Color Spectrum)",
+        "Aluminum",
+        "Brass",
+        "Copper",
+        "Tungsten",
+        "Hard Plastics"
+      ],
+      "incompatible_materials": [
+        "Wood cutting",
+        "Clear Acrylic",
+        "Glass cutting"
+      ],
+      "msrp_usd": 3899,
+      "typical_sale_price_usd": 3499,
+      "commission_est_usd": 210,
+      "affiliate_slug": "omtech-mopa-fiber",
+      "target_users": "Firearm customization shops, knife makers, serial number UID tag manufacturers, precision toolmakers",
+      "pros": [
+        "JPT M7 MOPA source allows variable pulse duration (1\u2013500 ns) for rich color marking on stainless & titanium",
+        "Extreme precision down to 0.001 mm line width for micro-barcodes and 2D matrix codes",
+        "Direct fiber optic beam delivery lasts 100,000 hours with no mirror alignment ever",
+        "Open industrial frame accommodates large custom fixtures, motor blocks, and gun lowers",
+        "Unbeatable speed for industrial metal batch manufacturing"
+      ],
+      "cons": [
+        "Class 4 open laser requires dedicated safety room and strict eye protection",
+        "Cannot be used as a primary wood or clear acrylic laser cutter",
+        "Steeper learning curve configuring pulse frequency and speed parameters"
+      ]
+    },
+    {
+      "id": "xtool-s1-40w",
+      "name": "xTool S1 40W Enclosed Diode Laser Cutter",
+      "brand": "xTool",
+      "laser_type": "Compressed Diode Laser Array (4x 10W Beam Compression)",
+      "wavelength": "455 nm",
+      "optical_power": "40W",
+      "working_area_mm": "498 x 319 mm",
+      "working_area_in": "19.6\" x 12.5\"",
+      "max_workpiece_height_mm": "42 mm (125 mm with Riser)",
+      "max_engrave_speed_mms": 600,
+      "camera_system": "Twin-point Pin-point Intelligent Coordinate Positioning (No camera distortion)",
+      "curved_surface_3d": true,
+      "pass_through": "Yes (Front & Back Slots for boards up to 3000 mm)",
+      "cooling_system": "Solid-State Fan Air Cooling",
+      "safety_class": "Class 1 (Certified fully enclosed with eye-safe lid window)",
+      "software_support": [
+        "xTool Creative Space (XCS)",
+        "LightBurn (GCode)"
+      ],
+      "air_assist": "Smart Automatic Air Assist Pump (Included in bundle)",
+      "rotary_support": "RA2 Pro Rotary Chuck & Roller",
+      "max_cut_depth": {
+        "wood": "18 mm Solid Pine / 15 mm Basswood",
+        "cast_acrylic": "15 mm Opaque Black / Dark Acrylic",
+        "leather": "5 mm Leather",
+        "metal": "Direct engraving on stainless steel and coated metals"
+      },
+      "compatible_materials": [
+        "Wood & Plywood",
+        "Dark/Opaque Acrylics",
+        "Leather",
+        "Slate/Stone",
+        "Glass (with dark laser paper)",
+        "Anodized Aluminum",
+        "Stainless Steel marking"
+      ],
+      "incompatible_materials": [
+        "Clear/Transparent Acrylic",
+        "White/Blue Acrylic (Blue 455nm light bounces off)",
+        "Bare Copper/Gold"
+      ],
+      "msrp_usd": 2499,
+      "typical_sale_price_usd": 1999,
+      "commission_est_usd": 120,
+      "affiliate_slug": "xtool-s1-40w",
+      "target_users": "Woodworkers, makerspace educators, home crafters wanting Class 1 safety without CO2 water maintenance",
+      "pros": [
+        "Certified Class 1 enclosed safety without requiring a dedicated exhaust room",
+        "Zero water chiller hassle (solid-state diode runs completely dry)",
+        "Pin-point marker system eliminates camera calibration drift forever",
+        "Interchangeable laser heads: swap from 40W diode to 2W 1064nm metal head in 60 seconds",
+        "Cuts 18mm solid timber in a single slow pass"
+      ],
+      "cons": [
+        "Cannot cut clear, transparent, or light blue acrylics due to blue diode wavelength physics",
+        "Slower cutting speed on thick materials compared to 55W CO2",
+        "Larger focal spot size (0.08 x 0.10 mm) than dedicated fiber galvos"
+      ]
+    },
+    {
+      "id": "omtech-60w-co2-cabinet",
+      "name": "OMTech MF2028 60W Mid-Size CO2 Laser",
+      "brand": "OMTech",
+      "laser_type": "CO2 (Glass Tube)",
+      "wavelength": "10,640 nm",
+      "optical_power": "60W",
+      "working_area_mm": "500 x 700 mm",
+      "working_area_in": "20\" x 28\"",
+      "max_workpiece_height_mm": "230 mm Motorized Z-Table Travel",
+      "max_engrave_speed_mms": 600,
+      "camera_system": "Manual red dot alignment (Optional LightBurn camera mountable)",
+      "curved_surface_3d": false,
+      "pass_through": "4-Way Pass-Through Doors (Front, Back, Left, Right)",
+      "cooling_system": "Requires External Industrial Water Chiller (CW-3000 / CW-5000 recommended)",
+      "safety_class": "Class 3R/4 depending on pass-through door usage",
+      "software_support": [
+        "LightBurn (Ruida Controller)",
+        "RDWorks V8"
+      ],
+      "air_assist": "Included industrial diaphragm air compressor",
+      "rotary_support": "Includes 4-Wheel Rotary Tool",
+      "max_cut_depth": {
+        "wood": "15 mm Hardwood / Plywood",
+        "cast_acrylic": "20 mm Clear & Colored Cast Acrylic",
+        "leather": "8 mm Saddlery Leather",
+        "metal": "Marks treated metals with Cermark/Enduramark spray"
+      },
+      "compatible_materials": [
+        "Clear/Colored Cast Acrylic",
+        "Plywood & Timber",
+        "Leather",
+        "Glass",
+        "Rubber Stamps",
+        "Fabric",
+        "Stone"
+      ],
+      "incompatible_materials": [
+        "Bare Metals",
+        "PVC/Vinyl"
+      ],
+      "msrp_usd": 3299,
+      "typical_sale_price_usd": 2799,
+      "commission_est_usd": 170,
+      "affiliate_slug": "omtech-60w-cabinet",
+      "target_users": "Commercial sign shops, architectural modelers, furniture makers needing large 20x28\" bed",
+      "pros": [
+        "Massive 20\" x 28\" working bed handles full quarter-sheet plywood boards",
+        "4-way pass-through doors allow unlimited length and wide roll feed",
+        "Full Ruida commercial DSP controller handles complex vector cut files offline",
+        "Huge 230mm (9\") motorized bed drop easily fits large wooden boxes and wine bottles",
+        "Commercial-grade linear guide rails deliver high rigidity and durability"
+      ],
+      "cons": [
+        "Requires large workshop floor footprint (150 kg / 330 lbs floor unit)",
+        "Must be paired with a CW-5000 refrigerated water chiller for heavy duty production",
+        "Lacks built-in smart camera alignment out of the box"
+      ]
+    }
+  ]
+}
