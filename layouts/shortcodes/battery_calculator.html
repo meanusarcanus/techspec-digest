@@ -295,8 +295,8 @@
         </p>
       </div>
 
-      <!-- CTA Affiliate Action -->
-      <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
+      <!-- Dual Action: Affiliate Order vs. Local Professional Quote -->
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
         <div style="font-size: 0.85rem; color: #94a3b8;">
           🔒 Ships with manufacturer direct 5-10 year warranty &amp; official UL9540A safety certifications.
         </div>
@@ -304,8 +304,179 @@
           Check Official ${data.rec.brand} System Pricing &rarr;
         </a>
       </div>
+
+      <!-- PAY-PER-LEAD (PPL) CONTRACTOR QUOTE & TAX REBATE ENGINE -->
+      <div style="border-top: 1px dashed #334155; padding-top: 1.75rem;">
+        <div style="background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border: 2px solid #0284c7; border-radius: 16px; padding: 1.75rem; box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.25);">
+          
+          <div style="margin-bottom: 1.25rem;">
+            <span style="background: rgba(2, 132, 199, 0.2); color: #38bdf8; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.75rem; border-radius: 9999px; display: inline-block; border: 1px solid rgba(56, 189, 248, 0.4); margin-bottom: 0.5rem;">
+              🛠️ Need Professional 240V Installation &amp; Permitting?
+            </span>
+            <h4 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0 0 0.35rem 0;">
+              Request Free Certified Installer Quotes &amp; Local Tax Rebate Sheet
+            </h4>
+            <p style="color: #94a3b8; font-size: 0.88rem; margin: 0; line-height: 1.5;">
+              Connect with licensed clean energy technicians in your area to assess main electrical panel compatibility, permit filing, and calculate your 30% Federal Clean Energy Tax Credit (estimated <strong>-$${data.taxCreditSavings.toLocaleString()}</strong> savings).
+            </p>
+          </div>
+
+          <!-- Interactive Quote Form -->
+          <form id="ppl-lead-form" onsubmit="window.submitBatteryLead(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+            <input type="hidden" id="lead-system-kwh" value="${data.totalKwhNeeded}">
+            <input type="hidden" id="lead-continuous-kw" value="${(data.totalContinuousW / 1000).toFixed(2)}">
+            <input type="hidden" id="lead-max-surge-kw" value="${(data.maxSurgeW / 1000).toFixed(1)}">
+            <input type="hidden" id="lead-requires-240v" value="${data.requires240V}">
+            <input type="hidden" id="lead-recommended-hardware" value="${data.rec.name}">
+            <input type="hidden" id="lead-duration-hours" value="${data.durationHours} Hours">
+            <input type="hidden" id="lead-tax-savings" value="$${data.taxCreditSavings.toLocaleString()}">
+
+            <div>
+              <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; margin-bottom: 0.35rem;">
+                Your US Zip Code *
+              </label>
+              <input type="text" id="lead-zip" required pattern="[0-9]{5}" maxlength="5" placeholder="e.g. 78701" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #ffffff; font-size: 0.9rem; font-weight: 600;">
+            </div>
+
+            <div>
+              <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; margin-bottom: 0.35rem;">
+                Property Status *
+              </label>
+              <select id="lead-ownership" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #ffffff; font-size: 0.9rem; font-weight: 600;">
+                <option value="Homeowner (Own)" selected>Homeowner (Single Family / Townhouse)</option>
+                <option value="Commercial Business">Commercial / Small Business</option>
+                <option value="Renter">Renter (Portable / Non-hardwired)</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; margin-bottom: 0.35rem;">
+                Avg Monthly Electric Bill
+              </label>
+              <select id="lead-bill" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #ffffff; font-size: 0.9rem; font-weight: 600;">
+                <option value="$150 - $250 / mo">$150 - $250 / month</option>
+                <option value="$250 - $400 / mo" selected>$250 - $400 / month</option>
+                <option value="$400 - $600 / mo">$400 - $600 / month</option>
+                <option value="$600+ / mo">$600+ / month (High Usage Home)</option>
+              </select>
+            </div>
+
+            <div>
+              <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; margin-bottom: 0.35rem;">
+                Full Name *
+              </label>
+              <input type="text" id="lead-fullname" required placeholder="First &amp; Last Name" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #ffffff; font-size: 0.9rem;">
+            </div>
+
+            <div>
+              <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; margin-bottom: 0.35rem;">
+                Email Address *
+              </label>
+              <input type="email" id="lead-email" required placeholder="you@domain.com" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #ffffff; font-size: 0.9rem;">
+            </div>
+
+            <div>
+              <label style="display: block; font-size: 0.75rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; margin-bottom: 0.35rem;">
+                Phone Number * (For Quote Sizing)
+              </label>
+              <input type="tel" id="lead-phone" required placeholder="(555) 000-0000" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #ffffff; font-size: 0.9rem;">
+            </div>
+
+            <div style="grid-column: 1 / -1; margin-top: 0.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+              <div style="font-size: 0.78rem; color: #94a3b8; display: flex; align-items: center; gap: 0.6rem;">
+                <span>🔒 100% Free Service</span> • <span>Zero Obligation</span> • <span>No Spam Guarantee</span>
+              </div>
+              <button type="submit" id="ppl-submit-btn" style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; font-weight: 800; font-size: 0.95rem; padding: 0.85rem 1.85rem; border-radius: 10px; border: none; cursor: pointer; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); transition: transform 0.15s ease;">
+                ⚡ Request 3 Certified Installer Estimates &rarr;
+              </button>
+            </div>
+          </form>
+
+          <!-- Success Confirmation Card -->
+          <div id="ppl-success-box" style="display: none; background: rgba(16, 185, 129, 0.12); border: 1px solid #10b981; border-radius: 12px; padding: 1.75rem; text-align: center; margin-top: 0.5rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.25rem;">✅</div>
+            <h4 style="color: #34d399; font-size: 1.35rem; font-weight: 800; margin: 0 0 0.5rem 0;">
+              Sizing Specifications Transmitted Successfully!
+            </h4>
+            <p style="color: #cbd5e1; font-size: 0.92rem; margin: 0; line-height: 1.6; max-width: 580px; margin: 0 auto;">
+              Your reference ID is <strong id="ppl-lead-id-display" style="color: #38bdf8; font-family: monospace;"></strong>. A local clean energy specialist serving zip code <strong id="ppl-zip-display" style="color: #facc15;"></strong> has received your <strong><span id="ppl-kwh-display"></span> kWh</strong> load calculations and is preparing your equipment, 240V hookup, and 30% federal tax rebate breakdown.
+            </p>
+          </div>
+
+        </div>
+      </div>
     `;
   }
+
+  // Pay-Per-Lead Submission Handler
+  window.submitBatteryLead = async function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const btn = document.getElementById('ppl-submit-btn');
+    const originalBtnText = btn ? btn.innerHTML : 'Submit';
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Transmitting Specifications...';
+      btn.style.opacity = '0.7';
+      btn.style.cursor = 'not-allowed';
+    }
+
+    const payload = {
+      fullName: document.getElementById('lead-fullname').value,
+      email: document.getElementById('lead-email').value,
+      phone: document.getElementById('lead-phone').value,
+      zip: document.getElementById('lead-zip').value,
+      homeOwnership: document.getElementById('lead-ownership').value,
+      electricBill: document.getElementById('lead-bill').value,
+      systemSizeKwh: document.getElementById('lead-system-kwh').value,
+      continuousKw: document.getElementById('lead-continuous-kw').value,
+      maxSurgeKw: document.getElementById('lead-max-surge-kw').value,
+      requires240V: document.getElementById('lead-requires-240v').value === 'true',
+      recommendedHardware: document.getElementById('lead-recommended-hardware').value,
+      durationHours: document.getElementById('lead-duration-hours').value,
+      taxCreditSavings: document.getElementById('lead-tax-savings').value
+    };
+
+    try {
+      const response = await fetch('https://garden.theodisius.com/api/quote_request.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        const form = document.getElementById('ppl-lead-form');
+        const successBox = document.getElementById('ppl-success-box');
+        if (form) form.style.display = 'none';
+        if (successBox) {
+          document.getElementById('ppl-lead-id-display').textContent = result.leadId || 'CONFIRMED';
+          document.getElementById('ppl-zip-display').textContent = result.zip || payload.zip;
+          document.getElementById('ppl-kwh-display').textContent = result.systemSizeKwh || payload.systemSizeKwh;
+          successBox.style.display = 'block';
+        }
+      } else {
+        alert(result.error || 'There was a problem submitting your request. Please check your details and try again.');
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = originalBtnText;
+          btn.style.opacity = '1';
+          btn.style.cursor = 'pointer';
+        }
+      }
+    } catch (err) {
+      console.error('Lead transmission error:', err);
+      alert('Unable to connect to quote server. Please check your connection or contact tednadres@theodisius.com directly.');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = originalBtnText;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+      }
+    }
+  };
 
   // Attach event listeners
   document.getElementById('calc-duration').addEventListener('change', calculate);
