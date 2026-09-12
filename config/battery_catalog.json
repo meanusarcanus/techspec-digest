@@ -1,0 +1,183 @@
+{
+  "vertical": "home_battery_storage",
+  "name": "High-Capacity Whole-Home Battery Backup Systems",
+  "updated_at": "2026-09-12",
+  "default_commission_rate": "5% - 8%",
+  "systems": [
+    {
+      "id": "ecoflow-delta-pro-ultra",
+      "name": "EcoFlow DELTA Pro Ultra",
+      "brand": "EcoFlow",
+      "battery_chemistry": "LiFePO4 (LFP)",
+      "cycle_life": "3,500 cycles to 80%+ capacity (10+ years daily cycling)",
+      "base_capacity_wh": 6144,
+      "base_capacity_kwh": "6.1 kWh",
+      "max_capacity_kwh": "90 kWh (3 Inverters + 15 Battery Packs)",
+      "continuous_output_w": 7200,
+      "surge_output_w": 10800,
+      "voltage_output": "120V / 240V True Split-Phase Native (Single Unit)",
+      "max_solar_input_w": 5600,
+      "solar_voltage_range": "High-PV: 150-450V (4,000W) + Low-PV: 30-150V (1,600W)",
+      "switchover_time": "0 ms (True Online UPS Standard)",
+      "noise_level": "<30 dB whisper-quiet (0 dB fanless under 2,000W)",
+      "outdoor_rating": "IP54 (Protected against dust and splashing water)",
+      "transfer_switch_ecosystem": "EcoFlow Smart Home Panel 2 (12 Breaker Circuits + App Control)",
+      "msrp_usd": 5799,
+      "typical_sale_price_usd": 4999,
+      "commission_est_usd": 250,
+      "affiliate_slug": "ecoflow-delta-pro-ultra",
+      "target_users": "Homeowners demanding plug-and-play 240V backup for central AC and well pumps without complex utility permitting",
+      "pros": [
+        "True 120V/240V split-phase native output from a single unit with zero external transformers",
+        "7,200W continuous output effortlessly runs central air conditioning and heavy well pumps",
+        "Dual MPPT solar controller supports up to 5,600W including high-voltage 450V rooftop arrays",
+        "0ms instantaneous online UPS switchover protects sensitive computers, servers, and medical equipment",
+        "Modular stackable design on heavy-duty casters requires no mandatory wall anchor inspection"
+      ],
+      "cons": [
+        "Base unit is heavy (Inverter 70 lbs + Battery 116 lbs = 186 lbs combined stack)",
+        "Reaching maximum 90 kWh whole-house off-grid capacity requires purchasing additional inverters"
+      ]
+    },
+    {
+      "id": "tesla-powerwall-3",
+      "name": "Tesla Powerwall 3",
+      "brand": "Tesla",
+      "battery_chemistry": "LiFePO4 (LFP)",
+      "cycle_life": "10-year warranty (unlimited cycles under solar self-consumption)",
+      "base_capacity_wh": 13500,
+      "base_capacity_kwh": "13.5 kWh",
+      "max_capacity_kwh": "40.5 kWh (3 DC Expansion Units)",
+      "continuous_output_w": 11500,
+      "surge_output_w": 18500,
+      "voltage_output": "120V / 240V Split-Phase (Grid-Forming Inverter)",
+      "max_solar_input_w": 20000,
+      "solar_voltage_range": "6 Independent MPPTs (60-480V operating range)",
+      "switchover_time": "~20-50 ms (Microgrid Backup Switch)",
+      "noise_level": "<40 dB (Liquid-cooled inverter fan under full solar production)",
+      "outdoor_rating": "IP67 (Fully weather-sealed wall mount)",
+      "transfer_switch_ecosystem": "Tesla Backup Gateway 2 / Tesla Backup Switch",
+      "msrp_usd": 9300,
+      "typical_sale_price_usd": 8400,
+      "commission_est_usd": 0,
+      "affiliate_slug": "tesla-powerwall-3",
+      "target_users": "Homeowners doing full rooftop solar installations wanting seamless whole-house backup and unified Tesla app control",
+      "pros": [
+        "Tremendous 11.5 kW continuous output backs up entire large households including Level 2 EV charging",
+        "Integrated 6-MPPT solar inverter simplifies installation by eliminating third-party string inverters",
+        "Sleek architectural wall-mount enclosure rated IP67 for extreme outdoor weather resistance",
+        "Massive 185A LRA starting capability powers high-tonnage heat pumps without soft-starters",
+        "Storm Watch automatically tops off battery from the grid prior to severe storm warnings"
+      ],
+      "cons": [
+        "Requires certified electrician and extensive utility interconnection permitting",
+        "Not portable; permanent wall installation with professional conduit runs"
+      ]
+    },
+    {
+      "id": "bluetti-ep900",
+      "name": "Bluetti EP900 + B500 Home Battery",
+      "brand": "Bluetti",
+      "battery_chemistry": "LiFePO4 (LFP)",
+      "cycle_life": "5,000+ cycles to 80% capacity",
+      "base_capacity_wh": 9920,
+      "base_capacity_kwh": "9.9 kWh (2x B500 Packs)",
+      "max_capacity_kwh": "19.8 kWh (4x B500 Packs)",
+      "continuous_output_w": 9000,
+      "surge_output_w": 15000,
+      "voltage_output": "120V / 240V Split-Phase",
+      "max_solar_input_w": 9000,
+      "solar_voltage_range": "Dual MPPT (150V-550V DC High Voltage)",
+      "switchover_time": "<10 ms UPS",
+      "noise_level": "<35 dB (Quiet hybrid cooling)",
+      "outdoor_rating": "IP65 (Heavy-duty outdoor weatherproofing)",
+      "transfer_switch_ecosystem": "Bluetti Smart Home Panel / Grid-Tie Interconnection",
+      "msrp_usd": 8999,
+      "typical_sale_price_usd": 7999,
+      "commission_est_usd": 320,
+      "affiliate_slug": "bluetti-ep900",
+      "target_users": "Homeowners wanting an outdoor IP65-rated wall/floor mount with grid-sellback capability and high continuous wattage",
+      "pros": [
+        "IP65 outdoor rating allows space-saving outdoor mounting on exterior home walls",
+        "9,000W continuous output easily runs multiple 240V circuits simultaneously",
+        "Can sell excess solar generation back to the electrical utility for net-metering credits",
+        "Outstanding 5,000+ cycle lifespan backed by an industry-leading 10-year warranty",
+        "High-voltage solar input (up to 550V) reduces wire gauge requirements and line loss"
+      ],
+      "cons": [
+        "Requires at least two B500 batteries (9.9 kWh) to unlock the full 9,000W output rating",
+        "Requires professional installation for full 240V main-panel sub-feed"
+      ]
+    },
+    {
+      "id": "ecoflow-delta-pro",
+      "name": "EcoFlow DELTA Pro",
+      "brand": "EcoFlow",
+      "battery_chemistry": "LiFePO4 (LFP)",
+      "cycle_life": "3,500 cycles to 80% capacity",
+      "base_capacity_wh": 3600,
+      "base_capacity_kwh": "3.6 kWh",
+      "max_capacity_kwh": "25 kWh (Expandable with Extra Batteries + Smart Generator)",
+      "continuous_output_w": 3600,
+      "surge_output_w": 7200,
+      "voltage_output": "120V Native (240V achievable via Double Voltage Hub linking 2 units)",
+      "max_solar_input_w": 1600,
+      "solar_voltage_range": "11-150V (15A Max)",
+      "switchover_time": "<30 ms EPS",
+      "noise_level": "<45 dB under high load",
+      "outdoor_rating": "Indoor / RV use only (Not weather-sealed)",
+      "transfer_switch_ecosystem": "EcoFlow Smart Home Panel (Gen 1) or 30A Transfer Switch",
+      "msrp_usd": 3599,
+      "typical_sale_price_usd": 2499,
+      "commission_est_usd": 125,
+      "affiliate_slug": "ecoflow-delta-pro",
+      "target_users": "Budget-conscious buyers, RV owners, emergency apartment backup, and mobile job sites",
+      "pros": [
+        "Highly accessible sub-$2,500 entry price point for a massive 3.6 kWh LFP power station",
+        "Built-in luggage pull handle and rugged rear wheels for genuine portability",
+        "Can recharge at public Level 2 EV charging stations (3,400W) in under 1.8 hours",
+        "Integrated 30A RV receptacle for direct travel-trailer off-grid hookups",
+        "Seamless integration with EcoFlow Dual-Fuel Smart Generator for infinite runtime"
+      ],
+      "cons": [
+        "Single unit produces 120V only; running 240V well pumps or central AC requires 2 units + hub",
+        "1,600W max solar input is smaller than whole-home competitors"
+      ]
+    },
+    {
+      "id": "anker-solix-x1",
+      "name": "Anker SOLIX X1 Home Energy Storage",
+      "brand": "Anker SOLIX",
+      "battery_chemistry": "LiFePO4 (LFP)",
+      "cycle_life": "6,000 cycles to 70% capacity",
+      "base_capacity_wh": 5000,
+      "base_capacity_kwh": "5.0 kWh (Modular)",
+      "max_capacity_kwh": "30 kWh (Single System) / 180 kWh (Parallel Clusters)",
+      "continuous_output_w": 6000,
+      "surge_output_w": 13200,
+      "voltage_output": "120V / 240V Split-Phase",
+      "max_solar_input_w": 15000,
+      "solar_voltage_range": "Dual/Quad MPPT (100V-550V)",
+      "switchover_time": "<20 ms Microgrid Transfer",
+      "noise_level": "<30 dB (Fanless natural convection)",
+      "outdoor_rating": "IP65 (Full weather resistance)",
+      "transfer_switch_ecosystem": "SOLIX Smart Power Panel",
+      "msrp_usd": 8499,
+      "typical_sale_price_usd": 7499,
+      "commission_est_usd": 300,
+      "affiliate_slug": "anker-solix-x1",
+      "target_users": "Aesthetic-focused homeowners seeking an ultra-thin 15cm wall-mount system with independent battery optimization",
+      "pros": [
+        "Ultra-slim 5.9-inch (15cm) depth sits flush against garage or outdoor exterior walls",
+        "Independent energy optimizers per battery module ensure bad packs never throttle total capacity",
+        "Natural convection fanless thermal architecture operates in total near-silence",
+        "Built-in thermal pre-heating enables reliable performance down to -20°C (-4°F)",
+        "6,000 cycle lifespan supported by a 10-year comprehensive warranty"
+      ],
+      "cons": [
+        "Modular 5 kWh slices can get expensive when scaling past 20 kWh",
+        "Relatively new platform compared to Tesla and EcoFlow established ecosystems"
+      ]
+    }
+  ]
+}

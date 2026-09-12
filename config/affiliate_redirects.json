@@ -22,5 +22,25 @@
   "omtech-60w-cabinet": {
     "title": "OMTech MF2028 60W CO2 Laser Machine",
     "destination": "https://omtechlaser.com/collections/co2-laser-engravers?ref=theodisius"
+  },
+  "ecoflow-delta-pro-ultra": {
+    "title": "EcoFlow DELTA Pro Ultra Whole-Home Battery",
+    "destination": "https://us.ecoflow.com/products/delta-pro-ultra?aff=theodisius"
+  },
+  "ecoflow-delta-pro": {
+    "title": "EcoFlow DELTA Pro 3.6kWh Portable Power Station",
+    "destination": "https://us.ecoflow.com/products/delta-pro-portable-power-station?aff=theodisius"
+  },
+  "tesla-powerwall-3": {
+    "title": "Tesla Powerwall 3 Home Battery",
+    "destination": "https://www.tesla.com/powerwall"
+  },
+  "bluetti-ep900": {
+    "title": "Bluetti EP900 + B500 Home Battery System",
+    "destination": "https://www.bluetti.com/products/bluetti-ep900-b500-home-battery-backup?ref=theodisius"
+  },
+  "anker-solix-x1": {
+    "title": "Anker SOLIX X1 Home Energy Storage System",
+    "destination": "https://www.ankersolix.com/products/x1-home-energy-storage-system?ref=theodisius"
   }
 }

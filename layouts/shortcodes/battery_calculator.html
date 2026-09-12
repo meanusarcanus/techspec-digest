@@ -1,0 +1,322 @@
+<div id="battery-calculator-app" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); margin-bottom: 2.5rem;">
+  
+  <div style="text-align: center; max-width: 680px; margin: 0 auto 2rem auto;">
+    <span style="background: #eff6ff; color: #1d4ed8; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.35rem 0.8rem; border-radius: 9999px; display: inline-block; margin-bottom: 0.75rem; border: 1px solid #bfdbfe;">
+      ⚡ Precision Sizing Engine
+    </span>
+    <h2 style="font-size: 1.85rem; font-weight: 800; color: #0f172a; margin: 0 0 0.5rem 0;">
+      Whole-Home Battery Storage Sizing Calculator
+    </h2>
+    <p style="color: #64748b; font-size: 0.95rem; margin: 0; line-height: 1.5;">
+      Select your household appliances, outage duration, and solar setup to calculate your exact kilowatt-hour (kWh) requirements and optimal battery hardware.
+    </p>
+  </div>
+
+  <!-- Interactive Form Inputs -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; background: #f8fafc; padding: 1.75rem; border-radius: 16px; border: 1px solid #e2e8f0;">
+    
+    <!-- Scenario & Target Outage -->
+    <div>
+      <label style="display: block; font-size: 0.8rem; font-weight: 800; color: #1e293b; text-transform: uppercase; margin-bottom: 0.5rem;">
+        1. Target Outage Duration
+      </label>
+      <select id="calc-duration" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: 10px; border: 1px solid #cbd5e1; font-weight: 600; color: #0f172a; background: #ffffff; font-size: 0.9rem;">
+        <option value="24">24 Hours (Overnight Storm / Short Blackout)</option>
+        <option value="48" selected>48 Hours (Multi-Day Grid Failure)</option>
+        <option value="72">72+ Hours (Extended Emergency / Hurricane)</option>
+      </select>
+    </div>
+
+    <!-- Solar Availability -->
+    <div>
+      <label style="display: block; font-size: 0.8rem; font-weight: 800; color: #1e293b; text-transform: uppercase; margin-bottom: 0.5rem;">
+        2. Solar PV Replenishment
+      </label>
+      <select id="calc-solar" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: 10px; border: 1px solid #cbd5e1; font-weight: 600; color: #0f172a; background: #ffffff; font-size: 0.9rem;">
+        <option value="0">No Solar (Battery Only / Standalone Storage)</option>
+        <option value="1500" selected>Moderate Solar (1,500W Portable or Roof Array)</option>
+        <option value="4000">Large Solar (4,000W+ High-Voltage Rooftop Array)</option>
+      </select>
+    </div>
+
+  </div>
+
+  <!-- Appliance Selection Checklist -->
+  <div style="margin-top: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.5rem;">
+    <div style="font-size: 0.85rem; font-weight: 800; color: #0f172a; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+      <span>3. Select Household Circuits to Back Up</span>
+      <span style="font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: none;">Check all that apply</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.85rem;">
+      
+      <!-- 240V Heavy Circuits -->
+      <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #f8fafc; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid #e2e8f0; cursor: pointer;">
+        <input type="checkbox" id="app-ac" class="app-check" data-power="3500" data-kwh="14.0" data-surge="10500" data-requires240="true" checked style="margin-top: 0.25rem;">
+        <div>
+          <strong style="color: #0f172a; font-size: 0.9rem; display: block;">Central Air Conditioner / Heat Pump (240V)</strong>
+          <span style="color: #64748b; font-size: 0.8rem;">3,500W running (14 kWh/day), 10.5kW startup spike</span>
+        </div>
+      </label>
+
+      <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #f8fafc; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid #e2e8f0; cursor: pointer;">
+        <input type="checkbox" id="app-well" class="app-check" data-power="1500" data-kwh="3.0" data-surge="5500" data-requires240="true" checked style="margin-top: 0.25rem;">
+        <div>
+          <strong style="color: #0f172a; font-size: 0.9rem; display: block;">Deep-Well Water Pump (240V)</strong>
+          <span style="color: #64748b; font-size: 0.8rem;">1,500W running (3 kWh/day), 5.5kW inrush spike</span>
+        </div>
+      </label>
+
+      <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #f8fafc; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid #e2e8f0; cursor: pointer;">
+        <input type="checkbox" id="app-fridge" class="app-check" data-power="180" data-kwh="1.8" data-surge="800" data-requires240="false" checked style="margin-top: 0.25rem;">
+        <div>
+          <strong style="color: #0f172a; font-size: 0.9rem; display: block;">Refrigerator &amp; Deep Freezer</strong>
+          <span style="color: #64748b; font-size: 0.8rem;">180W average cycling (1.8 kWh/day)</span>
+        </div>
+      </label>
+
+      <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #f8fafc; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid #e2e8f0; cursor: pointer;">
+        <input type="checkbox" id="app-office" class="app-check" data-power="250" data-kwh="2.5" data-surge="350" data-requires240="false" checked style="margin-top: 0.25rem;">
+        <div>
+          <strong style="color: #0f172a; font-size: 0.9rem; display: block;">Wi-Fi Router, PC &amp; Starlink</strong>
+          <span style="color: #64748b; font-size: 0.8rem;">250W continuous (2.5 kWh/day)</span>
+        </div>
+      </label>
+
+      <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #f8fafc; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid #e2e8f0; cursor: pointer;">
+        <input type="checkbox" id="app-cpap" class="app-check" data-power="50" data-kwh="0.5" data-surge="80" data-requires240="false" style="margin-top: 0.25rem;">
+        <div>
+          <strong style="color: #0f172a; font-size: 0.9rem; display: block;">Medical Equipment (CPAP / Oxygen)</strong>
+          <span style="color: #64748b; font-size: 0.8rem;">50W continuous (0.5 kWh/day, 0ms UPS priority)</span>
+        </div>
+      </label>
+
+      <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #f8fafc; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid #e2e8f0; cursor: pointer;">
+        <input type="checkbox" id="app-ev" class="app-check" data-power="3800" data-kwh="15.0" data-surge="3800" data-requires240="true" style="margin-top: 0.25rem;">
+        <div>
+          <strong style="color: #0f172a; font-size: 0.9rem; display: block;">Emergency EV Range Charging (240V)</strong>
+          <span style="color: #64748b; font-size: 0.8rem;">16A Level 2 charge (+45 to 60 miles range)</span>
+        </div>
+      </label>
+
+    </div>
+  </div>
+
+  <!-- Dynamic Results Box -->
+  <div id="battery-calc-results" style="margin-top: 2rem; background: linear-gradient(135deg, #0f172a, #1e293b); color: #ffffff; border-radius: 18px; padding: 2rem; border: 1px solid #334155;">
+    <!-- Rendered via JS -->
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const systems = {
+    "ecoflow-delta-pro-ultra": {
+      name: "EcoFlow DELTA Pro Ultra",
+      brand: "EcoFlow",
+      tagline: "Best Overall Whole-Home Backup & 240V Heavy Loads",
+      baseKwh: 6.1,
+      maxKwh: 90,
+      continuousW: 7200,
+      surgeW: 10800,
+      price: "~$4,999",
+      priceNum: 4999,
+      slug: "ecoflow-delta-pro-ultra",
+      badge: "⭐ Recommended Champion",
+      pros: "True native 120V/240V split-phase from 1 unit. 7.2kW output runs 3-ton AC + well pumps. 0ms online UPS."
+    },
+    "bluetti-ep900": {
+      name: "Bluetti EP900 + B500",
+      brand: "Bluetti",
+      tagline: "Best IP65 Outdoor Weather-Sealed System",
+      baseKwh: 9.9,
+      maxKwh: 19.8,
+      continuousW: 9000,
+      surgeW: 15000,
+      price: "~$7,999",
+      priceNum: 7999,
+      slug: "bluetti-ep900",
+      badge: "Outdoor Rated Pick",
+      pros: "IP65 weather-rated for exterior walls. 9.0kW continuous output with net-metering grid sellback."
+    },
+    "tesla-powerwall-3": {
+      name: "Tesla Powerwall 3",
+      brand: "Tesla",
+      tagline: "Best Fully-Integrated Rooftop Solar System",
+      baseKwh: 13.5,
+      maxKwh: 40.5,
+      continuousW: 11500,
+      surgeW: 18500,
+      price: "~$8,400",
+      priceNum: 8400,
+      slug: "tesla-powerwall-3",
+      badge: "Maximum Output Pick",
+      pros: "11.5 kW continuous output with integrated 6-MPPT solar inverter for complete new solar installs."
+    },
+    "ecoflow-delta-pro": {
+      name: "EcoFlow DELTA Pro (3.6 kWh)",
+      brand: "EcoFlow",
+      tagline: "Best Entry-Level / Essential Load Backup",
+      baseKwh: 3.6,
+      maxKwh: 25,
+      continuousW: 3600,
+      surgeW: 7200,
+      price: "~$2,499",
+      priceNum: 2499,
+      slug: "ecoflow-delta-pro",
+      badge: "Best Value Essential Pick",
+      pros: "Sub-$2,500 portable powerhouse. Wheels and luggage handle. Runs all critical 120V appliances."
+    }
+  };
+
+  function calculate() {
+    const durationHours = parseInt(document.getElementById('calc-duration').value, 10);
+    const solarWatts = parseInt(document.getElementById('calc-solar').value, 10);
+    
+    let totalContinuousW = 0;
+    let maxSurgeW = 0;
+    let dailyKwh = 0;
+    let requires240V = false;
+
+    const checkboxes = document.querySelectorAll('.app-check:checked');
+    checkboxes.forEach(cb => {
+      const power = parseInt(cb.getAttribute('data-power'), 10);
+      const kwh = parseFloat(cb.getAttribute('data-kwh'));
+      const surge = parseInt(cb.getAttribute('data-surge'), 10);
+      const is240 = cb.getAttribute('data-requires240') === 'true';
+
+      totalContinuousW += power;
+      if (surge > maxSurgeW) maxSurgeW = surge;
+      dailyKwh += kwh;
+      if (is240) requires240V = true;
+    });
+
+    if (totalContinuousW === 0) {
+      totalContinuousW = 200;
+      dailyKwh = 2.0;
+      maxSurgeW = 400;
+    }
+
+    // Solar daily contribution (assume 4.5 peak sun hours)
+    const dailySolarKwh = (solarWatts * 4.5) / 1000;
+    const netDailyKwh = Math.max(0.5, dailyKwh - dailySolarKwh);
+    const totalKwhNeeded = (netDailyKwh * (durationHours / 24));
+
+    // Select recommendation
+    let recommendedKey = "ecoflow-delta-pro-ultra";
+    let extraPacksNeeded = 0;
+
+    if (!requires240V && totalContinuousW <= 3600 && totalKwhNeeded <= 7.2) {
+      recommendedKey = "ecoflow-delta-pro";
+      extraPacksNeeded = Math.max(0, Math.ceil((totalKwhNeeded - 3.6) / 3.6));
+    } else {
+      recommendedKey = "ecoflow-delta-pro-ultra";
+      extraPacksNeeded = Math.max(0, Math.ceil((totalKwhNeeded - 6.1) / 6.1));
+    }
+
+    const rec = systems[recommendedKey];
+    const totalInstalledCapacity = (rec.baseKwh + (extraPacksNeeded * rec.baseKwh)).toFixed(1);
+    const taxCreditSavings = Math.round(rec.priceNum * 0.30);
+    const netPrice = rec.priceNum - taxCreditSavings;
+
+    renderResults({
+      durationHours,
+      totalContinuousW,
+      maxSurgeW,
+      dailyKwh: dailyKwh.toFixed(1),
+      dailySolarKwh: dailySolarKwh.toFixed(1),
+      totalKwhNeeded: totalKwhNeeded.toFixed(1),
+      requires240V,
+      rec,
+      extraPacksNeeded,
+      totalInstalledCapacity,
+      taxCreditSavings,
+      netPrice
+    });
+  }
+
+  function renderResults(data) {
+    const resultsContainer = document.getElementById('battery-calc-results');
+    
+    resultsContainer.innerHTML = `
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid #334155; padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.75rem; border-radius: 9999px; display: inline-block;">
+            ${data.rec.badge}
+          </span>
+          <h3 style="font-size: 1.6rem; font-weight: 800; color: #ffffff; margin: 0.5rem 0 0 0;">
+            ${data.rec.name}
+          </h3>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin: 0.25rem 0 0 0;">
+            ${data.rec.tagline}
+          </p>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Base Bundle Price</div>
+          <div style="font-size: 1.85rem; font-weight: 900; color: #38bdf8;">${data.rec.price}</div>
+          <div style="font-size: 0.75rem; color: #34d399; font-weight: 700;">30% Clean Energy Credit: -$${data.taxCreditSavings.toLocaleString()} (Net ~$${data.netPrice.toLocaleString()})</div>
+        </div>
+      </div>
+
+      <!-- Electrical Specs Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 12px; border: 1px solid #334155;">
+          <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Continuous Load</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #ffffff; margin-top: 0.25rem;">${(data.totalContinuousW / 1000).toFixed(2)} kW</div>
+          <div style="font-size: 0.75rem; color: #64748b;">Hardware capacity: ${(data.rec.continuousW / 1000).toFixed(1)} kW</div>
+        </div>
+
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 12px; border: 1px solid #334155;">
+          <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Peak Inrush Surge</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #f59e0b; margin-top: 0.25rem;">${(data.maxSurgeW / 1000).toFixed(1)} kW</div>
+          <div style="font-size: 0.75rem; color: #64748b;">Hardware surge: ${(data.rec.surgeW / 1000).toFixed(1)} kW</div>
+        </div>
+
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 12px; border: 1px solid #334155;">
+          <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Net Storage Needed</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #38bdf8; margin-top: 0.25rem;">${data.totalKwhNeeded} kWh</div>
+          <div style="font-size: 0.75rem; color: #64748b;">For ${data.durationHours}h blackout</div>
+        </div>
+
+        <div style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 12px; border: 1px solid #334155;">
+          <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Recommended Stack</div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #34d399; margin-top: 0.25rem;">${data.totalInstalledCapacity} kWh</div>
+          <div style="font-size: 0.75rem; color: #64748b;">1 Inverter + ${data.extraPacksNeeded > 0 ? (data.extraPacksNeeded + 1) + ' Packs' : '1 Base Pack'}</div>
+        </div>
+      </div>
+
+      <!-- Why It Fits Analysis -->
+      <div style="background: #1e293b; border-left: 4px solid #38bdf8; padding: 1.25rem; border-radius: 0 12px 12px 0; margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.6; color: #cbd5e1;">
+        <strong style="color: #ffffff;">System Sizing Engineering Notes:</strong>
+        <p style="margin: 0.35rem 0 0 0;">
+          ${data.requires240V ? '⚠️ <strong>240V Split-Phase Circuit Active:</strong> Because you selected heavy inductive loads (Central AC, Well Pump, or EV Charging), your backup system MUST deliver true 240V split-phase power. ' : 'Standard 120V household loads detected. '}
+          ${data.rec.pros}
+        </p>
+      </div>
+
+      <!-- CTA Affiliate Action -->
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
+        <div style="font-size: 0.85rem; color: #94a3b8;">
+          🔒 Ships with manufacturer direct 5-10 year warranty &amp; official UL9540A safety certifications.
+        </div>
+        <a href="/go/${data.rec.slug}/" target="_blank" rel="noopener noreferrer" style="background: #0284c7; hover:background: #0369a1; color: #ffffff; font-weight: 800; font-size: 0.95rem; padding: 0.85rem 1.85rem; border-radius: 12px; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);">
+          Check Official ${data.rec.brand} System Pricing &rarr;
+        </a>
+      </div>
+    `;
+  }
+
+  // Attach event listeners
+  document.getElementById('calc-duration').addEventListener('change', calculate);
+  document.getElementById('calc-solar').addEventListener('change', calculate);
+  
+  const checkboxes = document.querySelectorAll('.app-check');
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', calculate);
+  });
+
+  // Initial render
+  calculate();
+})();
+</script>
