@@ -51,7 +51,7 @@ export const dailyBabyPosts: DailyBabyPost[] = [
       'Discover how gentle 60 BPM music box lullabies harmonize infant heart rate, reduce bedtime crying, and establish peaceful circadian rhythms for baby and parents.',
     category: 'Infant Sleep Science',
     readTime: '5 min read',
-    featuredImage: '/techspec-digest/baby-care/images/teddy_bears_on_clouds.jpg',
+    featuredImage: '/baby-care/images/teddy_bears_on_clouds.jpg',
     lullabyTrack: {
       title: "Brahms' Lullaby (Wiegenlied Op. 49 No. 4) Music Box",
       composer: 'Johannes Brahms & W. A. Mozart',
@@ -86,7 +86,7 @@ Pairing this acoustic environment with a predictable, loving touch routine—suc
         reviewsCount: 186,
         description:
           'A soothing, heart-centered collection of timeless biblical bedtime stories crafted to gently calm little minds, instill unwavering faith, and usher infants & toddlers into peaceful sleep.',
-        imageUrl: '/techspec-digest/baby-care/images/bible_bedtime_stories_cover.jpg',
+        imageUrl: '/baby-care/images/bible_bedtime_stories_cover.jpg',
         asin: 'B0HCYR3DN1',
         affiliateUrl: 'https://www.amazon.com/dp/B0HCYR3DN1?tag=techspecdiges-20',
         badge: 'Editor’s Bedtime Pick',

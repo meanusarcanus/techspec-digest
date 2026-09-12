@@ -294,7 +294,7 @@ def generate_post_for_date(date_str):
 
     if "Thinking Big for Little People" in seed.get("product_title", ""):
         amazon_url = f"https://www.amazon.com/dp/B0GXTC1PY6?tag={AFFILIATE_TAG}"
-        product_image = "/techspec-digest/consciousness/images/thinking_big_for_little_people.png"
+        product_image = "/consciousness/images/thinking_big_for_little_people.png"
     else:
         amazon_url = create_amazon_url(seed["product_search"])
         product_image = "https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&w=600&q=80"

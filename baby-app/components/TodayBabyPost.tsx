@@ -50,7 +50,7 @@ export default function TodayBabyPost() {
                 alt={post.title}
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/images/teddy_bears_on_clouds.jpg';
+                  (e.target as HTMLImageElement).src = '/baby-care/images/teddy_bears_on_clouds.jpg';
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-night-950 via-transparent to-transparent opacity-80" />

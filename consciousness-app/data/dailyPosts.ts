@@ -681,7 +681,7 @@ Before societal conditioning and subconscious limiting beliefs take root in youn
         description:
           'A soothing, heart-centered collection of timeless biblical bedtime stories crafted to gently calm little minds, instill unwavering faith, and usher infants & toddlers into peaceful sleep.',
         imageUrl:
-          '/techspec-digest/consciousness/images/bible_bedtime_stories_cover.jpg',
+          '/consciousness/images/bible_bedtime_stories_cover.jpg',
         amazonUrl:
           'https://www.amazon.com/dp/B0HCYR3DN1?tag=techspecdiges-20',
         asin: 'B0HCYR3DN1',
@@ -697,7 +697,7 @@ Before societal conditioning and subconscious limiting beliefs take root in youn
         description:
           'A brilliantly simplified, empowering introduction to Charles F. Haanel\'s 1912 Master Key System, unlocking creative focus, visualization, and subconscious mastery for kids and families.',
         imageUrl:
-          '/techspec-digest/consciousness/images/thinking_big_for_little_people.jpg',
+          '/consciousness/images/thinking_big_for_little_people.jpg',
         amazonUrl:
           'https://www.amazon.com/dp/B0GXTC1PY6?tag=techspecdiges-20',
         asin: 'B0GXTC1PY6',
