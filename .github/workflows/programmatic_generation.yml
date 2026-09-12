@@ -89,6 +89,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+          cname: digest.theodisius.com
 
       - name: Automated Search Engine Ping & IndexNow Dispatch
         if: github.ref == 'refs/heads/main'

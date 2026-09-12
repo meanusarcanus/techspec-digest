@@ -21,8 +21,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger("agent_engine.search_engine_ping")
 
-BASE_HOST = "meanusarcanus.github.io"
-BASE_URL = f"https://{BASE_HOST}/techspec-digest"
+BASE_HOST = "digest.theodisius.com"
+BASE_URL = f"https://{BASE_HOST}"
 SITEMAP_URL = f"{BASE_URL}/sitemap.xml"
 CONSCIOUSNESS_SITEMAP = f"{BASE_URL}/consciousness/sitemap.xml"
 GARDEN_SITEMAP = "https://garden.theodisius.com/sitemap.xml"
@@ -36,7 +36,7 @@ def ping_url(endpoint_name: str, url: str) -> bool:
     try:
         req = urllib.request.Request(
             url,
-            headers={"User-Agent": "TechSpec-Digest-Bot/2.0 (+https://meanusarcanus.github.io/techspec-digest/)"}
+            headers={"User-Agent": "TechSpec-Digest-Bot/2.0 (+https://digest.theodisius.com/)"}
         )
         with urllib.request.urlopen(req, timeout=10) as response:
             status = response.status

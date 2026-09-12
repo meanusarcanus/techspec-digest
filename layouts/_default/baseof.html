@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
-  <link rel="shortcut icon" href="/techspec-digest/favicon.ico" />
-  <link rel="icon" type="image/x-icon" href="/techspec-digest/favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/techspec-digest/favicon.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/techspec-digest/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23064e3b'/><circle cx='50' cy='50' r='24' fill='%2310b981'/><polygon points='50,30 64,65 36,65' fill='%23ffffff'/></svg>" />
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <meta name="google-site-verification" content="JsFMOu2j2D5bCTdjhO4Ws1YeMALHx86anPOW_0fk1g0" />
@@ -189,7 +189,7 @@
           return;
         }
         // Top navigation bar internal links (Home, All Guides, Logo) stay in same window
-        if (link.classList.contains('logo') || (link.closest('.nav-links') && (href === '/' || href.endsWith('/techspec-digest/') || href.includes('posts/')) && !href.includes('spotify') && !href.includes('youtube'))) {
+        if (link.classList.contains('logo') || (link.closest('.nav-links') && (href === '/' || href.includes('theodisius.com') || href.includes('posts/')) && !href.includes('spotify') && !href.includes('youtube'))) {
           link.setAttribute('target', '_self');
           return;
         }
