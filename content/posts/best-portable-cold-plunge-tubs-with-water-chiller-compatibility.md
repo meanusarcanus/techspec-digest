@@ -1,6 +1,6 @@
 ---
 title: "Best portable cold plunge tubs with water chiller compatibility"
-date: 2026-09-12T05:33:41Z
+date: 2026-09-12T07:53:42Z
 draft: false
 description: "In-depth guide on Best portable cold plunge tubs with water chiller compatibility. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "best-portable-cold-plunge-tubs-with-water-chiller-compatibility"
