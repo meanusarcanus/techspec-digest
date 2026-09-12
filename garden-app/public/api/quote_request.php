@@ -112,7 +112,32 @@ if (file_exists($logFile)) {
 $existingLeads[] = $leadRecord;
 file_put_contents($logFile, json_encode($existingLeads, JSON_PRETTY_PRINT));
 
-// 2. Dispatch Real-Time Alert to tednadres@theodisius.com
+// 2. Automated Webhook & Google Sheets Dispatcher
+$configFile = __DIR__ . '/lead_config.json';
+$webhookUrl = '';
+if (file_exists($configFile)) {
+    $configData = json_decode(file_get_contents($configFile), true);
+    if (!empty($configData['webhook_url'])) {
+        $webhookUrl = trim($configData['webhook_url']);
+    }
+}
+
+if (!empty($webhookUrl)) {
+    $ch = curl_init($webhookUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($leadRecord));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'User-Agent: TechSpec-Lead-Engine/1.0'
+    ]);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5); // 5 second non-blocking timeout
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    @curl_exec($ch);
+    @curl_close($ch);
+}
+
+// 3. Dispatch Real-Time Alert to tednadres@theodisius.com
 $adminEmail = 'tednadres@theodisius.com';
 $adminSubject = "⚡ High-Ticket Lead [#{$leadId}]: {$fullName} ({$zip}) — {$systemSizeKwh} kWh Battery";
 

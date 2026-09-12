@@ -1,0 +1,6 @@
+{
+  "description": "TechSpec Digest - Automated Lead Dispatcher Configuration",
+  "webhook_url": "",
+  "energysage_partner_tag": "techspec-digest",
+  "auto_forward_enabled": true
+}
