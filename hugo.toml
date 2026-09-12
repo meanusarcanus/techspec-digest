@@ -60,3 +60,13 @@ disableKinds = ["taxonomy", "term"]
     name = 'Guides & Reviews'
     url = '/posts/'
     weight = 2
+  [[menu.main]]
+    identifier = 'battery-calculator'
+    name = '⚡ Battery Sizing Tool'
+    url = '/posts/whole-home-battery-storage-sizing-calculator/'
+    weight = 3
+  [[menu.main]]
+    identifier = 'laser-selector'
+    name = '🔬 Laser Machine Selector'
+    url = '/posts/laser-cutter-material-and-wattage-selector/'
+    weight = 4

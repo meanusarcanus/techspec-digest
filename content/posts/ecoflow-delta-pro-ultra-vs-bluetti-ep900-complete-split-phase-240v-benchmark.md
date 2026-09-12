@@ -1,6 +1,6 @@
 ---
 title: "EcoFlow DELTA Pro Ultra vs Bluetti EP900: Complete Split-Phase 240V Benchmark"
-date: 2026-09-12T04:04:40Z
+date: 2026-09-12T04:26:49Z
 draft: false
 description: "7.2kW Modular Rolling Backup vs 9.0kW IP65 Outdoor Wall-Mount: Surge Ratings, Solar MPPT Limits, and Installation Costs. In-depth engineering breakdown covering surge capacity, AC compressor startup, solar MPPT voltages, and federal tax credit ROI."
 slug: "ecoflow-delta-pro-ultra-vs-bluetti-ep900-complete-split-phase-240v-benchmark"

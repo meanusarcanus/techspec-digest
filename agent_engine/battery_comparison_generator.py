@@ -45,6 +45,22 @@ COMPARISON_PAIRS = [
         "subtitle": "Rolling Mobile Powerhouse vs 15cm Ultra-Thin Architectural Wall System: Power Optimization, Sub-Zero Heating, and App Intelligence",
         "primary_keyword": "ecoflow delta pro ultra vs anker solix x1",
         "secondary_keywords": ["anker solix x1 review", "modular home battery", "clean energy storage 2026", "home battery backup comparison"]
+    },
+    {
+        "b1_id": "bluetti-ep900",
+        "b2_id": "tesla-powerwall-3",
+        "title": "Bluetti EP900 vs Tesla Powerwall 3: Which Whole-Home Battery Wins in 2026?",
+        "subtitle": "IP65 Outdoor Weatherproof Modular Storage vs Sleek Integrated 20kW Solar Inverter: 9kW vs 11.5kW Continuous Power Benchmarks",
+        "primary_keyword": "bluetti ep900 vs tesla powerwall 3",
+        "secondary_keywords": ["bluetti vs tesla powerwall", "outdoor battery backup", "best whole house solar battery", "bluetti ep900 review"]
+    },
+    {
+        "b1_id": "anker-solix-x1",
+        "b2_id": "tesla-powerwall-3",
+        "title": "Anker SOLIX X1 vs Tesla Powerwall 3: Complete Residential Battery Comparison",
+        "subtitle": "Ultra-Thin 15cm Architectural Wall Mount vs Integrated Solar Inverter Workhorse: Thermal Range, Permits, and App Control",
+        "primary_keyword": "anker solix x1 vs tesla powerwall 3",
+        "secondary_keywords": ["anker vs tesla battery", "modular solar storage", "best wall mounted home battery", "anker solix x1 comparison"]
     }
 ]
 

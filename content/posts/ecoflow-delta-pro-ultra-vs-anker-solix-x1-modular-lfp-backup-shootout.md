@@ -1,6 +1,6 @@
 ---
 title: "EcoFlow DELTA Pro Ultra vs Anker SOLIX X1: Modular LFP Backup Shootout"
-date: 2026-09-12T04:04:40Z
+date: 2026-09-12T04:26:49Z
 draft: false
 description: "Rolling Mobile Powerhouse vs 15cm Ultra-Thin Architectural Wall System: Power Optimization, Sub-Zero Heating, and App Intelligence. In-depth engineering breakdown covering surge capacity, AC compressor startup, solar MPPT voltages, and federal tax credit ROI."
 slug: "ecoflow-delta-pro-ultra-vs-anker-solix-x1-modular-lfp-backup-shootout"

@@ -1,6 +1,6 @@
 ---
 title: "EcoFlow DELTA Pro Ultra vs EcoFlow DELTA Pro: Is the Ultra Worth the Upgrade?"
-date: 2026-09-12T04:04:40Z
+date: 2026-09-12T04:26:49Z
 draft: false
 description: "Native 240V Split-Phase vs 120V Dual-Hub Architecture: 6.1kWh vs 3.6kWh Base Capacity and Smart Home Panel 2 Differences. In-depth engineering breakdown covering surge capacity, AC compressor startup, solar MPPT voltages, and federal tax credit ROI."
 slug: "ecoflow-delta-pro-ultra-vs-ecoflow-delta-pro-is-the-ultra-worth-the-upgrade"
