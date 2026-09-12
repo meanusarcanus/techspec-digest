@@ -9,7 +9,7 @@ import json
 import datetime
 import glob
 
-SITE_URL = "https://meanusarcanus.github.io/techspec-digest/consciousness"
+SITE_URL = "https://digest.theodisius.com/consciousness"
 
 def generate_sitemap():
     posts_dir = os.path.join(os.path.dirname(__file__), "..", "data", "posts")

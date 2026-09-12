@@ -10,7 +10,7 @@ import datetime
 import glob
 from xml.sax.saxutils import escape as xml_escape
 
-SITE_URL = "https://meanusarcanus.github.io/techspec-digest/consciousness"
+SITE_URL = "https://digest.theodisius.com/consciousness"
 
 def generate_rss():
     posts_dir = os.path.join(os.path.dirname(__file__), "..", "data", "posts")

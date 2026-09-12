@@ -165,7 +165,7 @@ Date: {note['date']}
 -------------------------------------------------------------
 """
         email_body += f"""
-Web Portal: https://meanusarcanus.github.io/techspec-digest/baby-care/
+Web Portal: https://digest.theodisius.com/baby-care/
 =============================================================
 """
         log_path = os.path.join(os.path.dirname(__file__), "..", "data", "latest_parent_email_dispatch.txt")

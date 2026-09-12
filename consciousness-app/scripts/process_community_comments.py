@@ -174,7 +174,7 @@ Date: {note['date']}
 -------------------------------------------------------------
 """
         email_body += f"""
-Web Portal: https://meanusarcanus.github.io/techspec-digest/consciousness/
+Web Portal: https://digest.theodisius.com/consciousness/
 =============================================================
 """
         log_path = os.path.join(os.path.dirname(__file__), "..", "data", "latest_email_dispatch.txt")

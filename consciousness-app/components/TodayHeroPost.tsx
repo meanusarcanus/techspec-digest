@@ -55,7 +55,7 @@ export const TodayHeroPost: React.FC<TodayHeroPostProps> = ({
     '@type': 'Article',
     headline: post.title,
     description: post.excerpt,
-    image: post.featuredImage.startsWith('/') ? `https://meanusarcanus.github.io/techspec-digest/consciousness${post.featuredImage}` : post.featuredImage,
+    image: post.featuredImage.startsWith('/') ? `https://digest.theodisius.com/consciousness${post.featuredImage}` : post.featuredImage,
     datePublished: post.formattedDate || new Date().toISOString(),
     author: {
       '@type': 'Person',
@@ -65,7 +65,7 @@ export const TodayHeroPost: React.FC<TodayHeroPostProps> = ({
     publisher: {
       '@type': 'Organization',
       name: 'Products of Consciousness & Enlightenment',
-      url: 'https://meanusarcanus.github.io/techspec-digest/consciousness/',
+      url: 'https://digest.theodisius.com/consciousness/',
     },
   };
 

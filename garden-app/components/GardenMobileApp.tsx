@@ -414,7 +414,7 @@ export default function GardenMobileApp({ onSwitchToDesktop, initialTab = 'today
                   ? dailyData.plant.heroImage
                   : dailyData.plant.heroImage.startsWith('data:')
                   ? 'https://garden.theodisius.com/images/plants/african-spear-plant.jpg'
-                  : `https://meanusarcanus.github.io${dailyData.plant.heroImage}`;
+                  : `https://garden.theodisius.com${dailyData.plant.heroImage}`;
                 return (
                   <div className="px-3.5 py-2.5 bg-emerald-50/70 border-b border-emerald-100 flex items-center justify-between">
                     <div className="flex items-center gap-2">

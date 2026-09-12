@@ -14,7 +14,7 @@
       "name": "Cold Plunge & Contrast Therapy Recovery Gear",
       "config_file": "config/niches/cold_plunge_recovery_gear.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "grip_strength_forearm_training",
@@ -22,7 +22,7 @@
       "name": "Grip Strength & Forearm Rehabilitation Tools",
       "config_file": "config/niches/grip_strength_forearm_training.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "red_light_targeted_recovery",
@@ -30,7 +30,7 @@
       "name": "Targeted Red Light & Near-Infrared Muscle Recovery",
       "config_file": "config/niches/red_light_targeted_recovery.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "high_efficiency_kitchen_prep",
@@ -38,7 +38,7 @@
       "name": "High-Efficiency Kitchen Prep & Space Saving",
       "config_file": "config/niches/high_efficiency_kitchen_prep.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "sous_vide_precision_immersion",
@@ -46,7 +46,7 @@
       "name": "Sous Vide Precision Immersion & Vacuum Cooking",
       "config_file": "config/niches/sous_vide_precision_immersion.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "artisan_sourdough_fermentation",
@@ -54,7 +54,7 @@
       "name": "Artisan Sourdough & Fermentation Gear",
       "config_file": "config/niches/artisan_sourdough_fermentation.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "smart_home_bedside_hubs",
@@ -62,7 +62,7 @@
       "name": "Smart Home Automation & Bedside Hubs",
       "config_file": "config/niches/smart_home_bedside_hubs.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "urban_renter_power",
@@ -70,7 +70,7 @@
       "name": "Smart Grid & Home Battery Backup for Urban Renters",
       "config_file": "config/niches/urban_renter_power.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "crypto_cold_storage",
@@ -78,7 +78,7 @@
       "name": "Digital Asset Security & Cold Storage for Senior Crypto/NFT Holders",
       "config_file": "config/niches/crypto_cold_storage.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "senior_pet_health",
@@ -86,7 +86,7 @@
       "name": "Smart Health & DNA-Based Supplement Customization for Pet Seniors",
       "config_file": "config/niches/senior_pet_health.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "pet_hair_grooming_management",
@@ -94,7 +94,7 @@
       "name": "Pet Hair Management & Specialized Grooming",
       "config_file": "config/niches/pet_hair_grooming_management.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "smart_feline_hydration",
@@ -102,7 +102,7 @@
       "name": "Smart Feline Hydration & Fountain Systems",
       "config_file": "config/niches/smart_feline_hydration.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "ultralight_backpacking_cookware",
@@ -110,7 +110,7 @@
       "name": "Ultralight Backpacking Cookware & Stoves",
       "config_file": "config/niches/ultralight_backpacking_cookware.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "trail_running_hydration_vests",
@@ -118,7 +118,7 @@
       "name": "Trail Running Hydration Vests & Flasks",
       "config_file": "config/niches/trail_running_hydration_vests.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "portable_bike_bikepacking_tools",
@@ -126,7 +126,7 @@
       "name": "Portable Bike Multi-Tools & Bikepacking Repair",
       "config_file": "config/niches/portable_bike_bikepacking_tools.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "under_sink_plumbing_storage",
@@ -134,7 +134,7 @@
       "name": "Under-Sink Plumbing & Cabinet Storage Systems",
       "config_file": "config/niches/under_sink_plumbing_storage.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "cordless_spin_scrubber_deepclean",
@@ -142,7 +142,7 @@
       "name": "Cordless Electric Spin Scrubbers & Grout Cleaning",
       "config_file": "config/niches/cordless_spin_scrubber_deepclean.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "vacuum_seal_seasonal_storage",
@@ -150,7 +150,7 @@
       "name": "Vacuum-Seal Seasonal Storage & Compression",
       "config_file": "config/niches/vacuum_seal_seasonal_storage.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "animator_ergonomics",
@@ -158,7 +158,7 @@
       "name": "Specialized Ergonomic & Accessibility Gear for Digital Animators / Sculptors",
       "config_file": "config/niches/animator_ergonomics.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "ergonomic_desk_posture",
@@ -166,7 +166,7 @@
       "name": "Ergonomic Desk Work & Posture Correction",
       "config_file": "config/niches/ergonomic_desk_posture.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "closet_voice_studio",
@@ -174,7 +174,7 @@
       "name": "Ergonomic & Acoustic Gear for Home Voice Actors / Podcasters",
       "config_file": "config/niches/closet_voice_studio.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "infant_white_noise_sleep_aids",
@@ -182,7 +182,7 @@
       "name": "Infant Sound Machines & Pediatric Sleep Aids",
       "config_file": "config/niches/infant_white_noise_sleep_aids.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "baby_travel_gear_portability",
@@ -190,7 +190,7 @@
       "name": "Ultra-Compact Baby Travel Gear & Airplane Strollers",
       "config_file": "config/niches/baby_travel_gear_portability.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "toddler_mealtime_self_feeding",
@@ -198,7 +198,7 @@
       "name": "Toddler Self-Feeding & Baby-Led Weaning Gear",
       "config_file": "config/niches/toddler_mealtime_self_feeding.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "onthego_hydration_travel",
@@ -206,7 +206,7 @@
       "name": "On-the-Go Hydration & Travel Tumbler",
       "config_file": "config/niches/onthego_hydration_travel.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "one_bag_compression_packing",
@@ -214,7 +214,7 @@
       "name": "One-Bag Travel & Compression Packing Cubes",
       "config_file": "config/niches/one_bag_compression_packing.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "anti_theft_travel_security",
@@ -222,7 +222,7 @@
       "name": "Anti-Theft Travel Security & RFID Wallets",
       "config_file": "config/niches/anti_theft_travel_security.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "brushless_compact_cordless_tools",
@@ -230,7 +230,7 @@
       "name": "Compact 12V Brushless Cordless Tools & Drivers",
       "config_file": "config/niches/brushless_compact_cordless_tools.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "precision_laser_measurement",
@@ -238,7 +238,7 @@
       "name": "Precision Digital Laser Distance & Cross-Line Levels",
       "config_file": "config/niches/precision_laser_measurement.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "smart_electrical_circuit_testing",
@@ -246,7 +246,7 @@
       "name": "Smart Electrical Circuit & GFCI Testing Gear",
       "config_file": "config/niches/smart_electrical_circuit_testing.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "balcony_solar_storage",
@@ -254,7 +254,7 @@
       "name": "Plug-and-Play Balcony Solar & Micro-Storage Systems",
       "config_file": "config/niches/balcony_solar_storage.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "whole_home_lifepo4_backup",
@@ -262,7 +262,7 @@
       "name": "Whole-Home LiFePO4 Battery Backup & Transfer Switches",
       "config_file": "config/niches/whole_home_lifepo4_backup.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "offgrid_van_rv_solar_systems",
@@ -270,7 +270,7 @@
       "name": "Off-Grid 48V Camper Van & Overland RV Solar Systems",
       "config_file": "config/niches/offgrid_van_rv_solar_systems.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "zero_gravity_workstations",
@@ -278,7 +278,7 @@
       "name": "Zero-Gravity Reclining Workstations & Cockpit Desks",
       "config_file": "config/niches/zero_gravity_workstations.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "executive_ergonomic_chairs",
@@ -286,7 +286,7 @@
       "name": "Commercial-Grade Orthopaedic Executive Ergonomic Chairs",
       "config_file": "config/niches/executive_ergonomic_chairs.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "heavy_duty_treadmill_desks",
@@ -294,7 +294,7 @@
       "name": "Heavy-Duty Under-Desk Treadmills & Dual-Motor Standing Desks",
       "config_file": "config/niches/heavy_duty_treadmill_desks.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "commercial_cold_plunge_chillers",
@@ -302,7 +302,7 @@
       "name": "Commercial 1.5HP Cold Plunge Chillers & Self-Sanitizing Tubs",
       "config_file": "config/niches/commercial_cold_plunge_chillers.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "full_body_infrared_saunas",
@@ -310,7 +310,7 @@
       "name": "Low-EMF Full-Spectrum Cedar Infrared Saunas",
       "config_file": "config/niches/full_body_infrared_saunas.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "hyperbaric_oxygen_chambers",
@@ -318,7 +318,7 @@
       "name": "Mild Hyperbaric Oxygen Chambers (mHBOT) & Concentrators",
       "config_file": "config/niches/hyperbaric_oxygen_chambers.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "commercial_grade_3d_printers",
@@ -326,7 +326,7 @@
       "name": "Commercial-Grade Enclosed Multi-Material 3D Printers",
       "config_file": "config/niches/commercial_grade_3d_printers.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "enclosed_diode_co2_laser_cutters",
@@ -334,7 +334,7 @@
       "name": "Enclosed 55W CO2 & Fiber Laser Cutters for Small Studios",
       "config_file": "config/niches/enclosed_diode_co2_laser_cutters.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "benchtop_cnc_mills",
@@ -342,7 +342,7 @@
       "name": "Precision Benchtop CNC Mills & Routing Machines",
       "config_file": "config/niches/benchtop_cnc_mills.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "indoor_golf_simulators",
@@ -350,7 +350,7 @@
       "name": "Photometric & Radar Indoor Golf Simulators & Enclosures",
       "config_file": "config/niches/indoor_golf_simulators.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "commercial_dual_boiler_espresso",
@@ -358,7 +358,7 @@
       "name": "Commercial Dual-Boiler Rotary Pump Espresso Machines",
       "config_file": "config/niches/commercial_dual_boiler_espresso.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     },
     {
       "id": "electric_cargo_bikes",
@@ -366,7 +366,7 @@
       "name": "Heavy-Payload Long-Tail Electric Cargo Bikes",
       "config_file": "config/niches/electric_cargo_bikes.json",
       "output_content_dir": "content/posts",
-      "target_domain": "meanusarcanus.github.io/techspec-digest"
+      "target_domain": "digest.theodisius.com"
     }
   ]
 }
