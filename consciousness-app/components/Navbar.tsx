@@ -167,6 +167,15 @@ export default function Navbar() {
               <span>Spotify</span>
             </a>
             <a
+              href="https://digest.theodisius.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-950/50 border border-indigo-500/30 text-indigo-300 hover:text-indigo-200 hover:bg-indigo-900/40 text-xs font-bold transition-all shadow-sm"
+              title="TechSpec Digest Engineering Hub"
+            >
+              <span>⚡ TechSpec Hub</span>
+            </a>
+            <a
               href="https://garden.theodisius.com/"
               target="_blank"
               rel="noopener noreferrer"
@@ -174,6 +183,15 @@ export default function Navbar() {
               title="The Garden Perks Botanical Portal"
             >
               <span>🌱 Garden Perks</span>
+            </a>
+            <a
+              href="https://digest.theodisius.com/baby-care/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-950/40 border border-amber-500/30 text-amber-300 hover:text-amber-200 hover:bg-amber-900/40 text-xs font-bold transition-all shadow-sm"
+              title="Calm Baby Nursery"
+            >
+              <span>🍼 Baby Care</span>
             </a>
           </nav>
 
@@ -294,6 +312,49 @@ export default function Navbar() {
               <Headphones className="w-4 h-4 text-emerald-400" />
               <span>Arcane Books Spotify Podcast</span>
             </a>
+            <div className="pt-2 border-t border-indigo-500/20">
+              <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider px-3 mb-1 block">
+                Network Portals
+              </span>
+              <div className="grid grid-cols-2 gap-1.5 px-1">
+                <a
+                  href="https://theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg bg-indigo-950/40 text-xs font-semibold text-slate-300 hover:text-amber-400 border border-indigo-500/20"
+                >
+                  🏛️ Theodisius
+                </a>
+                <a
+                  href="https://digest.theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg bg-indigo-950/40 text-xs font-semibold text-slate-300 hover:text-amber-400 border border-indigo-500/20"
+                >
+                  ⚡ TechSpec
+                </a>
+                <a
+                  href="https://garden.theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg bg-emerald-950/40 text-xs font-semibold text-emerald-300 hover:text-emerald-200 border border-emerald-500/20"
+                >
+                  🌱 Garden Perks
+                </a>
+                <a
+                  href="https://digest.theodisius.com/baby-care/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg bg-amber-950/40 text-xs font-semibold text-amber-300 hover:text-amber-200 border border-amber-500/20"
+                >
+                  🍼 Baby Care
+                </a>
+              </div>
+            </div>
             <button
               onClick={() => {
                 handleShare();

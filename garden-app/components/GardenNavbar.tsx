@@ -133,7 +133,16 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
                     Our Network Portals
                   </div>
                   <a 
-                    href="https://meanusarcanus.github.io/techspec-digest/" 
+                    href="https://theodisius.com/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-emerald-700"
+                  >
+                    <span>🏛️ Theodisius (Network)</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+                  </a>
+                  <a 
+                    href="https://digest.theodisius.com/" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-emerald-700"
@@ -142,7 +151,7 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
                     <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
                   </a>
                   <a 
-                    href="https://meanusarcanus.github.io/techspec-digest/consciousness/" 
+                    href="https://digest.theodisius.com/consciousness/" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-indigo-50 hover:text-indigo-700"
@@ -151,7 +160,7 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
                     <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
                   </a>
                   <a 
-                    href="https://meanusarcanus.github.io/techspec-digest/baby-care/" 
+                    href="https://digest.theodisius.com/baby-care/" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between p-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700"
@@ -309,6 +318,53 @@ export default function GardenNavbar({ onOpenNewsletter, onSearchFocus, onSwitch
           >
             🛍️ Amazon Gears
           </a>
+          <div className="pt-2 border-t border-emerald-100">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-1 block">
+              Network Portals
+            </span>
+            <div className="grid grid-cols-2 gap-1.5 px-2">
+              <a
+                href="https://theodisius.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-lg bg-slate-50 text-xs font-semibold text-slate-700 hover:text-emerald-700 flex items-center justify-between"
+              >
+                <span>🏛️ Theodisius</span>
+                <ArrowUpRight className="w-3 h-3 text-slate-400" />
+              </a>
+              <a
+                href="https://digest.theodisius.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-lg bg-slate-50 text-xs font-semibold text-slate-700 hover:text-emerald-700 flex items-center justify-between"
+              >
+                <span>⚡ TechSpec</span>
+                <ArrowUpRight className="w-3 h-3 text-slate-400" />
+              </a>
+              <a
+                href="https://digest.theodisius.com/consciousness/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-lg bg-slate-50 text-xs font-semibold text-slate-700 hover:text-indigo-700 flex items-center justify-between"
+              >
+                <span>🌌 Consciousness</span>
+                <ArrowUpRight className="w-3 h-3 text-slate-400" />
+              </a>
+              <a
+                href="https://digest.theodisius.com/baby-care/"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 rounded-lg bg-slate-50 text-xs font-semibold text-slate-700 hover:text-amber-700 flex items-center justify-between"
+              >
+                <span>🍼 Baby Care</span>
+                <ArrowUpRight className="w-3 h-3 text-slate-400" />
+              </a>
+            </div>
+          </div>
           <button
             onClick={handleShare}
             className="w-full py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 text-sm font-bold flex items-center justify-center gap-2 border border-emerald-200 cursor-pointer"

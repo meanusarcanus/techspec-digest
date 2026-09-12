@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [
-      { url: '/techspec-digest/baby-care/favicon.ico' },
-      { url: '/techspec-digest/baby-care/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/baby-care/favicon.ico' },
+      { url: '/baby-care/favicon.png', sizes: '32x32', type: 'image/png' },
     ],
     apple: [
-      { url: '/techspec-digest/baby-care/apple-touch-icon.png' },
+      { url: '/baby-care/apple-touch-icon.png' },
     ],
   },
 };
@@ -35,10 +35,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <head>
-        <link rel="shortcut icon" href="/techspec-digest/baby-care/favicon.ico" />
-        <link rel="icon" type="image/x-icon" href="/techspec-digest/baby-care/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/techspec-digest/baby-care/favicon.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/techspec-digest/baby-care/apple-touch-icon.png" />
+        <link rel="shortcut icon" href="/baby-care/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/baby-care/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/baby-care/favicon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/baby-care/apple-touch-icon.png" />
       </head>
       <body className="bg-night-950 text-slate-100 font-sans antialiased relative selection:bg-amber-400 selection:text-night-950">
         <BabyAmbientBg />

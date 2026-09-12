@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/techspec-digest/baby-care',
+  basePath: '/baby-care',
+  assetPrefix: '/baby-care/',
   trailingSlash: true,
   images: {
     unoptimized: true,

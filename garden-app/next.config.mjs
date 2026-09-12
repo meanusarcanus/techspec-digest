@@ -2,8 +2,8 @@ const isSubdomain = process.env.NEXT_PUBLIC_SITE_MODE === 'subdomain';
 
 const nextConfig = {
   output: 'export',
-  basePath: isSubdomain ? '' : '/techspec-digest/garden-perks',
-  assetPrefix: isSubdomain ? '' : '/techspec-digest/garden-perks/',
+  basePath: isSubdomain ? '' : '/garden-perks',
+  assetPrefix: isSubdomain ? '' : '/garden-perks/',
   images: {
     unoptimized: true,
   },

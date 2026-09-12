@@ -127,7 +127,17 @@ export default function BabyNavbar() {
               ✉️ Newsletter
             </a>
 
-            {/* Garden Perks Link */}
+            {/* Network Portals */}
+            <a
+              href="https://digest.theodisius.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-950/50 border border-indigo-500/30 text-indigo-300 hover:text-indigo-200 hover:bg-indigo-900/40 text-xs font-bold transition-all shadow-sm"
+              title="TechSpec Digest Engineering Hub"
+            >
+              <span>⚡ TechSpec Hub</span>
+            </a>
+
             <a
               href="https://garden.theodisius.com/"
               target="_blank"
@@ -136,6 +146,16 @@ export default function BabyNavbar() {
               title="The Garden Perks Botanical Portal"
             >
               <span>🌱 Garden Perks</span>
+            </a>
+
+            <a
+              href="https://digest.theodisius.com/consciousness/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-950/40 border border-purple-500/30 text-purple-300 hover:text-purple-200 hover:bg-purple-900/40 text-xs font-bold transition-all shadow-sm"
+              title="Products of Consciousness Lab"
+            >
+              <span>🌌 Consciousness</span>
             </a>
 
             {/* YouTube Channel Button */}
@@ -236,6 +256,49 @@ export default function BabyNavbar() {
               <Youtube className="w-4 h-4 fill-red-500 text-red-500" />
               <span>Calm Baby Nursery YouTube</span>
             </a>
+            <div className="pt-2 border-t border-indigo-500/20">
+              <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider px-3 mb-1 block">
+                Network Portals
+              </span>
+              <div className="grid grid-cols-2 gap-1.5 px-1">
+                <a
+                  href="https://theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg bg-indigo-950/40 text-xs font-semibold text-slate-300 hover:text-amber-300 border border-indigo-500/20"
+                >
+                  🏛️ Theodisius
+                </a>
+                <a
+                  href="https://digest.theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg bg-indigo-950/40 text-xs font-semibold text-slate-300 hover:text-amber-300 border border-indigo-500/20"
+                >
+                  ⚡ TechSpec
+                </a>
+                <a
+                  href="https://garden.theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg bg-emerald-950/40 text-xs font-semibold text-emerald-300 hover:text-emerald-200 border border-emerald-500/20"
+                >
+                  🌱 Garden Perks
+                </a>
+                <a
+                  href="https://digest.theodisius.com/consciousness/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-lg bg-purple-950/40 text-xs font-semibold text-purple-300 hover:text-purple-200 border border-purple-500/20"
+                >
+                  🌌 Consciousness
+                </a>
+              </div>
+            </div>
             <button
               onClick={handleShare}
               className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 font-semibold cursor-pointer"

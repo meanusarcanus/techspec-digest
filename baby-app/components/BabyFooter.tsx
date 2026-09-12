@@ -54,9 +54,9 @@ export default function BabyFooter() {
             </ul>
           </div>
 
-          {/* Media Channels */}
+          {/* Media & Network Portals */}
           <div className="space-y-2">
-            <h5 className="font-bold text-slate-200 text-xs uppercase tracking-wider">Our Channels</h5>
+            <h5 className="font-bold text-slate-200 text-xs uppercase tracking-wider">Network &amp; Media</h5>
             <ul className="space-y-2 text-xs">
               <li>
                 <a
@@ -70,13 +70,48 @@ export default function BabyFooter() {
                 </a>
               </li>
               <li>
-                <Link
-                  href="/consciousness/"
+                <a
+                  href="https://theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-amber-300 text-slate-300 transition flex items-center gap-1"
                 >
-                  <span>Consciousness &amp; Bio-Resonance Portal</span>
-                  <ExternalLink className="w-3 h-3" />
-                </Link>
+                  <span>🏛️ Theodisius (Root)</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://digest.theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-amber-300 text-slate-300 transition flex items-center gap-1"
+                >
+                  <span>⚡ TechSpec Digest (Hub)</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://garden.theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-300 text-slate-300 transition flex items-center gap-1"
+                >
+                  <span>🌱 The Garden Perks</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://digest.theodisius.com/consciousness/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-purple-300 text-slate-300 transition flex items-center gap-1"
+                >
+                  <span>🌌 Consciousness Lab</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                </a>
               </li>
             </ul>
           </div>

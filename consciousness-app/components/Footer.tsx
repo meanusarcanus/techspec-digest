@@ -36,7 +36,7 @@ export default function Footer() {
         {/* Top Grid: Mission Summary & Quick Nav */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-indigo-500/10">
           {/* Mission Summary */}
-          <div className="md:col-span-6 space-y-4">
+          <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-amber-400" />
@@ -59,7 +59,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation Links */}
-          <div className="md:col-span-3 space-y-3">
+          <div className="md:col-span-2 space-y-3">
             <h4 className="text-xs uppercase tracking-wider text-amber-400 font-semibold">
               Explore Lab
             </h4>
@@ -71,17 +71,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/#hero-product" className="hover:text-amber-400 transition-colors">
-                  Hero Product Showcase
+                  Hero Showcase
                 </Link>
               </li>
               <li>
                 <Link href="/#archive-drawer" className="hover:text-amber-400 transition-colors">
-                  Consciousness Archive
+                  Archive
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-amber-400 transition-colors">
-                  About Ancient &amp; Modern Practice
+                  About Practice
                 </Link>
               </li>
               <li>
@@ -92,7 +92,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-1.5 text-red-400 hover:text-red-300 font-semibold transition-colors"
                 >
                   <Youtube className="w-3.5 h-3.5 fill-red-500 text-red-500" />
-                  <span>Arcane Books YouTube</span>
+                  <span>YouTube</span>
                 </a>
               </li>
               <li>
@@ -103,7 +103,60 @@ export default function Footer() {
                   className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
                 >
                   <Headphones className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Arcane Books Spotify</span>
+                  <span>Spotify</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Sister Network Portals */}
+          <div className="md:col-span-2 space-y-3">
+            <h4 className="text-xs uppercase tracking-wider text-amber-400 font-semibold">
+              Sister Portals
+            </h4>
+            <ul className="space-y-2 text-sm text-slate-400">
+              <li>
+                <a
+                  href="https://theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-amber-400 transition-colors"
+                >
+                  <span>🏛️ Theodisius</span>
+                  <ExternalLink className="w-3 h-3 text-amber-400/60" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://digest.theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-amber-400 transition-colors"
+                >
+                  <span>⚡ TechSpec Hub</span>
+                  <ExternalLink className="w-3 h-3 text-amber-400/60" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://garden.theodisius.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-emerald-300 transition-colors"
+                >
+                  <span>🌱 Garden Perks</span>
+                  <ExternalLink className="w-3 h-3 text-emerald-400/60" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://digest.theodisius.com/baby-care/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-amber-300 transition-colors"
+                >
+                  <span>🍼 Baby Care</span>
+                  <ExternalLink className="w-3 h-3 text-amber-400/60" />
                 </a>
               </li>
             </ul>

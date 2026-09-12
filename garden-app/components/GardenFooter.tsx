@@ -43,8 +43,41 @@ export default function GardenFooter() {
             </ul>
           </div>
 
+          {/* Sister Network Portals */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-emerald-200">
+              Sister Portals
+            </h4>
+            <ul className="space-y-2 text-sm text-emerald-300/80">
+              <li>
+                <a href="https://theodisius.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors inline-flex items-center gap-1">
+                  <span>🏛️ Theodisius (Root)</span>
+                  <ArrowUpRight className="w-3 h-3 text-emerald-400" />
+                </a>
+              </li>
+              <li>
+                <a href="https://digest.theodisius.com/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors inline-flex items-center gap-1">
+                  <span>⚡ TechSpec Digest (Hub)</span>
+                  <ArrowUpRight className="w-3 h-3 text-emerald-400" />
+                </a>
+              </li>
+              <li>
+                <a href="https://digest.theodisius.com/consciousness/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors inline-flex items-center gap-1">
+                  <span>🌌 Consciousness Lab</span>
+                  <ArrowUpRight className="w-3 h-3 text-emerald-400" />
+                </a>
+              </li>
+              <li>
+                <a href="https://digest.theodisius.com/baby-care/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors inline-flex items-center gap-1">
+                  <span>🍼 Calm Baby Nursery</span>
+                  <ArrowUpRight className="w-3 h-3 text-emerald-400" />
+                </a>
+              </li>
+            </ul>
+          </div>
+
           {/* Amazon Affiliate Disclosure & Mission */}
-          <div className="space-y-3 md:col-span-2">
+          <div className="space-y-3 md:col-span-1">
             <h4 className="text-sm font-bold uppercase tracking-wider text-emerald-200">
               Affiliate Transparency
             </h4>

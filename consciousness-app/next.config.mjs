@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/techspec-digest/consciousness',
-  assetPrefix: '/techspec-digest/consciousness/',
+  basePath: '/consciousness',
+  assetPrefix: '/consciousness/',
   images: {
     unoptimized: true,
   },
