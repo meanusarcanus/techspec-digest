@@ -1,6 +1,6 @@
 ---
 title: "Sous vide precision immersion circulator wattage and thermal stability test"
-date: 2026-09-08T12:27:56Z
+date: 2026-09-13T13:00:21Z
 draft: false
 description: "In-depth guide on Sous vide precision immersion circulator wattage and thermal stability test. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "sous-vide-precision-immersion-circulator-wattage-and-thermal-stability-test"
