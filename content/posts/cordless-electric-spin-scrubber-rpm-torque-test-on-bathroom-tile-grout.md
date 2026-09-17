@@ -1,6 +1,6 @@
 ---
 title: "Cordless electric spin scrubber RPM torque test on bathroom tile grout"
-date: 2026-09-17T12:55:29Z
+date: 2026-09-17T15:02:47Z
 draft: false
 description: "In-depth guide on Cordless electric spin scrubber RPM torque test on bathroom tile grout. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "cordless-electric-spin-scrubber-rpm-torque-test-on-bathroom-tile-grout"
