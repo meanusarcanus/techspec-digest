@@ -6,7 +6,7 @@ on:
       - main
   schedule:
     # Runs every day at 08:00 UTC (4:00 PM GMT+8)
-    - cron: '0 8 * * *'
+    # - cron: '0 8 * * *'
   workflow_dispatch:
     inputs:
       target_topic:
