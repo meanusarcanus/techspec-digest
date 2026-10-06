@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. Community Botanical Catalogue (Greenhouse Archive)
+    // Anyone can read plants and contribute new species or aliases
+    match /community_plants/{plantId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if false;
+    }
+
+    // 2. Botanist Member Profiles & Ranks
+    // Publicly readable for leaderboards and attribution cards
+    match /botanist_users/{userId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if false;
+    }
+
+    // 3. Dr. Flora AI Plant Clinic Consultations
+    // Community members can read past clinic diagnoses and submit questions/likes
+    match /clinic_consultations/{consultationId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if false;
+    }
+
+    // 4. The Daily Sprout Newsletter Subscribers
+    // Can write subscriptions from website; reading is restricted to protect email privacy
+    match /newsletter_subscribers/{subscriberId} {
+      allow create, update: if true;
+      allow read: if false;
+      allow delete: if false;
+    }
+
+    // Default deny for any unspecified documents
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
