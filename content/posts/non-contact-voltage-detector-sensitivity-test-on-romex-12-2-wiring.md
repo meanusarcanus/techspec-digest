@@ -1,6 +1,6 @@
 ---
 title: "Non-contact voltage detector sensitivity test on Romex 12-2 wiring"
-date: 2026-10-06T15:59:21Z
+date: 2026-10-06T16:53:54Z
 draft: false
 description: "In-depth guide on Non-contact voltage detector sensitivity test on Romex 12-2 wiring. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "non-contact-voltage-detector-sensitivity-test-on-romex-12-2-wiring"
