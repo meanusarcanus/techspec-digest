@@ -1,6 +1,6 @@
 ---
 title: "Compact 12V brushless drill driver torque and battery runtime comparison"
-date: 2026-10-06T14:47:49Z
+date: 2026-10-06T15:59:20Z
 draft: false
 description: "In-depth guide on Compact 12V brushless drill driver torque and battery runtime comparison. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "compact-12v-brushless-drill-driver-torque-and-battery-runtime-comparison"
