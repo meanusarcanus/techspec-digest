@@ -1,6 +1,6 @@
 ---
 title: "Cast iron combo cooker vs enameled Dutch oven for sourdough blistered crust"
-date: 2026-09-13T13:00:22Z
+date: 2026-10-13T15:38:39Z
 draft: false
 description: "In-depth guide on Cast iron combo cooker vs enameled Dutch oven for sourdough blistered crust. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "cast-iron-combo-cooker-vs-enameled-dutch-oven-for-sourdough-blistered-crust"
