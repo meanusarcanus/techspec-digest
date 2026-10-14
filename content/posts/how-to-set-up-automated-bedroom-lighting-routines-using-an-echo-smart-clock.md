@@ -1,6 +1,6 @@
 ---
 title: "How to set up automated bedroom lighting routines using an Echo smart clock"
-date: 2026-09-14T14:36:55Z
+date: 2026-10-14T13:22:41Z
 draft: false
 description: "In-depth guide on How to set up automated bedroom lighting routines using an Echo smart clock. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "how-to-set-up-automated-bedroom-lighting-routines-using-an-echo-smart-clock"
