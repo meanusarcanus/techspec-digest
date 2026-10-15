@@ -1,6 +1,6 @@
 ---
 title: "Using smart collar activity data to detect early canine cognitive dysfunction (sundowning symptoms)"
-date: 2026-09-15T13:01:41Z
+date: 2026-10-15T13:07:59Z
 draft: false
 description: "In-depth guide on Using smart collar activity data to detect early canine cognitive dysfunction (sundowning symptoms). Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "using-smart-collar-activity-data-to-detect-early-canine-cognitive-dysfunction-sundowning-symptoms"
