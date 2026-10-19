@@ -1,6 +1,6 @@
 ---
 title: "Safe decibel level sound machines for infant crib placement"
-date: 2026-10-04T15:28:19Z
+date: 2026-10-19T15:19:52Z
 draft: false
 description: "In-depth guide on Safe decibel level sound machines for infant crib placement. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "safe-decibel-level-sound-machines-for-infant-crib-placement"
