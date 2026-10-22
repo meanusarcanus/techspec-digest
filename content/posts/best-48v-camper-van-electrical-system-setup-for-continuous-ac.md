@@ -1,6 +1,6 @@
 ---
 title: "Best 48V camper van electrical system setup for continuous AC"
-date: 2026-10-07T17:30:52Z
+date: 2026-10-22T13:32:27Z
 draft: false
 description: "In-depth guide on Best 48V camper van electrical system setup for continuous AC. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "best-48v-camper-van-electrical-system-setup-for-continuous-ac"

@@ -1,6 +1,6 @@
 ---
 title: "Best plug and play balcony solar kit with battery storage"
-date: 2026-10-07T17:30:52Z
+date: 2026-10-22T13:32:26Z
 draft: false
 description: "In-depth guide on Best plug and play balcony solar kit with battery storage. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "best-plug-and-play-balcony-solar-kit-with-battery-storage"
