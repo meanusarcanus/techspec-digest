@@ -1,6 +1,6 @@
 ---
 title: "Digital hand dynamometer accuracy test for measuring peak grip strength in kg"
-date: 2026-10-12T17:27:44Z
+date: 2026-10-27T14:03:46Z
 draft: false
 description: "In-depth guide on Digital hand dynamometer accuracy test for measuring peak grip strength in kg. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "digital-hand-dynamometer-accuracy-test-for-measuring-peak-grip-strength-in-kg"
