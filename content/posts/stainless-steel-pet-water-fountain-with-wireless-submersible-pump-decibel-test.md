@@ -1,6 +1,6 @@
 ---
 title: "Stainless steel pet water fountain with wireless submersible pump decibel test"
-date: 2026-10-15T13:07:59Z
+date: 2026-10-30T14:52:51Z
 draft: false
 description: "In-depth guide on Stainless steel pet water fountain with wireless submersible pump decibel test. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "stainless-steel-pet-water-fountain-with-wireless-submersible-pump-decibel-test"
