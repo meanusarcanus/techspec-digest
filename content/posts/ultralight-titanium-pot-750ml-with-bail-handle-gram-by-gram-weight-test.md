@@ -1,6 +1,6 @@
 ---
 title: "Ultralight titanium pot 750ml with bail handle gram-by-gram weight test"
-date: 2026-10-16T13:03:28Z
+date: 2026-10-31T14:21:35Z
 draft: false
 description: "In-depth guide on Ultralight titanium pot 750ml with bail handle gram-by-gram weight test. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "ultralight-titanium-pot-750ml-with-bail-handle-gram-by-gram-weight-test"
