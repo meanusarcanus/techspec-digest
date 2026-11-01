@@ -1,6 +1,6 @@
 ---
 title: "2-tier L-shaped sliding under sink organizer with pipe clearance"
-date: 2026-10-17T12:00:30Z
+date: 2026-11-01T14:47:40Z
 draft: false
 description: "In-depth guide on 2-tier L-shaped sliding under sink organizer with pipe clearance. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "2-tier-l-shaped-sliding-under-sink-organizer-with-pipe-clearance"
