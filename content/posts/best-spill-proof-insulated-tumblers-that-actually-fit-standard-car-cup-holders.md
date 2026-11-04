@@ -1,6 +1,6 @@
 ---
 title: "Best spill-proof insulated tumblers that actually fit standard car cup holders"
-date: 2026-10-20T15:09:44Z
+date: 2026-11-04T15:59:58Z
 draft: false
 description: "In-depth guide on Best spill-proof insulated tumblers that actually fit standard car cup holders. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "best-spill-proof-insulated-tumblers-that-actually-fit-standard-car-cup-holders"
