@@ -1,6 +1,6 @@
 ---
 title: "Best commercial cold plunge water chiller 1HP vs 1.5HP comparison"
-date: 2026-11-08T14:48:58Z
+date: 2026-11-08T16:44:38Z
 draft: false
 description: "In-depth guide on Best commercial cold plunge water chiller 1HP vs 1.5HP comparison. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "best-commercial-cold-plunge-water-chiller-1hp-vs-15hp-comparison"

@@ -1,6 +1,6 @@
 ---
 title: "Best home mild hyperbaric chamber 1.3 ATA vs 1.5 ATA safety"
-date: 2026-11-08T14:48:58Z
+date: 2026-11-08T16:44:39Z
 draft: false
 description: "In-depth guide on Best home mild hyperbaric chamber 1.3 ATA vs 1.5 ATA safety. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "best-home-mild-hyperbaric-chamber-13-ata-vs-15-ata-safety"
