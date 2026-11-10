@@ -1,6 +1,6 @@
 ---
 title: "Tern GSD vs RadWagon 4 hill climbing and payload capacity test"
-date: 2026-10-26T14:54:31Z
+date: 2026-11-10T16:10:25Z
 draft: false
 description: "In-depth guide on Tern GSD vs RadWagon 4 hill climbing and payload capacity test. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "tern-gsd-vs-radwagon-4-hill-climbing-and-payload-capacity-test"
