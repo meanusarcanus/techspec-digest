@@ -1,6 +1,6 @@
 ---
 title: "Best zero gravity computer workstation for lumbar disc herniation"
-date: 2026-11-07T14:43:10Z
+date: 2026-11-22T15:59:06Z
 draft: false
 description: "In-depth guide on Best zero gravity computer workstation for lumbar disc herniation. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "best-zero-gravity-computer-workstation-for-lumbar-disc-herniation"
