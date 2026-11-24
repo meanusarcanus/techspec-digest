@@ -1,6 +1,6 @@
 ---
 title: "Bambu Lab X1 Carbon vs Creality K1 Max engineering filament test"
-date: 2026-11-24T19:22:53Z
+date: 2026-11-24T20:44:06Z
 draft: false
 description: "In-depth guide on Bambu Lab X1 Carbon vs Creality K1 Max engineering filament test. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "bambu-lab-x1-carbon-vs-creality-k1-max-engineering-filament-test"
