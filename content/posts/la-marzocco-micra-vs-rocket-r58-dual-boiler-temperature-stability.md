@@ -1,6 +1,6 @@
 ---
 title: "La Marzocco Micra vs Rocket R58 dual boiler temperature stability"
-date: 2026-11-10T17:54:29Z
+date: 2026-11-25T18:28:49Z
 draft: false
 description: "In-depth guide on La Marzocco Micra vs Rocket R58 dual boiler temperature stability. Learn key specifications, pros and cons, expert setup steps, and top contextual recommendations."
 slug: "la-marzocco-micra-vs-rocket-r58-dual-boiler-temperature-stability"
